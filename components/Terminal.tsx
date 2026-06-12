@@ -77,6 +77,19 @@ const headerLines = [
   '> fetching active builds...',
 ]
 
+// Fixed "boot" timestamp — uptime counts up from here in real time.
+const BOOT_TIME = new Date('2026-04-26T09:00:00Z').getTime()
+
+function formatUptime(ms: number) {
+  const totalSeconds = Math.max(0, Math.floor(ms / 1000))
+  const days = Math.floor(totalSeconds / 86400)
+  const hours = Math.floor((totalSeconds % 86400) / 3600)
+  const minutes = Math.floor((totalSeconds % 3600) / 60)
+  const seconds = totalSeconds % 60
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${days}d ${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`
+}
+
 export default function Terminal({
   entries = defaultEntries,
 }: {
@@ -86,9 +99,17 @@ export default function Terminal({
   const inView = useInView(ref, { once: true, margin: '-120px' })
   const [visibleCount, setVisibleCount] = useState(0)
   const [today, setToday] = useState('')
+  const [uptime, setUptime] = useState('')
 
   useEffect(() => {
     setToday(new Date().toISOString().split('T')[0])
+  }, [])
+
+  useEffect(() => {
+    const tick = () => setUptime(formatUptime(Date.now() - BOOT_TIME))
+    tick()
+    const interval = setInterval(tick, 1000)
+    return () => clearInterval(interval)
   }, [])
 
   useEffect(() => {
@@ -126,9 +147,15 @@ export default function Terminal({
 
         <div
           ref={ref}
-          className="border border-sns-border bg-[#060b16]"
+          className="relative border border-sns-border bg-[#060b16]"
           style={{ boxShadow: '0 0 60px rgba(59, 130, 246, 0.06)' }}
         >
+          {/* CRT scan-line overlay */}
+          <div
+            aria-hidden="true"
+            className="scanlines pointer-events-none absolute inset-0 z-20"
+          />
+
           {/* Top bar */}
           <div className="relative flex h-9 items-center justify-between border-b border-sns-border bg-sns-surface px-4">
             <div className="flex items-center gap-2">
@@ -180,6 +207,10 @@ export default function Terminal({
                   <div className="my-3 border-t border-sns-border" />
                   <p className="text-sns-muted">
                     {`> ${entries.length} records loaded  |  ${counts.active} active  |  ${counts.building} in build  |  ${counts.shipped} shipped  |  ${counts.research} in research`}
+                  </p>
+                  <p className="text-sns-muted">
+                    {'> uptime: '}
+                    <span className="text-sns-green">{uptime}</span>
                   </p>
                   <p className="text-sns-blue">
                     {'> '}

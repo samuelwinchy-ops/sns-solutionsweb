@@ -1,9 +1,9 @@
 import Image from 'next/image'
 
 const links = [
-  { href: '#what-we-do', label: '// what we do' },
-  { href: '#build-log', label: '// build log' },
-  { href: '#team', label: '// team' },
+  { href: '#what-we-do', label: '// what we do', live: false },
+  { href: '#build-log', label: '// build log', live: true },
+  { href: '#team', label: '// team', live: false },
 ]
 
 export default function Nav() {
@@ -32,8 +32,16 @@ export default function Nav() {
           <a
             key={link.href}
             href={link.href}
-            className="font-mono text-[10px] uppercase tracking-widest text-sns-muted transition-colors hover:text-sns-accent hover:underline hover:underline-offset-4 md:text-xs"
+            className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-sns-muted transition-colors hover:text-sns-accent hover:underline hover:underline-offset-4 md:text-xs"
           >
+            {link.live && (
+              <span
+                aria-hidden="true"
+                className="animate-blink text-[8px] leading-none text-sns-green"
+              >
+                ●
+              </span>
+            )}
             {link.label}
           </a>
         ))}

@@ -28,6 +28,7 @@ export default function RootLayout({
       <body
         className={`${GeistMono.variable} ${inter.variable} bg-sns-bg font-sans text-sns-text antialiased`}
       >
+        <div className="grain-overlay" aria-hidden="true" />
         {children}
       </body>
     </html>

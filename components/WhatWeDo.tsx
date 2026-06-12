@@ -35,9 +35,13 @@ export default function WhatWeDo() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="flex flex-col gap-2 border-b border-sns-border py-8 md:flex-row md:items-baseline md:gap-6"
+            className="group relative flex flex-col gap-2 border-b border-sns-border py-8 pl-0 transition-[padding] duration-300 ease-out hover:pl-5 md:flex-row md:items-baseline md:gap-6"
           >
-            <span className="font-mono text-sm text-sns-blue">
+            <span
+              aria-hidden="true"
+              className="absolute left-0 top-0 h-full w-0.5 origin-top scale-y-0 bg-sns-blue transition-transform duration-300 ease-out group-hover:scale-y-100"
+            />
+            <span className="font-mono text-sm text-sns-blue transition-colors duration-300 group-hover:text-sns-accent">
               {item.number} —
             </span>
             <div>
