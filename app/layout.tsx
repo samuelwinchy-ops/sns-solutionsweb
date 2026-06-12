@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   title: 'SNS Solutions',
   description:
     'AI-powered software studio. We build automation infrastructure for businesses that move fast.',
+  icons: {
+    icon: '/sns-icon.png',
+  },
 }
 
 export default function RootLayout({
