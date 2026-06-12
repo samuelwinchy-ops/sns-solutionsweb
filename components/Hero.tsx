@@ -19,20 +19,9 @@ const stats = [
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 pt-14 md:px-12">
+    <section className="relative flex min-h-screen flex-col items-start justify-start overflow-hidden px-6 pt-32 md:px-12">
       {/* A. Animated dot grid */}
-      <motion.div
-        aria-hidden="true"
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle, #3b82f6 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
-          opacity: 0.06,
-        }}
-        animate={{ backgroundPositionY: ['0px', '-32px'] }}
-        transition={{ duration: 8, ease: 'linear', repeat: Infinity }}
-      />
+      <div aria-hidden="true" className="dot-grid absolute inset-0 z-0" />
       {/* Edge fade — densest in the centre, gone at the borders */}
       <div
         aria-hidden="true"
@@ -63,7 +52,7 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               custom={1}
-              className="text-5xl font-bold leading-tight text-sns-text md:text-6xl"
+              className="text-4xl font-bold leading-tight text-sns-text md:whitespace-nowrap md:text-5xl"
             >
               <span className="text-gradient-blue">Simplicity</span> is the
               solution.
@@ -103,16 +92,20 @@ export default function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 + index * 0.15, duration: 0.5 }}
-              className={`flex items-baseline gap-6 ${
+              className={`flex items-baseline gap-4 ${
                 index < stats.length - 1 ? 'border-b border-sns-border pb-6' : ''
               }`}
             >
               <span
                 className={`min-w-[4rem] font-mono text-4xl font-bold ${stat.color}`}
+                style={{
+                  fontFamily:
+                    'var(--font-geist-mono), "JetBrains Mono", monospace',
+                }}
               >
                 {stat.symbol}
               </span>
-              <span className="font-mono text-sm text-sns-muted">
+              <span className="font-mono text-base text-sns-muted">
                 {stat.label}
               </span>
             </motion.div>
