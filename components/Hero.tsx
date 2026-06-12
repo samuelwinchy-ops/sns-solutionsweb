@@ -32,10 +32,10 @@ export default function Hero() {
           custom={1}
           className="text-5xl font-bold leading-tight text-sns-text md:text-6xl"
         >
-          We build the software
+          We build software that{' '}
+          <span className="text-gradient-blue">works</span>
           <br />
-          <span className="text-gradient-blue">infrastructure</span> others
-          can&apos;t.
+          the way people actually think.
         </motion.h1>
 
         <motion.p
@@ -45,8 +45,8 @@ export default function Hero() {
           custom={2}
           className="mt-6 max-w-xl font-sans text-lg text-sns-muted"
         >
-          AI automation, custom tooling, and systems integration — built by
-          engineers, for businesses that can&apos;t afford to slow down.
+          AI automation and custom tooling — powerful under the hood, simple to
+          use. No jargon. No overwhelm. Just software that does its job.
         </motion.p>
       </div>
 

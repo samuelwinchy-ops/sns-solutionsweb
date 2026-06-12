@@ -5,18 +5,18 @@ import { motion } from 'framer-motion'
 const statements = [
   {
     number: '01',
-    main: 'We automate the manual work that slows your business down.',
-    sub: 'AI pipelines, data sync, workflow orchestration.',
+    main: "We automate the work that's slowing your business down.",
+    sub: 'Complex integrations, AI pipelines, and data workflows — built to run quietly in the background.',
   },
   {
     number: '02',
-    main: "We build bespoke software products when off-the-shelf doesn't cut it.",
-    sub: 'From architecture to deployment.',
+    main: 'We build software products people actually understand how to use.',
+    sub: 'Technical depth where it matters. Simplicity everywhere else.',
   },
   {
     number: '03',
-    main: 'We turn internal tooling into standalone products.',
-    sub: 'We eat our own cooking.',
+    main: "We're engineers who also build our own products.",
+    sub: 'We use what we build. That keeps us honest.',
   },
 ]
 

@@ -12,7 +12,7 @@ export default function Team() {
   return (
     <section id="team" className="px-6 pb-24 pt-24 md:px-12">
       <p className="mb-12 font-mono text-xs uppercase tracking-widest text-sns-muted">
-        {'// THE TEAM'}
+        {"// THE TEAM — three founders, one standard: if it's complicated to use, it's not finished."}
       </p>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
