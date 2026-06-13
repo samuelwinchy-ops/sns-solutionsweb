@@ -8,7 +8,13 @@ const links = [
 
 export default function Nav() {
   return (
-    <nav className="fixed top-0 z-50 flex h-14 w-full items-center justify-between border-b border-sns-border bg-sns-bg/80 px-6 backdrop-blur-sm md:px-12">
+    <nav
+      className="fixed top-0 z-50 flex h-14 w-full items-center justify-between border-b border-sns-border/50 bg-sns-bg/80 px-6 backdrop-blur-sm md:px-12"
+      style={{
+        boxShadow:
+          '0 1px 0 0 rgba(59, 130, 246, 0.15), 0 4px 16px rgba(59, 130, 246, 0.04)',
+      }}
+    >
       <a
         href="#"
         aria-label="SNS Solutions — home"

@@ -70,6 +70,12 @@ const statusColor: Record<Status, string> = {
   RESEARCH: 'text-sns-muted',
 }
 
+const statusGlow: Partial<Record<Status, string>> = {
+  ACTIVE: '0 0 12px rgba(34, 197, 94, 0.4)',
+  BUILDING: '0 0 12px rgba(245, 158, 11, 0.4)',
+  SHIPPED: '0 0 12px rgba(59, 130, 246, 0.4)',
+}
+
 const headerLines = [
   '> sns-ops init',
   '> loading project registry...',
@@ -148,7 +154,11 @@ export default function Terminal({
         <div
           ref={ref}
           className="relative border border-sns-border bg-[#060b16]"
-          style={{ boxShadow: '0 0 60px rgba(59, 130, 246, 0.06)' }}
+          style={{
+            borderTop: '1px solid rgba(59, 130, 246, 0.3)',
+            boxShadow:
+              '0 0 0 1px rgba(59, 130, 246, 0.1), 0 0 40px rgba(59, 130, 246, 0.08), 0 0 80px rgba(59, 130, 246, 0.04)',
+          }}
         >
           {/* CRT scan-line overlay */}
           <div
@@ -187,7 +197,10 @@ export default function Terminal({
                   transition={{ duration: 0.3 }}
                   className="grid grid-cols-[6.5rem_minmax(0,1.35fr)_minmax(0,1fr)_4.5rem] gap-x-6 whitespace-nowrap"
                 >
-                  <span className={statusColor[entry.status]}>
+                  <span
+                    className={statusColor[entry.status]}
+                    style={{ textShadow: statusGlow[entry.status] }}
+                  >
                     [{entry.status.padEnd(8, ' ')}]
                   </span>
                   <span className="text-sns-text">{entry.title}</span>

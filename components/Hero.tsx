@@ -20,6 +20,15 @@ const stats = [
 export default function Hero() {
   return (
     <section className="relative flex min-h-screen flex-col items-start justify-start overflow-hidden px-6 pt-32 md:px-12">
+      {/* Background bloom behind the headline */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0 z-0 h-[400px] w-[600px]"
+        style={{
+          background:
+            'radial-gradient(ellipse at 20% 40%, rgba(37, 99, 235, 0.08) 0%, transparent 70%)',
+        }}
+      />
       {/* A. Animated dot grid */}
       <div aria-hidden="true" className="dot-grid absolute inset-0 z-0" />
       {/* Edge fade — densest in the centre, gone at the borders */}
@@ -54,8 +63,8 @@ export default function Hero() {
               custom={1}
               className="text-4xl font-bold leading-tight text-sns-text md:whitespace-nowrap md:text-5xl"
             >
-              <span className="text-gradient-blue">Simplicity</span> is the
-              solution.
+              <span className="text-gradient-blue text-glow">Simplicity</span>{' '}
+              is the solution.
             </motion.h1>
 
             <motion.p
@@ -97,7 +106,7 @@ export default function Hero() {
               }`}
             >
               <span
-                className={`min-w-[4rem] font-mono text-4xl font-bold ${stat.color}`}
+                className={`min-w-[4rem] font-mono text-4xl font-bold text-glow ${stat.color}`}
                 style={{
                   fontFamily:
                     'var(--font-geist-mono), "JetBrains Mono", monospace',

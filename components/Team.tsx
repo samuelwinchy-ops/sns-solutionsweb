@@ -30,10 +30,10 @@ export default function Team() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
-            className="min-w-0 border border-sns-border bg-sns-surface p-6"
+            className="group min-w-0 border border-sns-border bg-sns-surface p-6 transition-all duration-300 hover:border-sns-blue/40 hover:glow-blue"
           >
-            <div className="flex h-12 w-12 items-center justify-center bg-sns-border">
-              <span className="font-mono text-2xl font-bold text-sns-blue">
+            <div className="flex h-12 w-12 items-center justify-center bg-sns-border transition-all duration-300 group-hover:bg-sns-blue/20">
+              <span className="font-mono text-2xl font-bold text-sns-blue transition-all duration-300 group-hover:text-sns-accent">
                 {founder.initials}
               </span>
             </div>
