@@ -18,7 +18,7 @@ export default function Nav() {
       <a
         href="#"
         aria-label="SNS Solutions — home"
-        className="flex items-center gap-2.5"
+        className="flex min-w-0 items-center gap-2.5"
       >
         <Image
           src="/sns-icon.png"
@@ -26,14 +26,16 @@ export default function Nav() {
           width={1254}
           height={1254}
           priority
-          className="h-8 w-8 mix-blend-screen md:h-9 md:w-9"
+          className="h-8 w-8 shrink-0 mix-blend-screen md:h-9 md:w-9"
         />
-        <span className="font-mono text-sm font-bold uppercase tracking-[0.2em] text-sns-text">
+        <span className="truncate font-mono text-sm font-bold uppercase tracking-[0.2em] text-sns-text">
           SNS
-          <span className="ml-1.5 font-normal text-sns-muted">Solutions</span>
+          <span className="ml-1.5 hidden font-normal text-sns-muted sm:inline">
+            Solutions
+          </span>
         </span>
       </a>
-      <div className="flex items-center gap-4 md:gap-8">
+      <div className="flex shrink-0 items-center gap-3 sm:gap-4 md:gap-8">
         {links.map((link) => (
           <a
             key={link.href}

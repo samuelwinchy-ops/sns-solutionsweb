@@ -42,9 +42,9 @@ export default function Hero() {
       />
 
       {/* Content */}
-      <div className="relative z-10 grid w-full grid-cols-1 items-center gap-16 md:grid-cols-2">
+      <div className="relative z-10 grid w-full grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16">
         {/* Left col — existing content */}
-        <div className="flex flex-col">
+        <div className="flex min-w-0 flex-col">
           <div className="max-w-3xl">
             <motion.p
               variants={fadeInUp}
@@ -61,7 +61,7 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               custom={1}
-              className="text-4xl font-bold leading-tight text-sns-text md:whitespace-nowrap md:text-5xl"
+              className="text-4xl font-bold leading-tight text-sns-text md:text-5xl"
             >
               <span className="text-gradient-blue text-glow">Simplicity</span>{' '}
               is the solution.
@@ -94,7 +94,7 @@ export default function Hero() {
         </div>
 
         {/* Right col — stat block */}
-        <div className="hidden flex-col justify-center gap-8 md:flex">
+        <div className="hidden min-w-0 flex-col justify-center gap-8 md:flex">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
