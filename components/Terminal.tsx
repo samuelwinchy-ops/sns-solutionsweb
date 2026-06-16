@@ -27,19 +27,19 @@ const defaultEntries: LogEntry[] = [
   },
   {
     status: 'ACTIVE',
-    title: 'HubSpot → ERP sync layer',
+    title: 'CRM - ERP - Data Analytics Sync',
     detail: 'event-driven, zero-latency',
     date: '2026-01',
   },
   {
     status: 'SHIPPED',
-    title: 'AI conference intelligence system',
+    title: 'AI medical conference intelligence system',
     detail: 'transcription + LLM extraction',
     date: '2026-03',
   },
   {
     status: 'BUILDING',
-    title: 'enterprise API mesh — internal tooling',
+    title: 'HVAC platform',
     detail: 'cross-system auth + rate management',
     date: '2026-04',
   },

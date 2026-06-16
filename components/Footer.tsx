@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-const EMAIL = 'hello@snssolutions.io'
+const EMAIL = 'sns.solutionswien@gmail.com'
 
 export default function Footer() {
   const [copied, setCopied] = useState(false)
@@ -28,7 +28,7 @@ export default function Footer() {
       />
       <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
         <p className="font-mono text-xs text-sns-muted">
-          SNS Solutions GmbH (in formation) — Vienna, Austria — 2026
+          SNS Solutions GmbH — Vienna, Austria — 2026
         </p>
         <button
           type="button"
