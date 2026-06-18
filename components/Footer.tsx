@@ -99,7 +99,7 @@ export default function Footer() {
         <div className="mt-12 hairline-shimmer h-px w-full" />
         <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <p className="font-mono text-xs text-sns-faint">
-            SNS Solutions GmbH — Vienna, Austria — 2026
+            SNS Software Solutions GmbH — Vienna, Austria — 2026
           </p>
           <p className="flex items-center gap-2 font-mono text-xs text-sns-faint">
             <span className="h-1.5 w-1.5 rounded-full bg-sns-green" />
