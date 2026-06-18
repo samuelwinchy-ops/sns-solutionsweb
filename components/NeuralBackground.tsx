@@ -85,7 +85,15 @@ export default function NeuralBackground({
     let height = container.clientHeight
     let particles: Particle[] = []
     let animationFrameId = 0
+    let lastFrame = 0
     const mouse = { x: -1000, y: -1000 }
+
+    // Ambient drift looks identical at 30fps but halves the per-frame cost.
+    const FRAME_INTERVAL = 1000 / 30
+    // Cap the backing-store resolution: full-canvas overdraw every frame at
+    // native retina/4K DPR is the single biggest cost. 1.5 (1 on mobile) is
+    // visually indistinguishable for blurred trails.
+    const dprCap = () => Math.min(window.devicePixelRatio || 1, width < 768 ? 1 : 1.5)
 
     class Particle {
       x = 0
@@ -119,12 +127,13 @@ export default function NeuralBackground({
         this.vx += Math.cos(angle) * 0.2 * speed
         this.vy += Math.sin(angle) * 0.2 * speed
 
-        // Cursor repulsion
+        // Cursor repulsion — compare squared distance to avoid sqrt per frame
         const dx = mouse.x - this.x
         const dy = mouse.y - this.y
-        const distance = Math.sqrt(dx * dx + dy * dy)
+        const distSq = dx * dx + dy * dy
         const interactionRadius = 150
-        if (distance < interactionRadius && distance > 0) {
+        if (distSq < interactionRadius * interactionRadius && distSq > 0) {
+          const distance = Math.sqrt(distSq)
           const force = (interactionRadius - distance) / interactionRadius
           this.vx -= dx * force * 0.05
           this.vy -= dy * force * 0.05
@@ -155,7 +164,7 @@ export default function NeuralBackground({
     }
 
     const init = () => {
-      const dpr = window.devicePixelRatio || 1
+      const dpr = dprCap()
       canvas.width = Math.floor(width * dpr)
       canvas.height = Math.floor(height * dpr)
       canvas.style.width = `${width}px`
@@ -191,9 +200,13 @@ export default function NeuralBackground({
       ctx.globalAlpha = 1
     }
 
-    const animate = () => {
+    const animate = (now = 0) => {
       animationFrameId = requestAnimationFrame(animate)
       if (document.hidden) return
+
+      // Throttle to the target frame rate
+      if (now - lastFrame < FRAME_INTERVAL) return
+      lastFrame = now
 
       // Trail fade
       ctx.globalCompositeOperation = 'source-over'

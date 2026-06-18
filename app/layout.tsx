@@ -38,7 +38,7 @@ export default function RootLayout({
             colors={['#6366f1', '#3b82f6', '#22d3ee', '#818cf8']}
             fadeColor="#06080f"
             trailOpacity={0.14}
-            particleCount={650}
+            particleCount={340}
           />
         </div>
 
