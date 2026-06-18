@@ -70,10 +70,17 @@ const statusColor: Record<Status, string> = {
   RESEARCH: 'text-sns-muted',
 }
 
+const statusDot: Record<Status, string> = {
+  ACTIVE: 'bg-sns-green',
+  SHIPPED: 'bg-sns-blue',
+  BUILDING: 'bg-sns-amber',
+  RESEARCH: 'bg-sns-faint',
+}
+
 const statusGlow: Partial<Record<Status, string>> = {
-  ACTIVE: '0 0 12px rgba(34, 197, 94, 0.4)',
-  BUILDING: '0 0 12px rgba(245, 158, 11, 0.4)',
-  SHIPPED: '0 0 12px rgba(59, 130, 246, 0.4)',
+  ACTIVE: '0 0 12px rgba(52, 211, 153, 0.45)',
+  BUILDING: '0 0 12px rgba(251, 191, 36, 0.45)',
+  SHIPPED: '0 0 12px rgba(59, 130, 246, 0.45)',
 }
 
 const headerLines = [
@@ -141,96 +148,134 @@ export default function Terminal({
   }
 
   return (
-    <section id="build-log" className="px-6 pb-24 pt-24 md:px-12">
+    <section
+      id="build-log"
+      className="relative scroll-mt-24 px-5 pb-28 pt-28 md:px-10"
+    >
       <div className="mx-auto w-full max-w-5xl">
-        <p className="mb-6 font-mono text-xs uppercase tracking-widest text-sns-muted">
-          {'// BUILD LOG — CURRENT OPERATIONS'}
-        </p>
-        <p className="mb-6 font-mono text-xs text-sns-muted">
-          Active projects are under NDA. Descriptions are intentionally
-          redacted.
-        </p>
+        <div className="mb-10 max-w-2xl">
+          <p className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-sns-indigo">
+            <span className="h-px w-8 bg-sns-indigo/50" />
+            build log — current operations
+          </p>
+          <h2 className="text-3xl font-bold tracking-[-0.02em] text-sns-text md:text-4xl">
+            What&apos;s running right now.
+          </h2>
+          <p className="mt-4 font-mono text-sm text-sns-muted">
+            Active projects are under NDA. Descriptions are intentionally
+            redacted.
+          </p>
+        </div>
 
-        <div
-          ref={ref}
-          className="relative border border-sns-border bg-[#060b16]"
-          style={{
-            borderTop: '1px solid rgba(59, 130, 246, 0.3)',
-            boxShadow:
-              '0 0 0 1px rgba(59, 130, 246, 0.1), 0 0 40px rgba(59, 130, 246, 0.08), 0 0 80px rgba(59, 130, 246, 0.04)',
-          }}
-        >
-          {/* CRT scan-line overlay */}
+        {/* Bloom behind the terminal */}
+        <div className="relative">
           <div
             aria-hidden="true"
-            className="scanlines pointer-events-none absolute inset-0 z-20"
+            className="pointer-events-none absolute inset-x-0 -inset-y-6 z-0 rounded-[2rem] opacity-70"
+            style={{
+              background:
+                'radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.16), transparent 70%)',
+            }}
           />
 
-          {/* Top bar */}
-          <div className="relative flex h-9 items-center justify-between border-b border-sns-border bg-sns-surface px-4">
-            <div className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-              <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
-              <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+          <div
+            ref={ref}
+            className="relative z-10 overflow-hidden rounded-sns-lg border border-white/[0.08] bg-[#070b14]/90 backdrop-blur-xl"
+            style={{
+              boxShadow:
+                '0 0 0 1px rgba(99, 102, 241, 0.12), 0 24px 80px -24px rgba(99, 130, 246, 0.4), 0 0 120px -40px rgba(34, 211, 238, 0.2)',
+            }}
+          >
+            {/* Top edge highlight */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 top-0 z-30 h-px bg-gradient-to-r from-transparent via-sns-indigo/60 to-transparent"
+            />
+            {/* CRT scan-line overlay */}
+            <div
+              aria-hidden="true"
+              className="scanlines pointer-events-none absolute inset-0 z-20"
+            />
+
+            {/* Top bar */}
+            <div className="relative flex h-10 items-center justify-between border-b border-white/[0.07] bg-white/[0.03] px-4 backdrop-blur-sm">
+              <div className="flex items-center gap-2">
+                <span className="h-3 w-3 rounded-full bg-[#ff5f57] shadow-[0_0_8px_rgba(255,95,87,0.5)]" />
+                <span className="h-3 w-3 rounded-full bg-[#febc2e] shadow-[0_0_8px_rgba(254,188,46,0.5)]" />
+                <span className="h-3 w-3 rounded-full bg-[#28c840] shadow-[0_0_8px_rgba(40,200,64,0.5)]" />
+              </div>
+              <span className="absolute left-1/2 hidden -translate-x-1/2 font-mono text-xs text-sns-muted sm:block">
+                sns-ops — build-tracker v1.0.0
+              </span>
+              <span className="font-mono text-[11px] text-sns-faint sm:text-xs">
+                {today}
+              </span>
             </div>
-            <span className="absolute left-1/2 -translate-x-1/2 font-mono text-xs text-sns-muted">
-              sns-ops — build-tracker v1.0.0
-            </span>
-            <span className="font-mono text-xs text-sns-muted">{today}</span>
-          </div>
 
-          {/* Body */}
-          <div className="overflow-x-auto p-6 font-mono text-sm leading-7">
-            <div className="min-w-[52rem]">
-              {headerLines.map((line) => (
-                <p key={line} className="text-sns-muted">
-                  {line}
-                </p>
-              ))}
-              <div className="my-3 border-t border-sns-border" />
+            {/* Body */}
+            <div className="overflow-x-auto p-4 font-mono text-[13px] leading-6 sm:p-5 sm:text-sm sm:leading-7 md:p-6">
+              <div className="md:min-w-[52rem]">
+                {headerLines.map((line) => (
+                  <p key={line} className="text-sns-faint">
+                    {line}
+                  </p>
+                ))}
+                <div className="my-3 h-px bg-white/[0.07]" />
 
-              {entries.slice(0, visibleCount).map((entry, i) => (
-                <motion.div
-                  key={`${entry.title}-${i}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="grid grid-cols-[6.5rem_minmax(0,1.35fr)_minmax(0,1fr)_4.5rem] gap-x-6 whitespace-nowrap"
-                >
-                  <span
-                    className={statusColor[entry.status]}
-                    style={{ textShadow: statusGlow[entry.status] }}
+                {entries.slice(0, visibleCount).map((entry, i) => (
+                  <motion.div
+                    key={`${entry.title}-${i}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="group mb-2.5 rounded border-l-2 border-white/[0.07] py-1 pl-3 pr-1.5 transition-colors duration-200 hover:bg-white/[0.025] md:mb-0 md:grid md:grid-cols-[7rem_minmax(0,1.35fr)_minmax(0,1fr)_4.5rem] md:items-center md:gap-x-6 md:border-l-0 md:py-0.5 md:pl-1.5"
                   >
-                    [{entry.status.padEnd(8, ' ')}]
-                  </span>
-                  <span className="text-sns-text">{entry.title}</span>
-                  <span className="text-sns-muted">— {entry.detail}</span>
-                  <span className="text-right text-sns-muted">
-                    {entry.date}
-                  </span>
-                </motion.div>
-              ))}
+                    {/* Status + date share the top line on mobile; on desktop
+                        `contents` hoists them into the grid (date → last col) */}
+                    <div className="mb-1 flex items-center justify-between gap-3 md:mb-0 md:contents">
+                      <span
+                        className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap ${statusColor[entry.status]}`}
+                        style={{ textShadow: statusGlow[entry.status] }}
+                      >
+                        <span
+                          className={`h-1.5 w-1.5 shrink-0 rounded-full ${statusDot[entry.status]}`}
+                        />
+                        [{entry.status.padEnd(8, ' ')}]
+                      </span>
+                      <span className="shrink-0 text-sns-faint md:order-last md:text-right">
+                        {entry.date}
+                      </span>
+                    </div>
+                    <span className="block break-words text-sns-text md:whitespace-nowrap">
+                      {entry.title}
+                    </span>
+                    <span className="block break-words text-sns-muted md:whitespace-nowrap">
+                      — {entry.detail}
+                    </span>
+                  </motion.div>
+                ))}
 
-              {done && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="my-3 border-t border-sns-border" />
-                  <p className="text-sns-muted">
-                    {`> ${entries.length} records loaded  |  ${counts.active} active  |  ${counts.building} in build  |  ${counts.shipped} shipped  |  ${counts.research} in research`}
-                  </p>
-                  <p className="text-sns-muted">
-                    {'> uptime: '}
-                    <span className="text-sns-green">{uptime}</span>
-                  </p>
-                  <p className="text-sns-blue">
-                    {'> '}
-                    <span className="animate-blink">█</span>
-                  </p>
-                </motion.div>
-              )}
+                {done && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="my-3 h-px bg-white/[0.07]" />
+                    <p className="break-words text-sns-muted">
+                      {`> ${entries.length} records loaded  |  ${counts.active} active  |  ${counts.building} in build  |  ${counts.shipped} shipped  |  ${counts.research} in research`}
+                    </p>
+                    <p className="text-sns-muted">
+                      {'> uptime: '}
+                      <span className="text-sns-green">{uptime}</span>
+                    </p>
+                    <p className="text-sns-indigo">
+                      {'> '}
+                      <span className="animate-blink">█</span>
+                    </p>
+                  </motion.div>
+                )}
+              </div>
             </div>
           </div>
         </div>

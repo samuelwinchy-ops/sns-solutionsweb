@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { GeistMono } from 'geist/font/mono'
 import { Inter } from 'next/font/google'
+import NeuralBackground from '@/components/NeuralBackground'
 import './globals.css'
 
 const inter = Inter({
@@ -26,10 +27,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${GeistMono.variable} ${inter.variable} bg-sns-bg font-sans text-sns-text antialiased`}
+        className={`${GeistMono.variable} ${inter.variable} relative min-h-dvh bg-sns-bg font-sans text-sns-text antialiased`}
       >
+        {/* Interactive neural flow-field — global animated background */}
+        <div
+          className="pointer-events-none fixed inset-0 z-0"
+          aria-hidden="true"
+        >
+          <NeuralBackground
+            colors={['#6366f1', '#3b82f6', '#22d3ee', '#818cf8']}
+            fadeColor="#06080f"
+            trailOpacity={0.14}
+            particleCount={650}
+          />
+        </div>
+
         <div className="grain-overlay" aria-hidden="true" />
-        {children}
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   )
