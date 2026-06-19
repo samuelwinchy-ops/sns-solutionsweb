@@ -1,8 +1,15 @@
 'use client'
 
+import Link from 'next/link'
 import { useState } from 'react'
 
 const EMAIL = 'sns.solutionswien@gmail.com'
+
+const legalLinks = [
+  { href: '/legal/imprint', label: 'Imprint' },
+  { href: '/legal/privacy', label: 'Privacy' },
+  { href: '/legal/terms', label: 'Terms' },
+]
 
 export default function Footer() {
   const [copied, setCopied] = useState(false)
@@ -19,7 +26,7 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="relative scroll-mt-24 px-5 pb-12 pt-16 md:px-10">
-      <div className="mx-auto w-full max-w-6xl">
+      <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
         {/* Contact CTA card */}
         <div className="glass edge-light relative overflow-hidden rounded-sns-lg p-8 md:p-12">
           <div
@@ -97,14 +104,25 @@ export default function Footer() {
 
         {/* Shimmer hairline + meta row */}
         <div className="mt-12 hairline-shimmer h-px w-full" />
-        <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p className="font-mono text-xs text-sns-faint">
             SNS Software Solutions GmbH — Vienna, Austria — 2026
           </p>
-          <p className="flex items-center gap-2 font-mono text-xs text-sns-faint">
-            <span className="h-1.5 w-1.5 rounded-full bg-sns-green" />
-            all systems operational
-          </p>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {legalLinks.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="font-mono text-xs text-sns-muted transition-colors duration-300 hover:text-sns-accent"
+              >
+                {l.label}
+              </Link>
+            ))}
+            <span className="flex items-center gap-2 font-mono text-xs text-sns-faint">
+              <span className="h-1.5 w-1.5 rounded-full bg-sns-green" />
+              all systems operational
+            </span>
+          </div>
         </div>
       </div>
     </footer>

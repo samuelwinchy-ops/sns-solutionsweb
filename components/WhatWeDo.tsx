@@ -115,7 +115,7 @@ export default function WhatWeDo() {
       id="what-we-do"
       className="relative scroll-mt-24 px-5 pb-28 pt-28 md:px-10"
     >
-      <div className="mx-auto w-full max-w-6xl">
+      <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
         <div className="mb-14 max-w-2xl">
           <p className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-sns-indigo">
             <span className="h-px w-8 bg-sns-indigo/50" />

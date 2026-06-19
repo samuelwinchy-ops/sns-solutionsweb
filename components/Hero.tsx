@@ -56,7 +56,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-[1.15fr_1fr] md:gap-16">
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-[1.15fr_1fr] md:gap-16 2xl:max-w-7xl 2xl:gap-20">
         {/* Left column */}
         <div className="flex min-w-0 flex-col">
           <motion.div
@@ -80,7 +80,7 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
             custom={1}
-            className="text-[2.6rem] font-bold leading-[1.04] tracking-[-0.02em] text-sns-text md:text-[4rem]"
+            className="text-[2.6rem] font-bold leading-[1.04] tracking-[-0.02em] text-sns-text md:text-[4rem] 2xl:text-[4.6rem]"
           >
             <span className="text-gradient-blue text-glow">Simplicity</span>
             <br className="hidden sm:block" /> is the solution.
@@ -91,7 +91,7 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
             custom={2}
-            className="mt-7 max-w-xl text-lg leading-relaxed text-sns-muted md:text-xl"
+            className="mt-7 max-w-xl text-lg leading-relaxed text-sns-muted md:text-xl 2xl:max-w-2xl 2xl:text-[1.35rem]"
           >
             An AI-powered software studio. We build the automation
             infrastructure —{' '}
@@ -143,7 +143,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 24, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 0.5, duration: 0.8, ease: EASE }}
-          className="glass edge-light glow-blue relative hidden flex-col rounded-sns-lg p-6 md:flex"
+          className="glass edge-light glow-blue relative hidden flex-col rounded-sns-lg p-6 md:flex 2xl:p-8"
         >
           <div className="mb-5 flex items-center justify-between">
             <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-sns-faint">

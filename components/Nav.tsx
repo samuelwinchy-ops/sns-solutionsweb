@@ -41,17 +41,18 @@ export default function Nav() {
 
   return (
     <nav
-      className={`fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between px-5 transition-all duration-500 ease-sns-out md:px-10 ${
+      className={`fixed inset-x-0 top-0 z-50 h-14 px-5 transition-all duration-500 ease-sns-out md:px-10 ${
         scrolled
           ? 'glass-strong border-b border-white/[0.07] shadow-[0_8px_32px_-12px_rgba(0,0,0,0.6)]'
           : 'border-b border-transparent bg-transparent'
       }`}
     >
-      <a
-        href="#"
-        aria-label="SNS Solutions — home"
-        className="group flex min-w-0 items-center gap-2.5"
-      >
+      <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-between 2xl:max-w-7xl">
+        <a
+          href="#"
+          aria-label="SNS Solutions — home"
+          className="group flex min-w-0 items-center gap-2.5"
+        >
         <span className="relative shrink-0">
           <span className="absolute inset-0 rounded-full bg-sns-indigo/30 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
           <Image
@@ -121,6 +122,7 @@ export default function Nav() {
             />
           </svg>
         </a>
+        </div>
       </div>
     </nav>
   )

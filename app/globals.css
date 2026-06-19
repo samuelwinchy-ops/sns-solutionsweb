@@ -153,3 +153,66 @@ body {
     animation: none !important;
   }
 }
+
+/* ── Legal / long-form document typography ──────────────────────────── */
+.legal-prose {
+  color: #b8c0d4;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+.legal-prose h2 {
+  margin-top: 2.75rem;
+  margin-bottom: 0.85rem;
+  color: #edeef4;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.legal-prose h2:first-child {
+  margin-top: 0;
+}
+.legal-prose h3 {
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: #edeef4;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.legal-prose p {
+  margin-bottom: 1rem;
+}
+.legal-prose ul {
+  margin: 0 0 1rem 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.legal-prose li {
+  margin-bottom: 0.4rem;
+}
+.legal-prose a {
+  color: #818cf8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+.legal-prose a:hover {
+  color: #22d3ee;
+}
+.legal-prose strong {
+  color: #edeef4;
+  font-weight: 600;
+}
+.legal-prose hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+/* Placeholders the operator must fill in before launch */
+.legal-prose .ph {
+  border-radius: 4px;
+  background: rgba(251, 191, 36, 0.12);
+  padding: 0 0.35em;
+  color: #fbbf24;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.85em;
+}
