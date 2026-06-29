@@ -102,12 +102,9 @@ export default function Hero() {
             custom={0}
             className="mb-7 inline-flex w-fit items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-2.5 pr-3.5 backdrop-blur-sm"
           >
-            <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sns-green opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-sns-green" />
-            </span>
+            <span className="h-2 w-2 rounded-full bg-sns-cyan" aria-hidden="true" />
             <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-sns-muted">
-              est. 2026 — Vienna, AT
+              Simplicity is the solution
             </span>
           </motion.div>
 
@@ -118,8 +115,9 @@ export default function Hero() {
             custom={1}
             className="text-[2.6rem] font-bold leading-[1.04] tracking-[-0.02em] text-sns-text md:text-[4rem] 2xl:text-[4.6rem]"
           >
-            <span className="text-gradient-blue text-glow">Simplicity</span>
-            <br className="hidden sm:block" /> is the solution.
+            Powerful underneath.
+            <br />
+            <span className="text-gradient-blue text-glow">Simple on top.</span>
           </motion.h1>
 
           <motion.p
@@ -129,12 +127,16 @@ export default function Hero() {
             custom={2}
             className="mt-7 max-w-xl text-lg leading-relaxed text-sns-muted md:text-xl 2xl:max-w-2xl 2xl:text-[1.35rem]"
           >
-            An AI-powered software studio in Vienna. We build{' '}
-            <span className="font-medium text-sns-text">custom software</span>,{' '}
-            <span className="font-medium text-sns-text">AI automations</span>,
-            and <span className="font-medium text-sns-text">AI &amp; IT consulting</span>{' '}
-            — engineered to run quietly in the background.{' '}
-            <span className="font-medium text-sns-text">You take the credit.</span>
+            An AI software studio in Vienna. We build{' '}
+            <span className="font-medium text-sns-text">custom software</span> and{' '}
+            <span className="font-medium text-sns-text">AI automation</span> — the
+            systems running quietly in the background and the tools your team uses
+            every day — and advise on the{' '}
+            <span className="font-medium text-sns-text">AI &amp; IT</span> behind
+            them.
+            <span className="mt-4 block font-medium text-sns-text">
+              We do the hard part — you get the win.
+            </span>
           </motion.p>
 
           <motion.div
@@ -180,7 +182,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 24, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 0.5, duration: 0.8, ease: EASE }}
-          className="glass edge-light glow-blue relative hidden flex-col rounded-sns-lg p-6 md:flex 2xl:p-8"
+          className="glass edge-light glow-blue relative flex flex-col rounded-sns-lg p-6 2xl:p-8"
         >
           <div className="mb-2 flex items-center justify-between">
             <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-sns-faint">
