@@ -6,11 +6,7 @@ export const metadata: Metadata = {
     'How SNS Software Solutions GmbH processes personal data in accordance with the EU General Data Protection Regulation (GDPR).',
 }
 
-const UPDATED = 'June 19, 2026'
-
-function Ph({ children }: { children: React.ReactNode }) {
-  return <span className="ph">{children}</span>
-}
+const UPDATED = 'June 29, 2026'
 
 export default function PrivacyPage() {
   return (
@@ -37,13 +33,13 @@ export default function PrivacyPage() {
           The controller responsible for data processing on this website is:
         </p>
         <p>
-          <strong>SNS Software Solutions GmbH</strong>
+          <strong>SNS Software Solutions GmbH i.G. (in formation)</strong>
           <br />
-          <Ph>[Street address]</Ph>, <Ph>[Postal code]</Ph> Vienna, Austria
+          Schrötlgasse 8a, 1220 Vienna, Austria
           <br />
           Email:{' '}
-          <a href="mailto:sns.solutionswien@gmail.com">
-            sns.solutionswien@gmail.com
+          <a href="mailto:office@sns-austria.com">
+            office@sns-austria.com
           </a>
         </p>
 
@@ -138,8 +134,8 @@ export default function PrivacyPage() {
         </ul>
         <p>
           To exercise any of these rights, contact us at{' '}
-          <a href="mailto:sns.solutionswien@gmail.com">
-            sns.solutionswien@gmail.com
+          <a href="mailto:office@sns-austria.com">
+            office@sns-austria.com
           </a>
           .
         </p>

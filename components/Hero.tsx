@@ -13,24 +13,60 @@ const fadeInUp: Variants = {
   }),
 }
 
-const stats = [
+const services = [
   {
-    symbol: '∞',
-    color: 'text-sns-indigo',
-    label: 'problems left to solve',
-    bar: 100,
+    n: '01',
+    name: 'Custom Software',
+    desc: 'Web, mobile & internal tools, built to fit.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M8.5 8.5 5 12l3.5 3.5M15.5 8.5 19 12l-3.5 3.5M13.5 6l-3 12"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
   },
   {
-    symbol: '3',
-    color: 'text-sns-text',
-    label: 'founders, zero passengers',
-    bar: 64,
+    n: '02',
+    name: 'AI Automation',
+    desc: 'Pipelines & agents that remove the busywork.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M13 3 5 13h5l-1 8 8-11h-5l1-7z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
   },
   {
-    symbol: 'Now',
-    color: 'text-sns-cyan',
-    label: 'always building',
-    bar: 88,
+    n: '03',
+    name: 'AI & IT Consulting',
+    desc: 'Strategy, architecture & hands-on delivery.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M20 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-4.2A8 8 0 1 1 20 11.5z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M9 10.5h6M9 13h4"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
   },
 ]
 
@@ -71,7 +107,7 @@ export default function Hero() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-sns-green" />
             </span>
             <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-sns-muted">
-              est. 2026 — Vienna, AT — open for work
+              est. 2026 — Vienna, AT
             </span>
           </motion.div>
 
@@ -93,11 +129,12 @@ export default function Hero() {
             custom={2}
             className="mt-7 max-w-xl text-lg leading-relaxed text-sns-muted md:text-xl 2xl:max-w-2xl 2xl:text-[1.35rem]"
           >
-            An AI-powered software studio. We build the automation
-            infrastructure —{' '}
-            <span className="font-medium text-sns-text">
-              you take the credit.
-            </span>
+            An AI-powered software studio in Vienna. We build{' '}
+            <span className="font-medium text-sns-text">custom software</span>,{' '}
+            <span className="font-medium text-sns-text">AI automations</span>,
+            and <span className="font-medium text-sns-text">AI &amp; IT consulting</span>{' '}
+            — engineered to run quietly in the background.{' '}
+            <span className="font-medium text-sns-text">You take the credit.</span>
           </motion.p>
 
           <motion.div
@@ -145,50 +182,50 @@ export default function Hero() {
           transition={{ delay: 0.5, duration: 0.8, ease: EASE }}
           className="glass edge-light glow-blue relative hidden flex-col rounded-sns-lg p-6 md:flex 2xl:p-8"
         >
-          <div className="mb-5 flex items-center justify-between">
+          <div className="mb-2 flex items-center justify-between">
             <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-sns-faint">
-              ~/sns — status
+              ~/sns — services
             </span>
             <span className="flex items-center gap-1.5 font-mono text-[11px] text-sns-green">
               <span className="h-1.5 w-1.5 rounded-full bg-sns-green" />
-              online
+              available
             </span>
           </div>
 
-          <div className="flex flex-col gap-5">
-            {stats.map((stat, index) => (
+          <div className="flex flex-col">
+            {services.map((service, index) => (
               <motion.div
-                key={stat.label}
+                key={service.name}
                 initial={{ opacity: 0, x: 12 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.7 + index * 0.14, duration: 0.6, ease: EASE }}
-                className={index < stats.length - 1 ? 'border-b border-white/[0.06] pb-5' : ''}
+                className={`group flex items-start gap-4 py-4 ${
+                  index < services.length - 1 ? 'border-b border-white/[0.06]' : ''
+                }`}
               >
-                <div className="flex items-baseline gap-4">
-                  <span
-                    className={`min-w-[3.5rem] font-mono text-3xl font-bold tabular-nums ${stat.color}`}
-                  >
-                    {stat.symbol}
-                  </span>
-                  <span className="font-mono text-sm text-sns-muted">
-                    {stat.label}
-                  </span>
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sns border border-white/10 bg-sns-surface text-sns-accent transition-colors duration-300 ease-sns-out group-hover:border-sns-indigo/40 group-hover:bg-sns-indigo/10 group-hover:text-sns-cyan">
+                  {service.icon}
                 </div>
-                <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-white/[0.05]">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${stat.bar}%` }}
-                    transition={{ delay: 0.9 + index * 0.14, duration: 0.9, ease: EASE }}
-                    className="h-full rounded-full bg-gradient-to-r from-sns-indigo to-sns-cyan"
-                  />
+                <div className="min-w-0">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="font-semibold text-sns-text">
+                      {service.name}
+                    </span>
+                    <span className="font-mono text-[11px] text-sns-faint">
+                      {service.n}
+                    </span>
+                  </div>
+                  <p className="mt-1 font-mono text-xs leading-relaxed text-sns-muted">
+                    {service.desc}
+                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          <div className="mt-6 flex items-center gap-2 font-mono text-xs text-sns-faint">
+          <div className="mt-5 flex items-center gap-2 border-t border-white/[0.06] pt-4 font-mono text-xs text-sns-faint">
             <span className="text-sns-indigo">$</span>
-            <span>ship --fast --quietly</span>
+            <span>ship --simple --reliable</span>
             <span className="animate-blink text-sns-indigo">█</span>
           </div>
         </motion.div>

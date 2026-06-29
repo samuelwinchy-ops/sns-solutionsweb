@@ -6,11 +6,7 @@ export const metadata: Metadata = {
     'Legal disclosure (Impressum) for SNS Software Solutions GmbH pursuant to §5 ECG and §25 MedienG.',
 }
 
-const UPDATED = 'June 19, 2026'
-
-function Ph({ children }: { children: React.ReactNode }) {
-  return <span className="ph">{children}</span>
-}
+const UPDATED = 'June 29, 2026'
 
 export default function ImprintPage() {
   return (
@@ -34,37 +30,36 @@ export default function ImprintPage() {
       <div className="legal-prose">
         <h2>Media owner & operator</h2>
         <p>
-          <strong>SNS Software Solutions GmbH</strong>
+          <strong>SNS Software Solutions GmbH i.G. (in formation)</strong>
           <br />
-          <Ph>[Street address]</Ph>
+          Schrötlgasse 8a
           <br />
-          <Ph>[Postal code]</Ph> Vienna, Austria
+          1220 Vienna, Austria
         </p>
 
         <h2>Represented by the managing directors</h2>
         <p>
-          <Ph>[Managing director name(s)]</Ph>
+          Samuel Winch, Samson Adefris Belachew
         </p>
 
         <h2>Contact</h2>
         <p>
           Email:{' '}
-          <a href="mailto:sns.solutionswien@gmail.com">
-            sns.solutionswien@gmail.com
+          <a href="mailto:office@sns-austria.com">
+            office@sns-austria.com
           </a>
           <br />
-          Phone: <Ph>[Phone number]</Ph>
+          Phone: <a href="tel:+436701922538">+43 670 1922538</a>
         </p>
 
         <h2>Company register</h2>
         <p>
-          Commercial register number (Firmenbuchnummer):{' '}
-          <Ph>[FN xxxxxx x]</Ph>
+          Commercial register number (Firmenbuchnummer): pending — company
+          in formation
           <br />
-          Register court (Firmenbuchgericht): <Ph>[Handelsgericht Wien]</Ph>
+          Register court (Firmenbuchgericht): Handelsgericht Wien
           <br />
-          VAT identification number (UID):{' '}
-          <Ph>[ATU xxxxxxxx]</Ph>
+          VAT identification number (UID): pending — company in formation
         </p>
 
         <h2>Trade authority & applicable regulations</h2>
@@ -72,7 +67,7 @@ export default function ImprintPage() {
           Object of the company: software development and IT services.
           <br />
           Chamber membership: Austrian Federal Economic Chamber
-          (Wirtschaftskammer Österreich), <Ph>[Vienna chapter]</Ph>.
+          (Wirtschaftskammer Österreich), Wirtschaftskammer Wien.
           <br />
           Trade regulations: Gewerbeordnung 1994, available at{' '}
           <a
@@ -87,8 +82,7 @@ export default function ImprintPage() {
 
         <h2>Supervisory authority</h2>
         <p>
-          <Ph>[Competent district administrative authority — e.g. Magistrat
-          der Stadt Wien]</Ph>
+          Magistrat der Stadt Wien
         </p>
 
         <h2>Online dispute resolution</h2>

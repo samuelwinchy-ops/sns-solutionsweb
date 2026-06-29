@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 
-const EMAIL = 'sns.solutionswien@gmail.com'
+const EMAIL = 'office@sns-austria.com'
 
 const legalLinks = [
   { href: '/legal/imprint', label: 'Imprint' },
@@ -106,7 +106,7 @@ export default function Footer() {
         <div className="mt-12 hairline-shimmer h-px w-full" />
         <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p className="font-mono text-xs text-sns-faint">
-            SNS Software Solutions GmbH — Vienna, Austria — 2026
+            SNS Software Solutions GmbH i.G. — Vienna, Austria — 2026
           </p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {legalLinks.map((l) => (

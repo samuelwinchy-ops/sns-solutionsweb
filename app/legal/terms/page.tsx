@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     'Terms governing the use of the SNS Software Solutions GmbH website.',
 }
 
-const UPDATED = 'June 19, 2026'
+const UPDATED = 'June 29, 2026'
 
 export default function TermsPage() {
   return (
@@ -30,7 +30,8 @@ export default function TermsPage() {
         <h2>1. Scope</h2>
         <p>
           These Terms of Use govern your access to and use of the website
-          operated by <strong>SNS Software Solutions GmbH</strong> (“SNS”, “we”,
+          operated by <strong>SNS Software Solutions GmbH i.G.</strong> (“SNS”,
+          “we”,
           “us”). By accessing or using this website, you agree to these terms.
           If you do not agree, please do not use the website.
         </p>
@@ -119,11 +120,11 @@ export default function TermsPage() {
 
         <h2>9. Contact</h2>
         <p>
-          SNS Software Solutions GmbH — Vienna, Austria
+          SNS Software Solutions GmbH i.G. — Vienna, Austria
           <br />
           Email:{' '}
-          <a href="mailto:sns.solutionswien@gmail.com">
-            sns.solutionswien@gmail.com
+          <a href="mailto:office@sns-austria.com">
+            office@sns-austria.com
           </a>
         </p>
         <p>
