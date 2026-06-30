@@ -129,13 +129,13 @@ export default function Hero() {
           >
             An AI software studio in Vienna. We build{' '}
             <span className="font-medium text-sns-text">custom software</span> and{' '}
-            <span className="font-medium text-sns-text">AI automation</span> — the
-            systems running quietly in the background and the tools your team uses
-            every day — and advise on the{' '}
+            <span className="font-medium text-sns-text">AI automation</span>, from
+            the systems running quietly in the background to the tools your team
+            uses every day. We also advise on the{' '}
             <span className="font-medium text-sns-text">AI &amp; IT</span> behind
             them.
             <span className="mt-4 block font-medium text-sns-text">
-              We do the hard part — you get the win.
+              We do the hard part. You get the win.
             </span>
           </motion.p>
 
@@ -147,7 +147,7 @@ export default function Hero() {
             className="mt-10 flex flex-wrap items-center gap-3"
           >
             <a
-              href="#contact"
+              href="/contact"
               className="group inline-flex items-center gap-2 rounded-full bg-sns-indigo px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
             >
               Start a build

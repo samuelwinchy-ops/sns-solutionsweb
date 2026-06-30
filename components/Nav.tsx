@@ -4,9 +4,9 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 const links = [
-  { href: '#what-we-do', id: 'what-we-do', label: 'what we do', live: false },
-  { href: '#build-log', id: 'build-log', label: 'build log', live: true },
-  { href: '#team', id: 'team', label: 'team', live: false },
+  { href: '/#what-we-do', id: 'what-we-do', label: 'what we do', live: false },
+  { href: '/#build-log', id: 'build-log', label: 'build log', live: true },
+  { href: '/#team', id: 'team', label: 'team', live: false },
 ]
 
 export default function Nav() {
@@ -49,7 +49,7 @@ export default function Nav() {
     >
       <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-between 2xl:max-w-7xl">
         <a
-          href="#"
+          href="/"
           aria-label="SNS Solutions — home"
           className="group flex min-w-0 items-center gap-2.5"
         >
@@ -101,7 +101,7 @@ export default function Nav() {
         })}
 
         <a
-          href="#contact"
+          href="/contact"
           className="group ml-1 hidden items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-widest text-sns-text transition-all duration-300 ease-sns-out hover:border-sns-indigo/50 hover:bg-sns-indigo/10 hover:text-white sm:inline-flex"
         >
           contact
