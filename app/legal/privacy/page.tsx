@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     'How SNS Software Solutions GmbH processes personal data in accordance with the EU General Data Protection Regulation (GDPR).',
 }
 
-const UPDATED = 'June 29, 2026'
+const UPDATED = 'June 30, 2026'
 
 export default function PrivacyPage() {
   return (
@@ -102,15 +102,37 @@ export default function PrivacyPage() {
           banner is required.
         </p>
 
-        <h2>7. Contacting us</h2>
+        <h2>7. Contact (email &amp; contact form)</h2>
         <p>
           If you contact us by email, the data you provide (your email address
-          and the content of your message) will be processed for the purpose of
-          handling your enquiry. The legal basis is Art. 6(1)(b) GDPR
-          (pre-contractual measures) or Art. 6(1)(f) GDPR (our legitimate
-          interest in responding to enquiries). This data is deleted once it is
-          no longer required and no statutory retention obligations prevent
-          deletion.
+          and the content of your message) is processed solely to handle your
+          enquiry.
+        </p>
+        <p>
+          Our website also provides a contact form. When you submit it, we
+          process the details you enter, namely your name, email address,
+          optional phone number, the type of service you select, and your
+          message, in order to respond to your enquiry. The legal basis is Art.
+          6(1)(b) GDPR (steps prior to entering a contract) or Art. 6(1)(f) GDPR
+          (our legitimate interest in responding to enquiries).
+        </p>
+        <p>
+          Contact form submissions are delivered to our mailbox on our behalf
+          by <strong>EmailJS</strong> (
+          <a
+            href="https://www.emailjs.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            emailjs.com
+          </a>
+          ), acting as a processor. Where this involves a transfer of data
+          outside the EU/EEA, it is safeguarded by appropriate measures such as
+          the EU Standard Contractual Clauses.
+        </p>
+        <p>
+          This data is deleted once it is no longer required and no statutory
+          retention obligations prevent deletion.
         </p>
 
         <h2>8. Data retention</h2>
