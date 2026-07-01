@@ -3,37 +3,38 @@ import { SITE_URL } from '@/lib/site'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
-  return [
-    { url: SITE_URL, lastModified: now, changeFrequency: 'monthly', priority: 1 },
-    {
-      url: `${SITE_URL}/services`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_URL}/contact`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/legal/imprint`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${SITE_URL}/legal/privacy`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${SITE_URL}/legal/terms`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
+
+  // Marketing pages exist in English (default, unprefixed) and German (/de),
+  // each declaring the other as an hreflang alternate.
+  const bilingual = [
+    { path: '', changeFrequency: 'monthly' as const, priority: 1 },
+    { path: '/services', changeFrequency: 'monthly' as const, priority: 0.9 },
+    { path: '/contact', changeFrequency: 'yearly' as const, priority: 0.8 },
   ]
+
+  const marketing: MetadataRoute.Sitemap = bilingual.flatMap(
+    ({ path, changeFrequency, priority }) => {
+      const en = `${SITE_URL}${path}` || SITE_URL
+      const de = `${SITE_URL}/de${path}`
+      const languages = { en, de }
+      return [
+        { url: en, lastModified: now, changeFrequency, priority, alternates: { languages } },
+        { url: de, lastModified: now, changeFrequency, priority, alternates: { languages } },
+      ]
+    }
+  )
+
+  // Legal pages are English-only for now.
+  const legal: MetadataRoute.Sitemap = [
+    '/legal/imprint',
+    '/legal/privacy',
+    '/legal/terms',
+  ].map((path) => ({
+    url: `${SITE_URL}${path}`,
+    lastModified: now,
+    changeFrequency: 'yearly' as const,
+    priority: 0.3,
+  }))
+
+  return [...marketing, ...legal]
 }

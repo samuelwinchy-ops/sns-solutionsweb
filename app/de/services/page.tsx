@@ -4,25 +4,26 @@ import Footer from '@/components/Footer'
 import Services from '@/components/Services'
 
 export const metadata: Metadata = {
-  title: 'Services',
+  title: 'Leistungen',
   description:
-    "What SNS Solutions does, in plain terms: custom software, AI automation, and AI & IT consulting — the problems we solve and what you get.",
+    'Was SNS Solutions macht, klar erklärt: individuelle Software, KI-Automatisierung und KI- & IT-Beratung — die Probleme, die wir lösen, und was Sie bekommen.',
   alternates: {
-    canonical: '/services',
+    canonical: '/de/services',
     languages: { en: '/services', de: '/de/services', 'x-default': '/services' },
   },
+  openGraph: { locale: 'de_AT' },
 }
 
-export default function ServicesPage() {
+export default function ServicesPageDe() {
   return (
-    <>
-      <Nav />
+    <div lang="de">
+      <Nav locale="de" />
       <main id="services" className="relative px-5 pb-24 pt-32 md:px-10 md:pt-36">
         <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
-          <Services />
+          <Services locale="de" />
         </div>
       </main>
-      <Footer showCta={false} />
-    </>
+      <Footer showCta={false} locale="de" />
+    </div>
   )
 }

@@ -4,25 +4,26 @@ import Footer from '@/components/Footer'
 import ContactContent from '@/components/ContactContent'
 
 export const metadata: Metadata = {
-  title: 'Contact',
+  title: 'Kontakt',
   description:
-    "Start a build with SNS Solutions — custom software, AI automation, and AI & IT consulting. Tell us what you're building and we'll tell you how we'd approach it.",
+    'Starten Sie ein Projekt mit SNS Solutions — individuelle Software, KI-Automatisierung und KI- & IT-Beratung. Sagen Sie uns, was Sie bauen, und wir sagen Ihnen, wie wir es angehen würden.',
   alternates: {
-    canonical: '/contact',
+    canonical: '/de/contact',
     languages: { en: '/contact', de: '/de/contact', 'x-default': '/contact' },
   },
+  openGraph: { locale: 'de_AT' },
 }
 
-export default function ContactPage() {
+export default function ContactPageDe() {
   return (
-    <>
-      <Nav />
+    <div lang="de">
+      <Nav locale="de" />
       <main className="relative px-5 pb-24 pt-32 md:px-10 md:pt-36">
         <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
-          <ContactContent locale="en" />
+          <ContactContent locale="de" />
         </div>
       </main>
-      <Footer showCta={false} />
-    </>
+      <Footer showCta={false} locale="de" />
+    </div>
   )
 }

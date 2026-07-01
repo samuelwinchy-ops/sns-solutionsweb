@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { getDict } from '@/i18n'
+import { type Locale, defaultLocale } from '@/i18n/config'
 
 type Status = 'ACTIVE' | 'SHIPPED' | 'BUILDING' | 'RESEARCH'
 
@@ -105,9 +107,12 @@ function formatUptime(ms: number) {
 
 export default function Terminal({
   entries = defaultEntries,
+  locale = defaultLocale,
 }: {
   entries?: LogEntry[]
+  locale?: Locale
 }) {
+  const tt = getDict(locale).buildLog
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-120px' })
   const [visibleCount, setVisibleCount] = useState(0)
@@ -156,15 +161,12 @@ export default function Terminal({
         <div className="mb-10 max-w-2xl">
           <p className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-sns-indigo">
             <span className="h-px w-8 bg-sns-indigo/50" />
-            build log — current operations
+            {tt.eyebrow}
           </p>
           <h2 className="text-3xl font-bold tracking-[-0.02em] text-sns-text md:text-4xl">
-            What&apos;s running right now.
+            {tt.heading}
           </h2>
-          <p className="mt-4 font-mono text-sm text-sns-muted">
-            Active projects are under NDA. Descriptions are intentionally
-            redacted.
-          </p>
+          <p className="mt-4 font-mono text-sm text-sns-muted">{tt.note}</p>
         </div>
 
         {/* Bloom behind the terminal */}
