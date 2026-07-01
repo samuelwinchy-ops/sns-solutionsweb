@@ -27,11 +27,10 @@ export default function Footer({
     }
   }
 
-  // Legal pages are English-only until the German versions ship; labels localise.
   const legalLinks = [
-    { href: '/legal/imprint', label: t.legal.imprint },
-    { href: '/legal/privacy', label: t.legal.privacy },
-    { href: '/legal/terms', label: t.legal.terms },
+    { href: localePath(locale, '/legal/imprint'), label: t.legal.imprint },
+    { href: localePath(locale, '/legal/privacy'), label: t.legal.privacy },
+    { href: localePath(locale, '/legal/terms'), label: t.legal.terms },
   ]
 
   return (

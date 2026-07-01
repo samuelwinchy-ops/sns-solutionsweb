@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import { getDict } from '@/i18n'
-import { type Locale, defaultLocale } from '@/i18n/config'
+import { type Locale, defaultLocale, localePath } from '@/i18n/config'
 
 // Public by design — EmailJS keys live in the browser. Kept in env so they're
 // configurable per-environment and never hard-coded in the repo.
@@ -260,7 +260,7 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
           <span className="text-sm leading-relaxed text-sns-muted">
             {t.consent.map((seg, i) =>
               seg.link ? (
-                <Link key={i} href="/legal/privacy" className="text-sns-accent underline underline-offset-2 hover:text-sns-cyan">
+                <Link key={i} href={localePath(locale, '/legal/privacy')} className="text-sns-accent underline underline-offset-2 hover:text-sns-cyan">
                   {seg.t}
                 </Link>
               ) : (

@@ -4,6 +4,14 @@ export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
     'How SNS Software Solutions GmbH processes personal data in accordance with the EU General Data Protection Regulation (GDPR).',
+  alternates: {
+    canonical: '/legal/privacy',
+    languages: {
+      en: '/legal/privacy',
+      de: '/de/legal/privacy',
+      'x-default': '/legal/privacy',
+    },
+  },
 }
 
 const UPDATED = 'June 30, 2026'

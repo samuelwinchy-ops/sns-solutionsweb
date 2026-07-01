@@ -24,17 +24,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   )
 
-  // Legal pages are English-only for now.
   const legal: MetadataRoute.Sitemap = [
     '/legal/imprint',
     '/legal/privacy',
     '/legal/terms',
-  ].map((path) => ({
-    url: `${SITE_URL}${path}`,
-    lastModified: now,
-    changeFrequency: 'yearly' as const,
-    priority: 0.3,
-  }))
+  ].flatMap((path) => {
+    const en = `${SITE_URL}${path}`
+    const de = `${SITE_URL}/de${path}`
+    const languages = { en, de }
+    return [
+      { url: en, lastModified: now, changeFrequency: 'yearly' as const, priority: 0.3, alternates: { languages } },
+      { url: de, lastModified: now, changeFrequency: 'yearly' as const, priority: 0.3, alternates: { languages } },
+    ]
+  })
 
   return [...marketing, ...legal]
 }

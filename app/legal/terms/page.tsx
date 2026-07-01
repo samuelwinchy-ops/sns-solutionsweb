@@ -4,6 +4,14 @@ export const metadata: Metadata = {
   title: 'Terms of Use',
   description:
     'Terms governing the use of the SNS Software Solutions GmbH website.',
+  alternates: {
+    canonical: '/legal/terms',
+    languages: {
+      en: '/legal/terms',
+      de: '/de/legal/terms',
+      'x-default': '/legal/terms',
+    },
+  },
 }
 
 const UPDATED = 'June 29, 2026'
