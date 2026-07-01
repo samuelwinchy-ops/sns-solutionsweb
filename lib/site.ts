@@ -1,29 +1,33 @@
 /**
  * Single source of truth for site-wide metadata and the canonical URL.
  *
- * URL resolution order:
- *   1. NEXT_PUBLIC_SITE_URL  — set this to your custom domain in production.
- *   2. VERCEL_PROJECT_PRODUCTION_URL — auto-provided by Vercel (no setup needed).
- *   3. Local placeholder fallback.
- *
- * On Vercel this resolves automatically. If you point a custom domain at the
- * site, set NEXT_PUBLIC_SITE_URL=https://yourdomain.com in the project env so
- * canonical URLs, the sitemap, and social-card image URLs are correct.
+ * Canonical domain is sns-austria.com. It can be overridden per-environment
+ * with NEXT_PUBLIC_SITE_URL (e.g. for a staging domain), but by default every
+ * canonical, sitemap entry, and Open Graph URL points at the real production
+ * domain — never a *.vercel.app URL, which would split indexing.
  */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : 'https://sns-solutions.com')
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://sns-austria.com'
 ).replace(/\/$/, '')
 
 export const SITE = {
   name: 'SNS Solutions',
   legalName: 'SNS Software Solutions GmbH i.G.',
-  title: 'SNS Solutions — AI-powered software studio',
+  title: 'SNS Solutions | Custom Software, AI Automation & Consulting in Vienna',
   description:
-    'AI-powered software studio in Vienna. We build the automation infrastructure that runs your business quietly in the background — you take the credit.',
+    'SNS Solutions is an AI software studio in Vienna building custom software, AI automation, and AI & IT consulting for businesses. Powerful underneath, simple on top.',
   tagline: 'Simplicity is the solution.',
+  email: 'office@sns-austria.com',
+  phone: '+436701922538',
+  foundingDate: '2026',
   locale: 'Vienna, Austria',
+  address: {
+    streetAddress: 'Schrötlgasse 8a',
+    postalCode: '1220',
+    city: 'Vienna',
+    country: 'AT',
+  },
+  founders: ['Samuel Winch', 'Nicholas Pellechi', 'Samson Adefris Belachew'],
+  services: ['Custom Software', 'AI Automation', 'AI & IT Consulting'],
   url: SITE_URL,
 } as const

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
@@ -47,6 +47,13 @@ function validate(data: FormData): Errors {
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>('idle')
   const [errors, setErrors] = useState<Errors>({})
+  const [service, setService] = useState('')
+
+  // Pre-select the service when arriving from a /services CTA (?service=…).
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get('service')
+    if (param && SERVICES.includes(param)) setService(param)
+  }, [])
 
   async function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault()
@@ -91,6 +98,7 @@ export default function ContactForm() {
       })
       setStatus('success')
       form.reset()
+      setService('')
     } catch (err) {
       console.error('EmailJS send failed:', err)
       setStatus('error')
@@ -239,7 +247,11 @@ export default function ContactForm() {
           <select
             id="service"
             name="service"
-            defaultValue=""
+            value={service}
+            onChange={(e) => {
+              setService(e.target.value)
+              clearError('service')
+            }}
             aria-invalid={errors.service ? 'true' : undefined}
             aria-describedby={errors.service ? 'service-error' : undefined}
             className={`${fieldBase} ${errors.service ? bad : ok} appearance-none bg-[length:0] pr-10`}

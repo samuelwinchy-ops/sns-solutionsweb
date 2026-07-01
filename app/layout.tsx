@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: SITE.title,
-    template: '%s — SNS Solutions',
+    template: '%s | SNS Solutions',
   },
   description: SITE.description,
   applicationName: SITE.name,
@@ -66,6 +66,61 @@ export const viewport: Viewport = {
   colorScheme: 'dark',
 }
 
+// Site-wide structured data (Organization / LocalBusiness + WebSite) so search
+// engines and AI answer engines can understand SNS as an entity.
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      '@id': `${SITE_URL}/#organization`,
+      name: SITE.name,
+      legalName: SITE.legalName,
+      url: SITE_URL,
+      email: SITE.email,
+      telephone: SITE.phone,
+      description: SITE.description,
+      slogan: SITE.tagline,
+      foundingDate: SITE.foundingDate,
+      logo: `${SITE_URL}/sns-icon.png`,
+      image: `${SITE_URL}/og.png`,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: SITE.address.streetAddress,
+        postalCode: SITE.address.postalCode,
+        addressLocality: SITE.address.city,
+        addressCountry: SITE.address.country,
+      },
+      areaServed: { '@type': 'Country', name: 'Austria' },
+      founder: SITE.founders.map((name) => ({ '@type': 'Person', name })),
+      knowsAbout: [
+        'Custom software development',
+        'AI automation',
+        'AI agents',
+        'Data pipelines',
+        'IT consulting',
+      ],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Services',
+        itemListElement: SITE.services.map((name) => ({
+          '@type': 'Offer',
+          itemOffered: { '@type': 'Service', name },
+        })),
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: SITE.name,
+      description: SITE.description,
+      inLanguage: 'en',
+      publisher: { '@id': `${SITE_URL}/#organization` },
+    },
+  ],
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -76,6 +131,10 @@ export default function RootLayout({
       <body
         className={`${GeistMono.variable} ${inter.variable} relative min-h-dvh bg-sns-bg font-sans text-sns-text antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
         {/* Interactive neural flow-field — global animated background */}
         <div
           className="pointer-events-none fixed inset-0 z-0"

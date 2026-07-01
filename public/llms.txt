@@ -1,0 +1,25 @@
+# SNS Solutions
+
+> AI software studio in Vienna, Austria. We build custom software and AI automation, and advise on AI & IT. Powerful underneath, simple on top.
+
+SNS Software Solutions GmbH i.G. is based in Vienna, Austria and was founded in 2026 by Samuel Winch, Nicholas Pellechi, and Samson Adefris Belachew. We help businesses replace complexity with software that is powerful underneath and simple to use.
+
+## Services
+
+- **Custom Software**: web apps, mobile apps, internal tools, dashboards, and customer-facing products built around a client's exact workflow.
+- **AI Automation**: document processing, data syncing between systems, and AI agents/pipelines that run reliably in the background.
+- **AI & IT Consulting**: honest strategy, architecture, and hands-on delivery to work out where AI and better systems actually pay off.
+
+## Pages
+
+- Home: https://sns-austria.com/
+- Services: https://sns-austria.com/services
+- Contact: https://sns-austria.com/contact
+- Imprint: https://sns-austria.com/legal/imprint
+- Privacy: https://sns-austria.com/legal/privacy
+
+## Contact
+
+- Email: office@sns-austria.com
+- Phone: +43 670 1922538
+- Address: Schrötlgasse 8a, 1220 Vienna, Austria
