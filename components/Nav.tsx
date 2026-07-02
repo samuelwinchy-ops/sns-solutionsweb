@@ -19,12 +19,21 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
 
   const [active, setActive] = useState<string>('')
   const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Close the mobile menu when resizing up to desktop.
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)')
+    const onChange = () => mq.matches && setOpen(false)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
   }, [])
 
   useEffect(() => {
@@ -46,10 +55,12 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
     return () => observer.disconnect()
   }, [])
 
+  const solid = scrolled || open
+
   return (
     <nav
       className={`fixed inset-x-0 top-0 z-50 h-14 px-5 transition-all duration-500 ease-sns-out md:px-10 ${
-        scrolled
+        solid
           ? 'glass-strong border-b border-white/[0.07] shadow-[0_8px_32px_-12px_rgba(0,0,0,0.6)]'
           : 'border-b border-transparent bg-transparent'
       }`}
@@ -59,6 +70,7 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
           href={home}
           aria-label="SNS Solutions — home"
           className="group flex min-w-0 items-center gap-2.5"
+          onClick={() => setOpen(false)}
         >
           <span className="relative shrink-0">
             <span className="absolute inset-0 rounded-full bg-sns-indigo/30 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
@@ -79,7 +91,8 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
           </span>
         </a>
 
-        <div className="flex shrink-0 items-center gap-1 sm:gap-2 md:gap-3">
+        {/* Desktop nav */}
+        <div className="hidden shrink-0 items-center gap-1 md:flex md:gap-3">
           {links.map((link) => {
             const isActive = active === link.id
             return (
@@ -87,7 +100,7 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
                 key={link.id}
                 href={link.href}
                 aria-current={isActive ? 'true' : undefined}
-                className={`relative flex items-center gap-1.5 rounded-full px-2 py-1.5 font-mono text-[11px] uppercase tracking-widest transition-colors duration-300 md:px-2.5 md:text-xs ${
+                className={`relative flex items-center gap-1.5 rounded-full px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-widest transition-colors duration-300 md:text-xs ${
                   isActive ? 'text-sns-text' : 'text-sns-muted hover:text-sns-accent'
                 }`}
               >
@@ -99,7 +112,7 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
                 )}
                 <span>{link.label}</span>
                 {isActive && (
-                  <span className="absolute inset-x-2 -bottom-px h-px bg-gradient-to-r from-transparent via-sns-indigo to-transparent md:inset-x-2.5" />
+                  <span className="absolute inset-x-2.5 -bottom-px h-px bg-gradient-to-r from-transparent via-sns-indigo to-transparent" />
                 )}
               </a>
             )
@@ -107,30 +120,72 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
 
           <a
             href={localePath(locale, '/contact')}
-            className="group ml-0.5 hidden items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-widest text-sns-text transition-all duration-300 ease-sns-out hover:border-sns-indigo/50 hover:bg-sns-indigo/10 hover:text-white sm:inline-flex"
+            className="group ml-0.5 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-widest text-sns-text transition-all duration-300 ease-sns-out hover:border-sns-indigo/50 hover:bg-sns-indigo/10 hover:text-white md:text-xs"
           >
             {t.contact}
-            <svg
-              width="11"
-              height="11"
-              viewBox="0 0 12 12"
-              fill="none"
-              aria-hidden="true"
-              className="transition-transform duration-300 group-hover:translate-x-0.5"
-            >
-              <path
-                d="M2.5 6h7M6.5 3l3 3-3 3"
-                stroke="currentColor"
-                strokeWidth="1.4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
           </a>
 
           <LanguageToggle />
         </div>
+
+        {/* Mobile: language toggle + hamburger */}
+        <div className="flex items-center gap-1 md:hidden">
+          <LanguageToggle />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            className="ml-1 flex h-9 w-9 items-center justify-center rounded-full text-sns-text transition-colors duration-300 hover:bg-white/[0.06]"
+          >
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              {open ? (
+                <path d="M4 4l10 10M14 4L4 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              ) : (
+                <path d="M2.5 5h13M2.5 9h13M2.5 13h13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
+
+      {/* Mobile menu panel */}
+      {open && (
+        <div
+          id="mobile-menu"
+          className="glass-strong absolute inset-x-0 top-full border-b border-white/[0.07] px-5 pb-5 pt-2 md:hidden"
+        >
+          <div className="mx-auto flex max-w-6xl flex-col">
+            {links.map((link) => {
+              const isActive = active === link.id
+              return (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`flex items-center gap-2 rounded-lg px-3 py-3 font-mono text-sm uppercase tracking-widest transition-colors duration-200 ${
+                    isActive ? 'text-sns-text' : 'text-sns-muted hover:bg-white/[0.04] hover:text-sns-text'
+                  }`}
+                >
+                  {link.live && (
+                    <span className="h-1.5 w-1.5 rounded-full bg-sns-green" aria-hidden="true" />
+                  )}
+                  {link.label}
+                </a>
+              )
+            })}
+            <a
+              href={localePath(locale, '/contact')}
+              onClick={() => setOpen(false)}
+              className="mt-2 flex items-center justify-center gap-1.5 rounded-full border border-white/10 bg-sns-indigo/10 px-4 py-3 font-mono text-sm uppercase tracking-widest text-sns-text transition-colors duration-200 hover:border-sns-indigo/50 hover:bg-sns-indigo/20"
+            >
+              {t.contact}
+            </a>
+          </div>
+        </div>
+      )}
     </nav>
   )
 }
