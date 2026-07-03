@@ -147,6 +147,13 @@ export const en = {
     heading: 'The people behind SNS.',
     intro:
       'Three founders, one standard: if it’s complicated to use, it’s not finished. Here’s who we are.',
+    // Bios are ordered to match the founders list in components/Founders.tsx
+    // (Samuel Winch, Nicholas Pellechi, Samson Belachew).
+    bios: [
+      'Samuel leads SNS’s technical architecture and full-stack delivery. Originally from England and a self-taught engineer with a background in business, he focuses on turning complex requirements into clean, reliable systems. Outside work, he trains Muay Thai.',
+      'Nicholas leads SNS’s client relationships, delivery, and operations. From Switzerland and holding a degree in economics, he focuses on understanding what clients actually need before a line of code is written. Away from the studio, he trains at the gym.',
+      'Samson leads product strategy and sales at SNS. From Ethiopia and holding a degree in psychology, he shapes how SNS’s capabilities meet real market needs — with an eye for the human side of what technology solves. Outside work, he plays football.',
+    ],
   },
   contactPage: {
     eyebrow: 'Get in touch',

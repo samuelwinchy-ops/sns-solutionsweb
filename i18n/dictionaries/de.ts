@@ -145,6 +145,13 @@ export const de: Dictionary = {
     heading: 'Die Menschen hinter SNS.',
     intro:
       'Drei Gründer, ein Anspruch: Wenn es kompliziert zu bedienen ist, ist es nicht fertig. Hier sind wir.',
+    // Reihenfolge wie die Gründerliste in components/Founders.tsx
+    // (Samuel Winch, Nicholas Pellechi, Samson Belachew).
+    bios: [
+      'Samuel verantwortet die technische Architektur und die Full-Stack-Umsetzung bei SNS. Ursprünglich aus England und als autodidaktischer Entwickler mit betriebswirtschaftlichem Hintergrund konzentriert er sich darauf, komplexe Anforderungen in saubere, zuverlässige Systeme zu übersetzen. Außerhalb der Arbeit trainiert er Muay Thai.',
+      'Nicholas verantwortet die Kundenbeziehungen, die Umsetzung und den Betrieb bei SNS. Er kommt aus der Schweiz und hat einen Abschluss in Volkswirtschaftslehre; sein Fokus liegt darauf, zu verstehen, was Kunden wirklich brauchen, bevor eine Zeile Code geschrieben wird. Abseits des Studios trainiert er im Fitnessstudio.',
+      'Samson verantwortet Produktstrategie und Vertrieb bei SNS. Er stammt aus Äthiopien und hat einen Abschluss in Psychologie; er gestaltet, wie die Fähigkeiten von SNS auf reale Marktbedürfnisse treffen — mit einem Blick für die menschliche Seite dessen, was Technologie löst. Außerhalb der Arbeit spielt er Fußball.',
+    ],
   },
   contactPage: {
     eyebrow: 'Kontakt aufnehmen',

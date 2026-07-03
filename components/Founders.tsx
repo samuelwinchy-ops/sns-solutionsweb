@@ -6,32 +6,17 @@ import { type Locale, defaultLocale } from '@/i18n/config'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
-// Founder bios are final, founder-approved copy — kept verbatim (and in English
-// on both locales, exactly as the homepage Team cards hard-code English roles).
-// Do not edit the wording here.
+// Founder names/roles are language-independent; the bios are localized in the
+// dictionaries (i18n/dictionaries) under `teamPage.bios`, ordered to match this
+// list. Keep this order and the bios array in sync.
 //
 // The gradient monogram is a brand-styled placeholder, NOT a real photo. When
 // headshots are available, replace each monogram at the [PLACEHOLDER] marked
 // below — do not substitute stock or generated images for the real founders.
 const founders = [
-  {
-    initials: 'SW',
-    name: 'Samuel Winch',
-    role: 'Co-founder & CTO',
-    bio: 'Samuel leads SNS’s technical architecture and full-stack delivery. Originally from England and a self-taught engineer with a background in business, he focuses on turning complex requirements into clean, reliable systems. Outside work, he trains Muay Thai.',
-  },
-  {
-    initials: 'NP',
-    name: 'Nicholas Pellechi',
-    role: 'Co-founder & CEO',
-    bio: 'Nicholas leads SNS’s client relationships, delivery, and operations. From Switzerland and holding a degree in economics, he focuses on understanding what clients actually need before a line of code is written. Away from the studio, he trains at the gym.',
-  },
-  {
-    initials: 'SB',
-    name: 'Samson Belachew',
-    role: 'Co-founder & CSO',
-    bio: 'Samson leads product strategy and sales at SNS. From Ethiopia and holding a degree in psychology, he shapes how SNS’s capabilities meet real market needs — with an eye for the human side of what technology solves. Outside work, he plays football.',
-  },
+  { initials: 'SW', name: 'Samuel Winch', role: 'Co-founder & CTO' },
+  { initials: 'NP', name: 'Nicholas Pellechi', role: 'Co-founder & CEO' },
+  { initials: 'SB', name: 'Samson Belachew', role: 'Co-founder & CSO' },
 ]
 
 const container: Variants = {
@@ -71,7 +56,7 @@ export default function Founders({
         viewport={{ once: true, margin: '-80px' }}
         className="grid grid-cols-1 gap-5 md:grid-cols-3"
       >
-        {founders.map((founder) => (
+        {founders.map((founder, i) => (
           <motion.article
             key={founder.name}
             variants={item}
@@ -110,7 +95,7 @@ export default function Founders({
             <p className="mt-1 font-mono text-xs uppercase tracking-wider text-sns-indigo">
               {founder.role}
             </p>
-            <p className="mt-4 leading-relaxed text-sns-muted">{founder.bio}</p>
+            <p className="mt-4 leading-relaxed text-sns-muted">{t.bios[i]}</p>
           </motion.article>
         ))}
       </motion.div>
