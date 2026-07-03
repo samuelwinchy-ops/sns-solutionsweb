@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-const UPDATED = 'June 30, 2026'
+const UPDATED = 'July 3, 2026'
 
 export default function PrivacyPage() {
   return (
@@ -72,7 +72,90 @@ export default function PrivacyPage() {
           by the EU Standard Contractual Clauses.
         </p>
 
-        <h2>4. Server log files</h2>
+        <h2>4. Social Media Scheduling Tool (“the App”)</h2>
+        <p>
+          In addition to this website, SNS operates a social media scheduling
+          and publishing tool (“the App”) on behalf of specific business
+          clients, used to schedule, publish, and manage content across the
+          client’s own social media accounts (including Facebook, Instagram,
+          LinkedIn, YouTube, and TikTok).
+        </p>
+
+        <h3>4.1 Data we process on behalf of clients</h3>
+        <p>
+          When a client connects their social media accounts to the App, we
+          process:
+        </p>
+        <ul>
+          <li>
+            Account identifiers and access tokens issued by the relevant
+            platform (Facebook, Instagram, LinkedIn, YouTube, TikTok), used
+            solely to publish content and retrieve engagement data on the
+            client’s behalf.
+          </li>
+          <li>
+            Content created, scheduled, and published by the client’s authorized
+            users through the App.
+          </li>
+          <li>
+            Engagement data returned by the connected platforms (e.g. comments,
+            reactions, views, follower and post statistics).
+          </li>
+          <li>
+            User account information for individuals with App access (name,
+            email, role/permissions).
+          </li>
+        </ul>
+
+        <h3>4.2 Purpose and legal basis</h3>
+        <p>
+          This data is processed solely to provide the scheduling, publishing,
+          approval-workflow, and reporting functions the client has authorized,
+          under a separate written agreement (including a Data Processing
+          Agreement / AVV) with the client. SNS acts as processor on the
+          client’s behalf; the client remains controller of their own social
+          media account data. The legal basis is performance of that agreement
+          (Art. 6(1)(b) GDPR) and our legitimate interest in providing the
+          contracted service (Art. 6(1)(f) GDPR).
+        </p>
+
+        <h3>4.3 Storage and sub-processors</h3>
+        <p>App data is stored and processed within the EU:</p>
+        <ul>
+          <li>Application data and database: Supabase (Frankfurt, Germany)</li>
+          <li>Media storage: Cloudflare R2</li>
+          <li>
+            Application hosting: Vercel (see Section 3 for Vercel’s data
+            handling)
+          </li>
+          <li>Job processing/queuing: Railway</li>
+        </ul>
+        <p>
+          Access tokens are stored encrypted, with access restricted to
+          authorized SNS personnel and logged. We do not sell this data or use
+          it for advertising, and we do not use it to train AI models.
+        </p>
+
+        <h3>4.4 Third-party platforms</h3>
+        <p>
+          Each connected platform (Meta/Facebook/Instagram, LinkedIn,
+          Google/YouTube, TikTok) processes data under its own privacy policy and
+          developer terms. Our use of data obtained through these platforms
+          complies with each platform’s respective developer policies and terms
+          of service.
+        </p>
+
+        <h3>4.5 Data retention and deletion</h3>
+        <p>
+          Client and account data is retained for the duration of the client
+          agreement and deleted within 30 days of account disconnection or
+          contract termination, except where retention is required by law.
+          Clients may request deletion or disconnection at any time by
+          contacting{' '}
+          <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>.
+        </p>
+
+        <h2>5. Server log files</h2>
         <p>
           Our hosting provider automatically collects and stores information in
           server log files that your browser transmits to us. These may
@@ -91,7 +174,7 @@ export default function PrivacyPage() {
           Art. 6(1)(f) GDPR.
         </p>
 
-        <h2>5. Analytics</h2>
+        <h2>6. Analytics</h2>
         <p>
           We use <strong>Vercel Analytics</strong>, a privacy-friendly,
           cookieless analytics service provided by Vercel Inc. It measures
@@ -102,7 +185,7 @@ export default function PrivacyPage() {
           website (Art. 6(1)(f) GDPR).
         </p>
 
-        <h2>6. Cookies</h2>
+        <h2>7. Cookies</h2>
         <p>
           This website does not set tracking or advertising cookies. Only
           technically necessary storage required to display the site may be
@@ -110,7 +193,7 @@ export default function PrivacyPage() {
           banner is required.
         </p>
 
-        <h2>7. Contact (email &amp; contact form)</h2>
+        <h2>8. Contact (email &amp; contact form)</h2>
         <p>
           If you contact us by email, the data you provide (your email address
           and the content of your message) is processed solely to handle your
@@ -143,14 +226,14 @@ export default function PrivacyPage() {
           retention obligations prevent deletion.
         </p>
 
-        <h2>8. Data retention</h2>
+        <h2>9. Data retention</h2>
         <p>
           We store personal data only for as long as necessary for the purposes
           described above or as required by statutory retention periods (e.g.
           under tax and commercial law). After that, the data is deleted.
         </p>
 
-        <h2>9. Your rights</h2>
+        <h2>10. Your rights</h2>
         <p>Under the GDPR you have the right to:</p>
         <ul>
           <li>access to your personal data (Art. 15)</li>
@@ -170,7 +253,7 @@ export default function PrivacyPage() {
           .
         </p>
 
-        <h2>10. Right to lodge a complaint</h2>
+        <h2>11. Right to lodge a complaint</h2>
         <p>
           You have the right to lodge a complaint with a supervisory authority.
           In Austria this is the Austrian Data Protection Authority
@@ -185,7 +268,7 @@ export default function PrivacyPage() {
           .
         </p>
 
-        <h2>11. Changes to this policy</h2>
+        <h2>12. Changes to this policy</h2>
         <p>
           We may update this privacy policy to reflect changes to our practices
           or for legal reasons. The current version is always available on this

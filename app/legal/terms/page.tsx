@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-const UPDATED = 'June 29, 2026'
+const UPDATED = 'July 3, 2026'
 
 export default function TermsPage() {
   return (
@@ -46,7 +46,11 @@ export default function TermsPage() {
         <p>
           These terms cover the use of the website itself. Any provision of
           software development or other services by SNS is governed by a
-          separate written agreement concluded with the respective client.
+          separate written agreement concluded with the respective client. Use
+          of SNS’s social media scheduling application (“the App”) by an
+          authorized client is governed by the separate service agreement and
+          Data Processing Agreement (AVV) between SNS and that client, not by
+          these Terms of Use.
         </p>
 
         <h2>2. Use of the website</h2>
@@ -80,7 +84,21 @@ export default function TermsPage() {
           without our prior written consent.
         </p>
 
-        <h2>4. No warranty</h2>
+        <h2>4. The App</h2>
+        <p>
+          Where SNS provides the social media scheduling application to a client,
+          that client is solely responsible for the content it authorizes the
+          App to publish, and for ensuring it has the rights and permissions
+          necessary to publish that content and to operate the connected social
+          media accounts. SNS acts on the client’s instructions and is not
+          responsible for content decisions made by the client’s authorized
+          users. Use of the App is additionally governed by each connected
+          platform’s own developer terms and policies (Meta, LinkedIn,
+          Google/YouTube, TikTok), and the client is responsible for complying
+          with those terms.
+        </p>
+
+        <h2>5. No warranty</h2>
         <p>
           This website is provided “as is” and “as available”. While we take
           care to keep the information accurate and up to date, we make no
@@ -90,7 +108,7 @@ export default function TermsPage() {
           without notice.
         </p>
 
-        <h2>5. Limitation of liability</h2>
+        <h2>6. Limitation of liability</h2>
         <p>
           To the extent permitted by applicable law, SNS shall not be liable for
           any indirect, incidental, or consequential damages arising from your
@@ -100,7 +118,7 @@ export default function TermsPage() {
           liability for personal injury or for intent and gross negligence.
         </p>
 
-        <h2>6. External links</h2>
+        <h2>7. External links</h2>
         <p>
           This website may contain links to third-party websites. We have no
           control over, and accept no responsibility for, the content,
@@ -108,7 +126,7 @@ export default function TermsPage() {
           sites is at your own risk.
         </p>
 
-        <h2>7. Changes to these terms</h2>
+        <h2>8. Changes to these terms</h2>
         <p>
           We may revise these Terms of Use from time to time. The version
           published on this page at the time of your visit applies. Continued
@@ -116,7 +134,7 @@ export default function TermsPage() {
           terms.
         </p>
 
-        <h2>8. Governing law & jurisdiction</h2>
+        <h2>9. Governing law & jurisdiction</h2>
         <p>
           These Terms of Use are governed by the laws of the Republic of
           Austria, excluding its conflict-of-law rules and the UN Convention on
@@ -126,7 +144,7 @@ export default function TermsPage() {
           the country in which a consumer is resident remain unaffected.
         </p>
 
-        <h2>9. Contact</h2>
+        <h2>10. Contact</h2>
         <p>
           SNS Software Solutions GmbH i.G. — Vienna, Austria
           <br />

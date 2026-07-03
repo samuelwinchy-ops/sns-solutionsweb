@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: { locale: 'de_AT' },
 }
 
-const UPDATED = '29. Juni 2026'
+const UPDATED = '3. Juli 2026'
 
 export default function TermsPageDe() {
   return (
@@ -48,7 +48,11 @@ export default function TermsPageDe() {
           Diese Bedingungen betreffen die Nutzung der Website selbst. Die
           Erbringung von Softwareentwicklung oder anderen Leistungen durch SNS
           richtet sich nach einer gesonderten schriftlichen Vereinbarung mit dem
-          jeweiligen Kunden.
+          jeweiligen Kunden. Die Nutzung der Social-Media-Planungsanwendung von
+          SNS („die App“) durch einen autorisierten Kunden richtet sich nach der
+          gesonderten Dienstleistungsvereinbarung und dem
+          Auftragsverarbeitungsvertrag (AVV) zwischen SNS und diesem Kunden,
+          nicht nach diesen Nutzungsbedingungen.
         </p>
 
         <h2>2. Nutzung der Website</h2>
@@ -88,7 +92,22 @@ export default function TermsPageDe() {
           abgeleitete Werke erstellen.
         </p>
 
-        <h2>4. Keine Gewährleistung</h2>
+        <h2>4. Die App</h2>
+        <p>
+          Soweit SNS einem Kunden die Social-Media-Planungsanwendung
+          bereitstellt, ist dieser Kunde allein verantwortlich für die Inhalte,
+          deren Veröffentlichung er der App gestattet, sowie dafür, dass er über
+          die erforderlichen Rechte und Berechtigungen verfügt, um diese Inhalte
+          zu veröffentlichen und die verbundenen Social-Media-Konten zu
+          betreiben. SNS handelt nach den Weisungen des Kunden und ist nicht
+          verantwortlich für inhaltliche Entscheidungen der autorisierten Nutzer
+          des Kunden. Die Nutzung der App unterliegt zusätzlich den jeweiligen
+          Entwicklerbedingungen und -richtlinien der verbundenen Plattformen
+          (Meta, LinkedIn, Google/YouTube, TikTok), und der Kunde ist für die
+          Einhaltung dieser Bedingungen verantwortlich.
+        </p>
+
+        <h2>5. Keine Gewährleistung</h2>
         <p>
           Diese Website wird „wie besehen“ und „wie verfügbar“ bereitgestellt.
           Wir bemühen uns, die Informationen richtig und aktuell zu halten,
@@ -99,7 +118,7 @@ export default function TermsPageDe() {
           einstellen.
         </p>
 
-        <h2>5. Haftungsbeschränkung</h2>
+        <h2>6. Haftungsbeschränkung</h2>
         <p>
           Soweit nach geltendem Recht zulässig, haftet SNS nicht für indirekte,
           zufällige oder Folgeschäden, die aus Ihrer Nutzung oder
@@ -110,7 +129,7 @@ export default function TermsPageDe() {
           oder für Vorsatz und grobe Fahrlässigkeit.
         </p>
 
-        <h2>6. Externe Links</h2>
+        <h2>7. Externe Links</h2>
         <p>
           Diese Website kann Links zu Websites Dritter enthalten. Wir haben keine
           Kontrolle über die Inhalte, Richtlinien oder Praktiken von Websites
@@ -118,7 +137,7 @@ export default function TermsPageDe() {
           verlinkte Seiten erfolgt auf eigenes Risiko.
         </p>
 
-        <h2>7. Änderungen dieser Bedingungen</h2>
+        <h2>8. Änderungen dieser Bedingungen</h2>
         <p>
           Wir können diese Nutzungsbedingungen von Zeit zu Zeit überarbeiten. Es
           gilt die zum Zeitpunkt Ihres Besuchs auf dieser Seite veröffentlichte
@@ -126,7 +145,7 @@ export default function TermsPageDe() {
           Zustimmung zu den überarbeiteten Bedingungen.
         </p>
 
-        <h2>8. Anwendbares Recht & Gerichtsstand</h2>
+        <h2>9. Anwendbares Recht & Gerichtsstand</h2>
         <p>
           Diese Nutzungsbedingungen unterliegen dem Recht der Republik Österreich
           unter Ausschluss seiner Kollisionsnormen und des UN-Kaufrechts (CISG).
@@ -136,7 +155,7 @@ export default function TermsPageDe() {
           Wohnsitz hat, bleiben unberührt.
         </p>
 
-        <h2>9. Kontakt</h2>
+        <h2>10. Kontakt</h2>
         <p>
           SNS Software Solutions GmbH i.G., Wien, Österreich
           <br />
