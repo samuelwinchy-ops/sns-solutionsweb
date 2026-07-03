@@ -34,15 +34,19 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
   manifest: '/site.webmanifest',
   icons: {
-    // ?v=2 busts aggressive browser favicon caching when the icon changes.
+    // The transparent SVG is declared first so modern browsers use it in the
+    // tab (transparent background). Google Search and older browsers fall back
+    // to the navy raster favicon.ico / PNGs below, keeping a dark-navy icon in
+    // search results. ?v=3 busts aggressive favicon caching after this change.
     icon: [
-      { url: '/favicon.ico?v=2', sizes: 'any' },
-      { url: '/favicon-16x16.png?v=2', type: 'image/png', sizes: '16x16' },
-      { url: '/favicon-32x32.png?v=2', type: 'image/png', sizes: '32x32' },
-      { url: '/android-chrome-192x192.png?v=2', type: 'image/png', sizes: '192x192' },
-      { url: '/android-chrome-512x512.png?v=2', type: 'image/png', sizes: '512x512' },
+      { url: '/icon.svg?v=3', type: 'image/svg+xml' },
+      { url: '/favicon.ico?v=3', sizes: 'any' },
+      { url: '/favicon-16x16.png?v=3', type: 'image/png', sizes: '16x16' },
+      { url: '/favicon-32x32.png?v=3', type: 'image/png', sizes: '32x32' },
+      { url: '/android-chrome-192x192.png?v=3', type: 'image/png', sizes: '192x192' },
+      { url: '/android-chrome-512x512.png?v=3', type: 'image/png', sizes: '512x512' },
     ],
-    apple: [{ url: '/apple-touch-icon.png?v=2', sizes: '180x180' }],
+    apple: [{ url: '/apple-touch-icon.png?v=3', sizes: '180x180' }],
   },
   openGraph: {
     type: 'website',
