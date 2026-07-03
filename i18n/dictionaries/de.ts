@@ -66,6 +66,7 @@ export const de: Dictionary = {
     heading: 'Drei Gründer. Ein Anspruch.',
     note: 'Wenn es kompliziert zu bedienen ist, ist es nicht fertig.',
     building: 'in Arbeit',
+    cta: 'Das Team kennenlernen',
   },
   footer: {
     eyebrow: '> kontakt aufnehmen',
@@ -73,6 +74,7 @@ export const de: Dictionary = {
     sub: 'Sagen Sie uns, was Sie ausbremst. Wir sagen Ihnen, wie wir es automatisieren würden.',
     ctaStart: 'Projekt starten',
     or: 'oder',
+    team: 'Team',
     legal: { imprint: 'Impressum', privacy: 'Datenschutz', terms: 'AGB' },
     status: 'alle Systeme betriebsbereit',
   },
@@ -137,6 +139,12 @@ export const de: Dictionary = {
         cta: 'Beratung anfragen',
       },
     ],
+  },
+  teamPage: {
+    eyebrow: 'Das Team',
+    heading: 'Die Menschen hinter SNS.',
+    intro:
+      'Drei Gründer, ein Anspruch: Wenn es kompliziert zu bedienen ist, ist es nicht fertig. Hier sind wir.',
   },
   contactPage: {
     eyebrow: 'Kontakt aufnehmen',

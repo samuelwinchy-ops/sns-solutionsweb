@@ -129,6 +129,12 @@ export default function Footer({
             SNS Software Solutions GmbH i.G. — Vienna, Austria — 2026
           </p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <Link
+              href={localePath(locale, '/team')}
+              className="font-mono text-xs text-sns-muted transition-colors duration-300 hover:text-sns-accent"
+            >
+              {t.team}
+            </Link>
             {legalLinks.map((l) => (
               <Link
                 key={l.href}

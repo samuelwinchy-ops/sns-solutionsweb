@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const bilingual = [
     { path: '', changeFrequency: 'monthly' as const, priority: 1 },
     { path: '/services', changeFrequency: 'monthly' as const, priority: 0.9 },
+    { path: '/team', changeFrequency: 'monthly' as const, priority: 0.7 },
     { path: '/contact', changeFrequency: 'yearly' as const, priority: 0.8 },
   ]
 

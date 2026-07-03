@@ -68,6 +68,7 @@ export const en = {
     heading: 'Three founders. One standard.',
     note: "If it's complicated to use, it's not finished.",
     building: 'building',
+    cta: 'Meet the team',
   },
   footer: {
     eyebrow: '> get in touch',
@@ -75,6 +76,7 @@ export const en = {
     sub: "Tell us what's slowing you down. We'll tell you how we'd automate it.",
     ctaStart: 'Start a build',
     or: 'or',
+    team: 'Team',
     legal: { imprint: 'Imprint', privacy: 'Privacy', terms: 'Terms' },
     status: 'all systems operational',
   },
@@ -139,6 +141,12 @@ export const en = {
         cta: 'Get advice',
       },
     ],
+  },
+  teamPage: {
+    eyebrow: 'The team',
+    heading: 'The people behind SNS.',
+    intro:
+      'Three founders, one standard: if it’s complicated to use, it’s not finished. Here’s who we are.',
   },
   contactPage: {
     eyebrow: 'Get in touch',
