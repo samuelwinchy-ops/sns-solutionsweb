@@ -24,7 +24,7 @@ const founders = [
     initials: 'NP',
     name: 'Nicholas Pellechi',
     role: 'Co-founder & CEO',
-    bio: 'Nicholas leads SNS’s client relationships, delivery, and operations. From Switzerland and holding a degree in economics, he focuses on understanding what clients actually need before a line of code is written. Away from the studio, he’s a footballer.',
+    bio: 'Nicholas leads SNS’s client relationships, delivery, and operations. From Switzerland and holding a degree in economics, he focuses on understanding what clients actually need before a line of code is written. Away from the studio, he trains at the gym.',
   },
   {
     initials: 'SB',
