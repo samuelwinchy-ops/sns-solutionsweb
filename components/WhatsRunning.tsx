@@ -7,11 +7,11 @@ import ScanReveal from './ScanReveal'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
-// Three redacted systems standing in for SNS's active (NDA'd) projects.
+// SNS's active product lines. Names are shown; per-project details stay NDA'd.
 const SYSTEMS = [
-  { tag: 'PIPELINE', width: '10rem' },
-  { tag: 'INTEGRATION', width: '13rem' },
-  { tag: 'AGENT', width: '9rem' },
+  { tag: 'PROPTECH', name: 'Prop Tech Agents' },
+  { tag: 'HVAC', name: 'HVAC Agents' },
+  { tag: 'WORKFLOW', name: 'End-to-End Workflow Agents' },
 ]
 
 const words: Variants = {
@@ -106,7 +106,7 @@ export default function WhatsRunning({ locale = defaultLocale }: { locale?: Loca
                 </p>
               </div>
 
-              {/* Right — redacted system cards */}
+              {/* Right — active product cards (names shown, details redacted) */}
               <div className="flex flex-col gap-3">
                 {SYSTEMS.map((s) => (
                   <motion.div
@@ -119,19 +119,12 @@ export default function WhatsRunning({ locale = defaultLocale }: { locale?: Loca
                         <span className="h-1.5 w-1.5 rounded-full bg-sns-green" />
                         {s.tag}
                       </div>
-                      <span
-                        className="mt-2.5 block h-3.5 rounded"
-                        style={{
-                          width: s.width,
-                          maxWidth: '100%',
-                          background:
-                            'linear-gradient(90deg, rgba(139,92,246,0.22), rgba(34,211,238,0.18))',
-                        }}
-                        aria-label={t.note}
-                      />
+                      <p className="mt-2 text-base font-semibold leading-snug tracking-[-0.01em] text-sns-text">
+                        {s.name}
+                      </p>
                       <span
                         aria-hidden="true"
-                        className="mt-2 block h-3 w-24 max-w-full rounded"
+                        className="mt-2.5 block h-3 w-24 max-w-full rounded"
                         style={{
                           background:
                             'linear-gradient(90deg, rgba(139,92,246,0.22), rgba(34,211,238,0.18))',
