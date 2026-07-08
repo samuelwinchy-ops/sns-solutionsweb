@@ -41,7 +41,7 @@ export default function PrivacyPage() {
           The controller responsible for data processing on this website is:
         </p>
         <p>
-          <strong>SNS Software Solutions GmbH i.G. (in formation)</strong>
+          <strong>SNS Software Solutions GmbH</strong>
           <br />
           Schrötlgasse 8a, 1220 Vienna, Austria
           <br />

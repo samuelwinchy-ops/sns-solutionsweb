@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Impressum',
   description:
-    'Offenlegung (Impressum) der SNS Software Solutions GmbH i.G. gemäß §5 ECG und §25 MedienG.',
+    'Offenlegung (Impressum) der SNS Software Solutions GmbH gemäß §5 ECG und §25 MedienG.',
   alternates: {
     canonical: '/de/legal/imprint',
     languages: {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: { locale: 'de_AT' },
 }
 
-const UPDATED = '29. Juni 2026'
+const UPDATED = '8. Juli 2026'
 
 export default function ImprintPageDe() {
   return (
@@ -39,7 +39,7 @@ export default function ImprintPageDe() {
       <div className="legal-prose">
         <h2>Medieninhaber & Betreiber</h2>
         <p>
-          <strong>SNS Software Solutions GmbH i.G. (in Gründung)</strong>
+          <strong>SNS Software Solutions GmbH</strong>
           <br />
           Schrötlgasse 8a
           <br />
@@ -59,7 +59,7 @@ export default function ImprintPageDe() {
 
         <h2>Firmenbuch</h2>
         <p>
-          Firmenbuchnummer: ausstehend, Unternehmen in Gründung
+          Firmenbuchnummer: FN 683051
           <br />
           Firmenbuchgericht: Handelsgericht Wien
           <br />

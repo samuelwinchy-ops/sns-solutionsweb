@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-const UPDATED = 'June 29, 2026'
+const UPDATED = 'July 8, 2026'
 
 export default function ImprintPage() {
   return (
@@ -38,7 +38,7 @@ export default function ImprintPage() {
       <div className="legal-prose">
         <h2>Media owner & operator</h2>
         <p>
-          <strong>SNS Software Solutions GmbH i.G. (in formation)</strong>
+          <strong>SNS Software Solutions GmbH</strong>
           <br />
           Schrötlgasse 8a
           <br />
@@ -62,8 +62,7 @@ export default function ImprintPage() {
 
         <h2>Company register</h2>
         <p>
-          Commercial register number (Firmenbuchnummer): pending — company
-          in formation
+          Commercial register number (Firmenbuchnummer): FN 683051
           <br />
           Register court (Firmenbuchgericht): Handelsgericht Wien
           <br />

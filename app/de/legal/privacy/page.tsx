@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Datenschutz',
   description:
-    'Wie SNS Software Solutions GmbH i.G. personenbezogene Daten gemäß der EU-Datenschutz-Grundverordnung (DSGVO) verarbeitet.',
+    'Wie SNS Software Solutions GmbH personenbezogene Daten gemäß der EU-Datenschutz-Grundverordnung (DSGVO) verarbeitet.',
   alternates: {
     canonical: '/de/legal/privacy',
     languages: {
@@ -40,7 +40,7 @@ export default function PrivacyPageDe() {
         <h2>1. Verantwortlicher</h2>
         <p>Verantwortlicher für die Datenverarbeitung auf dieser Website ist:</p>
         <p>
-          <strong>SNS Software Solutions GmbH i.G. (in Gründung)</strong>
+          <strong>SNS Software Solutions GmbH</strong>
           <br />
           Schrötlgasse 8a, 1220 Wien, Österreich
           <br />

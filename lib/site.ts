@@ -14,7 +14,7 @@ export const SITE_URL = (
 
 export const SITE = {
   name: 'SNS Solutions',
-  legalName: 'SNS Software Solutions GmbH i.G.',
+  legalName: 'SNS Software Solutions GmbH',
   title: 'SNS Solutions | Custom Software, AI Automation & Consulting in Vienna',
   description:
     'SNS Solutions is an AI software studio in Vienna building custom software, AI automation, and AI & IT consulting for businesses. Powerful underneath, simple on top.',
