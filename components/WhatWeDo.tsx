@@ -5,8 +5,17 @@ import { motion, type Variants } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import GlowCard from './GlowCard'
 
 const EASE = [0.16, 1, 0.3, 1] as const
+
+type GlowColor = 'indigo' | 'cyan' | 'violet'
+// Accent hue + matching hex, one per card, across the site's indigo→cyan→violet spectrum.
+const ACCENTS: { glow: GlowColor; hex: string }[] = [
+  { glow: 'indigo', hex: '#818CF8' },
+  { glow: 'cyan', hex: '#22D3EE' },
+  { glow: 'violet', hex: '#8B5CF6' },
+]
 
 const icons: ReactNode[] = [
   (
@@ -63,34 +72,33 @@ export default function WhatWeDo({ locale = defaultLocale }: { locale?: Locale }
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
-          className="flex flex-col gap-4"
+          className="grid grid-cols-1 gap-5 md:grid-cols-3"
         >
-          {t.items.map((entry, i) => (
-            <motion.article
-              key={i}
-              variants={item}
-              className="group relative grid grid-cols-[auto_1fr] items-start gap-5 overflow-hidden rounded-sns border border-white/[0.07] bg-white/[0.015] p-6 transition-all duration-500 ease-sns-out hover:border-sns-indigo/30 hover:bg-white/[0.03] hover:glow-blue md:grid-cols-[auto_auto_1fr] md:items-center md:gap-8 md:p-8"
-            >
-              <span className="absolute inset-y-0 left-0 w-0.5 origin-top scale-y-0 bg-gradient-to-b from-sns-indigo to-sns-cyan transition-transform duration-500 ease-sns-out group-hover:scale-y-100" />
+          {t.items.map((entry, i) => {
+            const accent = ACCENTS[i % ACCENTS.length]
+            return (
+              <motion.div key={i} variants={item}>
+                <GlowCard glowColor={accent.glow} className="h-full p-7 md:p-8">
+                  <div className="flex items-center justify-between">
+                    <span
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-white/10 bg-sns-surface-2"
+                      style={{ color: accent.hex }}
+                    >
+                      {icons[i]}
+                    </span>
+                    <span className="font-mono text-sm text-sns-faint">0{i + 1}</span>
+                  </div>
 
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-white/10 bg-sns-surface text-sns-accent transition-all duration-500 ease-sns-out group-hover:border-sns-indigo/40 group-hover:bg-sns-indigo/10 group-hover:text-sns-cyan">
-                {icons[i]}
-              </div>
-
-              <span className="hidden font-mono text-sm text-sns-faint transition-colors duration-300 group-hover:text-sns-indigo md:block">
-                0{i + 1}
-              </span>
-
-              <div className="min-w-0">
-                <p className="text-lg font-semibold leading-snug text-sns-text md:text-xl">
-                  {entry.main}
-                </p>
-                <p className="mt-2 max-w-2xl font-mono text-sm leading-relaxed text-sns-muted">
-                  {entry.sub}
-                </p>
-              </div>
-            </motion.article>
-          ))}
+                  <p className="mt-6 text-lg font-semibold leading-snug text-sns-text">
+                    {entry.main}
+                  </p>
+                  <p className="mt-3 font-mono text-sm leading-relaxed text-sns-muted">
+                    {entry.sub}
+                  </p>
+                </GlowCard>
+              </motion.div>
+            )
+          })}
         </motion.div>
 
         <div className="mt-10">

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import WhatWeDo from '@/components/WhatWeDo'
-import Terminal from '@/components/Terminal'
+import WhatsRunning from '@/components/WhatsRunning'
 import Team from '@/components/Team'
 import Footer from '@/components/Footer'
 import ScrollProgress from '@/components/ScrollProgress'
@@ -30,7 +30,7 @@ export default function HomeDe() {
       <main>
         <Hero locale="de" />
         <WhatWeDo locale="de" />
-        <Terminal locale="de" />
+        <WhatsRunning locale="de" />
         <Team locale="de" />
       </main>
       <Footer locale="de" />

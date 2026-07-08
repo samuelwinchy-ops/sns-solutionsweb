@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import WhatWeDo from '@/components/WhatWeDo'
-import Terminal from '@/components/Terminal'
+import WhatsRunning from '@/components/WhatsRunning'
 import Team from '@/components/Team'
 import Footer from '@/components/Footer'
 import ScrollProgress from '@/components/ScrollProgress'
@@ -24,7 +24,7 @@ export default function Home() {
       <main>
         <Hero />
         <WhatWeDo />
-        <Terminal />
+        <WhatsRunning />
         <Team />
       </main>
       <Footer />

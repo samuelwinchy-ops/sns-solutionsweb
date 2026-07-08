@@ -62,6 +62,8 @@ export const en = {
     eyebrow: 'build log — current operations',
     heading: "What's running right now.",
     note: 'Active projects are under NDA. Descriptions are intentionally redacted.',
+    live: 'Live systems',
+    operational: 'operational',
   },
   team: {
     eyebrow: 'the team',

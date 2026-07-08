@@ -60,6 +60,8 @@ export const de: Dictionary = {
     eyebrow: 'build-log — aktuelle projekte',
     heading: 'Was gerade läuft.',
     note: 'Aktive Projekte unterliegen einer Geheimhaltung. Beschreibungen sind bewusst geschwärzt.',
+    live: 'Live-Systeme',
+    operational: 'in Betrieb',
   },
   team: {
     eyebrow: 'das team',
