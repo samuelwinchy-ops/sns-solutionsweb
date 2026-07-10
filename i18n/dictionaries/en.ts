@@ -21,9 +21,9 @@ export const en = {
       { t: 'An AI software studio in Vienna. We build ' },
       { t: 'custom software', strong: true },
       { t: ' and ' },
-      { t: 'AI automation', strong: true },
+      { t: 'AI agents', strong: true },
       {
-        t: ', from the systems running quietly in the background to the tools your team uses every day. We also advise on the ',
+        t: ' that automate the work — from the systems running quietly in the background to the tools your team uses every day. We also advise on the ',
       },
       { t: 'AI & IT', strong: true },
       { t: ' behind them.' },
@@ -35,7 +35,7 @@ export const en = {
     panelStatus: 'available',
     services: [
       { name: 'Custom Software', desc: 'Web, mobile & internal tools, built to fit.' },
-      { name: 'AI Automation', desc: 'Pipelines & agents that remove the busywork.' },
+      { name: 'AI Agents', desc: 'Agents & pipelines that remove the busywork.' },
       { name: 'AI & IT Consulting', desc: 'Strategy, architecture & hands-on delivery.' },
     ],
   },
@@ -111,7 +111,7 @@ export const en = {
         cta: 'Start a custom build',
       },
       {
-        name: 'AI Automation',
+        name: 'AI Agents',
         tagline: 'Let the repetitive work run itself.',
         problem:
           'Your team loses hours every week to repetitive work: copying data between systems, processing documents by hand, chasing updates. It is slow, easy to get wrong, and it does not scale as you grow.',
@@ -161,7 +161,7 @@ export const en = {
     eyebrow: 'Get in touch',
     heading: "Tell us what you're building.",
     intro:
-      "Custom software, AI automation, or AI & IT consulting: tell us what's slowing you down and we'll tell you how we'd approach it. We read every message.",
+      "Custom software, AI agents, or AI & IT consulting: tell us what's slowing you down and we'll tell you how we'd approach it. We read every message.",
     details: {
       email: 'Email',
       basedIn: 'Based in',
@@ -171,7 +171,7 @@ export const en = {
     },
   },
   contactForm: {
-    services: ['Custom Software', 'AI Automation', 'AI & IT Consulting', 'Something else'],
+    services: ['Custom Software', 'AI Agents', 'AI & IT Consulting', 'Something else'],
     name: 'Name',
     email: 'Email',
     phone: 'Phone',

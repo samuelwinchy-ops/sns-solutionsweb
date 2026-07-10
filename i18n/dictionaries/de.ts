@@ -19,9 +19,9 @@ export const de: Dictionary = {
       { t: 'Ein KI-Software-Studio in Wien. Wir entwickeln ' },
       { t: 'individuelle Software', strong: true },
       { t: ' und ' },
-      { t: 'KI-Automatisierung', strong: true },
+      { t: 'KI-Agenten', strong: true },
       {
-        t: ', von Systemen, die unbemerkt im Hintergrund laufen, bis zu den Werkzeugen, die Ihr Team täglich nutzt. Wir beraten Sie außerdem zur ',
+        t: ', die die Arbeit automatisieren — von Systemen, die unbemerkt im Hintergrund laufen, bis zu den Werkzeugen, die Ihr Team täglich nutzt. Wir beraten Sie außerdem zur ',
       },
       { t: 'KI & IT', strong: true },
       { t: ' dahinter.' },
@@ -33,7 +33,7 @@ export const de: Dictionary = {
     panelStatus: 'verfügbar',
     services: [
       { name: 'Individuelle Software', desc: 'Web-, Mobile- & interne Tools, passgenau gebaut.' },
-      { name: 'KI-Automatisierung', desc: 'Pipelines & Agenten, die Routinearbeit abnehmen.' },
+      { name: 'KI-Agenten', desc: 'Agenten & Pipelines, die Routinearbeit abnehmen.' },
       { name: 'KI- & IT-Beratung', desc: 'Strategie, Architektur & praktische Umsetzung.' },
     ],
   },
@@ -109,7 +109,7 @@ export const de: Dictionary = {
         cta: 'Individuelle Lösung starten',
       },
       {
-        name: 'KI-Automatisierung',
+        name: 'KI-Agenten',
         tagline: 'Lassen Sie die Routinearbeit sich selbst erledigen.',
         problem:
           'Ihr Team verliert jede Woche Stunden an Routinearbeit: Daten zwischen Systemen kopieren, Dokumente von Hand bearbeiten, Updates hinterherlaufen. Das ist langsam, fehleranfällig und skaliert nicht, wenn Sie wachsen.',
@@ -159,7 +159,7 @@ export const de: Dictionary = {
     eyebrow: 'Kontakt aufnehmen',
     heading: 'Erzählen Sie uns, was Sie bauen.',
     intro:
-      'Individuelle Software, KI-Automatisierung oder KI- & IT-Beratung: Sagen Sie uns, was Sie ausbremst, und wir sagen Ihnen, wie wir es angehen würden. Wir lesen jede Nachricht.',
+      'Individuelle Software, KI-Agenten oder KI- & IT-Beratung: Sagen Sie uns, was Sie ausbremst, und wir sagen Ihnen, wie wir es angehen würden. Wir lesen jede Nachricht.',
     details: {
       email: 'E-Mail',
       basedIn: 'Standort',
@@ -169,7 +169,7 @@ export const de: Dictionary = {
     },
   },
   contactForm: {
-    services: ['Individuelle Software', 'KI-Automatisierung', 'KI- & IT-Beratung', 'Etwas anderes'],
+    services: ['Individuelle Software', 'KI-Agenten', 'KI- & IT-Beratung', 'Etwas anderes'],
     name: 'Name',
     email: 'E-Mail',
     phone: 'Telefon',
