@@ -38,7 +38,7 @@ export default function TermsPage() {
         <h2>1. Scope</h2>
         <p>
           These Terms of Use govern your access to and use of the website
-          operated by <strong>SNS Software Solutions GmbH i.G.</strong> (“SNS”,
+          operated by <strong>SNS Software Solutions GmbH</strong> (“SNS”,
           “we”,
           “us”). By accessing or using this website, you agree to these terms.
           If you do not agree, please do not use the website.
@@ -146,7 +146,7 @@ export default function TermsPage() {
 
         <h2>10. Contact</h2>
         <p>
-          SNS Software Solutions GmbH i.G. — Vienna, Austria
+          SNS Software Solutions GmbH — Vienna, Austria
           <br />
           Email:{' '}
           <a href="mailto:office@sns-austria.com">

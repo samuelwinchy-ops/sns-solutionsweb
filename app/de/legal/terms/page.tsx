@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Nutzungsbedingungen',
   description:
-    'Die Bedingungen für die Nutzung der Website der SNS Software Solutions GmbH i.G.',
+    'Die Bedingungen für die Nutzung der Website der SNS Software Solutions GmbH',
   alternates: {
     canonical: '/de/legal/terms',
     languages: {
@@ -39,7 +39,7 @@ export default function TermsPageDe() {
         <h2>1. Geltungsbereich</h2>
         <p>
           Diese Nutzungsbedingungen regeln Ihren Zugriff auf und die Nutzung der
-          Website, die von <strong>SNS Software Solutions GmbH i.G.</strong>{' '}
+          Website, die von <strong>SNS Software Solutions GmbH</strong>{' '}
           („SNS“, „wir“, „uns“) betrieben wird. Durch den Zugriff auf oder die
           Nutzung dieser Website stimmen Sie diesen Bedingungen zu. Wenn Sie
           nicht einverstanden sind, nutzen Sie die Website bitte nicht.
@@ -157,7 +157,7 @@ export default function TermsPageDe() {
 
         <h2>10. Kontakt</h2>
         <p>
-          SNS Software Solutions GmbH i.G., Wien, Österreich
+          SNS Software Solutions GmbH, Wien, Österreich
           <br />
           E-Mail:{' '}
           <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>

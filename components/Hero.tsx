@@ -1,6 +1,7 @@
 'use client'
 
 import { motion, type Variants } from 'framer-motion'
+import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath, SLOGAN } from '@/i18n/config'
 
@@ -125,6 +126,7 @@ export default function Hero({ locale = defaultLocale }: { locale?: Locale }) {
           >
             <a
               href={localePath(locale, '/contact')}
+              onClick={() => track('hero_start_build')}
               className="group inline-flex items-center gap-2 rounded-full bg-sns-indigo px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
             >
               {t.ctaStart}
@@ -146,10 +148,27 @@ export default function Hero({ locale = defaultLocale }: { locale?: Locale }) {
               </svg>
             </a>
             <a
-              href={`${localePath(locale, '/')}#build-log`}
-              className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.02] px-5 py-3 font-mono text-sm text-sns-text transition-all duration-300 ease-sns-out hover:border-white/25 hover:bg-white/[0.05] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
+              href={localePath(locale, '/solutions')}
+              onClick={() => track('hero_view_solutions')}
+              className="group inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.02] px-5 py-3 font-mono text-sm text-sns-text transition-all duration-300 ease-sns-out hover:border-white/25 hover:bg-white/[0.05] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
             >
-              <span className="text-sns-green">●</span> {t.ctaBuildLog}
+              {t.ctaSolutions}
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                aria-hidden="true"
+                className="transition-transform duration-300 ease-sns-out group-hover:translate-x-1"
+              >
+                <path
+                  d="M3 7h8M7.5 3.5 11 7l-3.5 3.5"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </a>
           </motion.div>
         </div>

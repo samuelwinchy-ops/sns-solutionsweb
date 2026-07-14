@@ -7,6 +7,26 @@ import { type Locale, defaultLocale, localePath } from '@/i18n/config'
 
 const EMAIL = 'office@sns-austria.com'
 
+const SOCIALS = {
+  linkedin: 'https://www.linkedin.com/company/sns-solutionswien/',
+  instagram: 'https://www.instagram.com/sns_solutions_/',
+}
+
+const socialIcons: Record<keyof typeof SOCIALS, JSX.Element> = {
+  linkedin: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M6.94 5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0zM3.4 8.4h3.1V21H3.4V8.4zM9.2 8.4h2.97v1.72h.04c.41-.78 1.42-1.6 2.93-1.6 3.13 0 3.71 2.06 3.71 4.74V21h-3.1v-5.36c0-1.28-.02-2.92-1.78-2.92-1.78 0-2.05 1.39-2.05 2.83V21H9.2V8.4z" />
+    </svg>
+  ),
+  instagram: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="12" cy="12" r="3.7" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="17" cy="7" r="1.1" fill="currentColor" />
+    </svg>
+  ),
+}
+
 export default function Footer({
   locale = defaultLocale,
   showCta = true,
@@ -125,9 +145,25 @@ export default function Footer({
 
         <div className={`${showCta ? 'mt-12' : ''} hairline-shimmer h-px w-full`} />
         <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <p className="font-mono text-xs text-sns-faint">
-            SNS Software Solutions GmbH i.G. — Vienna, Austria — 2026
-          </p>
+          <div className="flex items-center gap-5">
+            <p className="font-mono text-xs text-sns-faint">
+              SNS Software Solutions GmbH — Vienna, Austria — 2026
+            </p>
+            <div className="flex items-center gap-2">
+              {(Object.keys(SOCIALS) as (keyof typeof SOCIALS)[]).map((key) => (
+                <a
+                  key={key}
+                  href={SOCIALS[key]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`SNS Solutions on ${key === 'linkedin' ? 'LinkedIn' : 'Instagram'}`}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-sns-muted transition-all duration-300 ease-sns-out hover:border-sns-indigo/50 hover:bg-sns-indigo/10 hover:text-sns-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
+                >
+                  {socialIcons[key]}
+                </a>
+              ))}
+            </div>
+          </div>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <Link
               href={localePath(locale, '/team')}

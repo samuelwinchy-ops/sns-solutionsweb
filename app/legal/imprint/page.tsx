@@ -66,7 +66,7 @@ export default function ImprintPage() {
           <br />
           Register court (Firmenbuchgericht): Handelsgericht Wien
           <br />
-          VAT identification number (UID): pending — company in formation
+          VAT identification number (UID): pending assignment
         </p>
 
         <h2>Trade authority & applicable regulations</h2>

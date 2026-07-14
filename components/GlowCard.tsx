@@ -86,8 +86,9 @@ export default function GlowCard({
         } as React.CSSProperties
       }
       className={
-        'group relative overflow-hidden rounded-sns border border-white/[0.08] ' +
-        'bg-sns-surface transition-colors duration-500 ease-sns-out ' +
+        'group relative overflow-hidden rounded-sns border border-white/[0.1] ' +
+        'bg-sns-surface-2 shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_24px_48px_-28px_rgba(0,0,0,0.75)] ' +
+        'transition-colors duration-500 ease-sns-out ' +
         className
       }
       {...props}
@@ -102,10 +103,10 @@ export default function GlowCard({
             'radial-gradient(300px circle at var(--glow-x) var(--glow-y), hsl(var(--glow-hue) 90% 65% / calc(0.18 * var(--glow-intensity))), transparent 62%)',
         }}
       />
-      {/* hover ring — border lights up in the accent hue */}
+      {/* accent ring — faint at rest so cards read as cards, full on hover */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 rounded-sns opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 z-0 rounded-sns opacity-30 transition-opacity duration-500 group-hover:opacity-100"
         style={{ boxShadow: 'inset 0 0 0 1px hsl(var(--glow-hue) 85% 70% / 0.45)' }}
       />
       {/* static top-edge sheen */}

@@ -63,8 +63,7 @@ export default function ImprintPageDe() {
           <br />
           Firmenbuchgericht: Handelsgericht Wien
           <br />
-          Umsatzsteuer-Identifikationsnummer (UID): ausstehend, Unternehmen in
-          Gründung
+          Umsatzsteuer-Identifikationsnummer (UID): wird zugewiesen
         </p>
 
         <h2>Gewerbebehörde & anwendbare Vorschriften</h2>

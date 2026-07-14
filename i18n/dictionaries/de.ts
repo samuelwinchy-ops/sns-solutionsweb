@@ -6,7 +6,8 @@ import type { Dictionary } from './en'
 export const de: Dictionary = {
   nav: {
     home: 'start',
-    services: 'leistungen',
+    services: 'maßarbeit',
+    solutions: 'produkte',
     buildLog: 'build-log',
     team: 'team',
     contact: 'kontakt',
@@ -28,7 +29,7 @@ export const de: Dictionary = {
     ],
     closer: 'Wir übernehmen den schwierigen Teil. Sie ernten den Erfolg.',
     ctaStart: 'Projekt starten',
-    ctaBuildLog: 'Build-Log ansehen',
+    ctaSolutions: 'Produkte ansehen',
     panelHeader: '~/sns — leistungen',
     panelStatus: 'verfügbar',
     services: [
@@ -36,6 +37,12 @@ export const de: Dictionary = {
       { name: 'KI-Agenten', desc: 'Agenten & Pipelines, die Routinearbeit abnehmen.' },
       { name: 'KI- & IT-Beratung', desc: 'Strategie, Architektur & praktische Umsetzung.' },
     ],
+  },
+  homeFocus: {
+    eyebrow: 'Für wen wir bauen',
+    heading: 'Maßgeschneidert für HLK und Immobilien.',
+    sub: 'Wir gehen in zwei Branchen in die Tiefe — die Sprache, die Abläufe, die Realität nach Feierabend —, damit unsere Produkte zu Ihrer Arbeitsweise passen.',
+    cta: 'Produkte entdecken',
   },
   whatWeDo: {
     eyebrow: 'was wir tun',
@@ -54,7 +61,7 @@ export const de: Dictionary = {
         sub: 'Wir nutzen, was wir bauen. Das hält uns ehrlich.',
       },
     ],
-    seeAll: 'Alle Leistungen im Detail ansehen',
+    seeAll: 'Alle Maßarbeiten ansehen',
   },
   buildLog: {
     eyebrow: 'build-log — aktuelle projekte',
@@ -81,7 +88,7 @@ export const de: Dictionary = {
     status: 'alle Systeme betriebsbereit',
   },
   servicesPage: {
-    eyebrow: 'Leistungen',
+    eyebrow: 'Maßarbeit',
     heading: 'Was wir tun, klar erklärt.',
     intro:
       'Drei Leistungen, ein Ziel: etwas Komplexes nehmen und einfach im Betrieb machen. Hier steht, was jede bedeutet und was Sie bekommen.',
@@ -200,6 +207,183 @@ export const de: Dictionary = {
       message: 'Bitte etwas ausführlicher, mindestens 10 Zeichen.',
       consent: 'Bitte stimmen Sie vor dem Senden zu.',
       send: 'Beim Senden ist etwas schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an',
+    },
+  },
+  solutionsPage: {
+    eyebrow: 'Produkte',
+    heading: 'KI, die antwortet, qualifiziert und keinen Lead verliert.',
+    intro:
+      'Fertige Agenten, die Sie echten Kunden vorsetzen können — beginnend mit einer KI-Rezeption für Handwerk und Immobilien. Gebaut für den DACH-Markt, auf Deutsch und Englisch.',
+    product: {
+      tag: 'Live-Produkt',
+      name: 'KI-Rezeption',
+      positioning: 'Nie wieder einen Lead verpassen — auch um 23 Uhr.',
+      lead:
+        'Eine KI-Rezeption, die jede eingehende Anfrage sofort beantwortet, sie anhand Ihrer Kriterien qualifiziert und die guten an Ihr Team übergibt — rund um die Uhr, auf Deutsch und Englisch.',
+    },
+    audienceLabel: 'Wählen Sie Ihre Branche — die Rezeption passt sich an',
+    audiences: {
+      hvac: {
+        key: 'hvac',
+        label: 'HLK / SHK',
+        descriptor: 'Heizung · Sanitär · Installation',
+        blurb:
+          'Für Heizungs-, Sanitär- und Installationsbetriebe, die in Anfragen außerhalb der Geschäftszeiten untergehen.',
+        qualifiers: [
+          'Erfasst Auftragsart, Gebäudealter und aktuelles System',
+          'Erkennt förderfähige Wärmepumpen-Sanierungen',
+          'Leitet dringende Ausfälle direkt an die Disposition',
+        ],
+      },
+      realEstate: {
+        key: 'realEstate',
+        label: 'Immobilien',
+        descriptor: 'Verkauf · Vermietung · Vermittlung',
+        blurb:
+          'Für Maklerbüros, die Käufer und Verkäufer an den verlieren, der zuerst antwortet.',
+        qualifiers: [
+          'Erfasst Budget, Lage und Kauf- oder Verkaufsabsicht',
+          'Trennt ernsthafte Käufer von bloßen Interessenten',
+          'Leitet qualifizierte Leads sofort an den richtigen Makler',
+        ],
+      },
+    },
+    featuresLabel: 'Was sie leistet',
+    features: [
+      'Sofortige Antwort auf eingehende Anfragen — Webformular, WhatsApp oder Chat',
+      'Qualifiziert jeden Lead anhand Ihrer Kriterien, bevor er Ihr Team erreicht',
+      'Leitet qualifizierte Leads direkt an Vertrieb oder Disposition',
+      'Bucht und offeriert nie eigenständig — ein Mensch bestätigt immer',
+      'Spricht Deutsch (Sie-Form) und Englisch, im passenden DACH-Ton',
+    ],
+    outcomesLabel: 'Was Sie bekommen',
+    outcomes: [
+      'Schnellere erste Antwort — und höhere Conversion bei eingehenden Leads',
+      'Kein Lead geht außerhalb der Geschäftszeiten oder am Wochenende verloren',
+      'Ihr Team kümmert sich um qualifizierte Leads, nicht um Zeitfresser',
+    ],
+    guardrail: {
+      label: 'Bewusst so gebaut',
+      text: 'Wir lassen die KI Ihren Kunden keine Versprechen machen. Sie erfasst und qualifiziert — Preise, Termine und Zusagen bestätigt immer ein Mensch.',
+    },
+    demo: {
+      label: 'So funktioniert es',
+      heading: 'Eine echte Anfrage, nach Feierabend.',
+      replay: 'Erneut abspielen',
+      agentLabel: 'KI-Rezeption',
+      leadLabel: 'Lead',
+      hvac: {
+        sub: 'Ein Lead für eine Wärmepumpen-Sanierung kommt um 23:14 herein. Niemand ist im Büro. Das passiert dann.',
+        channel: 'Eingang · Webformular · 23:14',
+        qualified: 'Lead qualifiziert → an Disposition geleitet · menschliche Rückmeldung eingeplant',
+        script: [
+          { from: 'lead', text: 'Hallo, wir sanieren ein altes Haus bei Graz und überlegen eine Wärmepumpe. Machen Sie so etwas?' },
+          { from: 'agent', text: 'Guten Abend — ja, Wärmepumpen-Sanierungen sind genau unser Gebiet. Damit ich Sie an die richtige Person weiterleite: Darf ich ein paar kurze Fragen stellen?' },
+          { from: 'agent', text: 'Wie groß ist etwa die beheizte Fläche, und wissen Sie das Baujahr des Gebäudes?' },
+          { from: 'lead', text: 'Rund 180 m², Baujahr 1968. Aktuell Ölheizung.' },
+          { from: 'agent', text: 'Danke — ein Wechsel von Öl auf Wärmepumpe bei Baujahr 1968 ist gut machbar, und es gibt womöglich eine Förderung. Ist die Immobilie selbst bewohnt?' },
+          { from: 'lead', text: 'Ja, wir wohnen dort.' },
+          { from: 'agent', text: 'Perfekt. Ich habe das als sehr gut passend qualifiziert und Ihre Angaben an unser Projektteam übergeben — es meldet sich morgen früh. Es wird nichts gebucht oder offeriert, bevor Sie direkt mit dem Team gesprochen haben.' },
+        ],
+      },
+      realEstate: {
+        sub: 'Ein Käufer schreibt um 21:40 zu einem Inserat — lange nach Büroschluss. Das passiert dann.',
+        channel: 'Eingang · Instagram-DM · 21:40',
+        qualified: 'Lead qualifiziert → an zuständigen Makler geleitet · Besichtigung eingeplant',
+        script: [
+          { from: 'lead', text: 'Hallo! Ich habe die 3-Zimmer-Wohnung im 1070er auf Ihrem Instagram gesehen. Ist sie noch verfügbar, und könnten wir sie dieses Wochenende besichtigen?' },
+          { from: 'agent', text: 'Guten Abend — danke für Ihre Nachricht! Die Wohnung im 7. Bezirk ist noch verfügbar. Ich kann eine Besichtigung organisieren; darf ich vorab ein paar kurze Fragen stellen?' },
+          { from: 'agent', text: 'Suchen Sie zum Eigenbezug oder als Anlage, und haben Sie einen Budgetrahmen im Kopf?' },
+          { from: 'lead', text: 'Zum Eigenbezug. Bis etwa 450.000 €, und wir bräuchten eine Finanzierung.' },
+          { from: 'agent', text: 'Perfekt — das liegt im Rahmen für dieses Inserat. Ist Ihre Finanzierung bereits vorab genehmigt, oder müsste das noch organisiert werden?' },
+          { from: 'lead', text: 'Noch nicht, das müssten wir klären.' },
+          { from: 'agent', text: 'Verstanden. Ich habe Sie als qualifizierten Käufer markiert und Ihre Angaben an den zuständigen Makler übergeben — er meldet sich morgen für die Besichtigung und nennt Ihnen einen Finanzierungspartner. Es wird nichts fixiert, bevor Sie direkt mit ihm gesprochen haben.' },
+        ],
+      },
+    },
+    proofLabel: 'Erste Ergebnisse',
+    proof: [
+      { stat: '< 30s', label: 'Erste Antwort, Tag und Nacht' },
+      { stat: '24/7', label: 'Erreichbarkeit, auch am Wochenende' },
+      { stat: '2 Sprachen', label: 'Deutsch (Sie) & Englisch' },
+    ],
+    faqLabel: 'Häufige Fragen',
+    faq: [
+      { q: 'Bucht sie Termine oder nennt sie Preise?', a: 'Nein — bewusst nicht. Sie erfasst und qualifiziert den Lead, dann bestätigt ein Mensch alles Verbindliche. Wir lassen die KI Ihren Kunden keine Versprechen machen.' },
+      { q: 'Was kostet das?', a: 'Einfache monatliche Preise nach Kanälen und Volumen — keine Gebühr pro Lead. Sagen Sie uns Ihr Setup, und wir erstellen ein Angebot.' },
+      { q: 'Wie lange dauert die Einrichtung?', a: 'Die meisten Einführungen gehen innerhalb von 2–3 Wochen live, inklusive Feinabstimmung der Qualifizierungslogik auf Ihr Unternehmen.' },
+      { q: 'Welche Sprachen und Kanäle?', a: 'Heute Deutsch (Sie-Form) und Englisch, über Webformular, WhatsApp und Chat. Leads landen in Ihrem Postfach, CRM oder in der Disposition — dort, wo Sie ohnehin arbeiten.' },
+    ],
+    ctaHeading: 'Möchten Sie es an Ihren eigenen Anfragen sehen?',
+    ctaSub: 'Sagen Sie uns, wie Leads heute bei Ihnen ankommen, und wir zeigen Ihnen genau, wo die Rezeption ansetzt.',
+    ctaButton: 'Walkthrough buchen',
+    stickyCta: 'In Aktion ansehen',
+    waitlistTeaser: {
+      tag: 'In Entwicklung',
+      heading: 'Als Nächstes: eine agentische Suite für Immobilien.',
+      sub: 'Vom Lead über das Inserat bis zum Abschluss — ein agentisches OS für Makler. Tragen Sie sich für den Early Access ein.',
+      cta: 'Auf die Warteliste',
+    },
+  },
+  waitlistPage: {
+    eyebrow: 'build-log — in entwicklung',
+    heading: 'Die agentische Immobilien-Suite. Öffentlich gebaut.',
+    intro:
+      'Ein agentisches OS für Immobilienmakler — vom Lead über das Inserat bis zum Abschluss. Ein Teil ist schon heute verfügbar; der Rest steht in der Roadmap unten. Tragen Sie sich für den Early Access ein und gestalten Sie mit, was wir als Nächstes bauen.',
+    tiersLabel: 'Roadmap',
+    tiers: [
+      {
+        label: 'Jetzt verfügbar',
+        status: 'in Betrieb',
+        items: [
+          'Inserats-Kit & Marketing-Assistent — automatisch erstellte Beschreibungen, Captions, Exposés und E-Mail-Kampagnen',
+          'Plattformübergreifende Social-Media-Planung & -Verteilung',
+        ],
+      },
+      {
+        label: 'Als Nächstes',
+        status: 'in Arbeit',
+        items: ['KI-Staging', 'Micro-Kampagnen-Generator', 'Besichtigungs-Planer', 'Konversationelle Lead-KI'],
+      },
+      {
+        label: 'Später — Netzwerk-Tier',
+        status: 'geplant',
+        items: [
+          'CMA-Co-Pilot',
+          'Prüfung der Dokumentenvollständigkeit (vor dem Notartermin)',
+          'Onboarding- & Coaching-Tools',
+          'Gemeinsames Wissens-Repository',
+        ],
+      },
+    ],
+    form: {
+      heading: 'Auf die Early-Access-Liste',
+      sub: 'Noch kein Preis, kein Termin — nur früher Zugang und Mitsprache bei den Prioritäten.',
+      name: 'Name',
+      namePlaceholder: 'Max Mustermann',
+      email: 'E-Mail',
+      emailPlaceholder: 'max@maklerbuero.com',
+      size: 'Größe des Büros',
+      sizePlaceholder: 'Auswählen…',
+      sizes: ['Einzelmakler', 'Team', 'Franchise'],
+      consent: [
+        { t: 'Ich bin einverstanden, dass meine Angaben verwendet werden, um mich zum Early Access zu kontaktieren, wie in der ' },
+        { t: 'Datenschutzerklärung', link: true },
+        { t: ' beschrieben.' },
+      ],
+      submit: 'Auf die Warteliste',
+      sending: 'Wird eingetragen…',
+      successTitle: 'Sie sind auf der Liste.',
+      successBody: 'Danke — wir melden uns, sobald Early-Access-Plätze frei werden.',
+      sendAnother: '← Weitere hinzufügen',
+      errors: {
+        name: 'Bitte geben Sie Ihren Namen ein.',
+        email: 'Bitte geben Sie Ihre E-Mail-Adresse ein.',
+        emailInvalid: 'Diese E-Mail-Adresse sieht nicht richtig aus.',
+        size: 'Bitte wählen Sie eine Bürogröße.',
+        consent: 'Bitte stimmen Sie vor dem Eintragen zu.',
+        send: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an',
+      },
     },
   },
 }

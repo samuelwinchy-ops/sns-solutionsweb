@@ -86,7 +86,7 @@ export default function WhatWeDo({ locale = defaultLocale }: { locale?: Locale }
                     >
                       {icons[i]}
                     </span>
-                    <span className="font-mono text-sm text-sns-faint">0{i + 1}</span>
+                    <span className="font-mono text-sm font-semibold text-sns-muted">0{i + 1}</span>
                   </div>
 
                   <p className="mt-6 text-lg font-semibold leading-snug text-sns-text">

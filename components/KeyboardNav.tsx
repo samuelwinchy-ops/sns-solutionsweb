@@ -4,8 +4,7 @@ import { useEffect } from 'react'
 
 const shortcuts: Record<string, string> = {
   '1': '#what-we-do',
-  '2': '#build-log',
-  '3': '#team',
+  '2': '#team',
 }
 
 export default function KeyboardNav() {

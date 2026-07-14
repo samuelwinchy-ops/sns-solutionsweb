@@ -43,7 +43,7 @@ export default function LegalLayoutDe({
       <footer className="border-t border-white/[0.07] px-5">
         <div className="mx-auto flex max-w-3xl flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-mono text-xs text-sns-faint">
-            SNS Software Solutions GmbH i.G. — Wien, Österreich
+            SNS Software Solutions GmbH — Wien, Österreich
           </p>
           <nav className="flex flex-wrap gap-x-5 gap-y-2">
             {legalLinks.map((l) => (

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
+import HomeFocus from '@/components/HomeFocus'
 import WhatWeDo from '@/components/WhatWeDo'
-import WhatsRunning from '@/components/WhatsRunning'
 import Team from '@/components/Team'
 import Footer from '@/components/Footer'
 import ScrollProgress from '@/components/ScrollProgress'
@@ -23,8 +23,8 @@ export default function Home() {
       <KeyboardNav />
       <main>
         <Hero />
+        <HomeFocus />
         <WhatWeDo />
-        <WhatsRunning />
         <Team />
       </main>
       <Footer />

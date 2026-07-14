@@ -11,9 +11,9 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
   const home = localePath(locale, '/')
 
   const links = [
-    { href: home, id: 'home', label: t.home, live: false },
+    { href: localePath(locale, '/solutions'), id: 'solutions', label: t.solutions, live: false },
     { href: localePath(locale, '/services'), id: 'services', label: t.services, live: false },
-    { href: `${home}#build-log`, id: 'build-log', label: t.buildLog, live: true },
+    { href: localePath(locale, '/build-log'), id: 'build-log', label: t.buildLog, live: true },
     { href: localePath(locale, '/team'), id: 'team', label: t.team, live: false },
   ]
 

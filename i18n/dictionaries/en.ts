@@ -8,7 +8,8 @@ export type ConsentSegment = { t: string; link?: boolean }
 export const en = {
   nav: {
     home: 'home',
-    services: 'services',
+    services: 'custom builds',
+    solutions: 'products',
     buildLog: 'build log',
     team: 'team',
     contact: 'contact',
@@ -30,7 +31,7 @@ export const en = {
     ] as Segment[],
     closer: 'We do the hard part. You get the win.',
     ctaStart: 'Start a build',
-    ctaBuildLog: 'view build log',
+    ctaSolutions: 'view products',
     panelHeader: '~/sns — services',
     panelStatus: 'available',
     services: [
@@ -38,6 +39,12 @@ export const en = {
       { name: 'AI Agents', desc: 'Agents & pipelines that remove the busywork.' },
       { name: 'AI & IT Consulting', desc: 'Strategy, architecture & hands-on delivery.' },
     ],
+  },
+  homeFocus: {
+    eyebrow: 'Who we build for',
+    heading: 'Purpose-built for HVAC and real estate.',
+    sub: 'We go deep in two industries — the language, the workflows, the after-hours reality of each — so our products fit the way you already work.',
+    cta: 'Explore the products',
   },
   whatWeDo: {
     eyebrow: 'what we do',
@@ -56,7 +63,7 @@ export const en = {
         sub: 'We use what we build. That keeps us honest.',
       },
     ],
-    seeAll: 'See all services in detail',
+    seeAll: 'See all custom builds',
   },
   buildLog: {
     eyebrow: 'build log — current operations',
@@ -83,7 +90,7 @@ export const en = {
     status: 'all systems operational',
   },
   servicesPage: {
-    eyebrow: 'Services',
+    eyebrow: 'Custom builds',
     heading: 'What we do, in plain terms.',
     intro:
       'Three services, one job: take something complex and make it simple to run. Here is what each one means, and what you get.',
@@ -202,6 +209,183 @@ export const en = {
       message: 'Tell us a little more, 10 characters or so.',
       consent: 'Please agree before sending.',
       send: 'Something went wrong sending your message. Please try again, or email us directly at',
+    },
+  },
+  solutionsPage: {
+    eyebrow: 'Products',
+    heading: 'AI that answers, qualifies, and never drops a lead.',
+    intro:
+      'Productized agents you can put in front of real customers — starting with an AI receptionist for trades and real estate. Built for the DACH market, in German and English.',
+    product: {
+      tag: 'Live product',
+      name: 'AI Receptionist',
+      positioning: 'Never miss a lead again — even at 11pm.',
+      lead:
+        'An AI receptionist that answers every inbound inquiry instantly, qualifies it against your criteria, and hands the good ones to your team — around the clock, in German and English.',
+    },
+    audienceLabel: 'Pick your industry — the receptionist adapts',
+    audiences: {
+      hvac: {
+        key: 'hvac',
+        label: 'HVAC / SHK',
+        descriptor: 'Heating · plumbing · installation',
+        blurb:
+          'For heating, plumbing and installation businesses drowning in after-hours inquiries.',
+        qualifiers: [
+          'Captures job type, property age, and current system',
+          'Flags subsidy-eligible (Förderung) heat-pump retrofits',
+          'Routes urgent breakdowns straight to dispatch',
+        ],
+      },
+      realEstate: {
+        key: 'realEstate',
+        label: 'Real estate',
+        descriptor: 'Sales · lettings · brokerage',
+        blurb:
+          'For agencies who lose buyers and sellers to whoever replies first.',
+        qualifiers: [
+          'Captures budget, location, and buy-vs-sell intent',
+          'Separates serious buyers from casual browsers',
+          'Routes qualified leads to the right agent instantly',
+        ],
+      },
+    },
+    featuresLabel: 'What it does',
+    features: [
+      'Instant response to inbound inquiries — web form, WhatsApp, or chat',
+      'Qualifies every lead against your criteria before it reaches your team',
+      'Routes qualified leads straight to sales or dispatch',
+      'Never books or quotes on its own — a human always confirms',
+      'Speaks German (Sie-form) and English, with DACH-appropriate tone',
+    ],
+    outcomesLabel: 'What you get',
+    outcomes: [
+      'Faster first response — and higher conversion on inbound leads',
+      'No lead lost outside business hours or over the weekend',
+      'Your team spends time on qualified leads, not tyre-kickers',
+    ],
+    guardrail: {
+      label: 'By design',
+      text: "We don't let AI make promises to your customers. It gathers and qualifies — pricing, appointments and commitments are always confirmed by a person.",
+    },
+    demo: {
+      label: 'Watch it work',
+      heading: 'A real inquiry, after hours.',
+      replay: 'Replay',
+      agentLabel: 'AI Receptionist',
+      leadLabel: 'Lead',
+      hvac: {
+        sub: 'A heat-pump retrofit lead arrives at 23:14. No one is at the office. Here is what happens.',
+        channel: 'Inbound · website form · 23:14',
+        qualified: 'Lead qualified → routed to dispatch · human follow-up scheduled',
+        script: [
+          { from: 'lead', text: "Hi, we're renovating an old house near Graz and thinking about a heat pump (Wärmepumpe). Is that something you do?" },
+          { from: 'agent', text: 'Good evening — yes, heat-pump retrofits are exactly what we handle. To point you to the right person, may I ask a couple of quick questions?' },
+          { from: 'agent', text: "Roughly what's the heated area, and do you know the year the building was constructed?" },
+          { from: 'lead', text: 'About 180 m², built in 1968. Oil heating right now.' },
+          { from: 'agent', text: 'Thanks — an oil-to-heat-pump switch on a 1968 build is very doable, and there may be Förderung (subsidy) available. Is the property owner-occupied?' },
+          { from: 'lead', text: 'Yes, we live there.' },
+          { from: 'agent', text: "Perfect. I've qualified this as a strong fit and passed your details to our project team — they'll follow up tomorrow morning. Nothing is booked or quoted until you speak with them directly." },
+        ],
+      },
+      realEstate: {
+        sub: 'A buyer messages about a listing at 21:40, long after the office closed. Here is what happens.',
+        channel: 'Inbound · Instagram DM · 21:40',
+        qualified: 'Lead qualified → routed to listing agent · viewing follow-up scheduled',
+        script: [
+          { from: 'lead', text: 'Hi! I saw the 3-room apartment in the 1070 district on your Instagram. Is it still available, and could we view it this weekend?' },
+          { from: 'agent', text: 'Good evening — thanks for reaching out! The apartment in the 7th district is still available. I can arrange a viewing; may I ask a couple of quick questions first?' },
+          { from: 'agent', text: 'Are you looking to buy for yourself or as an investment, and do you have a budget range in mind?' },
+          { from: 'lead', text: "To live in ourselves. Up to about €450,000, and we'd need financing." },
+          { from: 'agent', text: "Perfect — that's within range for this listing. Is your financing already pre-approved, or would that still need arranging?" },
+          { from: 'lead', text: "Not yet, we'd need to sort it out." },
+          { from: 'agent', text: "Understood. I've flagged you as a qualified buyer and passed your details to the listing agent — they'll reach out tomorrow to set up the viewing and point you to a financing partner. Nothing is confirmed until you speak with them directly." },
+        ],
+      },
+    },
+    proofLabel: 'Early results',
+    proof: [
+      { stat: '< 30s', label: 'First response, day or night' },
+      { stat: '24/7', label: 'Coverage, incl. weekends' },
+      { stat: '2 langs', label: 'German (Sie) & English' },
+    ],
+    faqLabel: 'Questions people ask',
+    faq: [
+      { q: 'Does it book appointments or quote prices?', a: "No — by design. It gathers and qualifies the lead, then a human confirms anything binding. We won't let AI make promises to your customers." },
+      { q: 'What does it cost?', a: 'Simple monthly pricing based on your channels and volume — no per-lead fees. Tell us your setup and we’ll scope a quote.' },
+      { q: 'How long does setup take?', a: 'Most deployments go live within 2–3 weeks, including tuning the qualifying logic to your business.' },
+      { q: 'Which languages and channels?', a: 'German (Sie-form) and English today, across web form, WhatsApp and chat. Leads land in your inbox, CRM or dispatch — wherever you already work.' },
+    ],
+    ctaHeading: 'Want to see it on your own inquiries?',
+    ctaSub: 'Tell us how leads reach you today and we’ll show you exactly where the receptionist fits.',
+    ctaButton: 'Book a walkthrough',
+    stickyCta: 'See it in action',
+    waitlistTeaser: {
+      tag: 'In development',
+      heading: 'Building next: an agentic suite for real estate.',
+      sub: 'From lead to listing to close — an agentic OS for agents. Join the early-access list.',
+      cta: 'Join the waitlist',
+    },
+  },
+  waitlistPage: {
+    eyebrow: 'build log — in development',
+    heading: 'The real-estate agentic suite. Building in the open.',
+    intro:
+      'An agentic OS for real-estate agents — from lead to listing to close. Some of it ships today; the rest is on the roadmap below. Join the early-access list and help shape what we build next.',
+    tiersLabel: 'Roadmap',
+    tiers: [
+      {
+        label: 'Available now',
+        status: 'operational',
+        items: [
+          'Listing kit & marketing assistant — auto-generated descriptions, captions, brochures and email campaigns',
+          'Multi-platform social scheduling & distribution',
+        ],
+      },
+      {
+        label: 'Coming next',
+        status: 'in progress',
+        items: ['AI staging', 'Micro-campaign generator', 'Viewing scheduler', 'Conversational lead AI'],
+      },
+      {
+        label: 'Later — network tier',
+        status: 'planned',
+        items: [
+          'CMA co-pilot',
+          'Document completeness checking (pre-Notartermin)',
+          'Onboarding & coaching tools',
+          'Shared knowledge repository',
+        ],
+      },
+    ],
+    form: {
+      heading: 'Join the early-access list',
+      sub: 'No pricing, no ship date yet — just first access and a say in what we prioritize.',
+      name: 'Name',
+      namePlaceholder: 'Jane Doe',
+      email: 'Email',
+      emailPlaceholder: 'jane@brokerage.com',
+      size: 'Brokerage size',
+      sizePlaceholder: 'Select…',
+      sizes: ['Solo agent', 'Team', 'Franchise'],
+      consent: [
+        { t: 'I agree that my details may be used to contact me about early access, as described in the ' },
+        { t: 'Privacy Policy', link: true },
+        { t: '.' },
+      ] as ConsentSegment[],
+      submit: 'Join the waitlist',
+      sending: 'Joining…',
+      successTitle: "You're on the list.",
+      successBody: "Thanks — we'll be in touch as early-access spots open up.",
+      sendAnother: '← Add another',
+      errors: {
+        name: 'Please enter your name.',
+        email: 'Please enter your email.',
+        emailInvalid: 'That email doesn’t look right.',
+        size: 'Please choose a brokerage size.',
+        consent: 'Please agree before joining.',
+        send: 'Something went wrong. Please try again, or email us directly at',
+      },
     },
   },
 }

@@ -1,14 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
+import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath } from '@/i18n/config'
 
-// Public by design — EmailJS keys live in the browser. Kept in env so they're
-// configurable per-environment and never hard-coded in the repo.
 const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
@@ -17,34 +16,26 @@ const FALLBACK_EMAIL = 'office@sns-austria.com'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
-type FieldName = 'name' | 'email' | 'service' | 'message' | 'consent'
+type FieldName = 'name' | 'email' | 'size' | 'consent'
 type Errors = Partial<Record<FieldName, string>>
 
-export default function ContactForm({ locale = defaultLocale }: { locale?: Locale }) {
-  const t = getDict(locale).contactForm
+export default function WaitlistForm({ locale = defaultLocale }: { locale?: Locale }) {
+  const t = getDict(locale).waitlistPage.form
   const [status, setStatus] = useState<Status>('idle')
   const [errors, setErrors] = useState<Errors>({})
-  const [service, setService] = useState('')
-
-  // Pre-select the service when arriving from a /services CTA (?service=…).
-  useEffect(() => {
-    const param = new URLSearchParams(window.location.search).get('service')
-    if (param && t.services.includes(param)) setService(param)
-  }, [t.services])
+  const [size, setSize] = useState('')
 
   function validate(data: FormData): Errors {
     const e: Errors = {}
     const name = (data.get('name') as string)?.trim()
     const email = (data.get('email') as string)?.trim()
-    const svc = (data.get('service') as string)?.trim()
-    const message = (data.get('message') as string)?.trim()
+    const sz = (data.get('size') as string)?.trim()
     const consent = data.get('consent')
 
     if (!name) e.name = t.errors.name
     if (!email) e.email = t.errors.email
     else if (!EMAIL_RE.test(email)) e.email = t.errors.emailInvalid
-    if (!svc) e.service = t.errors.service
-    if (!message || message.length < 10) e.message = t.errors.message
+    if (!sz) e.size = t.errors.size
     if (!consent) e.consent = t.errors.consent
     return e
   }
@@ -55,7 +46,7 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
     const data = new FormData(form)
 
     if ((data.get('company') as string)?.trim()) {
-      setStatus('success') // honeypot: silently drop bots
+      setStatus('success') // honeypot
       return
     }
 
@@ -67,13 +58,12 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
     }
 
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
-      const subject = encodeURIComponent(`New inquiry — ${data.get('service')}`)
+      const subject = encodeURIComponent('Real-estate suite — waitlist')
       const body = encodeURIComponent(
         `Name: ${data.get('name')}\n` +
           `Email: ${data.get('email')}\n` +
-          `Phone: ${data.get('phone') || '—'}\n` +
-          `Service: ${data.get('service')}\n\n` +
-          `${data.get('message')}`
+          `Brokerage size: ${data.get('size')}\n` +
+          `Type: waitlist`
       )
       window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${subject}&body=${body}`
       return
@@ -82,9 +72,10 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
     try {
       setStatus('sending')
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form, { publicKey: PUBLIC_KEY })
+      track('waitlist_joined', { size: (data.get('size') as string) || 'unknown' })
       setStatus('success')
       form.reset()
-      setService('')
+      setSize('')
     } catch (err) {
       console.error('EmailJS send failed:', err)
       setStatus('error')
@@ -134,9 +125,12 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
       noValidate
       className="glass edge-light rounded-sns-lg p-6 md:p-8"
     >
-      <input type="hidden" name="form_type" value="contact" />
+      <input type="hidden" name="form_type" value="waitlist" />
+      <h3 className="text-xl font-bold text-sns-text">{t.heading}</h3>
+      <p className="mt-2 text-sm text-sns-muted">{t.sub}</p>
+
       {status === 'error' && (
-        <div role="alert" className="mb-6 rounded-sns border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-300">
+        <div role="alert" className="mt-5 rounded-sns border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-300">
           {t.errors.send}{' '}
           <a href={`mailto:${FALLBACK_EMAIL}`} className="underline">
             {FALLBACK_EMAIL}
@@ -152,105 +146,78 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
         </label>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className={labelClass}>
+          <label htmlFor="wl-name" className={labelClass}>
             {t.name} <span className="text-sns-indigo">*</span>
           </label>
           <input
-            id="name"
+            id="wl-name"
             name="name"
             type="text"
             autoComplete="name"
             placeholder={t.namePlaceholder}
             aria-invalid={errors.name ? 'true' : undefined}
-            aria-describedby={errors.name ? 'name-error' : undefined}
+            aria-describedby={errors.name ? 'wl-name-error' : undefined}
             className={`${fieldBase} ${errors.name ? bad : ok}`}
           />
           {errors.name && (
-            <p id="name-error" className="mt-1.5 text-xs text-red-400">
+            <p id="wl-name-error" className="mt-1.5 text-xs text-red-400">
               {errors.name}
             </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="email" className={labelClass}>
+          <label htmlFor="wl-email" className={labelClass}>
             {t.email} <span className="text-sns-indigo">*</span>
           </label>
           <input
-            id="email"
+            id="wl-email"
             name="email"
             type="email"
             autoComplete="email"
             placeholder={t.emailPlaceholder}
             aria-invalid={errors.email ? 'true' : undefined}
-            aria-describedby={errors.email ? 'email-error' : undefined}
+            aria-describedby={errors.email ? 'wl-email-error' : undefined}
             className={`${fieldBase} ${errors.email ? bad : ok}`}
           />
           {errors.email && (
-            <p id="email-error" className="mt-1.5 text-xs text-red-400">
+            <p id="wl-email-error" className="mt-1.5 text-xs text-red-400">
               {errors.email}
-            </p>
-          )}
-        </div>
-
-        <div>
-          <label htmlFor="phone" className={labelClass}>
-            {t.phone} <span className="text-sns-faint">{t.optional}</span>
-          </label>
-          <input id="phone" name="phone" type="tel" autoComplete="tel" placeholder="+43 …" className={`${fieldBase} ${ok}`} />
-        </div>
-
-        <div>
-          <label htmlFor="service" className={labelClass}>
-            {t.service} <span className="text-sns-indigo">*</span>
-          </label>
-          <select
-            id="service"
-            name="service"
-            value={service}
-            onChange={(e) => {
-              setService(e.target.value)
-              clearError('service')
-            }}
-            aria-invalid={errors.service ? 'true' : undefined}
-            aria-describedby={errors.service ? 'service-error' : undefined}
-            className={`${fieldBase} ${errors.service ? bad : ok} appearance-none bg-[length:0] pr-10`}
-          >
-            <option value="" disabled>
-              {t.servicePlaceholder}
-            </option>
-            {t.services.map((s) => (
-              <option key={s} value={s} className="bg-sns-surface text-sns-text">
-                {s}
-              </option>
-            ))}
-          </select>
-          {errors.service && (
-            <p id="service-error" className="mt-1.5 text-xs text-red-400">
-              {errors.service}
             </p>
           )}
         </div>
       </div>
 
       <div className="mt-5">
-        <label htmlFor="message" className={labelClass}>
-          {t.message} <span className="text-sns-indigo">*</span>
+        <label htmlFor="wl-size" className={labelClass}>
+          {t.size} <span className="text-sns-indigo">*</span>
         </label>
-        <textarea
-          id="message"
-          name="message"
-          rows={5}
-          placeholder={t.messagePlaceholder}
-          aria-invalid={errors.message ? 'true' : undefined}
-          aria-describedby={errors.message ? 'message-error' : undefined}
-          className={`${fieldBase} resize-y ${errors.message ? bad : ok}`}
-        />
-        {errors.message && (
-          <p id="message-error" className="mt-1.5 text-xs text-red-400">
-            {errors.message}
+        <select
+          id="wl-size"
+          name="size"
+          value={size}
+          onChange={(e) => {
+            setSize(e.target.value)
+            clearError('size')
+          }}
+          aria-invalid={errors.size ? 'true' : undefined}
+          aria-describedby={errors.size ? 'wl-size-error' : undefined}
+          className={`${fieldBase} ${errors.size ? bad : ok} appearance-none pr-10`}
+        >
+          <option value="" disabled>
+            {t.sizePlaceholder}
+          </option>
+          {t.sizes.map((s) => (
+            <option key={s} value={s} className="bg-sns-surface text-sns-text">
+              {s}
+            </option>
+          ))}
+        </select>
+        {errors.size && (
+          <p id="wl-size-error" className="mt-1.5 text-xs text-red-400">
+            {errors.size}
           </p>
         )}
       </div>
@@ -285,13 +252,6 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
           </svg>
         )}
       </button>
-
-      <p className="mt-4 font-mono text-xs text-sns-faint">
-        {t.preferEmail}{' '}
-        <a href={`mailto:${FALLBACK_EMAIL}`} className="text-sns-muted underline underline-offset-2 hover:text-sns-accent">
-          {FALLBACK_EMAIL}
-        </a>
-      </p>
     </form>
   )
 }
