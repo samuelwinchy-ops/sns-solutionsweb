@@ -66,6 +66,11 @@ export default function NeuralBackground({
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  // Depend on the palette's *contents*, not the array's identity. Callers pass
+  // an inline array literal, which is a new object every render and would
+  // otherwise re-run the effect and reseed the whole field.
+  const paletteKey = (colors && colors.length > 0 ? colors : [color]).join(',')
+
   useEffect(() => {
     const canvas = canvasRef.current
     const container = containerRef.current
@@ -74,7 +79,7 @@ export default function NeuralBackground({
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    const palette = colors && colors.length > 0 ? colors : [color]
+    const palette = paletteKey.split(',')
     const [fr, fg, fb] = hexToRgb(fadeColor)
     const fadeFill = `rgba(${fr}, ${fg}, ${fb}, ${trailOpacity})`
     const prefersReducedMotion = window.matchMedia(
@@ -113,9 +118,15 @@ export default function NeuralBackground({
         this.y = Math.random() * height
         this.vx = 0
         this.vy = 0
-        // Stagger initial ages so particles don't all fade in unison
-        this.age = spread ? Math.random() * 100 : 0
-        this.life = Math.random() * 200 + 100
+        // Long lives keep the field drifting instead of visibly regenerating.
+        // At 30fps this is ~30-70s per particle, so a respawn is a rare,
+        // individually invisible event (alpha is 0 at both ends of a life)
+        // rather than the whole field dissolving every few seconds.
+        this.life = Math.random() * 1200 + 900
+        // Spread initial ages across the WHOLE life, not a fixed 100 frames —
+        // otherwise every particle starts near birth and the field regenerates
+        // in synchronised waves.
+        this.age = spread ? Math.random() * this.life : 0
         this.color = palette[(Math.random() * palette.length) | 0]
       }
 
@@ -260,7 +271,7 @@ export default function NeuralBackground({
       document.removeEventListener('mouseleave', handleMouseLeave)
       prefersReducedMotion.removeEventListener('change', start)
     }
-  }, [color, colors, fadeColor, trailOpacity, particleCount, speed, glow])
+  }, [paletteKey, fadeColor, trailOpacity, particleCount, speed, glow])
 
   return (
     <div

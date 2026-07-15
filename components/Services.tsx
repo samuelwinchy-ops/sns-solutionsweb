@@ -34,6 +34,10 @@ const reveal: Variants = {
 
 export default function Services({ locale = defaultLocale }: { locale?: Locale }) {
   const t = getDict(locale).servicesPage
+  // The contact form only pre-selects a service when the ?service= value is an
+  // exact match from its own list, so take the consulting option from there
+  // rather than hardcoding a string that would miss in German.
+  const consultService = getDict(locale).contactForm.services[2]
 
   return (
     <>
@@ -47,6 +51,52 @@ export default function Services({ locale = defaultLocale }: { locale?: Locale }
         </h1>
         <p className="mt-6 text-lg leading-relaxed text-sns-muted">{t.intro}</p>
       </div>
+
+      {/* Lead with the consultation — the page's primary action is a meeting,
+          not a build request. */}
+      <section className="glass edge-light glow-blue mb-14 overflow-hidden rounded-sns-lg p-7 md:p-10">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.1fr_1fr] md:gap-12">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full border border-sns-indigo/30 bg-sns-indigo/[0.1] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-sns-accent">
+              <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sns-green opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-sns-green" />
+              </span>
+              {t.consult.tag}
+            </span>
+            <h2 className="mt-4 text-2xl font-bold tracking-[-0.02em] text-sns-text md:text-3xl">
+              {t.consult.heading}
+            </h2>
+            <p className="mt-3 leading-relaxed text-sns-muted">{t.consult.sub}</p>
+          </div>
+
+          <div className="flex flex-col justify-center">
+            <ul className="flex flex-col gap-2.5">
+              {t.consult.points.map((point) => (
+                <li key={point} className="flex items-start gap-2.5 text-sns-text">
+                  <span className="mt-1 shrink-0 text-sns-cyan" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                      <path d="M3.5 8.5 6.5 11.5 12.5 4.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                  <span className="leading-snug">{point}</span>
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              href={localePath(locale, `/contact?service=${encodeURIComponent(consultService)}`)}
+              className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-sns-indigo px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent sm:w-auto"
+            >
+              {t.consult.cta}
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform duration-300 ease-sns-out group-hover:translate-x-1">
+                <path d="M3 7h8M7.5 3.5 11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+            <p className="mt-3 text-xs leading-relaxed text-sns-faint">{t.consult.aside}</p>
+          </div>
+        </div>
+      </section>
 
       <div className="flex flex-col gap-6">
         {t.items.map((service, index) => (

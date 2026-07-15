@@ -9,8 +9,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const bilingual = [
     { path: '', changeFrequency: 'monthly' as const, priority: 1 },
     { path: '/solutions', changeFrequency: 'weekly' as const, priority: 0.95 },
+    { path: '/solutions/hvac', changeFrequency: 'weekly' as const, priority: 0.9 },
+    { path: '/solutions/real-estate', changeFrequency: 'weekly' as const, priority: 0.9 },
+    { path: '/solutions/demo', changeFrequency: 'monthly' as const, priority: 0.6 },
     { path: '/services', changeFrequency: 'monthly' as const, priority: 0.9 },
-    { path: '/build-log', changeFrequency: 'weekly' as const, priority: 0.7 },
+    { path: '/roadmap', changeFrequency: 'weekly' as const, priority: 0.7 },
     { path: '/team', changeFrequency: 'monthly' as const, priority: 0.7 },
     { path: '/contact', changeFrequency: 'yearly' as const, priority: 0.8 },
   ]

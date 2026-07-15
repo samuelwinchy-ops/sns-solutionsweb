@@ -32,6 +32,12 @@ const industryAccent: Record<Industry, { text: string; ring: string }> = {
   realEstate: { text: 'text-sns-violet', ring: 'group-hover:border-sns-violet/40' },
 }
 
+// Each industry has its own dedicated product page.
+const industrySlug: Record<Industry, string> = {
+  hvac: '/solutions/hvac',
+  realEstate: '/solutions/real-estate',
+}
+
 const container: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.12 } },
@@ -43,7 +49,8 @@ const item: Variants = {
 
 export default function HomeFocus({ locale = defaultLocale }: { locale?: Locale }) {
   const t = getDict(locale).homeFocus
-  const a = getDict(locale).solutionsPage.audiences
+  const industries = getDict(locale).solutionsPage.industries
+  const byKey = (k: Industry) => industries.find((i) => i.key === k)!
 
   return (
     <section id="focus" className="relative scroll-mt-24 px-5 pb-28 pt-8 md:px-10">
@@ -66,10 +73,11 @@ export default function HomeFocus({ locale = defaultLocale }: { locale?: Locale 
         >
           {(['hvac', 'realEstate'] as const).map((key) => {
             const acc = industryAccent[key]
+            const info = byKey(key)
             return (
               <motion.div key={key} variants={item}>
                 <Link
-                  href={localePath(locale, `/solutions?industry=${key}`)}
+                  href={localePath(locale, industrySlug[key])}
                   className={`group flex h-full items-start gap-4 rounded-sns-lg border border-white/[0.08] bg-sns-surface-2 p-6 shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_24px_48px_-28px_rgba(0,0,0,0.75)] transition-colors duration-300 ease-sns-out ${acc.ring} md:p-7`}
                 >
                   <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-white/10 bg-sns-surface ${acc.text}`}>
@@ -77,13 +85,13 @@ export default function HomeFocus({ locale = defaultLocale }: { locale?: Locale 
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="flex items-center justify-between gap-2">
-                      <span className="text-xl font-semibold text-sns-text">{a[key].label}</span>
+                      <span className="text-xl font-semibold text-sns-text">{info.label}</span>
                       <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden="true" className={`shrink-0 ${acc.text} transition-transform duration-300 ease-sns-out group-hover:translate-x-1`}>
                         <path d="M3 7h8M7.5 3.5 11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </span>
-                    <span className="mt-1 block font-mono text-[11px] uppercase tracking-[0.14em] text-sns-faint">{a[key].descriptor}</span>
-                    <span className="mt-3 block leading-relaxed text-sns-muted">{a[key].blurb}</span>
+                    <span className="mt-1 block font-mono text-[11px] uppercase tracking-[0.14em] text-sns-faint">{info.descriptor}</span>
+                    <span className="mt-3 block leading-relaxed text-sns-muted">{info.blurb}</span>
                   </span>
                 </Link>
               </motion.div>

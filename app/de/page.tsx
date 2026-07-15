@@ -7,6 +7,7 @@ import Team from '@/components/Team'
 import Footer from '@/components/Footer'
 import ScrollProgress from '@/components/ScrollProgress'
 import KeyboardNav from '@/components/KeyboardNav'
+import BuildAnnouncement from '@/components/BuildAnnouncement'
 
 export const metadata: Metadata = {
   title: {
@@ -34,6 +35,7 @@ export default function HomeDe() {
         <Team locale="de" />
       </main>
       <Footer locale="de" />
+      <BuildAnnouncement locale="de" />
     </div>
   )
 }

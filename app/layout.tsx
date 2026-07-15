@@ -160,6 +160,7 @@ export default function RootLayout({
             fadeColor="#06080f"
             trailOpacity={0.14}
             particleCount={340}
+            speed={0.45}
           />
         </div>
 

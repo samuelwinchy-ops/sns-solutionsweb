@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import Solutions from '@/components/Solutions'
+import SolutionsIndex from '@/components/SolutionsIndex'
 
 export const metadata: Metadata = {
   title: { absolute: 'Lösungen — KI-Rezeption für Handwerk & Immobilien | SNS Solutions' },
@@ -18,9 +18,9 @@ export default function SolutionsPageDe() {
   return (
     <div lang="de">
       <Nav locale="de" />
-      <main id="solutions" className="relative px-5 pb-28 pt-32 md:px-10 md:pb-24 md:pt-36">
+      <main id="solutions" className="relative px-5 pb-20 pt-32 md:px-10 md:pb-24 md:pt-36">
         <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
-          <Solutions locale="de" />
+          <SolutionsIndex locale="de" />
         </div>
       </main>
       <Footer locale="de" showCta={false} />

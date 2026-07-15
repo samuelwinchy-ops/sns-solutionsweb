@@ -126,6 +126,17 @@ body {
   );
 }
 
+/* Voice-demo waveform bar */
+@keyframes sns-wave {
+  0%,
+  100% {
+    transform: scaleY(0.22);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
 /* Animated gradient hairline (used for section dividers) */
 .hairline-shimmer {
   background: linear-gradient(
@@ -149,7 +160,8 @@ body {
   .animate-aurora-slow,
   .animate-aurora-slower,
   .animate-shimmer,
-  .animate-pulse-soft {
+  .animate-pulse-soft,
+  .voice-bar {
     animation: none !important;
   }
 }
