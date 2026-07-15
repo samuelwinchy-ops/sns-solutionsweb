@@ -217,8 +217,10 @@ export default function NeuralBackground({
       ctx.fillStyle = fadeColor
       ctx.fillRect(0, 0, width, height)
 
-      const effectiveCount =
-        width < 768 ? Math.round(particleCount * 0.45) : particleCount
+      // The count is sized for the desktop hero, where ~620 particles are
+      // claimed to trace the logo. Phones never form the mark, so they only
+      // need enough for the ambient field — and every particle costs battery.
+      const effectiveCount = width < 768 ? Math.round(particleCount * 0.2) : particleCount
       particles = []
       for (let i = 0; i < effectiveCount; i++) {
         particles.push(new Particle())
@@ -304,8 +306,20 @@ export default function NeuralBackground({
     }
 
     const handleResize = () => {
-      width = container.clientWidth
-      height = container.clientHeight
+      const w = container.clientWidth
+      const h = container.clientHeight
+      if (w === width && h === height) return
+
+      // Mobile browsers fire resize while you scroll, as the URL bar collapses
+      // and expands. That's a height-only change of roughly the toolbar's size.
+      // Re-initialising there repaints the canvas and reseeds every particle,
+      // which reads as the whole background refreshing mid-scroll. The canvas
+      // sits on a container filled with the same base colour, so leaving it at
+      // the old height for that jitter is invisible — far better than a reset.
+      if (w === width && Math.abs(h - height) < 180) return
+
+      width = w
+      height = h
       start()
     }
 
