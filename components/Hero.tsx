@@ -4,6 +4,7 @@ import { motion, type Variants } from 'framer-motion'
 import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath, SLOGAN } from '@/i18n/config'
+import HeroLogo from './HeroLogo'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -15,43 +16,6 @@ const fadeInUp: Variants = {
     transition: { duration: 0.7, delay: i * 0.12, ease: EASE },
   }),
 }
-
-const serviceIcons = [
-  (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" key="i0">
-      <path
-        d="M8.5 8.5 5 12l3.5 3.5M15.5 8.5 19 12l-3.5 3.5M13.5 6l-3 12"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  ),
-  (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" key="i1">
-      <path
-        d="M13 3 5 13h5l-1 8 8-11h-5l1-7z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  ),
-  (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" key="i2">
-      <path
-        d="M20 11.5a8 8 0 0 1-11.5 7.2L4 20l1.3-4.2A8 8 0 1 1 20 11.5z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path d="M9 10.5h6M9 13h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
-  ),
-]
 
 export default function Hero({ locale = defaultLocale }: { locale?: Locale }) {
   const t = getDict(locale).hero
@@ -173,57 +137,7 @@ export default function Hero({ locale = defaultLocale }: { locale?: Locale }) {
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.5, duration: 0.8, ease: EASE }}
-          className="glass edge-light glow-blue relative flex flex-col rounded-sns-lg p-6 2xl:p-8"
-        >
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-sns-faint">
-              {t.panelHeader}
-            </span>
-            <span className="flex items-center gap-1.5 font-mono text-[11px] text-sns-green">
-              <span className="h-1.5 w-1.5 rounded-full bg-sns-green" />
-              {t.panelStatus}
-            </span>
-          </div>
-
-          <div className="flex flex-col">
-            {t.services.map((service, index) => (
-              <motion.div
-                key={service.name}
-                initial={{ opacity: 0, x: 12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.7 + index * 0.14, duration: 0.6, ease: EASE }}
-                className={`group flex items-start gap-4 py-4 ${
-                  index < t.services.length - 1 ? 'border-b border-white/[0.06]' : ''
-                }`}
-              >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sns border border-white/10 bg-sns-surface text-sns-accent transition-colors duration-300 ease-sns-out group-hover:border-sns-indigo/40 group-hover:bg-sns-indigo/10 group-hover:text-sns-cyan">
-                  {serviceIcons[index]}
-                </div>
-                <div className="min-w-0">
-                  <div className="flex items-baseline justify-between gap-2">
-                    <span className="font-semibold text-sns-text">{service.name}</span>
-                    <span className="font-mono text-[11px] text-sns-faint">
-                      0{index + 1}
-                    </span>
-                  </div>
-                  <p className="mt-1 font-mono text-xs leading-relaxed text-sns-muted">
-                    {service.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="mt-5 flex items-center gap-2 border-t border-white/[0.06] pt-4 font-mono text-xs text-sns-faint">
-            <span className="text-sns-indigo">$</span>
-            <span>ship --simple --reliable</span>
-            <span className="animate-blink text-sns-indigo">█</span>
-          </div>
-        </motion.div>
+        <HeroLogo />
       </div>
     </section>
   )

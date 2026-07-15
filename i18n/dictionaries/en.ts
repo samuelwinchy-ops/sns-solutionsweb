@@ -34,13 +34,6 @@ export const en = {
     closer: 'We do the hard part. You get the win.',
     ctaStart: 'Book a free consultation',
     ctaSolutions: 'view products',
-    panelHeader: '~/sns — services',
-    panelStatus: 'available',
-    services: [
-      { name: 'Custom Software', desc: 'Web, mobile & internal tools, built to fit.' },
-      { name: 'AI Agents', desc: 'Agents & pipelines that remove the busywork.' },
-      { name: 'AI & IT Consulting', desc: 'Strategy, architecture & hands-on delivery.' },
-    ],
   },
   homeFocus: {
     eyebrow: 'Who we build for',

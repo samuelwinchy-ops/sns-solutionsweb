@@ -32,13 +32,6 @@ export const de: Dictionary = {
     closer: 'Wir übernehmen den schwierigen Teil. Sie ernten den Erfolg.',
     ctaStart: 'Kostenlose Beratung buchen',
     ctaSolutions: 'Produkte ansehen',
-    panelHeader: '~/sns — leistungen',
-    panelStatus: 'verfügbar',
-    services: [
-      { name: 'Individuelle Software', desc: 'Web-, Mobile- & interne Tools, passgenau gebaut.' },
-      { name: 'KI-Agenten', desc: 'Agenten & Pipelines, die Routinearbeit abnehmen.' },
-      { name: 'KI- & IT-Beratung', desc: 'Strategie, Architektur & praktische Umsetzung.' },
-    ],
   },
   homeFocus: {
     eyebrow: 'Für wen wir bauen',
