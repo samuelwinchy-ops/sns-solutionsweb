@@ -28,6 +28,14 @@ const industryIcon: Record<Industry, ReactNode> = {
 }
 const industryText: Record<Industry, string> = { hvac: 'text-sns-cyan', realEstate: 'text-sns-violet' }
 
+// Products that have a shipped app of their own, keyed `${industry}:${category}`.
+// These live on their own subdomain, so the link must be a plain <a> — a full
+// page load — rather than next/link, which would try to route client-side and
+// never leave this site.
+const APP_URL: Record<string, string> = {
+  'realEstate:marketing': 'https://repost.sns-austria.com/login',
+}
+
 // Status → colour. Live green, Beta cyan, Waitlist amber, Roadmap faint.
 const STATUS: Record<Status, { text: string; dot: string; ring: string; bg: string }> = {
   live: { text: 'text-sns-green', dot: 'bg-sns-green', ring: 'border-sns-green/30', bg: 'bg-sns-green/[0.08]' },
@@ -107,6 +115,7 @@ export default function Solutions({
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {ind.categories.map((cat) => {
                   const s = STATUS[cat.status as Status]
+                  const appUrl = APP_URL[`${ind.key}:${cat.key}`]
                   return (
                     <motion.div
                       key={cat.key}
@@ -136,6 +145,16 @@ export default function Solutions({
                       </p>
 
                       <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/[0.06] pt-4">
+                        {appUrl && (
+                          <a
+                            href={appUrl}
+                            onClick={() => track('solutions_open_app', { category: cat.key })}
+                            className={`group inline-flex items-center gap-1.5 font-mono text-xs font-semibold ${industryText[key]} transition-opacity hover:opacity-80`}
+                          >
+                            {t.appCta}
+                            <Arrow />
+                          </a>
+                        )}
                         {cat.demo && (
                           <Link
                             href={localePath(locale, `/solutions/demo?industry=${ind.key}`)}

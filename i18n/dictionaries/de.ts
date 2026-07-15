@@ -241,6 +241,7 @@ export const de: Dictionary = {
     status: { live: 'Live', beta: 'Beta', waitlist: 'Warteliste', roadmap: 'Roadmap' },
     cta: { live: 'Kontakt aufnehmen', beta: 'Early Access anfragen', waitlist: 'Auf die Warteliste', roadmap: 'Auf die Warteliste' },
     demoCta: 'So funktioniert es',
+    appCta: 'Repost testen',
     indexCta: 'Produkte ansehen',
     industries: [
       {

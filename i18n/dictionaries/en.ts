@@ -243,6 +243,7 @@ export const en = {
     status: { live: 'Live', beta: 'Beta', waitlist: 'Waitlist', roadmap: 'Roadmap' },
     cta: { live: 'Talk to us', beta: 'Get early access', waitlist: 'Join the waitlist', roadmap: 'Join the waitlist' },
     demoCta: 'See how it works',
+    appCta: 'Try Repost',
     indexCta: 'View products',
     industries: [
       {
