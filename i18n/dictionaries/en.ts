@@ -279,6 +279,8 @@ export const en = {
         ],
       },
       {
+        // Adding a product here? Add it to waitlistPage.tiers as well — the
+        // /roadmap page lists these from its own hand-maintained copy.
         key: 'realEstate',
         label: 'Real estate',
         descriptor: 'Sales · lettings · brokerage',
@@ -289,7 +291,7 @@ export const en = {
             name: 'Marketing & Content',
             status: 'beta',
             demo: false,
-            what: 'Listing kits — descriptions, captions, brochures, email — plus multi-platform scheduling and distribution.',
+            what: 'Multi-platform scheduling and distribution — queue listing content once and publish it across every channel on a schedule.',
             outcome: 'Consistent content across every channel without the manual busywork.',
           },
           {
@@ -436,12 +438,17 @@ export const en = {
     intro:
       'An agentic OS for real-estate agents — from lead to listing to close. Some of it ships today; the rest is on the roadmap below. Join the early-access list and help shape what we build next.',
     tiersLabel: 'Build status — by category',
+    // Mirrors the real-estate categories in solutionsPage.industries. It can't
+    // be derived from them: the tier reflects actual build state, and two
+    // products with the same 'waitlist' status sit in different tiers. Add a
+    // real-estate product there and it must be added here too, or /roadmap
+    // silently stops listing the full suite.
     tiers: [
       {
         label: 'Shipping',
         status: 'shipping',
         items: [
-          'Marketing & Content — listing kits (descriptions, captions, brochures, email) and multi-platform scheduling & distribution',
+          'Marketing & Content — multi-platform scheduling & distribution for listing content',
         ],
       },
       {
@@ -458,6 +465,8 @@ export const en = {
         items: [
           'Documentation & Compliance — pre-close completeness checks (Grundbuchauszug, Energieausweis, Teilungserklärung)',
           'Data & Insights — comparables and a CMA co-pilot',
+          'AI Staging & Room Design — photorealistic staged rooms from a single photo, disclosed as AI-staged',
+          '2D-3D Walkthrough Generator — navigable 3D tours generated from listing photos, no scan required',
         ],
       },
     ],

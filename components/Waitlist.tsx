@@ -76,8 +76,9 @@ export default function Waitlist({ locale = defaultLocale }: { locale?: Locale }
           </div>
         </div>
 
-        {/* form */}
-        <div className="lg:sticky lg:top-24">
+        {/* form — anchor target for the "get early access" / "join the
+            waitlist" CTAs on the product pages */}
+        <div id="early-access" className="scroll-mt-24 lg:sticky lg:top-24">
           <WaitlistForm locale={locale} />
         </div>
       </div>

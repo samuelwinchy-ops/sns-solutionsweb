@@ -69,8 +69,13 @@ export default function Solutions({
   const t = getDict(locale).solutionsPage
   const industries = t.industries.filter((ind) => ind.key === industry)
 
+  // Only a shipped product sends you to the general contact form. Everything
+  // else ("Get early access" / "Join the waitlist") asks to be put on a list,
+  // so it goes to the early-access form on the roadmap page.
   const ctaHref = (status: Status) =>
-    status === 'live' || status === 'beta' ? localePath(locale, '/contact') : localePath(locale, '/roadmap')
+    status === 'live'
+      ? localePath(locale, '/contact')
+      : `${localePath(locale, '/roadmap')}#early-access`
 
   const primaryBtn =
     'group inline-flex items-center gap-2 rounded-full bg-sns-indigo px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent'
@@ -193,7 +198,7 @@ export default function Solutions({
                     <p className="mt-2 text-sm text-sns-muted">{t.fullStack.sub}</p>
                   </div>
                   <Link
-                    href={localePath(locale, '/roadmap')}
+                    href={`${localePath(locale, '/roadmap')}#early-access`}
                     onClick={() => track('solutions_full_stack')}
                     className={`${primaryBtn} shrink-0`}
                   >

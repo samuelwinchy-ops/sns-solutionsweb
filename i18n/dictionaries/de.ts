@@ -287,7 +287,7 @@ export const de: Dictionary = {
             name: 'Marketing & Content',
             status: 'beta',
             demo: false,
-            what: 'Inserats-Kits — Beschreibungen, Captions, Exposés, E-Mails — plus plattformübergreifende Planung und Verteilung.',
+            what: 'Plattformübergreifende Planung und Verteilung — Inseratsinhalte einmal einplanen und zeitgesteuert auf allen Kanälen veröffentlichen.',
             outcome: 'Konsistenter Content über alle Kanäle, ohne die manuelle Fleißarbeit.',
           },
           {
@@ -439,7 +439,7 @@ export const de: Dictionary = {
         label: 'Wird ausgeliefert',
         status: 'live',
         items: [
-          'Marketing & Content — Inserats-Kits (Beschreibungen, Captions, Exposés, E-Mails) und plattformübergreifende Planung & Verteilung',
+          'Marketing & Content — plattformübergreifende Planung & Verteilung von Inseratsinhalten',
         ],
       },
       {
@@ -456,6 +456,8 @@ export const de: Dictionary = {
         items: [
           'Dokumentation & Compliance — Vollständigkeitsprüfung vor dem Abschluss (Grundbuchauszug, Energieausweis, Teilungserklärung)',
           'Daten & Insights — Vergleichswerte und ein CMA-Co-Pilot',
+          'KI-Staging & Raumgestaltung — fotorealistisch gestagte Räume aus einem einzigen Foto, als KI-gestagt gekennzeichnet',
+          '2D-3D-Rundgang-Generator — navigierbare 3D-Rundgänge aus Inseratsfotos, ohne 3D-Scan',
         ],
       },
     ],
