@@ -96,6 +96,10 @@ export default function NeuralBackground({
 
     // Ambient drift looks identical at 30fps but halves the per-frame cost.
     const FRAME_INTERVAL = 1000 / 30
+    // Milliseconds between successive outline points being claimed. ~620 points
+    // at 12ms is a little over seven seconds to draw the whole mark.
+    const REVEAL_PER_POINT = 12
+    let revealStart = 0
     // Cap the backing-store resolution: full-canvas overdraw every frame at
     // native retina/4K DPR is the single biggest cost. 1.5 (1 on mobile) is
     // visually indistinguishable for blurred trails.
@@ -111,6 +115,7 @@ export default function NeuralBackground({
       color = palette[0]
       /** 0 = drifting in the field, 1 = fully held by a shape target. */
       cap = 0
+      held = false
 
       constructor() {
         this.reset(true)
@@ -135,17 +140,20 @@ export default function NeuralBackground({
 
       update(tx: number | null, ty: number | null) {
         const held = tx !== null && ty !== null
-        this.cap += ((held ? 1 : 0) - this.cap) * 0.05
+        this.held = held
+        this.cap += ((held ? 1 : 0) - this.cap) * 0.02
 
         if (held) {
-          // Spring onto the shape and stay there. No ageing while held, or the
-          // particle would hit the end of its life and teleport out of the mark.
-          this.vx += (tx - this.x) * 0.05
-          this.vy += (ty - this.y) * 0.05
+          // Drift onto the shape and stay there. Weak spring and heavy damping
+          // so a particle glides into place over a couple of seconds instead of
+          // snapping to it. No ageing while held, or it would reach the end of
+          // its life and teleport out of the mark.
+          this.vx += (tx - this.x) * 0.012
+          this.vy += (ty - this.y) * 0.012
           this.x += this.vx
           this.y += this.vy
-          this.vx *= 0.8
-          this.vy *= 0.8
+          this.vx *= 0.9
+          this.vy *= 0.9
           return
         }
 
@@ -186,13 +194,11 @@ export default function NeuralBackground({
 
       draw(context: CanvasRenderingContext2D) {
         const flow = Math.max(0, 1 - Math.abs(this.age / this.life - 0.5) * 2) * 0.9
-        // Blend toward full brightness as a particle is captured, so the mark
+        // Even out toward a steady value as a particle is captured, so the mark
         // reads evenly instead of inheriting each particle's place in its life.
-        const alpha = flow + (0.85 - flow) * this.cap
-        context.globalAlpha = alpha
+        context.globalAlpha = flow + (0.8 - flow) * this.cap
         context.fillStyle = this.color
-        const size = 1.6 + this.cap * 0.4
-        context.fillRect(this.x, this.y, size, size)
+        context.fillRect(this.x, this.y, 1.6, 1.6)
       }
     }
 
@@ -220,8 +226,16 @@ export default function NeuralBackground({
     }
 
     const drawParticles = () => {
+      // Drifting particles blend additively for the luminous "neural" glow.
       ctx.globalCompositeOperation = glow ? 'lighter' : 'source-over'
-      for (const p of particles) p.draw(ctx)
+      for (const p of particles) if (!p.held) p.draw(ctx)
+
+      // Held ones are drawn flat. They sit still, so additive blending would
+      // re-add their colour every frame while the trail fade only removes 14%
+      // of it — any stationary additive dot climbs to white regardless of its
+      // alpha. source-over keeps the mark the same blue as the field.
+      ctx.globalCompositeOperation = 'source-over'
+      for (const p of particles) if (p.held) p.draw(ctx)
     }
 
     const renderStaticFrame = () => {
@@ -250,16 +264,23 @@ export default function NeuralBackground({
       // A registered shape (the hero logo) pulls a slice of the field onto its
       // outline. The canvas is fixed to the viewport, so the element's client
       // rect maps straight onto canvas coordinates — and re-reading it each
-      // frame keeps the mark pinned to the box as the page scrolls.
+      // frame keeps the mark pinned to the hero box as the page scrolls,
+      // rather than the particles letting go and scattering.
       const target = getShapeTarget()
       const rect = target ? target.getRect() : null
-      const onScreen =
-        !!rect && rect.width > 0 && rect.bottom > 0 && rect.top < height
-      const pts = onScreen ? target!.points : null
-      const span = onScreen ? Math.min(rect!.width, rect!.height) * 0.84 : 0
-      const ox = onScreen ? rect!.left + (rect!.width - span) / 2 : 0
-      const oy = onScreen ? rect!.top + (rect!.height - span) / 2 : 0
-      const heldCount = pts ? Math.min(pts.length, particles.length) : 0
+      const active = !!rect && rect.width > 0
+      const pts = active ? target!.points : null
+      const span = active ? Math.min(rect!.width, rect!.height) * 0.84 : 0
+      const ox = active ? rect!.left + (rect!.width - span) / 2 : 0
+      const oy = active ? rect!.top + (rect!.height - span) / 2 : 0
+
+      // Draw the outline on gradually, in the order the points were traced, so
+      // the mark is built as a line rather than appearing everywhere at once.
+      if (active && revealStart === 0) revealStart = now
+      const revealed = active
+        ? Math.min(pts!.length, Math.floor((now - revealStart) / REVEAL_PER_POINT))
+        : 0
+      const heldCount = pts ? Math.min(revealed, pts.length, particles.length) : 0
 
       for (let i = 0; i < particles.length; i++) {
         if (pts && i < heldCount) {

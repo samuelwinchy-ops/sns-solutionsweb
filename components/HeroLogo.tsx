@@ -74,7 +74,9 @@ function outlineFromImage(img: HTMLImageElement): ShapePoint[] {
   const { data } = ctx.getImageData(0, 0, SAMPLE, SAMPLE)
   const alpha = (x: number, y: number) => data[(y * SAMPLE + x) * 4 + 3]
 
-  const pts: ShapePoint[] = []
+  // Edge pixels, kept on a grid so we can walk them in contour order.
+  const grid = new Uint8Array(SAMPLE * SAMPLE)
+  const edges: number[] = []
   for (let y = 1; y < SAMPLE - 1; y++) {
     for (let x = 1; x < SAMPLE - 1; x++) {
       if (alpha(x, y) <= ALPHA_CUTOFF) continue
@@ -84,15 +86,67 @@ function outlineFromImage(img: HTMLImageElement): ShapePoint[] {
         alpha(x, y - 1) <= ALPHA_CUTOFF ||
         alpha(x, y + 1) <= ALPHA_CUTOFF
       ) {
-        pts.push({ x: x / SAMPLE, y: y / SAMPLE })
+        grid[y * SAMPLE + x] = 1
+        edges.push(y * SAMPLE + x)
       }
     }
   }
+  if (!edges.length) return []
 
-  // Thin evenly across the whole outline.
-  for (let i = pts.length - 1; i > 0; i--) {
-    const j = (Math.random() * (i + 1)) | 0
-    ;[pts[i], pts[j]] = [pts[j], pts[i]]
+  const ordered = traceContours(grid, edges)
+
+  // Thin by taking every Nth point *along the trace*, so the order — and with
+  // it the line the particles draw — survives.
+  const step = Math.max(1, Math.ceil(ordered.length / MAX_POINTS))
+  const out: ShapePoint[] = []
+  for (let i = 0; i < ordered.length; i += step) {
+    out.push({ x: (ordered[i] % SAMPLE) / SAMPLE, y: Math.floor(ordered[i] / SAMPLE) / SAMPLE })
   }
-  return pts.slice(0, MAX_POINTS)
+  return out
+}
+
+/**
+ * Walk the edge pixels into contour order: from each point, hop to the nearest
+ * unvisited neighbour, so consecutive points are adjacent on the silhouette.
+ * A raster scan would instead jump left-to-right down the image, and the mark
+ * would appear in scanlines rather than being drawn as a line.
+ */
+function traceContours(grid: Uint8Array, edges: number[]): number[] {
+  const visited = new Uint8Array(grid.length)
+  const ordered: number[] = []
+
+  const nearest = (from: number): number => {
+    const fx = from % SAMPLE
+    const fy = (from / SAMPLE) | 0
+    // Expanding ring search — cheap because the next edge pixel is adjacent.
+    for (let r = 1; r <= 6; r++) {
+      for (let dy = -r; dy <= r; dy++) {
+        for (let dx = -r; dx <= r; dx++) {
+          if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue
+          const x = fx + dx
+          const y = fy + dy
+          if (x < 0 || y < 0 || x >= SAMPLE || y >= SAMPLE) continue
+          const idx = y * SAMPLE + x
+          if (grid[idx] && !visited[idx]) return idx
+        }
+      }
+    }
+    return -1
+  }
+
+  for (const seed of edges) {
+    if (visited[seed]) continue
+    // Start a new contour and follow it as far as it goes.
+    let current = seed
+    visited[current] = 1
+    ordered.push(current)
+    for (;;) {
+      const next = nearest(current)
+      if (next < 0) break
+      visited[next] = 1
+      ordered.push(next)
+      current = next
+    }
+  }
+  return ordered
 }
