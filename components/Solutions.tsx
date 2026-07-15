@@ -33,7 +33,10 @@ const industryText: Record<Industry, string> = { hvac: 'text-sns-cyan', realEsta
 // page load — rather than next/link, which would try to route client-side and
 // never leave this site.
 const APP_URL: Record<string, string> = {
-  'realEstate:marketing': 'https://repost.sns-austria.com/login',
+  // The landing page, not /login — a prospect clicking through from here has
+  // no account yet, so a login wall is a dead end. The landing page explains
+  // the product and carries its own sign-in.
+  'realEstate:marketing': 'https://repost.sns-austria.com/',
 }
 
 // Status → colour. Live green, Beta cyan, Waitlist amber, Roadmap faint.
