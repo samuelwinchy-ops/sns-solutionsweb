@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
+import { getShapeTarget } from '@/lib/shapeTarget'
 
 interface NeuralBackgroundProps {
   className?: string
@@ -108,6 +109,8 @@ export default function NeuralBackground({
       age = 0
       life = 0
       color = palette[0]
+      /** 0 = drifting in the field, 1 = fully held by a shape target. */
+      cap = 0
 
       constructor() {
         this.reset(true)
@@ -130,7 +133,22 @@ export default function NeuralBackground({
         this.color = palette[(Math.random() * palette.length) | 0]
       }
 
-      update() {
+      update(tx: number | null, ty: number | null) {
+        const held = tx !== null && ty !== null
+        this.cap += ((held ? 1 : 0) - this.cap) * 0.05
+
+        if (held) {
+          // Spring onto the shape and stay there. No ageing while held, or the
+          // particle would hit the end of its life and teleport out of the mark.
+          this.vx += (tx - this.x) * 0.05
+          this.vy += (ty - this.y) * 0.05
+          this.x += this.vx
+          this.y += this.vy
+          this.vx *= 0.8
+          this.vy *= 0.8
+          return
+        }
+
         // Flow field: angle derived from position for smooth currents
         const angle =
           (Math.cos(this.x * 0.005) + Math.sin(this.y * 0.005)) * Math.PI
@@ -167,10 +185,14 @@ export default function NeuralBackground({
       }
 
       draw(context: CanvasRenderingContext2D) {
-        const alpha = 1 - Math.abs(this.age / this.life - 0.5) * 2
-        context.globalAlpha = Math.max(0, alpha) * 0.9
+        const flow = Math.max(0, 1 - Math.abs(this.age / this.life - 0.5) * 2) * 0.9
+        // Blend toward full brightness as a particle is captured, so the mark
+        // reads evenly instead of inheriting each particle's place in its life.
+        const alpha = flow + (0.85 - flow) * this.cap
+        context.globalAlpha = alpha
         context.fillStyle = this.color
-        context.fillRect(this.x, this.y, 1.6, 1.6)
+        const size = 1.6 + this.cap * 0.4
+        context.fillRect(this.x, this.y, size, size)
       }
     }
 
@@ -225,7 +247,27 @@ export default function NeuralBackground({
       ctx.fillStyle = fadeFill
       ctx.fillRect(0, 0, width, height)
 
-      for (const p of particles) p.update()
+      // A registered shape (the hero logo) pulls a slice of the field onto its
+      // outline. The canvas is fixed to the viewport, so the element's client
+      // rect maps straight onto canvas coordinates — and re-reading it each
+      // frame keeps the mark pinned to the box as the page scrolls.
+      const target = getShapeTarget()
+      const rect = target ? target.getRect() : null
+      const onScreen =
+        !!rect && rect.width > 0 && rect.bottom > 0 && rect.top < height
+      const pts = onScreen ? target!.points : null
+      const span = onScreen ? Math.min(rect!.width, rect!.height) * 0.84 : 0
+      const ox = onScreen ? rect!.left + (rect!.width - span) / 2 : 0
+      const oy = onScreen ? rect!.top + (rect!.height - span) / 2 : 0
+      const heldCount = pts ? Math.min(pts.length, particles.length) : 0
+
+      for (let i = 0; i < particles.length; i++) {
+        if (pts && i < heldCount) {
+          particles[i].update(ox + pts[i].x * span, oy + pts[i].y * span)
+        } else {
+          particles[i].update(null, null)
+        }
+      }
       drawParticles()
       ctx.globalAlpha = 1
     }
