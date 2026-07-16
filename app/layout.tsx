@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { GeistMono } from 'geist/font/mono'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import NeuralBackground from '@/components/NeuralBackground'
+import BackgroundField from '@/components/BackgroundField'
 import { SITE, SITE_URL } from '@/lib/site'
 import './globals.css'
 
@@ -150,18 +150,14 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
-        {/* Interactive neural flow-field — global animated background */}
+        {/* Interactive neural flow-field — global animated background.
+            Density is route-aware: dense on the homepage to feed the hero
+            logo, sparse elsewhere. */}
         <div
           className="pointer-events-none fixed inset-0 z-0"
           aria-hidden="true"
         >
-          <NeuralBackground
-            colors={['#6366f1', '#3b82f6', '#22d3ee', '#818cf8']}
-            fadeColor="#06080f"
-            trailOpacity={0.14}
-            particleCount={900}
-            speed={0.45}
-          />
+          <BackgroundField />
         </div>
 
         <div className="grain-overlay" aria-hidden="true" />
