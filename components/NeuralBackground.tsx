@@ -32,6 +32,14 @@ interface NeuralBackgroundProps {
    */
   particleCount?: number
   /**
+   * Fraction of the field that is visible, 0–1. Default: 1.
+   *
+   * Changing this does NOT rebuild the field: the surplus particles keep
+   * drifting and simply fade out, so density can change between routes without
+   * the background ever resetting.
+   */
+  density?: number
+  /**
    * Speed multiplier. Default: 1
    */
   speed?: number
@@ -61,11 +69,24 @@ export default function NeuralBackground({
   fadeColor = '#06080f',
   trailOpacity = 0.14,
   particleCount = 600,
+  density = 1,
   speed = 1,
   glow = true,
 }: NeuralBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  // Read through a ref so the animation loop picks up density changes without
+  // the effect re-running — re-running would reseed every particle, which is
+  // exactly the reset we're avoiding.
+  const densityRef = useRef(density)
+  // Set only under prefers-reduced-motion, where a single static frame is drawn
+  // and there's no loop to ease the change in.
+  const staticRenderRef = useRef<(() => void) | null>(null)
+  useEffect(() => {
+    densityRef.current = density
+    staticRenderRef.current?.()
+  }, [density])
 
   // Depend on the palette's *contents*, not the array's identity. Callers pass
   // an inline array literal, which is a new object every render and would
@@ -116,6 +137,8 @@ export default function NeuralBackground({
       /** 0 = drifting in the field, 1 = fully held by a shape target. */
       cap = 0
       held = false
+      /** Eased 0–1 visibility, so density changes fade instead of popping. */
+      vis = 1
 
       constructor() {
         this.reset(true)
@@ -196,7 +219,7 @@ export default function NeuralBackground({
         const flow = Math.max(0, 1 - Math.abs(this.age / this.life - 0.5) * 2) * 0.9
         // Even out toward a steady value as a particle is captured, so the mark
         // reads evenly instead of inheriting each particle's place in its life.
-        context.globalAlpha = flow + (0.8 - flow) * this.cap
+        context.globalAlpha = (flow + (0.8 - flow) * this.cap) * this.vis
         context.fillStyle = this.color
         context.fillRect(this.x, this.y, 1.6, 1.6)
       }
@@ -230,17 +253,23 @@ export default function NeuralBackground({
     const drawParticles = () => {
       // Drifting particles blend additively for the luminous "neural" glow.
       ctx.globalCompositeOperation = glow ? 'lighter' : 'source-over'
-      for (const p of particles) if (!p.held) p.draw(ctx)
+      for (const p of particles) if (!p.held && p.vis > 0.01) p.draw(ctx)
 
       // Held ones are drawn flat. They sit still, so additive blending would
       // re-add their colour every frame while the trail fade only removes 14%
       // of it — any stationary additive dot climbs to white regardless of its
       // alpha. source-over keeps the mark the same blue as the field.
       ctx.globalCompositeOperation = 'source-over'
-      for (const p of particles) if (p.held) p.draw(ctx)
+      for (const p of particles) if (p.held && p.vis > 0.01) p.draw(ctx)
     }
 
     const renderStaticFrame = () => {
+      // No animation loop here to ease `vis`, so apply density directly.
+      const visibleCount = Math.round(particles.length * densityRef.current)
+      particles.forEach((p, i) => {
+        p.vis = i < visibleCount ? 1 : 0
+      })
+
       ctx.globalCompositeOperation = 'source-over'
       ctx.globalAlpha = 1
       ctx.fillStyle = fadeColor
@@ -284,11 +313,18 @@ export default function NeuralBackground({
         : 0
       const heldCount = pts ? Math.min(revealed, pts.length, particles.length) : 0
 
+      // Density is applied by fading the surplus out, never by rebuilding the
+      // field. Every particle keeps flowing underneath, so a route change is a
+      // gentle thinning rather than a reset.
+      const visibleCount = Math.round(particles.length * densityRef.current)
+
       for (let i = 0; i < particles.length; i++) {
+        const p = particles[i]
+        p.vis += ((i < visibleCount ? 1 : 0) - p.vis) * 0.06
         if (pts && i < heldCount) {
-          particles[i].update(ox + pts[i].x * span, oy + pts[i].y * span)
+          p.update(ox + pts[i].x * span, oy + pts[i].y * span)
         } else {
-          particles[i].update(null, null)
+          p.update(null, null)
         }
       }
       drawParticles()
@@ -299,8 +335,12 @@ export default function NeuralBackground({
       cancelAnimationFrame(animationFrameId)
       init()
       if (prefersReducedMotion.matches) {
+        // Let a density change repaint the still frame. Never expose this while
+        // animating: it fills the canvas opaquely and would wipe the trails.
+        staticRenderRef.current = renderStaticFrame
         renderStaticFrame()
       } else {
+        staticRenderRef.current = null
         animate()
       }
     }
@@ -343,6 +383,7 @@ export default function NeuralBackground({
 
     return () => {
       cancelAnimationFrame(animationFrameId)
+      staticRenderRef.current = null
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseleave', handleMouseLeave)
