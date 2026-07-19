@@ -32,6 +32,193 @@ body {
   color: transparent;
 }
 
+/* ── Immvela — SNS's end-to-end real-estate product ──────────────────────
+   Its waitlist lives on /roadmap. Immvela has its own identity: a warm, light,
+   editorial brand — cream paper, forest green, emerald, warm amber sunlight —
+   deliberately the "daylight" counterpart to the dark SNS site (same particle
+   field, inverted world). Everything Immvela is scoped under .immvela-theme so
+   it never leaks into the dark studio site.
+   ►► To retune the brand, change the tokens below. */
+.immvela-theme {
+  --im-cream: #f2f1e8; /* page paper */
+  --im-cream-2: #eceada; /* deeper panel */
+  --im-paper: #fcfbf6; /* card face */
+  --im-ink: #16352a; /* forest near-black — headings, wordmark */
+  --im-ink-soft: #24473a;
+  --im-green: #2f7d5b; /* emerald accent — buttons, labels */
+  --im-green-bright: #2e9e6a; /* highlight green */
+  --im-amber: #e3b268; /* warm sunlight accent */
+  --im-muted: #5c6b61; /* body text */
+  --im-faint: #8a978c; /* faint labels */
+  --im-line: rgba(22, 53, 42, 0.12); /* hairline */
+  --im-line-strong: rgba(22, 53, 42, 0.2);
+  color: var(--im-ink);
+}
+.immvela-theme ::selection {
+  background: color-mix(in srgb, var(--im-green) 26%, transparent);
+  color: var(--im-ink);
+}
+
+/* Brand wordmark: "Immvela" in forest ink, trailing dot in emerald. */
+.im-wordmark {
+  color: var(--im-ink);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.im-wordmark .dot {
+  color: var(--im-green-bright);
+}
+
+.im-ink { color: var(--im-ink); }
+.im-muted { color: var(--im-muted); }
+.im-faint { color: var(--im-faint); }
+.im-green { color: var(--im-green); }
+
+/* Small-caps mono label, emerald — the ad's "OFFEN ENTWICKELT" style. */
+.im-eyebrow {
+  color: var(--im-green);
+  font-family: var(--font-geist-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.im-card {
+  background: var(--im-paper);
+  border: 1px solid var(--im-line);
+  border-radius: 20px;
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.7) inset,
+    0 24px 48px -32px rgba(22, 53, 42, 0.35);
+}
+/* Active-module card: a warm sunlight wash in one corner, like the ad. */
+.im-card-warm {
+  background: radial-gradient(
+      130% 90% at 100% 100%,
+      color-mix(in srgb, var(--im-amber) 24%, transparent) 0%,
+      transparent 52%
+    ),
+    var(--im-paper);
+  border: 1px solid var(--im-line);
+  border-radius: 20px;
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.7) inset,
+    0 24px 48px -32px rgba(22, 53, 42, 0.35);
+}
+.im-panel {
+  background: var(--im-cream-2);
+  border: 1px solid var(--im-line);
+  border-radius: 20px;
+}
+
+.im-btn {
+  background-color: var(--im-green);
+  color: #f6f8f4;
+  border-radius: 9999px;
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--im-green) 70%, transparent);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.im-btn:hover {
+  background-color: var(--im-ink-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -12px color-mix(in srgb, var(--im-green) 80%, transparent);
+}
+.im-btn-ghost {
+  background: transparent;
+  color: var(--im-ink);
+  border: 1px solid var(--im-line-strong);
+  border-radius: 9999px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.im-btn-ghost:hover {
+  background: color-mix(in srgb, var(--im-ink) 5%, transparent);
+  border-color: var(--im-green);
+}
+
+.im-hairline {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--im-green) 55%, transparent) 50%,
+    transparent
+  );
+}
+
+/* Status chips — AKTIV (emerald) / IN ARBEIT (quiet), from the ad. */
+.im-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 9999px;
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.im-chip-active {
+  color: var(--im-green);
+  background: color-mix(in srgb, var(--im-green) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--im-green) 30%, transparent);
+}
+.im-chip-progress {
+  color: var(--im-faint);
+  background: color-mix(in srgb, var(--im-ink) 4%, transparent);
+  border: 1px solid var(--im-line);
+}
+
+/* Warm aura wash behind the hero, bleeding off the top-left, echoing the ad. */
+.im-aura {
+  background: radial-gradient(
+    75% 65% at 0% -8%,
+    color-mix(in srgb, var(--im-amber) 24%, transparent) 0%,
+    color-mix(in srgb, var(--im-amber) 8%, transparent) 34%,
+    transparent 68%
+  );
+}
+
+/* Form inputs on paper */
+.im-field {
+  background: #fffefb;
+  border: 1px solid var(--im-line-strong);
+  color: var(--im-ink);
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.im-field::placeholder {
+  color: var(--im-faint);
+}
+.im-field:focus {
+  outline: none;
+  border-color: var(--im-green);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--im-green) 16%, transparent);
+}
+.im-field-bad {
+  border-color: #c2543f;
+}
+.immvela-theme .im-header {
+  background: color-mix(in srgb, var(--im-cream) 82%, transparent);
+  border-bottom: 1px solid var(--im-line);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+
+/* Text links: faint → emerald (or → ink) on hover. */
+.im-link {
+  color: var(--im-faint);
+  transition: color 0.2s ease;
+}
+.im-link:hover {
+  color: var(--im-green);
+}
+.im-link-ink {
+  color: var(--im-faint);
+  transition: color 0.2s ease;
+}
+.im-link-ink:hover {
+  color: var(--im-ink);
+}
+.im-link.is-active {
+  color: var(--im-ink);
+}
+
 .text-glow {
   text-shadow: 0 0 28px rgba(129, 140, 248, 0.35);
 }

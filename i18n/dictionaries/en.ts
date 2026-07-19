@@ -12,7 +12,7 @@ export const en = {
     solutions: 'products',
     hvac: 'hvac / shk',
     realEstate: 'real estate',
-    roadmap: 'roadmap',
+    roadmap: 'immvela',
     team: 'team',
     contact: 'contact',
   },
@@ -61,10 +61,10 @@ export const en = {
     seeAll: 'See all custom builds',
   },
   announce: {
-    tag: 'In development',
-    heading: 'We’re building something.',
-    body: 'An agentic OS for real-estate agents — from lead to listing to close.',
-    cta: 'See the roadmap',
+    tag: 'Now in early access',
+    heading: 'Meet Immvela.',
+    body: 'The end-to-end AI agent for real-estate teams — from lead to listing to close.',
+    cta: 'Join the waitlist',
     dismiss: 'Dismiss',
   },
   buildLog: {
@@ -385,9 +385,9 @@ export const en = {
     },
     proofLabel: 'Early results',
     proof: [
-      { stat: '< 30s', label: 'First response, day or night' },
+      { stat: '4 sec', label: 'First reply, day or night' },
       { stat: '24/7', label: 'Coverage, incl. weekends' },
-      { stat: '2 langs', label: 'German (Sie) & English' },
+      { stat: 'DE · EN', label: 'German (Sie) & English' },
     ],
     faqLabel: 'Questions people ask',
     faq: [
@@ -426,10 +426,56 @@ export const en = {
     ctaButton: 'Book a walkthrough',
   },
   waitlistPage: {
-    eyebrow: 'roadmap — in development',
-    heading: 'The real-estate agentic suite. Building in the open.',
+    // Immvela is SNS's end-to-end real-estate product. This page is its
+    // waitlist landing — a "daylight" version of the SNS site (see the
+    // .immvela-theme light system in globals.css). Copy mirrors the launch ad.
+    brand: 'Immvela',
+    byline: 'by SNS Solutions',
+    earlyAccess: 'Now in early access',
+    builtInOpen: 'Built in the open',
+    tagline: 'The agent-based operating system for real estate.',
+    heroSub:
+      'One agent across the whole pipeline — it markets your listings, answers and qualifies every inquiry, books the viewings, and keeps the paperwork straight. In German and English, built for the DACH market.',
+    primaryCta: 'Join the waitlist',
+    secondaryCta: 'See the modules',
+    // Modules mirror the launch ad (M1–M7). status: 'active' | 'progress'.
+    modulesLabel: 'Module by module',
+    modulesHeadingA: 'Not a finished product pretending to be one —',
+    modulesHeadingB: 'a platform taking shape.',
+    statusActive: 'Active',
+    statusProgress: 'In progress',
+    modules: [
+      { code: 'M1', name: 'Reception', desc: 'Every inquiry — qualified and routed.', status: 'active' },
+      { code: 'M2', name: 'Listing Kit', desc: 'Listing copy, captions, brochure — in seconds.', status: 'active' },
+      { code: 'M3', name: 'Publishing', desc: 'One click — every channel.', status: 'active' },
+      { code: 'M4', name: 'Staging', desc: 'Empty rooms, furnished — without a stager.', status: 'progress' },
+      { code: 'M5', name: 'Walkthrough', desc: 'Walkable 3D tours from a handful of photos.', status: 'progress' },
+      { code: 'M6', name: 'Documents', desc: 'Checked before it becomes a problem.', status: 'progress' },
+      { code: 'M7', name: 'Knowledge', desc: 'What your team knows, in one place.', status: 'progress' },
+    ],
+    closingA: 'We’re building the platform that changes that —',
+    closingB: 'piece by piece.',
+    eyebrow: 'Early access',
+    heading: 'Be first on Immvela.',
     intro:
-      'An agentic OS for real-estate agents — from lead to listing to close. Some of it ships today; the rest is on the roadmap below. Join the early-access list and help shape what we build next.',
+      'No pricing, no ship date yet — just first access and a real say in what we build next. Tell us a little about your team and we’ll be in touch.',
+    proofLabel: 'Early results',
+    proof: [
+      { stat: '4 sec', label: 'First reply, day or night' },
+      { stat: '24/7', label: 'Coverage, incl. weekends' },
+      { stat: 'DE · EN', label: 'German (Sie) & English' },
+    ],
+    guardrail: {
+      label: 'By design',
+      text: 'Immvela gathers and qualifies — it never makes promises to your clients. Pricing, appointments and commitments are always confirmed by a person.',
+    },
+    faqLabel: 'Questions people ask',
+    faq: [
+      { q: 'Is it live yet?', a: 'Three modules are live today — Reception, Listing Kit and Publishing. The rest are in active development, and waitlist members get them first.' },
+      { q: 'What does it cost?', a: 'Pricing isn’t set yet. Waitlist members help shape it — and get early-access terms when Immvela opens up.' },
+      { q: 'Does it book or price on its own?', a: 'No, by design. Immvela qualifies and prepares the work; a person confirms anything binding.' },
+      { q: 'Which languages and market?', a: 'German (Sie-form) and English, built for the DACH market — the tone and the paperwork are local, not translated.' },
+    ],
     tiersLabel: 'Build status — by category',
     // Mirrors the real-estate categories in solutionsPage.industries. It can't
     // be derived from them: the tier reflects actual build state, and two
@@ -488,6 +534,68 @@ export const en = {
         email: 'Please enter your email.',
         emailInvalid: 'That email doesn’t look right.',
         size: 'Please choose a brokerage size.',
+        consent: 'Please agree before joining.',
+        send: 'Something went wrong. Please try again, or email us directly at',
+      },
+    },
+  },
+  // HVAC/SHK has its own early-access list — an HVAC prospect must never land
+  // on the real-estate waitlist above. Mirrors the HVAC categories in
+  // solutionsPage.industries; the tiers reflect actual build state.
+  hvacWaitlistPage: {
+    eyebrow: 'roadmap — in development',
+    heading: 'The HVAC / SHK agentic suite. Building in the open.',
+    intro:
+      'An AI receptionist and back-office for heating, plumbing and installation teams — from the first inquiry through booking to the compliance paperwork. Inbound handling ships today; the rest is on the roadmap below. Join the early-access list and help shape what we build next.',
+    tiersLabel: 'Build status — by category',
+    tiers: [
+      {
+        label: 'Live',
+        status: 'shipping',
+        items: [
+          'Inbound Handling — answers, qualifies and routes every inbound lead 24/7, in German (Sie) and English',
+        ],
+      },
+      {
+        label: 'In progress',
+        status: 'in progress',
+        items: [
+          'Scheduling & Booking — human-confirmed viewing and callback scheduling once a lead is qualified',
+        ],
+      },
+      {
+        label: 'Queued',
+        status: 'queued',
+        items: [
+          'Documentation & Compliance — post-install paperwork: BEG payout evidence, F-Gas logs, JAZ proofs',
+        ],
+      },
+    ],
+    form: {
+      heading: 'Join the early-access list',
+      sub: 'No pricing, no ship date yet — just first access and a say in what we prioritize.',
+      name: 'Name',
+      namePlaceholder: 'Jane Doe',
+      email: 'Email',
+      emailPlaceholder: 'jane@company.com',
+      size: 'Team size',
+      sizePlaceholder: 'Select…',
+      sizes: ['Solo / owner-operator', 'Small team', 'Larger operation'],
+      consent: [
+        { t: 'I agree that my details may be used to contact me about early access, as described in the ' },
+        { t: 'Privacy Policy', link: true },
+        { t: '.' },
+      ] as ConsentSegment[],
+      submit: 'Join the waitlist',
+      sending: 'Joining…',
+      successTitle: "You're on the list.",
+      successBody: "Thanks — we'll be in touch as early-access spots open up.",
+      sendAnother: '← Add another',
+      errors: {
+        name: 'Please enter your name.',
+        email: 'Please enter your email.',
+        emailInvalid: 'That email doesn’t look right.',
+        size: 'Please choose a team size.',
         consent: 'Please agree before joining.',
         send: 'Something went wrong. Please try again, or email us directly at',
       },

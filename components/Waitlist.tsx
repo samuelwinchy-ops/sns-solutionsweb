@@ -19,8 +19,18 @@ const reveal: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
 }
 
-export default function Waitlist({ locale = defaultLocale }: { locale?: Locale }) {
-  const t = getDict(locale).waitlistPage
+type Industry = 'hvac' | 'realEstate'
+
+export default function Waitlist({
+  locale = defaultLocale,
+  industry = 'realEstate',
+}: {
+  locale?: Locale
+  /** Which early-access list this is. Each industry has its own copy. */
+  industry?: Industry
+}) {
+  const dict = getDict(locale)
+  const t = industry === 'hvac' ? dict.hvacWaitlistPage : dict.waitlistPage
 
   return (
     <>
@@ -79,7 +89,7 @@ export default function Waitlist({ locale = defaultLocale }: { locale?: Locale }
         {/* form — anchor target for the "get early access" / "join the
             waitlist" CTAs on the product pages */}
         <div id="early-access" className="scroll-mt-24 lg:sticky lg:top-24">
-          <WaitlistForm locale={locale} />
+          <WaitlistForm locale={locale} industry={industry} />
         </div>
       </div>
     </>

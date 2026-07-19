@@ -18,9 +18,76 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 type Status = 'idle' | 'sending' | 'success' | 'error'
 type FieldName = 'name' | 'email' | 'size' | 'consent'
 type Errors = Partial<Record<FieldName, string>>
+type Industry = 'hvac' | 'realEstate'
 
-export default function WaitlistForm({ locale = defaultLocale }: { locale?: Locale }) {
-  const t = getDict(locale).waitlistPage.form
+// Keeps the submission's subject line and analytics tagged to the right list,
+// so HVAC and real-estate sign-ups stay distinguishable in the inbox.
+const SUBJECT: Record<Industry, string> = {
+  hvac: 'HVAC / SHK — waitlist',
+  realEstate: 'Immvela — waitlist',
+}
+
+type Theme = 'dark' | 'light'
+
+// The form's markup and logic are shared; only the palette differs. 'dark' is
+// the SNS site (HVAC waitlist); 'light' is the Immvela page (cream/forest).
+const UI: Record<Theme, Record<string, string>> = {
+  dark: {
+    card: 'glass edge-light',
+    heading: 'text-sns-text',
+    sub: 'text-sns-muted',
+    label: 'text-sns-faint',
+    field: 'rounded-sns border bg-white/[0.03] text-sns-text placeholder:text-sns-faint focus:bg-white/[0.05]',
+    fieldOk: 'border-white/10 focus:border-sns-indigo/60',
+    fieldBad: 'border-red-400/60 focus:border-red-400',
+    error: 'text-red-400',
+    alert: 'rounded-sns border border-red-400/40 bg-red-400/10 text-red-300',
+    option: 'bg-sns-surface text-sns-text',
+    consent: 'text-sns-muted',
+    consentLink: 'text-sns-accent underline underline-offset-2 hover:text-sns-cyan',
+    checkbox: 'accent-sns-indigo',
+    submit:
+      'bg-sns-indigo text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent',
+    successIcon: 'border-sns-green/30 bg-sns-green/10 text-sns-green',
+    successTitle: 'text-sns-text',
+    successBody: 'text-sns-muted',
+    sendAnother: 'text-sns-muted hover:text-sns-accent',
+  },
+  light: {
+    card: 'im-card',
+    heading: 'im-ink',
+    sub: 'im-muted',
+    label: 'im-faint',
+    field: 'im-field',
+    fieldOk: '',
+    fieldBad: 'im-field-bad',
+    error: 'text-[#c2543f]',
+    alert: 'rounded-xl border border-[#c2543f]/40 bg-[#c2543f]/10 text-[#a23f2e]',
+    option: 'bg-white text-[#16352a]',
+    consent: 'im-muted',
+    consentLink: 'im-green underline underline-offset-2 hover:opacity-70',
+    checkbox: 'accent-[#2f7d5b]',
+    submit:
+      'im-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2f7d5b]',
+    successIcon: 'border-[#2f7d5b]/30 bg-[#2f7d5b]/10 im-green',
+    successTitle: 'im-ink',
+    successBody: 'im-muted',
+    sendAnother: 'im-link',
+  },
+}
+
+export default function WaitlistForm({
+  locale = defaultLocale,
+  industry = 'realEstate',
+  theme = 'dark',
+}: {
+  locale?: Locale
+  industry?: Industry
+  theme?: Theme
+}) {
+  const dict = getDict(locale)
+  const t = (industry === 'hvac' ? dict.hvacWaitlistPage : dict.waitlistPage).form
+  const ui = UI[theme]
   const [status, setStatus] = useState<Status>('idle')
   const [errors, setErrors] = useState<Errors>({})
   const [size, setSize] = useState('')
@@ -58,11 +125,12 @@ export default function WaitlistForm({ locale = defaultLocale }: { locale?: Loca
     }
 
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
-      const subject = encodeURIComponent('Real-estate suite — waitlist')
+      const subject = encodeURIComponent(SUBJECT[industry])
       const body = encodeURIComponent(
         `Name: ${data.get('name')}\n` +
           `Email: ${data.get('email')}\n` +
-          `Brokerage size: ${data.get('size')}\n` +
+          `Team size: ${data.get('size')}\n` +
+          `Industry: ${industry}\n` +
           `Type: waitlist`
       )
       window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${subject}&body=${body}`
@@ -72,7 +140,7 @@ export default function WaitlistForm({ locale = defaultLocale }: { locale?: Loca
     try {
       setStatus('sending')
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form, { publicKey: PUBLIC_KEY })
-      track('waitlist_joined', { size: (data.get('size') as string) || 'unknown' })
+      track('waitlist_joined', { industry, size: (data.get('size') as string) || 'unknown' })
       setStatus('success')
       form.reset()
       setSize('')
@@ -92,19 +160,19 @@ export default function WaitlistForm({ locale = defaultLocale }: { locale?: Loca
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="glass edge-light flex flex-col items-center rounded-sns-lg p-10 text-center"
+        className={`${ui.card} flex flex-col items-center rounded-sns-lg p-10 text-center`}
       >
-        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-sns-green/30 bg-sns-green/10 text-sns-green">
+        <span className={`flex h-14 w-14 items-center justify-center rounded-full border ${ui.successIcon}`}>
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
-        <h3 className="mt-5 text-xl font-bold text-sns-text">{t.successTitle}</h3>
-        <p className="mt-2 max-w-sm text-sns-muted">{t.successBody}</p>
+        <h3 className={`mt-5 text-xl font-bold ${ui.successTitle}`}>{t.successTitle}</h3>
+        <p className={`mt-2 max-w-sm ${ui.successBody}`}>{t.successBody}</p>
         <button
           type="button"
           onClick={() => setStatus('idle')}
-          className="mt-6 font-mono text-xs uppercase tracking-widest text-sns-muted transition-colors duration-300 hover:text-sns-accent"
+          className={`mt-6 font-mono text-xs uppercase tracking-widest transition-colors duration-300 ${ui.sendAnother}`}
         >
           {t.sendAnother}
         </button>
@@ -112,25 +180,26 @@ export default function WaitlistForm({ locale = defaultLocale }: { locale?: Loca
     )
   }
 
-  const labelClass = 'mb-2 block font-mono text-[11px] uppercase tracking-[0.15em] text-sns-faint'
-  const fieldBase =
-    'w-full rounded-sns border bg-white/[0.03] px-4 py-3 text-sns-text outline-none transition-colors duration-200 placeholder:text-sns-faint focus:bg-white/[0.05]'
-  const ok = 'border-white/10 focus:border-sns-indigo/60'
-  const bad = 'border-red-400/60 focus:border-red-400'
+  const labelClass = `mb-2 block font-mono text-[11px] uppercase tracking-[0.15em] ${ui.label}`
+  const fieldBase = `w-full px-4 py-3 outline-none transition-colors duration-200 ${ui.field}`
+  const ok = ui.fieldOk
+  const bad = ui.fieldBad
+  const req = theme === 'light' ? 'im-green' : 'text-sns-indigo'
 
   return (
     <form
       onSubmit={handleSubmit}
       onInput={(e) => clearError((e.target as HTMLInputElement).name)}
       noValidate
-      className="glass edge-light rounded-sns-lg p-6 md:p-8"
+      className={`${ui.card} rounded-sns-lg p-6 md:p-8`}
     >
       <input type="hidden" name="form_type" value="waitlist" />
-      <h3 className="text-xl font-bold text-sns-text">{t.heading}</h3>
-      <p className="mt-2 text-sm text-sns-muted">{t.sub}</p>
+      <input type="hidden" name="industry" value={industry} />
+      <h3 className={`text-xl font-bold ${ui.heading}`}>{t.heading}</h3>
+      <p className={`mt-2 text-sm ${ui.sub}`}>{t.sub}</p>
 
       {status === 'error' && (
-        <div role="alert" className="mt-5 rounded-sns border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-300">
+        <div role="alert" className={`mt-5 px-4 py-3 text-sm ${ui.alert}`}>
           {t.errors.send}{' '}
           <a href={`mailto:${FALLBACK_EMAIL}`} className="underline">
             {FALLBACK_EMAIL}
@@ -149,7 +218,7 @@ export default function WaitlistForm({ locale = defaultLocale }: { locale?: Loca
       <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="wl-name" className={labelClass}>
-            {t.name} <span className="text-sns-indigo">*</span>
+            {t.name} <span className={req}>*</span>
           </label>
           <input
             id="wl-name"
@@ -162,7 +231,7 @@ export default function WaitlistForm({ locale = defaultLocale }: { locale?: Loca
             className={`${fieldBase} ${errors.name ? bad : ok}`}
           />
           {errors.name && (
-            <p id="wl-name-error" className="mt-1.5 text-xs text-red-400">
+            <p id="wl-name-error" className={`mt-1.5 text-xs ${ui.error}`}>
               {errors.name}
             </p>
           )}
@@ -170,7 +239,7 @@ export default function WaitlistForm({ locale = defaultLocale }: { locale?: Loca
 
         <div>
           <label htmlFor="wl-email" className={labelClass}>
-            {t.email} <span className="text-sns-indigo">*</span>
+            {t.email} <span className={req}>*</span>
           </label>
           <input
             id="wl-email"
@@ -183,7 +252,7 @@ export default function WaitlistForm({ locale = defaultLocale }: { locale?: Loca
             className={`${fieldBase} ${errors.email ? bad : ok}`}
           />
           {errors.email && (
-            <p id="wl-email-error" className="mt-1.5 text-xs text-red-400">
+            <p id="wl-email-error" className={`mt-1.5 text-xs ${ui.error}`}>
               {errors.email}
             </p>
           )}
@@ -192,7 +261,7 @@ export default function WaitlistForm({ locale = defaultLocale }: { locale?: Loca
 
       <div className="mt-5">
         <label htmlFor="wl-size" className={labelClass}>
-          {t.size} <span className="text-sns-indigo">*</span>
+          {t.size} <span className={req}>*</span>
         </label>
         <select
           id="wl-size"
@@ -210,13 +279,13 @@ export default function WaitlistForm({ locale = defaultLocale }: { locale?: Loca
             {t.sizePlaceholder}
           </option>
           {t.sizes.map((s) => (
-            <option key={s} value={s} className="bg-sns-surface text-sns-text">
+            <option key={s} value={s} className={ui.option}>
               {s}
             </option>
           ))}
         </select>
         {errors.size && (
-          <p id="wl-size-error" className="mt-1.5 text-xs text-red-400">
+          <p id="wl-size-error" className={`mt-1.5 text-xs ${ui.error}`}>
             {errors.size}
           </p>
         )}
@@ -224,11 +293,11 @@ export default function WaitlistForm({ locale = defaultLocale }: { locale?: Loca
 
       <div className="mt-5">
         <label className="flex items-start gap-3">
-          <input type="checkbox" name="consent" aria-invalid={errors.consent ? 'true' : undefined} className="mt-1 h-4 w-4 shrink-0 accent-sns-indigo" />
-          <span className="text-sm leading-relaxed text-sns-muted">
+          <input type="checkbox" name="consent" aria-invalid={errors.consent ? 'true' : undefined} className={`mt-1 h-4 w-4 shrink-0 ${ui.checkbox}`} />
+          <span className={`text-sm leading-relaxed ${ui.consent}`}>
             {t.consent.map((seg, i) =>
               seg.link ? (
-                <Link key={i} href={localePath(locale, '/legal/privacy')} className="text-sns-accent underline underline-offset-2 hover:text-sns-cyan">
+                <Link key={i} href={localePath(locale, '/legal/privacy')} className={ui.consentLink}>
                   {seg.t}
                 </Link>
               ) : (
@@ -237,13 +306,13 @@ export default function WaitlistForm({ locale = defaultLocale }: { locale?: Loca
             )}
           </span>
         </label>
-        {errors.consent && <p className="mt-1.5 text-xs text-red-400">{errors.consent}</p>}
+        {errors.consent && <p className={`mt-1.5 text-xs ${ui.error}`}>{errors.consent}</p>}
       </div>
 
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="group mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-sns-indigo px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+        className={`group mt-7 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 ease-sns-out disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 ${ui.submit}`}
       >
         {status === 'sending' ? t.sending : t.submit}
         {status !== 'sending' && (

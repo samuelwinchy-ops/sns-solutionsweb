@@ -1,29 +1,47 @@
-import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
-import Footer from '@/components/Footer'
-import Waitlist from '@/components/Waitlist'
+import type { Metadata, Viewport } from 'next'
+import ImmvelaField from '@/components/ImmvelaField'
+import ImmvelaHeader from '@/components/ImmvelaHeader'
+import ImmvelaFooter from '@/components/ImmvelaFooter'
+import ImmvelaLanding from '@/components/ImmvelaLanding'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Roadmap — was wir bauen | SNS Solutions' },
+  title: { absolute: 'Immvela — das agentenbasierte Betriebssystem für Immobilien | SNS Solutions' },
   description:
-    'Ein agentisches OS für Immobilienmakler — vom Lead über das Inserat bis zum Abschluss. Sehen Sie die Roadmap und tragen Sie sich für den Early Access ein.',
+    'Immvela ist der durchgängige KI-Agent für Immobilienteams — vom Lead über das Inserat bis zum Abschluss. Offen entwickelt von SNS Solutions. Tragen Sie sich für den Early Access ein.',
   alternates: {
     canonical: '/de/roadmap',
     languages: { en: '/roadmap', de: '/de/roadmap', 'x-default': '/roadmap' },
   },
-  openGraph: { locale: 'de_AT' },
+  openGraph: {
+    locale: 'de_AT',
+    title: 'Immvela — das agentenbasierte Betriebssystem für Immobilien',
+    description:
+      'Der durchgängige KI-Agent für Immobilienteams. Offen entwickelt von SNS Solutions. Auf die Warteliste.',
+  },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#f2f1e8',
+  colorScheme: 'light',
 }
 
 export default function RoadmapPageDe() {
   return (
-    <div lang="de">
-      <Nav locale="de" />
-      <main id="roadmap" className="relative px-5 pb-24 pt-32 md:px-10 md:pt-36">
-        <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
-          <Waitlist locale="de" />
-        </div>
-      </main>
-      <Footer locale="de" showCta={false} />
+    <div lang="de" className="immvela-theme relative min-h-dvh">
+      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+        <div className="absolute inset-0 bg-[#f2f1e8]" />
+        <ImmvelaField />
+      </div>
+
+      <div className="relative z-10">
+        <ImmvelaHeader locale="de" />
+        <main className="px-5 pb-10 pt-24 md:px-10 md:pt-28">
+          <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
+            <ImmvelaLanding locale="de" />
+          </div>
+        </main>
+        <ImmvelaFooter locale="de" />
+      </div>
     </div>
   )
 }

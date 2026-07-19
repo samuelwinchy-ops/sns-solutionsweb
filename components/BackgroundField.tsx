@@ -16,6 +16,11 @@ export default function BackgroundField() {
   const pathname = usePathname()
   const isHome = pathname === '/' || pathname === '/de'
 
+  // The Immvela waitlist (/roadmap) is a light page with its own green particle
+  // field (see ImmvelaField). Suppress the dark studio field there so two
+  // canvases don't run at once under the cream.
+  if (pathname === '/roadmap' || pathname === '/de/roadmap') return null
+
   return (
     <NeuralBackground
       colors={['#6366f1', '#3b82f6', '#22d3ee', '#818cf8']}

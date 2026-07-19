@@ -71,11 +71,14 @@ export default function Solutions({
 
   // Only a shipped product sends you to the general contact form. Everything
   // else ("Get early access" / "Join the waitlist") asks to be put on a list,
-  // so it goes to the early-access form on the roadmap page.
+  // so it goes to the early-access form. Each industry has its own list —
+  // HVAC gets the HVAC waitlist, real estate the /roadmap page — so a prospect
+  // never lands on the other industry's waitlist.
+  const waitlistPath = industry === 'hvac' ? '/solutions/hvac/waitlist' : '/roadmap'
   const ctaHref = (status: Status) =>
     status === 'live'
       ? localePath(locale, '/contact')
-      : `${localePath(locale, '/roadmap')}#early-access`
+      : `${localePath(locale, waitlistPath)}#early-access`
 
   const primaryBtn =
     'group inline-flex items-center gap-2 rounded-full bg-sns-indigo px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent'

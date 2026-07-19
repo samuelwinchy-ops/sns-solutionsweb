@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '', changeFrequency: 'monthly' as const, priority: 1 },
     { path: '/solutions', changeFrequency: 'weekly' as const, priority: 0.95 },
     { path: '/solutions/hvac', changeFrequency: 'weekly' as const, priority: 0.9 },
+    { path: '/solutions/hvac/waitlist', changeFrequency: 'weekly' as const, priority: 0.7 },
     { path: '/solutions/real-estate', changeFrequency: 'weekly' as const, priority: 0.9 },
     { path: '/solutions/demo', changeFrequency: 'monthly' as const, priority: 0.6 },
     { path: '/services', changeFrequency: 'monthly' as const, priority: 0.9 },

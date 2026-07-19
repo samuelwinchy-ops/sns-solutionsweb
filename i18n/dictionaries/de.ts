@@ -10,7 +10,7 @@ export const de: Dictionary = {
     solutions: 'produkte',
     hvac: 'hlk / shk',
     realEstate: 'immobilien',
-    roadmap: 'roadmap',
+    roadmap: 'immvela',
     team: 'team',
     contact: 'kontakt',
   },
@@ -59,10 +59,10 @@ export const de: Dictionary = {
     seeAll: 'Alle Maßarbeiten ansehen',
   },
   announce: {
-    tag: 'In Entwicklung',
-    heading: 'Wir bauen gerade etwas.',
-    body: 'Ein agentisches OS für Immobilienmakler — vom Lead über das Inserat bis zum Abschluss.',
-    cta: 'Roadmap ansehen',
+    tag: 'Jetzt im Early Access',
+    heading: 'Das ist Immvela.',
+    body: 'Der durchgängige KI-Agent für Immobilienteams — vom Lead über das Inserat bis zum Abschluss.',
+    cta: 'Auf die Warteliste',
     dismiss: 'Schließen',
   },
   buildLog: {
@@ -381,9 +381,9 @@ export const de: Dictionary = {
     },
     proofLabel: 'Erste Ergebnisse',
     proof: [
-      { stat: '< 30s', label: 'Erste Antwort, Tag und Nacht' },
+      { stat: '4 Sek.', label: 'Erste Antwort, Tag und Nacht' },
       { stat: '24/7', label: 'Erreichbarkeit, auch am Wochenende' },
-      { stat: '2 Sprachen', label: 'Deutsch (Sie) & Englisch' },
+      { stat: 'DE · EN', label: 'Deutsch (Sie) & Englisch' },
     ],
     faqLabel: 'Häufige Fragen',
     faq: [
@@ -422,10 +422,56 @@ export const de: Dictionary = {
     ctaButton: 'Walkthrough buchen',
   },
   waitlistPage: {
-    eyebrow: 'roadmap — in entwicklung',
-    heading: 'Die agentische Immobilien-Suite. Öffentlich gebaut.',
+    // Immvela ist das durchgängige Immobilien-Produkt von SNS. Diese Seite ist
+    // ihre Warteliste — die „Tag"-Version der SNS-Seite (siehe .immvela-theme
+    // in globals.css). Die Texte spiegeln die Launch-Anzeige.
+    brand: 'Immvela',
+    byline: 'von SNS Solutions',
+    earlyAccess: 'Jetzt im Early Access',
+    builtInOpen: 'Offen entwickelt',
+    tagline: 'Das agentenbasierte Betriebssystem für Immobilien.',
+    heroSub:
+      'Ein Agent über die gesamte Pipeline — vermarktet Ihre Inserate, beantwortet und qualifiziert jede Anfrage, bucht die Besichtigungen und hält die Unterlagen in Ordnung. Auf Deutsch und Englisch, gebaut für den DACH-Raum.',
+    primaryCta: 'Auf die Warteliste',
+    secondaryCta: 'Module ansehen',
+    // Module wie in der Launch-Anzeige (M1–M7). status: 'active' | 'progress'.
+    modulesLabel: 'Modul für Modul',
+    modulesHeadingA: 'Kein fertiges Produkt, das so tut als ob —',
+    modulesHeadingB: 'eine Plattform, die entsteht.',
+    statusActive: 'Aktiv',
+    statusProgress: 'In Arbeit',
+    modules: [
+      { code: 'M1', name: 'Empfang', desc: 'Jede Anfrage — qualifiziert und weitergeleitet.', status: 'active' },
+      { code: 'M2', name: 'Listing Kit', desc: 'Exposé, Captions, Broschüre — in Sekunden.', status: 'active' },
+      { code: 'M3', name: 'Veröffentlichung', desc: 'Ein Klick — auf allen Kanälen.', status: 'active' },
+      { code: 'M4', name: 'Staging', desc: 'Leere Räume, möbliert — ohne Wohnraumgestalter.', status: 'progress' },
+      { code: 'M5', name: 'Rundgang', desc: 'Begehbare 3D-Touren aus einer Handvoll Fotos.', status: 'progress' },
+      { code: 'M6', name: 'Dokumente', desc: 'Geprüft, bevor es ein Problem wird.', status: 'progress' },
+      { code: 'M7', name: 'Wissen', desc: 'Was Ihr Team weiß, an einem Ort.', status: 'progress' },
+    ],
+    closingA: 'Wir bauen die Plattform, die das ändert —',
+    closingB: 'Stück für Stück.',
+    eyebrow: 'Early Access',
+    heading: 'Seien Sie als Erste bei Immvela dabei.',
     intro:
-      'Ein agentisches OS für Immobilienmakler — vom Lead über das Inserat bis zum Abschluss. Ein Teil ist schon heute verfügbar; der Rest steht in der Roadmap unten. Tragen Sie sich für den Early Access ein und gestalten Sie mit, was wir als Nächstes bauen.',
+      'Noch kein Preis, kein Termin — nur früher Zugang und echte Mitsprache bei dem, was wir als Nächstes bauen. Erzählen Sie uns kurz von Ihrem Team, und wir melden uns.',
+    proofLabel: 'Erste Ergebnisse',
+    proof: [
+      { stat: '4 Sek.', label: 'Erste Antwort, Tag und Nacht' },
+      { stat: '24/7', label: 'Erreichbarkeit, auch am Wochenende' },
+      { stat: 'DE · EN', label: 'Deutsch (Sie) & Englisch' },
+    ],
+    guardrail: {
+      label: 'Bewusst so gebaut',
+      text: 'Immvela erfasst und qualifiziert — es macht Ihren Kunden nie Zusagen. Preise, Termine und Verbindliches bestätigt immer ein Mensch.',
+    },
+    faqLabel: 'Häufige Fragen',
+    faq: [
+      { q: 'Ist es schon live?', a: 'Drei Module sind heute live — Empfang, Listing Kit und Veröffentlichung. Der Rest ist in aktiver Entwicklung, und Warteliste-Mitglieder erhalten ihn zuerst.' },
+      { q: 'Was kostet es?', a: 'Der Preis steht noch nicht fest. Warteliste-Mitglieder gestalten ihn mit — und erhalten Early-Access-Konditionen, sobald Immvela öffnet.' },
+      { q: 'Bucht oder bepreist es selbst?', a: 'Nein, bewusst nicht. Immvela qualifiziert und bereitet vor; Verbindliches bestätigt ein Mensch.' },
+      { q: 'Welche Sprachen und welcher Markt?', a: 'Deutsch (Sie-Form) und Englisch, gebaut für den DACH-Raum — Ton und Unterlagen sind lokal, nicht übersetzt.' },
+    ],
     tiersLabel: 'Build-Status — nach Kategorie',
     tiers: [
       {
@@ -479,6 +525,65 @@ export const de: Dictionary = {
         email: 'Bitte geben Sie Ihre E-Mail-Adresse ein.',
         emailInvalid: 'Diese E-Mail-Adresse sieht nicht richtig aus.',
         size: 'Bitte wählen Sie eine Bürogröße.',
+        consent: 'Bitte stimmen Sie vor dem Eintragen zu.',
+        send: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an',
+      },
+    },
+  },
+  hvacWaitlistPage: {
+    eyebrow: 'roadmap — in entwicklung',
+    heading: 'Die agentische HLK-/SHK-Suite. Öffentlich gebaut.',
+    intro:
+      'Eine KI-Rezeption und ein Back-Office für Heizungs-, Sanitär- und Installationsbetriebe — von der ersten Anfrage über die Terminbuchung bis zur Compliance-Dokumentation. Das Anfragen-Handling ist schon heute verfügbar; der Rest steht in der Roadmap unten. Tragen Sie sich für den Early Access ein und gestalten Sie mit, was wir als Nächstes bauen.',
+    tiersLabel: 'Build-Status — nach Kategorie',
+    tiers: [
+      {
+        label: 'Live',
+        status: 'live',
+        items: [
+          'Anfragen-Handling — beantwortet, qualifiziert und leitet jeden eingehenden Lead rund um die Uhr weiter, auf Deutsch (Sie) und Englisch',
+        ],
+      },
+      {
+        label: 'In Arbeit',
+        status: 'in Arbeit',
+        items: [
+          'Termine & Buchung — menschlich bestätigte Termin- und Rückrufplanung, sobald ein Lead qualifiziert ist',
+        ],
+      },
+      {
+        label: 'In der Warteschlange',
+        status: 'geplant',
+        items: [
+          'Dokumentation & Compliance — Nachweise nach der Installation: BEG-Auszahlungsnachweise, F-Gas-Protokolle, JAZ-Nachweise',
+        ],
+      },
+    ],
+    form: {
+      heading: 'Auf die Early-Access-Liste',
+      sub: 'Noch kein Preis, kein Termin — nur früher Zugang und Mitsprache bei den Prioritäten.',
+      name: 'Name',
+      namePlaceholder: 'Max Mustermann',
+      email: 'E-Mail',
+      emailPlaceholder: 'max@firma.com',
+      size: 'Teamgröße',
+      sizePlaceholder: 'Auswählen…',
+      sizes: ['Einzelbetrieb', 'Kleines Team', 'Größerer Betrieb'],
+      consent: [
+        { t: 'Ich bin einverstanden, dass meine Angaben verwendet werden, um mich zum Early Access zu kontaktieren, wie in der ' },
+        { t: 'Datenschutzerklärung', link: true },
+        { t: ' beschrieben.' },
+      ],
+      submit: 'Auf die Warteliste',
+      sending: 'Wird eingetragen…',
+      successTitle: 'Sie sind auf der Liste.',
+      successBody: 'Danke — wir melden uns, sobald Early-Access-Plätze frei werden.',
+      sendAnother: '← Weitere hinzufügen',
+      errors: {
+        name: 'Bitte geben Sie Ihren Namen ein.',
+        email: 'Bitte geben Sie Ihre E-Mail-Adresse ein.',
+        emailInvalid: 'Diese E-Mail-Adresse sieht nicht richtig aus.',
+        size: 'Bitte wählen Sie eine Teamgröße.',
         consent: 'Bitte stimmen Sie vor dem Eintragen zu.',
         send: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an',
       },
