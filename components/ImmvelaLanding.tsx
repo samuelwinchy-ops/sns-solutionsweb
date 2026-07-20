@@ -138,29 +138,31 @@ export default function ImmvelaLanding({ locale = defaultLocale }: { locale?: Lo
               </motion.div>
             )
           })}
-        </motion.div>
 
-        <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6">
-          <p className="text-sm im-muted">{t.liveNote}</p>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <a
-              href="#early-access"
-              onClick={() => track('immvela_get_signin')}
-              className="im-green group inline-flex items-center gap-1.5 font-mono text-xs font-semibold transition-opacity hover:opacity-70"
-            >
-              {t.signinCta}
-              <Arrow />
-            </a>
-            <Link
-              href={localePath(locale, '/solutions/demo')}
-              onClick={() => track('immvela_see_demo')}
-              className="im-green group inline-flex items-center gap-1.5 font-mono text-xs font-semibold transition-opacity hover:opacity-70"
-            >
-              {t.demoCta}
-              <Arrow />
-            </Link>
-          </div>
-        </div>
+          {/* 9th cell — closes the 3×3: the sign-up note that used to sit
+              under the grid, now filling the empty corner. */}
+          <motion.div variants={item} className="im-card-cta flex min-h-[168px] flex-col p-6">
+            <p className="text-sm leading-relaxed im-ink">{t.liveNote}</p>
+            <div className="mt-auto flex flex-col items-start gap-2.5 pt-5">
+              <a
+                href="#early-access"
+                onClick={() => track('immvela_get_signin')}
+                className="im-green group inline-flex items-center gap-1.5 font-mono text-xs font-semibold transition-opacity hover:opacity-70"
+              >
+                {t.signinCta}
+                <Arrow />
+              </a>
+              <Link
+                href={localePath(locale, '/solutions/demo')}
+                onClick={() => track('immvela_see_demo')}
+                className="im-green group inline-flex items-center gap-1.5 font-mono text-xs font-semibold transition-opacity hover:opacity-70"
+              >
+                {t.demoCta}
+                <Arrow />
+              </Link>
+            </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* ── GUARDRAIL ─────────────────────────────────────────────────── */}

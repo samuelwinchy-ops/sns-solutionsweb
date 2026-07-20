@@ -108,6 +108,20 @@ body {
   border: 1px solid var(--im-line);
   border-radius: 20px;
 }
+/* Sign-up card that closes the module grid (the 9th cell of the 3×3): a green
+   wash and accent hairline so it reads as the next step, not another module. */
+.im-card-cta {
+  background: radial-gradient(
+      130% 90% at 100% 100%,
+      color-mix(in srgb, var(--im-green) 13%, transparent) 0%,
+      transparent 55%
+    ),
+    var(--im-paper);
+  border: 1px solid color-mix(in srgb, var(--im-green) 26%, transparent);
+  border-radius: 20px;
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.7) inset,
+    0 24px 48px -32px rgba(22, 53, 42, 0.35);
+}
 
 .im-btn {
   background-color: var(--im-green);
