@@ -67,11 +67,18 @@ export default function ImmvelaFooter({ locale = defaultLocale }: { locale?: Loc
                 {l.label}
               </Link>
             ))}
-            <a href={localePath(locale, '/')} className="im-link-ink inline-flex items-center gap-1 font-mono text-xs">
-              SNS Solutions
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                <path d="M3.5 8.5 8.5 3.5M4.5 3.5h4v4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            <a href={localePath(locale, '/')} className="im-link-ink group inline-flex items-center gap-1.5 font-mono text-xs">
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 14 14"
+                fill="none"
+                aria-hidden="true"
+                className="transition-transform duration-300 ease-sns-out group-hover:-translate-x-0.5"
+              >
+                <path d="M11 7H3M6.5 3.5 3 7l3.5 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
+              SNS Solutions
             </a>
           </div>
         </div>

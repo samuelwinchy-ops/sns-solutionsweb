@@ -430,6 +430,7 @@ export const en = {
     // .immvela-theme light system in globals.css). Copy mirrors the launch ad.
     brand: 'Immvela',
     byline: 'by SNS Solutions',
+    backToSns: 'Back to SNS',
     earlyAccess: 'Now in early access',
     builtInOpen: 'Built in the open',
     tagline: 'The agent-based operating system for real estate.',

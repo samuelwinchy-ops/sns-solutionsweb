@@ -59,12 +59,20 @@ export default function ImmvelaHeader({ locale = defaultLocale }: { locale?: Loc
 
           <a
             href={localePath(locale, '/')}
-            className="hidden items-center gap-1 font-mono text-[11px] uppercase tracking-widest im-link-ink sm:inline-flex"
+            aria-label={t.backToSns}
+            className="im-btn-ghost group inline-flex items-center gap-1.5 px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-widest sm:px-3"
           >
-            SNS
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-              <path d="M3.5 8.5 8.5 3.5M4.5 3.5h4v4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 14 14"
+              fill="none"
+              aria-hidden="true"
+              className="transition-transform duration-300 ease-sns-out group-hover:-translate-x-0.5"
+            >
+              <path d="M11 7H3M6.5 3.5 3 7l3.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
+            <span className="hidden sm:inline">{t.backToSns}</span>
           </a>
 
           <a

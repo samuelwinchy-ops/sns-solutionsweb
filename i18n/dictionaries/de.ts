@@ -426,6 +426,7 @@ export const de: Dictionary = {
     // in globals.css). Die Texte spiegeln die Launch-Anzeige.
     brand: 'Immvela',
     byline: 'von SNS Solutions',
+    backToSns: 'Zurück zu SNS',
     earlyAccess: 'Jetzt im Early Access',
     builtInOpen: 'Offen entwickelt',
     tagline: 'Das agentenbasierte Betriebssystem für Immobilien.',
