@@ -72,9 +72,9 @@ export default function Solutions({
   // Only a shipped product sends you to the general contact form. Everything
   // else ("Get early access" / "Join the waitlist") asks to be put on a list,
   // so it goes to the early-access form. Each industry has its own list —
-  // HVAC gets the HVAC waitlist, real estate the /roadmap page — so a prospect
+  // HVAC gets the HVAC waitlist, real estate the /immvela page — so a prospect
   // never lands on the other industry's waitlist.
-  const waitlistPath = industry === 'hvac' ? '/solutions/hvac/waitlist' : '/roadmap'
+  const waitlistPath = industry === 'hvac' ? '/solutions/hvac/waitlist' : '/immvela'
   const ctaHref = (status: Status) =>
     status === 'live'
       ? localePath(locale, '/contact')
@@ -201,7 +201,7 @@ export default function Solutions({
                     <p className="mt-2 text-sm text-sns-muted">{t.fullStack.sub}</p>
                   </div>
                   <Link
-                    href={`${localePath(locale, '/roadmap')}#early-access`}
+                    href={`${localePath(locale, '/immvela')}#early-access`}
                     onClick={() => track('solutions_full_stack')}
                     className={`${primaryBtn} shrink-0`}
                   >

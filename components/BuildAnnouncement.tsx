@@ -79,7 +79,7 @@ export default function BuildAnnouncement({ locale = defaultLocale }: { locale?:
           <p className="mt-1 text-sm leading-relaxed text-sns-muted">{t.body}</p>
 
           <Link
-            href={localePath(locale, '/roadmap')}
+            href={localePath(locale, '/immvela')}
             onClick={() => {
               track('announce_roadmap_cta')
               dismiss()

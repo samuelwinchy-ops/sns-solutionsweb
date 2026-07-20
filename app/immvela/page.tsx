@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   description:
     'Immvela is the end-to-end AI agent for real-estate teams — from lead to listing to close. Built in the open by SNS Solutions. Join the early-access waitlist.',
   alternates: {
-    canonical: '/roadmap',
-    languages: { en: '/roadmap', de: '/de/roadmap', 'x-default': '/roadmap' },
+    canonical: '/immvela',
+    languages: { en: '/immvela', de: '/de/immvela', 'x-default': '/immvela' },
   },
   openGraph: {
     title: 'Immvela — the AI operating system for real estate',
@@ -26,7 +26,7 @@ export const viewport: Viewport = {
   colorScheme: 'light',
 }
 
-export default function RoadmapPage() {
+export default function ImmvelaPage() {
   return (
     <div className="immvela-theme relative min-h-dvh">
       {/* Immvela's green-on-cream particle field, covering the dark base. */}

@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   description:
     'Immvela ist der durchgängige KI-Agent für Immobilienteams — vom Lead über das Inserat bis zum Abschluss. Offen entwickelt von SNS Solutions. Tragen Sie sich für den Early Access ein.',
   alternates: {
-    canonical: '/de/roadmap',
-    languages: { en: '/roadmap', de: '/de/roadmap', 'x-default': '/roadmap' },
+    canonical: '/de/immvela',
+    languages: { en: '/immvela', de: '/de/immvela', 'x-default': '/immvela' },
   },
   openGraph: {
     locale: 'de_AT',
@@ -25,7 +25,7 @@ export const viewport: Viewport = {
   colorScheme: 'light',
 }
 
-export default function RoadmapPageDe() {
+export default function ImmvelaPageDe() {
   return (
     <div lang="de" className="immvela-theme relative min-h-dvh">
       <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">

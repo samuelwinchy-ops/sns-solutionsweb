@@ -7,9 +7,6 @@ import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath } from '@/i18n/config'
 import WaitlistForm from './WaitlistForm'
 
-// The live modules (Reception / Listing Kit / Publishing) ship today as Repost.
-const REPOST_URL = 'https://repost.sns-austria.com/'
-
 const EASE = [0.16, 1, 0.3, 1] as const
 
 const reveal: Variants = {
@@ -30,7 +27,7 @@ const Arrow = () => (
 
 /**
  * Immvela — the campaign landing for SNS's end-to-end real-estate agent.
- * Lives on /roadmap. A "daylight" version of the SNS site: same particle field
+ * Lives on /immvela. A "daylight" version of the SNS site: same particle field
  * (green on cream, see ImmvelaField), Immvela's own light palette. Copy mirrors
  * the launch ad the social campaign points here.
  */
@@ -147,16 +144,12 @@ export default function ImmvelaLanding({ locale = defaultLocale }: { locale?: Lo
           <p className="text-sm im-muted">{t.liveNote}</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <a
-              href={REPOST_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => track('immvela_try_repost')}
+              href="#early-access"
+              onClick={() => track('immvela_get_signin')}
               className="im-green group inline-flex items-center gap-1.5 font-mono text-xs font-semibold transition-opacity hover:opacity-70"
             >
-              {t.repostCta}
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                <path d="M3.5 8.5 8.5 3.5M4.5 3.5h4v4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              {t.signinCta}
+              <Arrow />
             </a>
             <Link
               href={localePath(locale, '/solutions/demo')}

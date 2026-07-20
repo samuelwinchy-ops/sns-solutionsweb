@@ -12,7 +12,6 @@ export const en = {
     solutions: 'products',
     hvac: 'hvac / shk',
     realEstate: 'immvela',
-    roadmap: 'immvela',
     team: 'team',
     contact: 'contact',
   },
@@ -236,7 +235,7 @@ export const en = {
     status: { live: 'Live', beta: 'Beta', waitlist: 'Waitlist', roadmap: 'Roadmap' },
     cta: { live: 'Talk to us', beta: 'Get early access', waitlist: 'Join the waitlist', roadmap: 'Join the waitlist' },
     demoCta: 'See how it works',
-    appCta: 'Try Repost',
+    appCta: 'Open in Immvela',
     indexCta: 'View products',
     industries: [
       {
@@ -273,7 +272,7 @@ export const en = {
       },
       {
         // Adding a product here? Add it to waitlistPage.tiers as well — the
-        // /roadmap page lists these from its own hand-maintained copy.
+        // /immvela page lists these from its own hand-maintained copy.
         key: 'realEstate',
         label: 'Immvela',
         descriptor: 'Real estate · sales & lettings',
@@ -453,9 +452,9 @@ export const en = {
       { code: 'M6', name: 'Documents', desc: 'Checked before it becomes a problem.', status: 'progress' },
       { code: 'M7', name: 'Knowledge', desc: 'What your team knows, in one place.', status: 'progress' },
     ],
-    liveNote: 'The active modules already run in Repost.',
-    repostCta: 'Try Repost',
-    demoCta: 'See it work',
+    liveNote: 'The active modules are live in Immvela today — join early access and we set you up with a sign-in.',
+    signinCta: 'Get your sign-in',
+    demoCta: 'See M1 Reception in action',
     closingA: 'We’re building the platform that changes that —',
     closingB: 'piece by piece.',
     eyebrow: 'Early access',
@@ -483,7 +482,7 @@ export const en = {
     // Mirrors the real-estate categories in solutionsPage.industries. It can't
     // be derived from them: the tier reflects actual build state, and two
     // products with the same 'waitlist' status sit in different tiers. Add a
-    // real-estate product there and it must be added here too, or /roadmap
+    // real-estate product there and it must be added here too, or /immvela
     // silently stops listing the full suite.
     tiers: [
       {

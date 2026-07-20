@@ -13,10 +13,10 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
   const pathname = usePathname()
 
   // Flat nav: the two products (Immvela, HVAC) each get their own tab rather
-  // than hiding behind a "Products" dropdown. Immvela lives on /roadmap and
+  // than hiding behind a "Products" dropdown. Immvela lives on /immvela and
   // carries the live dot.
   const links = [
-    { href: localePath(locale, '/roadmap'), id: 'immvela', label: t.realEstate, live: true },
+    { href: localePath(locale, '/immvela'), id: 'immvela', label: t.realEstate, live: true },
     { href: localePath(locale, '/solutions/hvac'), id: 'hvac', label: t.hvac, live: false },
     { href: localePath(locale, '/services'), id: 'services', label: t.services, live: false },
     { href: localePath(locale, '/team'), id: 'team', label: t.team, live: false },

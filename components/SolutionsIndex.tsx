@@ -34,8 +34,8 @@ const industryAccent: Record<Industry, { text: string; ring: string }> = {
 
 const industrySlug: Record<Industry, string> = {
   hvac: '/solutions/hvac',
-  // Real estate folded into Immvela — its catalog page redirects to /roadmap.
-  realEstate: '/roadmap',
+  // Real estate folded into Immvela — its catalog page redirects to /immvela.
+  realEstate: '/immvela',
 }
 
 const STATUS_DOT: Record<Status, string> = {
