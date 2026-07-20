@@ -34,10 +34,12 @@ const reveal: Variants = {
 
 export default function Services({ locale = defaultLocale }: { locale?: Locale }) {
   const t = getDict(locale).servicesPage
-  // The contact form only pre-selects a service when the ?service= value is an
-  // exact match from its own list, so take the consulting option from there
-  // rather than hardcoding a string that would miss in German.
-  const consultService = getDict(locale).contactForm.services[2]
+  // The contact form only pre-selects a ?service= value when it exactly matches
+  // one of its options. Pull the consulting label from the consulting card on
+  // this page (items[2]) — it's the same string as the matching contact-form
+  // option by design, and this stays correct no matter how the form reorders
+  // its list.
+  const consultService = t.items[2].name
 
   return (
     <>

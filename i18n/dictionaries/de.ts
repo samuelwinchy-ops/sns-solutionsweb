@@ -189,7 +189,7 @@ export const de: Dictionary = {
     },
   },
   contactForm: {
-    services: ['Individuelle Software', 'KI & Automatisierung', 'KI- & IT-Beratung', 'Etwas anderes'],
+    services: ['HLK / SHK', 'Immvela · Immobilien', 'Individuelle Software', 'KI & Automatisierung', 'KI- & IT-Beratung', 'Etwas anderes'],
     name: 'Name',
     email: 'E-Mail',
     phone: 'Telefon',

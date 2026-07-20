@@ -191,7 +191,7 @@ export const en = {
     },
   },
   contactForm: {
-    services: ['Custom Software', 'AI & Automation', 'AI & IT Consulting', 'Something else'],
+    services: ['HVAC / SHK', 'Immvela · Real Estate', 'Custom Software', 'AI & Automation', 'AI & IT Consulting', 'Something else'],
     name: 'Name',
     email: 'Email',
     phone: 'Phone',
