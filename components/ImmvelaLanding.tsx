@@ -1,10 +1,14 @@
 'use client'
 
+import Link from 'next/link'
 import { motion, type Variants } from 'framer-motion'
 import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
-import { type Locale, defaultLocale } from '@/i18n/config'
+import { type Locale, defaultLocale, localePath } from '@/i18n/config'
 import WaitlistForm from './WaitlistForm'
+
+// The live modules (Reception / Listing Kit / Publishing) ship today as Repost.
+const REPOST_URL = 'https://repost.sns-austria.com/'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -138,6 +142,32 @@ export default function ImmvelaLanding({ locale = defaultLocale }: { locale?: Lo
             )
           })}
         </motion.div>
+
+        <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6">
+          <p className="text-sm im-muted">{t.liveNote}</p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <a
+              href={REPOST_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => track('immvela_try_repost')}
+              className="im-green group inline-flex items-center gap-1.5 font-mono text-xs font-semibold transition-opacity hover:opacity-70"
+            >
+              {t.repostCta}
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M3.5 8.5 8.5 3.5M4.5 3.5h4v4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+            <Link
+              href={localePath(locale, '/solutions/demo')}
+              onClick={() => track('immvela_see_demo')}
+              className="im-green group inline-flex items-center gap-1.5 font-mono text-xs font-semibold transition-opacity hover:opacity-70"
+            >
+              {t.demoCta}
+              <Arrow />
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* ── GUARDRAIL ─────────────────────────────────────────────────── */}

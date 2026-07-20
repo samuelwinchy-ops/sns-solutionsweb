@@ -6,6 +6,9 @@ const nextConfig = {
     return [
       { source: '/build-log', destination: '/roadmap', permanent: true },
       { source: '/de/build-log', destination: '/de/roadmap', permanent: true },
+      // Real estate folded into Immvela (on /roadmap). Keep old links working.
+      { source: '/solutions/real-estate', destination: '/roadmap', permanent: true },
+      { source: '/de/solutions/real-estate', destination: '/de/roadmap', permanent: true },
     ]
   },
 }

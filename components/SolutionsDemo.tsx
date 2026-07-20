@@ -79,7 +79,7 @@ export default function SolutionsDemo({ locale = defaultLocale }: { locale?: Loc
       <div className="mb-6 flex flex-col gap-5 sm:flex-row sm:gap-10">
         <div>
           <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-sns-faint">{t.channelLabel}</p>
-          <div className="inline-flex rounded-full border border-white/10 bg-white/[0.03] p-1">
+          <div className="inline-flex rounded-full border border-sns-text/12 bg-white/50 p-1">
             {(['voice', 'chat'] as const).map((c) => (
               <button
                 key={c}
@@ -99,7 +99,7 @@ export default function SolutionsDemo({ locale = defaultLocale }: { locale?: Loc
         </div>
         <div>
           <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-sns-faint">{t.industryLabel}</p>
-          <div className="inline-flex rounded-full border border-white/10 bg-white/[0.03] p-1">
+          <div className="inline-flex rounded-full border border-sns-text/12 bg-white/50 p-1">
             {(['hvac', 'realEstate'] as const).map((k) => (
               <button
                 key={k}

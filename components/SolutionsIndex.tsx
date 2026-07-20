@@ -34,7 +34,8 @@ const industryAccent: Record<Industry, { text: string; ring: string }> = {
 
 const industrySlug: Record<Industry, string> = {
   hvac: '/solutions/hvac',
-  realEstate: '/solutions/real-estate',
+  // Real estate folded into Immvela — its catalog page redirects to /roadmap.
+  realEstate: '/roadmap',
 }
 
 const STATUS_DOT: Record<Status, string> = {
@@ -94,10 +95,10 @@ export default function SolutionsIndex({ locale = defaultLocale }: { locale?: Lo
               <Link
                 href={localePath(locale, industrySlug[key])}
                 onClick={() => track('solutions_index_pick', { industry: ind.key })}
-                className={`group flex h-full flex-col rounded-sns-lg border border-white/[0.08] bg-sns-surface-2 p-6 shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_24px_48px_-28px_rgba(0,0,0,0.75)] transition-colors duration-300 ease-sns-out ${acc.ring} md:p-7`}
+                className={`group flex h-full flex-col rounded-sns-lg border border-sns-text/[0.08] bg-sns-surface p-6 shadow-[0_1px_0_0_rgba(255,255,255,0.8)_inset,0_24px_48px_-28px_rgba(20,25,43,0.2)] transition-colors duration-300 ease-sns-out ${acc.ring} md:p-7`}
               >
                 <div className="flex items-start gap-4">
-                  <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-white/10 bg-sns-surface ${acc.text}`}>
+                  <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-sns-text/10 bg-white/70 ${acc.text}`}>
                     {industryIcon[key]}
                   </span>
                   <div className="min-w-0 flex-1">
@@ -114,7 +115,7 @@ export default function SolutionsIndex({ locale = defaultLocale }: { locale?: Lo
                 <p className="mt-4 leading-relaxed text-sns-muted">{ind.blurb}</p>
 
                 {/* what's inside */}
-                <ul className="mt-5 flex flex-col gap-2 border-t border-white/[0.06] pt-4">
+                <ul className="mt-5 flex flex-col gap-2 border-t border-sns-text/[0.08] pt-4">
                   {ind.categories.map((cat) => (
                     <li key={cat.key} className="flex items-center gap-2.5 text-sm text-sns-muted">
                       <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${STATUS_DOT[cat.status as Status]}`} aria-hidden="true" />

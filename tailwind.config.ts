@@ -9,25 +9,25 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // ── Surfaces (layered near-black, never pure #000) ──
-        'sns-bg': '#06080F', // deep base
-        'sns-surface': '#0B0F1C', // elevated surface (cards)
-        'sns-surface-2': '#111729', // higher elevation (hover / nested)
-        'sns-border': '#1B2236', // solid border fallback
-        // ── Accent spectrum (indigo → blue → cyan) ──
-        'sns-indigo': '#6366F1', // primary accent
-        'sns-violet': '#8B5CF6', // gradient partner
-        'sns-blue': '#3B82F6', // brand blue (kept for continuity)
-        'sns-cyan': '#22D3EE', // bright highlight
-        'sns-accent': '#818CF8', // light accent (text hover)
-        'sns-blue-dim': '#1D4ED8', // deep blue
-        // ── Text ──
-        'sns-text': '#EDEEF4', // primary text
-        'sns-muted': '#8B95AC', // secondary text (AA on dark)
-        'sns-faint': '#717B94', // tertiary / decorative labels
+        // ── Daylight surfaces (warm cream paper, mirrors Immvela) ──
+        'sns-bg': '#f2f1e8', // warm cream base
+        'sns-surface': '#faf9f2', // elevated surface (cards)
+        'sns-surface-2': '#f4f2e9', // higher elevation (hover / nested)
+        'sns-border': '#dcdacb', // solid border fallback
+        // ── Accent spectrum (indigo → blue → cyan), deepened to read on cream ──
+        'sns-indigo': '#4f46e5', // primary accent (fills + accent text)
+        'sns-violet': '#7c3aed', // gradient partner
+        'sns-blue': '#2563eb', // brand blue
+        'sns-cyan': '#0891b2', // bright highlight (teal on light)
+        'sns-accent': '#4338ca', // deep indigo — links / hover
+        'sns-blue-dim': '#1d4ed8', // deep blue
+        // ── Text (deep navy ink on cream) ──
+        'sns-text': '#14192b', // primary text
+        'sns-muted': '#545d70', // secondary text (AA on cream)
+        'sns-faint': '#878c99', // tertiary / decorative labels
         // ── Status ──
-        'sns-green': '#34D399',
-        'sns-amber': '#FBBF24',
+        'sns-green': '#059669',
+        'sns-amber': '#d97706',
       },
       fontFamily: {
         mono: ['var(--font-geist-mono)', 'JetBrains Mono', 'monospace'],

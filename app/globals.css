@@ -7,25 +7,26 @@ html {
 }
 
 body {
-  background-color: #06080f;
-  color: #edeef4;
+  /* Daylight: warm cream paper, deep navy ink (mirrors Immvela, in SNS blue). */
+  background-color: #f2f1e8;
+  color: #14192b;
   /* Faint vertical falloff so the page feels lit from the top */
   background-image: radial-gradient(
     120% 80% at 50% -10%,
-    rgba(99, 102, 241, 0.06) 0%,
+    rgba(79, 70, 229, 0.05) 0%,
     transparent 55%
   );
   background-attachment: fixed;
 }
 
 ::selection {
-  background-color: rgba(99, 102, 241, 0.32);
-  color: #ffffff;
+  background-color: rgba(79, 70, 229, 0.2);
+  color: #14192b;
 }
 
-/* ── Text gradient (indigo → blue → cyan) ───────────────────────────── */
+/* ── Text gradient (indigo → blue → cyan), deepened to read on cream ─── */
 .text-gradient-blue {
-  background: linear-gradient(100deg, #818cf8 0%, #60a5fa 45%, #22d3ee 100%);
+  background: linear-gradient(100deg, #4f46e5 0%, #2563eb 45%, #0891b2 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -220,45 +221,45 @@ body {
 }
 
 .text-glow {
-  text-shadow: 0 0 28px rgba(129, 140, 248, 0.35);
+  text-shadow: 0 0 24px rgba(79, 70, 229, 0.14);
 }
 
-/* ── Glow scale ─────────────────────────────────────────────────────── */
+/* ── Glow scale (soft indigo cast on cream) ─────────────────────────── */
 .glow-sm {
-  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.12),
-    0 8px 24px -8px rgba(99, 102, 241, 0.18);
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.1),
+    0 8px 24px -8px rgba(20, 25, 43, 0.1);
 }
 .glow-blue {
-  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.16),
-    0 16px 48px -16px rgba(99, 102, 241, 0.32);
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.12),
+    0 16px 44px -18px rgba(79, 70, 229, 0.22);
 }
 .glow-blue-strong {
-  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.24),
-    0 24px 64px -16px rgba(99, 102, 241, 0.42),
-    0 0 80px -24px rgba(34, 211, 238, 0.22);
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.18),
+    0 24px 60px -18px rgba(79, 70, 229, 0.28),
+    0 0 80px -28px rgba(8, 145, 178, 0.18);
 }
 
-/* ── Glass surface (frosted, hairline border, top edge highlight) ───── */
+/* ── Glass surface (frosted white card on cream) ────────────────────── */
 .glass {
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(255, 255, 255, 0.02) 100%
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(255, 255, 255, 0.46) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(20, 25, 43, 0.08);
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
 }
 .glass-strong {
-  background: rgba(11, 15, 28, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  background: rgba(250, 249, 242, 0.82);
+  border: 1px solid rgba(20, 25, 43, 0.08);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
 }
 
 /* Hairline top-edge highlight for cards */
 .edge-light {
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.7);
 }
 
 /* ── Fine grain overlay over flat surfaces ──────────────────────────── */
@@ -267,7 +268,7 @@ body {
   inset: 0;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -284,11 +285,11 @@ body {
 .dot-grid {
   background-image: radial-gradient(
     circle,
-    rgba(99, 102, 241, 0.9) 1px,
+    rgba(79, 70, 229, 0.9) 1px,
     transparent 1px
   );
   background-size: 34px 34px;
-  opacity: 0.07;
+  opacity: 0.08;
   animation: drift 14s linear infinite;
   -webkit-mask-image: radial-gradient(
     ellipse 90% 70% at 30% 30%,
@@ -329,9 +330,9 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(99, 102, 241, 0.35) 35%,
-    rgba(34, 211, 238, 0.5) 50%,
-    rgba(99, 102, 241, 0.35) 65%,
+    rgba(79, 70, 229, 0.4) 35%,
+    rgba(8, 145, 178, 0.55) 50%,
+    rgba(79, 70, 229, 0.4) 65%,
     transparent
   );
   background-size: 200% 100%;
@@ -355,14 +356,14 @@ body {
 
 /* ── Legal / long-form document typography ──────────────────────────── */
 .legal-prose {
-  color: #b8c0d4;
+  color: #3f4658;
   font-size: 0.95rem;
   line-height: 1.75;
 }
 .legal-prose h2 {
   margin-top: 2.75rem;
   margin-bottom: 0.85rem;
-  color: #edeef4;
+  color: #14192b;
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -373,7 +374,7 @@ body {
 .legal-prose h3 {
   margin-top: 1.75rem;
   margin-bottom: 0.5rem;
-  color: #edeef4;
+  color: #14192b;
   font-size: 1rem;
   font-weight: 600;
 }
@@ -389,29 +390,29 @@ body {
   margin-bottom: 0.4rem;
 }
 .legal-prose a {
-  color: #818cf8;
+  color: #4f46e5;
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: color 0.2s ease;
 }
 .legal-prose a:hover {
-  color: #22d3ee;
+  color: #0891b2;
 }
 .legal-prose strong {
-  color: #edeef4;
+  color: #14192b;
   font-weight: 600;
 }
 .legal-prose hr {
   margin: 2rem 0;
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(20, 25, 43, 0.1);
 }
 /* Placeholders the operator must fill in before launch */
 .legal-prose .ph {
   border-radius: 4px;
-  background: rgba(251, 191, 36, 0.12);
+  background: rgba(217, 119, 6, 0.14);
   padding: 0 0.35em;
-  color: #fbbf24;
+  color: #b45309;
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.85em;
 }

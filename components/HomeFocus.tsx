@@ -35,7 +35,8 @@ const industryAccent: Record<Industry, { text: string; ring: string }> = {
 // Each industry has its own dedicated product page.
 const industrySlug: Record<Industry, string> = {
   hvac: '/solutions/hvac',
-  realEstate: '/solutions/real-estate',
+  // Real estate folded into Immvela — its catalog page redirects to /roadmap.
+  realEstate: '/roadmap',
 }
 
 const container: Variants = {
@@ -78,9 +79,9 @@ export default function HomeFocus({ locale = defaultLocale }: { locale?: Locale 
               <motion.div key={key} variants={item}>
                 <Link
                   href={localePath(locale, industrySlug[key])}
-                  className={`group flex h-full items-start gap-4 rounded-sns-lg border border-white/[0.08] bg-sns-surface-2 p-6 shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_24px_48px_-28px_rgba(0,0,0,0.75)] transition-colors duration-300 ease-sns-out ${acc.ring} md:p-7`}
+                  className={`group flex h-full items-start gap-4 rounded-sns-lg border border-sns-text/[0.08] bg-sns-surface p-6 shadow-[0_1px_0_0_rgba(255,255,255,0.8)_inset,0_24px_48px_-28px_rgba(20,25,43,0.2)] transition-colors duration-300 ease-sns-out ${acc.ring} md:p-7`}
                 >
-                  <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-white/10 bg-sns-surface ${acc.text}`}>
+                  <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-sns-text/10 bg-white/70 ${acc.text}`}>
                     {industryIcon[key]}
                   </span>
                   <span className="min-w-0 flex-1">

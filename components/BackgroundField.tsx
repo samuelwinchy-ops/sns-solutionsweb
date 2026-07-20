@@ -23,12 +23,16 @@ export default function BackgroundField() {
 
   return (
     <NeuralBackground
-      colors={['#6366f1', '#3b82f6', '#22d3ee', '#818cf8']}
-      fadeColor="#06080f"
-      trailOpacity={0.14}
+      // Daylight: SNS blue particles drifting over cream. Glow off — additive
+      // blending brightens toward white, which would erase them on a light
+      // ground (same reason ImmvelaField runs glow off).
+      colors={['#4f46e5', '#2563eb', '#3b5bdb', '#6366f1']}
+      fadeColor="#f2f1e8"
+      trailOpacity={0.16}
       particleCount={FIELD_SIZE}
       density={isHome ? 1 : INNER_DENSITY}
       speed={0.45}
+      glow={false}
     />
   )
 }

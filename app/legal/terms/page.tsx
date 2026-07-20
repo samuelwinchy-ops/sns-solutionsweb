@@ -19,7 +19,7 @@ const UPDATED = 'July 3, 2026'
 export default function TermsPage() {
   return (
     <article>
-      <header className="mb-10 border-b border-white/[0.07] pb-8">
+      <header className="mb-10 border-b border-sns-text/[0.08] pb-8">
         <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-sns-indigo">
           Legal
         </p>

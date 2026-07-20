@@ -27,7 +27,7 @@ export default function Hero({ locale = defaultLocale }: { locale?: Locale }) {
         className="pointer-events-none absolute left-0 top-0 z-0 h-[500px] w-[700px]"
         style={{
           background:
-            'radial-gradient(ellipse at 18% 38%, rgba(99, 102, 241, 0.12) 0%, transparent 68%)',
+            'radial-gradient(ellipse at 18% 38%, rgba(79, 70, 229, 0.1) 0%, transparent 68%)',
         }}
       />
       <div
@@ -35,7 +35,7 @@ export default function Hero({ locale = defaultLocale }: { locale?: Locale }) {
         className="absolute inset-0 z-[1]"
         style={{
           background:
-            'radial-gradient(ellipse at center, transparent 38%, rgba(6,8,15,0.85) 100%)',
+            'radial-gradient(ellipse at center, transparent 42%, rgba(242,241,232,0.85) 100%)',
         }}
       />
 
@@ -46,7 +46,7 @@ export default function Hero({ locale = defaultLocale }: { locale?: Locale }) {
             initial="hidden"
             animate="visible"
             custom={0}
-            className="mb-7 inline-flex w-fit items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-2.5 pr-3.5 backdrop-blur-sm"
+            className="mb-7 inline-flex w-fit items-center gap-2.5 rounded-full border border-sns-text/10 bg-white/50 py-1.5 pl-2.5 pr-3.5 backdrop-blur-sm"
           >
             <span className="h-2 w-2 rounded-full bg-sns-cyan" aria-hidden="true" />
             <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-sns-muted">
@@ -114,7 +114,7 @@ export default function Hero({ locale = defaultLocale }: { locale?: Locale }) {
             <a
               href={localePath(locale, '/solutions')}
               onClick={() => track('hero_view_solutions')}
-              className="group inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.02] px-5 py-3 font-mono text-sm text-sns-text transition-all duration-300 ease-sns-out hover:border-white/25 hover:bg-white/[0.05] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
+              className="group inline-flex items-center gap-2 rounded-full border border-sns-text/15 bg-white/40 px-5 py-3 font-mono text-sm text-sns-text transition-all duration-300 ease-sns-out hover:border-sns-text/30 hover:bg-white/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
             >
               {t.ctaSolutions}
               <svg

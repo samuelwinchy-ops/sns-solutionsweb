@@ -26,7 +26,7 @@ export default function ContactContent({ locale }: { locale: Locale }) {
 
         <dl className="mt-10 flex flex-col">
           {details.map((d) => (
-            <div key={d.label} className="border-t border-white/[0.07] py-4">
+            <div key={d.label} className="border-t border-sns-text/[0.08] py-4">
               <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-sns-faint">
                 {d.label}
               </dt>

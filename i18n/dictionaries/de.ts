@@ -9,7 +9,7 @@ export const de: Dictionary = {
     services: 'maßarbeit',
     solutions: 'produkte',
     hvac: 'hlk / shk',
-    realEstate: 'immobilien',
+    realEstate: 'immvela',
     roadmap: 'immvela',
     team: 'team',
     contact: 'kontakt',
@@ -271,8 +271,8 @@ export const de: Dictionary = {
       },
       {
         key: 'realEstate',
-        label: 'Immobilien',
-        descriptor: 'Verkauf · Vermietung · Vermittlung',
+        label: 'Immvela',
+        descriptor: 'Immobilien · Verkauf & Vermietung',
         blurb: 'Für Maklerbüros, die die ganze Pipeline abgedeckt haben wollen — Inserats-Marketing, Anfragen, Besichtigungen und die Unterlagen vor dem Abschluss.',
         categories: [
           {
@@ -449,6 +449,9 @@ export const de: Dictionary = {
       { code: 'M6', name: 'Dokumente', desc: 'Geprüft, bevor es ein Problem wird.', status: 'progress' },
       { code: 'M7', name: 'Wissen', desc: 'Was Ihr Team weiß, an einem Ort.', status: 'progress' },
     ],
+    liveNote: 'Die aktiven Module laufen bereits in Repost.',
+    repostCta: 'Repost testen',
+    demoCta: 'Ansehen, wie es arbeitet',
     closingA: 'Wir bauen die Plattform, die das ändert —',
     closingB: 'Stück für Stück.',
     eyebrow: 'Early Access',

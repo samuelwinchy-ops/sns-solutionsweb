@@ -123,9 +123,9 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
 
   const labelClass = 'mb-2 block font-mono text-[11px] uppercase tracking-[0.15em] text-sns-faint'
   const fieldBase =
-    'w-full rounded-sns border bg-white/[0.03] px-4 py-3 text-sns-text outline-none transition-colors duration-200 placeholder:text-sns-faint focus:bg-white/[0.05]'
-  const ok = 'border-white/10 focus:border-sns-indigo/60'
-  const bad = 'border-red-400/60 focus:border-red-400'
+    'w-full rounded-sns border bg-white/70 px-4 py-3 text-sns-text outline-none transition-colors duration-200 placeholder:text-sns-faint focus:bg-white/90'
+  const ok = 'border-sns-text/15 focus:border-sns-indigo/60'
+  const bad = 'border-red-500/60 focus:border-red-500'
 
   return (
     <form
@@ -136,7 +136,7 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
     >
       <input type="hidden" name="form_type" value="contact" />
       {status === 'error' && (
-        <div role="alert" className="mb-6 rounded-sns border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-300">
+        <div role="alert" className="mb-6 rounded-sns border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700">
           {t.errors.send}{' '}
           <a href={`mailto:${FALLBACK_EMAIL}`} className="underline">
             {FALLBACK_EMAIL}
@@ -168,7 +168,7 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
             className={`${fieldBase} ${errors.name ? bad : ok}`}
           />
           {errors.name && (
-            <p id="name-error" className="mt-1.5 text-xs text-red-400">
+            <p id="name-error" className="mt-1.5 text-xs text-red-600">
               {errors.name}
             </p>
           )}
@@ -189,7 +189,7 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
             className={`${fieldBase} ${errors.email ? bad : ok}`}
           />
           {errors.email && (
-            <p id="email-error" className="mt-1.5 text-xs text-red-400">
+            <p id="email-error" className="mt-1.5 text-xs text-red-600">
               {errors.email}
             </p>
           )}
@@ -228,7 +228,7 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
             ))}
           </select>
           {errors.service && (
-            <p id="service-error" className="mt-1.5 text-xs text-red-400">
+            <p id="service-error" className="mt-1.5 text-xs text-red-600">
               {errors.service}
             </p>
           )}
@@ -249,7 +249,7 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
           className={`${fieldBase} resize-y ${errors.message ? bad : ok}`}
         />
         {errors.message && (
-          <p id="message-error" className="mt-1.5 text-xs text-red-400">
+          <p id="message-error" className="mt-1.5 text-xs text-red-600">
             {errors.message}
           </p>
         )}
@@ -270,7 +270,7 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
             )}
           </span>
         </label>
-        {errors.consent && <p className="mt-1.5 text-xs text-red-400">{errors.consent}</p>}
+        {errors.consent && <p className="mt-1.5 text-xs text-red-600">{errors.consent}</p>}
       </div>
 
       <button

@@ -44,7 +44,7 @@ const STATUS: Record<Status, { text: string; dot: string; ring: string; bg: stri
   live: { text: 'text-sns-green', dot: 'bg-sns-green', ring: 'border-sns-green/30', bg: 'bg-sns-green/[0.08]' },
   beta: { text: 'text-sns-cyan', dot: 'bg-sns-cyan', ring: 'border-sns-cyan/30', bg: 'bg-sns-cyan/[0.08]' },
   waitlist: { text: 'text-sns-amber', dot: 'bg-sns-amber', ring: 'border-sns-amber/30', bg: 'bg-sns-amber/[0.08]' },
-  roadmap: { text: 'text-sns-faint', dot: 'bg-sns-faint', ring: 'border-white/12', bg: 'bg-white/[0.03]' },
+  roadmap: { text: 'text-sns-faint', dot: 'bg-sns-faint', ring: 'border-sns-text/12', bg: 'bg-white/50' },
 }
 
 const reveal: Variants = {
@@ -103,9 +103,9 @@ export default function Solutions({
           return (
             <section key={ind.key} id={ind.key} className="scroll-mt-24">
               {/* section header */}
-              <div className="mb-6 flex flex-col gap-4 border-b border-white/[0.08] pb-6 md:flex-row md:items-end md:justify-between">
+              <div className="mb-6 flex flex-col gap-4 border-b border-sns-text/[0.08] pb-6 md:flex-row md:items-end md:justify-between">
                 <div className="flex items-start gap-4">
-                  <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-white/10 bg-sns-surface ${industryText[key]}`}>
+                  <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-sns-text/10 bg-white/70 ${industryText[key]}`}>
                     {industryIcon[key]}
                   </span>
                   <div>
@@ -117,7 +117,7 @@ export default function Solutions({
               </div>
 
               {/* bundle note */}
-              <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-1.5 font-mono text-[11px] text-sns-muted">
+              <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-sns-text/[0.1] bg-white/50 px-4 py-1.5 font-mono text-[11px] text-sns-muted">
                 <span className="h-1.5 w-1.5 rounded-full bg-sns-indigo" />
                 {t.bundleNote}
               </p>
@@ -134,7 +134,7 @@ export default function Solutions({
                       initial="hidden"
                       whileInView="visible"
                       viewport={{ once: true, margin: '-60px' }}
-                      className="flex flex-col rounded-sns-lg border border-white/[0.08] bg-sns-surface-2 p-6 shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_20px_44px_-28px_rgba(0,0,0,0.7)]"
+                      className="flex flex-col rounded-sns-lg border border-sns-text/[0.08] bg-sns-surface p-6 shadow-[0_1px_0_0_rgba(255,255,255,0.8)_inset,0_20px_44px_-28px_rgba(20,25,43,0.18)]"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <h3 className="text-lg font-semibold leading-snug text-sns-text">{cat.name}</h3>
@@ -155,7 +155,7 @@ export default function Solutions({
                         {cat.outcome}
                       </p>
 
-                      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/[0.06] pt-4">
+                      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-sns-text/[0.08] pt-4">
                         {appUrl && (
                           <a
                             href={appUrl}

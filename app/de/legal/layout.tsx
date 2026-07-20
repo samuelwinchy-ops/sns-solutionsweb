@@ -15,7 +15,7 @@ export default function LegalLayoutDe({
 }) {
   return (
     <div lang="de" className="relative z-10 flex min-h-dvh flex-col">
-      <header className="glass-strong sticky top-0 z-50 border-b border-white/[0.07] px-5">
+      <header className="glass-strong sticky top-0 z-50 border-b border-sns-text/[0.08] px-5">
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between">
           <Link href="/de" className="flex items-center gap-2.5">
             <Image src="/sns-icon.png" alt="" width={914} height={914} className="h-8 w-8" />
@@ -40,7 +40,7 @@ export default function LegalLayoutDe({
         {children}
       </main>
 
-      <footer className="border-t border-white/[0.07] px-5">
+      <footer className="border-t border-sns-text/[0.08] px-5">
         <div className="mx-auto flex max-w-3xl flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-mono text-xs text-sns-faint">
             SNS Software Solutions GmbH — Wien, Österreich

@@ -17,7 +17,7 @@ export default function LegalLayout({
   return (
     <div className="relative z-10 flex min-h-dvh flex-col">
       {/* Header */}
-      <header className="glass-strong sticky top-0 z-50 border-b border-white/[0.07] px-5">
+      <header className="glass-strong sticky top-0 z-50 border-b border-sns-text/[0.08] px-5">
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
             <Image
@@ -52,7 +52,7 @@ export default function LegalLayout({
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/[0.07] px-5">
+      <footer className="border-t border-sns-text/[0.08] px-5">
         <div className="mx-auto flex max-w-3xl flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-mono text-xs text-sns-faint">
             {SITE.legalName} — Vienna, Austria

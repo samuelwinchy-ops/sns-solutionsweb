@@ -77,8 +77,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#06080F',
-  colorScheme: 'dark',
+  themeColor: '#f2f1e8',
+  colorScheme: 'light',
 }
 
 // Site-wide structured data (Organization / LocalBusiness + WebSite) so search

@@ -112,7 +112,7 @@ export default function Services({ locale = defaultLocale }: { locale?: Locale }
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_1.1fr] md:gap-12">
             <div>
               <div className="flex items-center gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-white/10 bg-sns-surface text-sns-accent">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-sns-text/10 bg-white/70 text-sns-accent">
                   {icons[index]}
                 </span>
                 <span className="font-mono text-sm text-sns-faint">0{index + 1}</span>
@@ -166,7 +166,7 @@ export default function Services({ locale = defaultLocale }: { locale?: Locale }
                 </ul>
               </div>
 
-              <p className="border-t border-white/[0.07] pt-4 font-mono text-xs leading-relaxed text-sns-faint">
+              <p className="border-t border-sns-text/[0.08] pt-4 font-mono text-xs leading-relaxed text-sns-faint">
                 {service.example}
               </p>
             </div>

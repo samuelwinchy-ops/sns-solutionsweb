@@ -11,7 +11,7 @@ const EASE = [0.16, 1, 0.3, 1] as const
 const TIER_ACCENT = [
   { dot: 'bg-sns-green', text: 'text-sns-green', ring: 'border-sns-green/25' },
   { dot: 'bg-sns-amber', text: 'text-sns-amber', ring: 'border-sns-amber/25' },
-  { dot: 'bg-sns-faint', text: 'text-sns-faint', ring: 'border-white/10' },
+  { dot: 'bg-sns-faint', text: 'text-sns-faint', ring: 'border-sns-text/10' },
 ]
 
 const reveal: Variants = {

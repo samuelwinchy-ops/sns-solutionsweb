@@ -100,7 +100,7 @@ export default function ReceptionistDemo({
   return (
     <div className="glass-strong edge-light overflow-hidden rounded-sns-lg">
       {/* header */}
-      <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-3">
+      <div className="flex items-center justify-between border-b border-sns-text/[0.08] px-4 py-3">
         <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-sns-muted">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sns-green opacity-70" />
@@ -111,7 +111,7 @@ export default function ReceptionistDemo({
         <button
           type="button"
           onClick={play}
-          className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-sns-muted transition-colors duration-300 hover:border-sns-indigo/50 hover:text-sns-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
+          className="flex items-center gap-1.5 rounded-full border border-sns-text/12 bg-white/50 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-sns-muted transition-colors duration-300 hover:border-sns-indigo/50 hover:text-sns-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
         >
           <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M12 7a5 5 0 1 1-1.5-3.6M12 2v2.5H9.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -137,7 +137,7 @@ export default function ReceptionistDemo({
               transition={{ duration: 0.25 }}
               className="flex justify-start"
             >
-              <span className="inline-flex items-center gap-1 rounded-2xl rounded-bl-sm border border-white/10 bg-white/[0.04] px-3.5 py-3">
+              <span className="inline-flex items-center gap-1 rounded-2xl rounded-bl-sm border border-sns-text/12 bg-white/60 px-3.5 py-3">
                 {[0, 1, 2].map((d) => (
                   <span
                     key={d}
@@ -203,7 +203,7 @@ function Bubble({
           className={
             isAgent
               ? 'rounded-2xl rounded-bl-sm border border-sns-indigo/25 bg-sns-indigo/[0.1] px-4 py-2.5 text-sm leading-relaxed text-sns-text'
-              : 'rounded-2xl rounded-br-sm border border-white/10 bg-white/[0.05] px-4 py-2.5 text-sm leading-relaxed text-sns-text'
+              : 'rounded-2xl rounded-br-sm border border-sns-text/12 bg-white/70 px-4 py-2.5 text-sm leading-relaxed text-sns-text'
           }
         >
           {children}

@@ -81,7 +81,7 @@ export default function WhatWeDo({ locale = defaultLocale }: { locale?: Locale }
                 <GlowCard glowColor={accent.glow} className="h-full p-7 md:p-8">
                   <div className="flex items-center justify-between">
                     <span
-                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-white/10 bg-sns-surface-2"
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-sns-text/10 bg-white/70"
                       style={{ color: accent.hex }}
                     >
                       {icons[i]}

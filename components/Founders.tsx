@@ -60,7 +60,7 @@ export default function Founders({
           <motion.article
             key={founder.name}
             variants={item}
-            className="group relative flex min-w-0 flex-col overflow-hidden rounded-sns-lg border border-white/[0.07] bg-white/[0.015] p-7 transition-all duration-500 ease-sns-out hover:border-sns-indigo/30 hover:bg-white/[0.03] hover:glow-blue"
+            className="group relative flex min-w-0 flex-col overflow-hidden rounded-sns-lg border border-sns-text/[0.08] bg-white/50 p-7 transition-all duration-500 ease-sns-out hover:border-sns-indigo/40 hover:bg-white/70 hover:glow-blue"
           >
             <div
               aria-hidden="true"

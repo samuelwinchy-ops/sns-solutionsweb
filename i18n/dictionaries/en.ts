@@ -11,7 +11,7 @@ export const en = {
     services: 'custom builds',
     solutions: 'products',
     hvac: 'hvac / shk',
-    realEstate: 'real estate',
+    realEstate: 'immvela',
     roadmap: 'immvela',
     team: 'team',
     contact: 'contact',
@@ -275,8 +275,8 @@ export const en = {
         // Adding a product here? Add it to waitlistPage.tiers as well — the
         // /roadmap page lists these from its own hand-maintained copy.
         key: 'realEstate',
-        label: 'Real estate',
-        descriptor: 'Sales · lettings · brokerage',
+        label: 'Immvela',
+        descriptor: 'Real estate · sales & lettings',
         blurb: 'For agencies that want the whole pipeline covered — listing marketing, inquiries, viewings and the paperwork before close.',
         categories: [
           {
@@ -453,6 +453,9 @@ export const en = {
       { code: 'M6', name: 'Documents', desc: 'Checked before it becomes a problem.', status: 'progress' },
       { code: 'M7', name: 'Knowledge', desc: 'What your team knows, in one place.', status: 'progress' },
     ],
+    liveNote: 'The active modules already run in Repost.',
+    repostCta: 'Try Repost',
+    demoCta: 'See it work',
     closingA: 'We’re building the platform that changes that —',
     closingB: 'piece by piece.',
     eyebrow: 'Early access',

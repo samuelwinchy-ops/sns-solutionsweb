@@ -53,7 +53,7 @@ export default function BuildAnnouncement({ locale = defaultLocale }: { locale?:
           transition={{ duration: 0.5, ease: EASE }}
           role="status"
           aria-live="polite"
-          className="glass-strong fixed inset-x-4 bottom-4 z-40 rounded-sns-lg border border-white/[0.09] p-4 shadow-[0_16px_44px_-12px_rgba(0,0,0,0.8)] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:w-[22rem]"
+          className="glass-strong fixed inset-x-4 bottom-4 z-40 rounded-sns-lg border border-sns-text/10 p-4 shadow-[0_16px_44px_-12px_rgba(20,25,43,0.18)] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:w-[22rem]"
         >
           <div className="flex items-start justify-between gap-3">
             <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-sns-amber">
@@ -67,7 +67,7 @@ export default function BuildAnnouncement({ locale = defaultLocale }: { locale?:
               type="button"
               onClick={dismiss}
               aria-label={t.dismiss}
-              className="-mr-1 -mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sns-faint transition-colors duration-200 hover:bg-white/[0.06] hover:text-sns-text"
+              className="-mr-1 -mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sns-faint transition-colors duration-200 hover:bg-sns-text/[0.06] hover:text-sns-text"
             >
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />

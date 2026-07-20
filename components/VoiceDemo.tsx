@@ -203,7 +203,7 @@ export default function VoiceDemo({
       <audio ref={audioRef} preload="none" aria-hidden="true" />
 
       {/* call header */}
-      <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-3">
+      <div className="flex items-center justify-between border-b border-sns-text/[0.08] px-4 py-3">
         <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-sns-muted">
           <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sns-green/15 text-sns-green">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -220,7 +220,7 @@ export default function VoiceDemo({
             className={`flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-widest transition-colors duration-300 ${
               soundOn
                 ? 'border-sns-indigo/50 bg-sns-indigo/10 text-sns-accent'
-                : 'border-white/10 bg-white/[0.03] text-sns-muted hover:border-sns-indigo/50 hover:text-sns-accent'
+                : 'border-sns-text/12 bg-white/50 text-sns-muted hover:border-sns-indigo/50 hover:text-sns-accent'
             }`}
           >
             {soundOn ? (
@@ -239,7 +239,7 @@ export default function VoiceDemo({
           <button
             type="button"
             onClick={replay}
-            className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-sns-muted transition-colors duration-300 hover:border-sns-indigo/50 hover:text-sns-accent"
+            className="flex items-center gap-1.5 rounded-full border border-sns-text/12 bg-white/50 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-sns-muted transition-colors duration-300 hover:border-sns-indigo/50 hover:text-sns-accent"
           >
             <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <path d="M12 7a5 5 0 1 1-1.5-3.6M12 2v2.5H9.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -250,7 +250,7 @@ export default function VoiceDemo({
       </div>
 
       {/* waveform + status */}
-      <div className="flex flex-col items-center gap-3 border-b border-white/[0.06] px-4 py-6">
+      <div className="flex flex-col items-center gap-3 border-b border-sns-text/[0.08] px-4 py-6">
         <div className="flex h-12 items-center gap-[3px]" aria-hidden="true">
           {Array.from({ length: BARS }).map((_, i) => {
             const dist = Math.abs(i - (BARS - 1) / 2)
@@ -307,7 +307,7 @@ export default function VoiceDemo({
         </AnimatePresence>
       </div>
 
-      <p className="border-t border-white/[0.06] px-4 py-2.5 font-mono text-[10px] leading-snug text-sns-faint">{v.note}</p>
+      <p className="border-t border-sns-text/[0.08] px-4 py-2.5 font-mono text-[10px] leading-snug text-sns-faint">{v.note}</p>
     </div>
   )
 }
