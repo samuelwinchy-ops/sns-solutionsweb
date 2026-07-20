@@ -4,13 +4,15 @@ import { usePathname } from 'next/navigation'
 import NeuralBackground from './NeuralBackground'
 
 // The field is always built at one size and never rebuilt, so it keeps flowing
-// across navigations. Only how much of it is *visible* changes per route: the
-// homepage shows all of it, because the hero logo claims ~620 particles to
-// trace its outline and leaves a calm remainder drifting. Other pages have no
-// logo, so the full field would read as clustered and distracting — they fade
-// down to roughly that leftover density instead.
+// across navigations. Only how much of it is *visible* changes per route.
+//
+// On daylight cream the field has to stay quiet so it never competes with the
+// text. The homepage shows just enough to let the hero logo form (~620 held
+// particles) with a thin remainder drifting — not the full field, which would
+// scatter behind the copy. Other pages have no logo, so they run sparser still.
 const FIELD_SIZE = 900
-const INNER_DENSITY = 0.29
+const HOME_DENSITY = 0.72 // ~648 visible: enough for the 620-point logo, little scatter
+const INNER_DENSITY = 0.22
 
 export default function BackgroundField() {
   const pathname = usePathname()
@@ -23,15 +25,16 @@ export default function BackgroundField() {
 
   return (
     <NeuralBackground
-      // Daylight: SNS blue particles drifting over cream. Glow off — additive
-      // blending brightens toward white, which would erase them on a light
-      // ground (same reason ImmvelaField runs glow off).
-      colors={['#4f46e5', '#2563eb', '#3b5bdb', '#6366f1']}
+      // Daylight: soft SNS blue drifting over cream. Lighter, less-saturated
+      // hues than the accents so the field recedes behind the text instead of
+      // vibrating against the warm paper. Glow off — additive blending brightens
+      // toward white, which would erase the particles on a light ground.
+      colors={['#818cf8', '#93c5fd', '#a5b4fc', '#6366f1']}
       fadeColor="#f2f1e8"
-      trailOpacity={0.16}
+      trailOpacity={0.2}
       particleCount={FIELD_SIZE}
-      density={isHome ? 1 : INNER_DENSITY}
-      speed={0.45}
+      density={isHome ? HOME_DENSITY : INNER_DENSITY}
+      speed={0.4}
       glow={false}
     />
   )
