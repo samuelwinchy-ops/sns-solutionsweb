@@ -433,7 +433,7 @@ export const de: Dictionary = {
       'Ein Agent über die gesamte Pipeline — vermarktet Ihre Inserate, beantwortet und qualifiziert jede Anfrage, bucht die Besichtigungen und hält die Unterlagen in Ordnung. Auf Deutsch und Englisch, gebaut für den DACH-Raum.',
     primaryCta: 'Auf die Warteliste',
     secondaryCta: 'Module ansehen',
-    // Module wie in der Launch-Anzeige (M1–M7). status: 'active' | 'progress'.
+    // Module wie in der Launch-Anzeige (M1–M8). status: 'active' | 'progress'.
     modulesLabel: 'Modul für Modul',
     modulesHeadingA: 'Kein fertiges Produkt, das so tut als ob —',
     modulesHeadingB: 'eine Plattform, die entsteht.',
@@ -441,12 +441,13 @@ export const de: Dictionary = {
     statusProgress: 'In Arbeit',
     modules: [
       { code: 'M1', name: 'Empfang', desc: 'Jede Anfrage — qualifiziert und weitergeleitet.', status: 'active' },
-      { code: 'M2', name: 'Listing Kit', desc: 'Exposé, Captions, Broschüre — in Sekunden.', status: 'active' },
-      { code: 'M3', name: 'Veröffentlichung', desc: 'Ein Klick — auf allen Kanälen.', status: 'active' },
-      { code: 'M4', name: 'Staging', desc: 'Leere Räume, möbliert — ohne Wohnraumgestalter.', status: 'progress' },
-      { code: 'M5', name: 'Rundgang', desc: 'Begehbare 3D-Touren aus einer Handvoll Fotos.', status: 'progress' },
-      { code: 'M6', name: 'Dokumente', desc: 'Geprüft, bevor es ein Problem wird.', status: 'progress' },
-      { code: 'M7', name: 'Wissen', desc: 'Was Ihr Team weiß, an einem Ort.', status: 'progress' },
+      { code: 'M2', name: 'Bewertung', desc: 'Jeder Vergleichswert, jedes Szenario — die Zahl, die Sie begründen können.', status: 'progress' },
+      { code: 'M3', name: 'Listing Kit', desc: 'Exposé, Captions, Broschüre — in Sekunden.', status: 'active' },
+      { code: 'M4', name: 'Veröffentlichung', desc: 'Ein Klick — auf allen Kanälen.', status: 'active' },
+      { code: 'M5', name: 'Staging', desc: 'Leere Räume, möbliert — ohne Wohnraumgestalter.', status: 'progress' },
+      { code: 'M6', name: 'Rundgang', desc: 'Begehbare 3D-Touren aus einer Handvoll Fotos.', status: 'progress' },
+      { code: 'M7', name: 'Dokumente', desc: 'Geprüft, bevor es ein Problem wird.', status: 'progress' },
+      { code: 'M8', name: 'Wissen', desc: 'Was Ihr Team weiß, an einem Ort.', status: 'progress' },
     ],
     liveNote: 'Die aktiven Module sind heute in Immvela live — melden Sie sich für den Early Access an, und wir richten Ihnen einen Zugang ein.',
     signinCta: 'Zugang anfordern',

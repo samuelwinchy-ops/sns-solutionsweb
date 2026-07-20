@@ -437,7 +437,7 @@ export const en = {
       'One agent across the whole pipeline — it markets your listings, answers and qualifies every inquiry, books the viewings, and keeps the paperwork straight. In German and English, built for the DACH market.',
     primaryCta: 'Join the waitlist',
     secondaryCta: 'See the modules',
-    // Modules mirror the launch ad (M1–M7). status: 'active' | 'progress'.
+    // Modules mirror the launch ad (M1–M8). status: 'active' | 'progress'.
     modulesLabel: 'Module by module',
     modulesHeadingA: 'Not a finished product pretending to be one —',
     modulesHeadingB: 'a platform taking shape.',
@@ -445,12 +445,13 @@ export const en = {
     statusProgress: 'In progress',
     modules: [
       { code: 'M1', name: 'Reception', desc: 'Every inquiry — qualified and routed.', status: 'active' },
-      { code: 'M2', name: 'Listing Kit', desc: 'Listing copy, captions, brochure — in seconds.', status: 'active' },
-      { code: 'M3', name: 'Publishing', desc: 'One click — every channel.', status: 'active' },
-      { code: 'M4', name: 'Staging', desc: 'Empty rooms, furnished — without a stager.', status: 'progress' },
-      { code: 'M5', name: 'Walkthrough', desc: 'Walkable 3D tours from a handful of photos.', status: 'progress' },
-      { code: 'M6', name: 'Documents', desc: 'Checked before it becomes a problem.', status: 'progress' },
-      { code: 'M7', name: 'Knowledge', desc: 'What your team knows, in one place.', status: 'progress' },
+      { code: 'M2', name: 'Pricing', desc: 'Every comp, every scenario — the number you can defend.', status: 'progress' },
+      { code: 'M3', name: 'Listing Kit', desc: 'Listing copy, captions, brochure — in seconds.', status: 'active' },
+      { code: 'M4', name: 'Publishing', desc: 'One click — every channel.', status: 'active' },
+      { code: 'M5', name: 'Staging', desc: 'Empty rooms, furnished — without a stager.', status: 'progress' },
+      { code: 'M6', name: 'Walkthrough', desc: 'Walkable 3D tours from a handful of photos.', status: 'progress' },
+      { code: 'M7', name: 'Documents', desc: 'Checked before it becomes a problem.', status: 'progress' },
+      { code: 'M8', name: 'Knowledge', desc: 'What your team knows, in one place.', status: 'progress' },
     ],
     liveNote: 'The active modules are live in Immvela today — join early access and we set you up with a sign-in.',
     signinCta: 'Get your sign-in',
