@@ -3,7 +3,8 @@ import ImmvelaField from '@/components/ImmvelaField'
 import ImmvelaHeader from '@/components/ImmvelaHeader'
 import ImmvelaFooter from '@/components/ImmvelaFooter'
 import ImmvelaLanding from '@/components/ImmvelaLanding'
-import { IMMVELA_URL } from '@/lib/site'
+import { IMMVELA_URL, SITE_URL } from '@/lib/site'
+import { immvelaJsonLd } from '@/lib/immvela-schema'
 
 export const metadata: Metadata = {
   title: { absolute: 'Immvela — das agentenbasierte Betriebssystem für Immobilien | SNS Solutions' },
@@ -23,6 +24,16 @@ export const metadata: Metadata = {
     title: 'Immvela — das agentenbasierte Betriebssystem für Immobilien',
     description:
       'Der durchgängige KI-Agent für Immobilienteams. Offen entwickelt von SNS Solutions. Auf die Warteliste.',
+    url: `${IMMVELA_URL}/de`,
+    // See app/immvela/page.tsx — no Immvela-specific image yet, reusing SNS's.
+    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: 'Immvela' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Immvela — das agentenbasierte Betriebssystem für Immobilien',
+    description:
+      'Der durchgängige KI-Agent für Immobilienteams. Offen entwickelt von SNS Solutions. Auf die Warteliste.',
+    images: [`${SITE_URL}/og.png`],
   },
 }
 
@@ -34,6 +45,10 @@ export const viewport: Viewport = {
 export default function ImmvelaPageDe() {
   return (
     <div lang="de" className="immvela-theme relative min-h-dvh">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(immvelaJsonLd('de')) }}
+      />
       <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
         <div className="absolute inset-0 bg-[#f2f1e8]" />
         <ImmvelaField />
