@@ -14,10 +14,10 @@ import { IMMVELA_URL, SITE_URL } from '@/lib/site'
  *   • On the SNS domain → the old /immvela URLs 301 to immvela.com so links and
  *     SEO consolidate on the new home.
  *
- * It also rewrites /robots.txt and /sitemap.xml on immvela.com to Immvela's
- * own versions (app/immvela/robots.txt, app/immvela/sitemap.xml) — otherwise
- * they'd fall through to the root app/robots.ts / app/sitemap.ts, which
- * describe the SNS domain.
+ * It also rewrites /robots.txt, /sitemap.xml and /llms.txt on immvela.com to
+ * Immvela's own versions (app/immvela/robots.txt, sitemap.xml, llms.txt) —
+ * otherwise they'd fall through to the root app/robots.ts / app/sitemap.ts /
+ * public/llms.txt, which all describe the SNS domain.
  *
  * Other hosts (localhost, *.vercel.app previews) are left untouched, so the
  * /immvela route stays directly reachable for local development and previews.
@@ -48,6 +48,11 @@ export function middleware(req: NextRequest) {
       url.pathname = '/immvela/sitemap.xml'
       return NextResponse.rewrite(url)
     }
+    if (pathname === '/llms.txt') {
+      const url = req.nextUrl.clone()
+      url.pathname = '/immvela/llms.txt'
+      return NextResponse.rewrite(url)
+    }
     if (pathname === '/' || pathname === '/de') {
       const url = req.nextUrl.clone()
       url.pathname = pathname === '/de' ? '/de/immvela' : '/immvela'
@@ -76,9 +81,11 @@ export const config = {
   matcher: [
     // Page routes — skip Next internals, API routes, and static files.
     '/((?!_next/|api/|favicon\\.ico|.*\\.[\\w]+$).*)',
-    // robots.txt/sitemap.xml are file-convention routes, not static files, but
-    // the pattern above's extension exclusion skips them too — match explicitly.
+    // robots.txt/sitemap.xml/llms.txt are file-convention or route-handler
+    // routes, not static files, but the pattern above's extension exclusion
+    // skips them too — match explicitly.
     '/robots.txt',
     '/sitemap.xml',
+    '/llms.txt',
   ],
 }
