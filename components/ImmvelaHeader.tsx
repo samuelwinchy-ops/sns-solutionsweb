@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { SITE_URL } from '@/lib/site'
 
 /**
  * Slim, light header for the Immvela waitlist page — the "daylight" counterpart
@@ -57,8 +58,10 @@ export default function ImmvelaHeader({ locale = defaultLocale }: { locale?: Loc
             </Link>
           </div>
 
+          {/* Immvela sits on its own domain; "back to SNS" crosses to the SNS
+              marketing site, so this is an absolute URL rather than a path. */}
           <a
-            href={localePath(locale, '/')}
+            href={`${SITE_URL}${localePath(locale, '/')}`}
             aria-label={t.backToSns}
             className="im-btn-ghost group inline-flex items-center gap-1.5 px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-widest sm:px-3"
           >

@@ -8,9 +8,14 @@ export const metadata: Metadata = {
   title: { absolute: 'Immvela — das agentenbasierte Betriebssystem für Immobilien | SNS Solutions' },
   description:
     'Immvela ist der durchgängige KI-Agent für Immobilienteams — vom Lead über das Inserat bis zum Abschluss. Offen entwickelt von SNS Solutions. Tragen Sie sich für den Early Access ein.',
+  // Served from immvela.com — absolute canonical + language alternates.
   alternates: {
-    canonical: '/de/immvela',
-    languages: { en: '/immvela', de: '/de/immvela', 'x-default': '/immvela' },
+    canonical: 'https://immvela.com/de',
+    languages: {
+      en: 'https://immvela.com',
+      de: 'https://immvela.com/de',
+      'x-default': 'https://immvela.com',
+    },
   },
   openGraph: {
     locale: 'de_AT',

@@ -12,6 +12,16 @@ export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sns-austria.com'
 ).replace(/\/$/, '')
 
+/**
+ * Immvela lives on its own domain but is served from this same deployment
+ * (see middleware.ts, which maps immvela.com's root onto the /immvela routes).
+ * Single source of truth for the Immvela origin — used for canonical URLs and
+ * the SNS→Immvela handover redirect. Override with NEXT_PUBLIC_IMMVELA_URL.
+ */
+export const IMMVELA_URL = (
+  process.env.NEXT_PUBLIC_IMMVELA_URL || 'https://immvela.com'
+).replace(/\/$/, '')
+
 export const SITE = {
   name: 'SNS Solutions',
   legalName: 'SNS Software Solutions GmbH',

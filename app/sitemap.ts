@@ -13,7 +13,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/solutions/hvac/waitlist', changeFrequency: 'weekly' as const, priority: 0.7 },
     { path: '/solutions/demo', changeFrequency: 'monthly' as const, priority: 0.6 },
     { path: '/services', changeFrequency: 'monthly' as const, priority: 0.9 },
-    { path: '/immvela', changeFrequency: 'weekly' as const, priority: 0.9 },
+    // Immvela now lives on its own domain (immvela.com); the SNS /immvela URL
+    // 301-redirects there, so it's no longer advertised in this sitemap.
     { path: '/team', changeFrequency: 'monthly' as const, priority: 0.7 },
     { path: '/contact', changeFrequency: 'yearly' as const, priority: 0.8 },
   ]
