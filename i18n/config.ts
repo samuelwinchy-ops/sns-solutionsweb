@@ -1,4 +1,4 @@
-import { IMMVELA_URL, IMMVELA_MIGRATED } from '@/lib/site'
+import { IMMVELA_URL } from '@/lib/site'
 
 export const locales = ['en', 'de'] as const
 
@@ -17,14 +17,10 @@ export function localePath(locale: Locale, path: string): string {
 }
 
 /**
- * Destination for links from the SNS site to Immvela. Before the domain
- * migration this is the on-site /immvela path (served from this deployment);
- * once NEXT_PUBLIC_IMMVELA_MIGRATED=1 it points straight at immvela.com so the
- * links skip the SNS→Immvela redirect hop. `hash` e.g. '#early-access'.
+ * Destination for links from the SNS site to Immvela — the immvela.com domain
+ * (Immvela runs on its own domain now). `hash` e.g. '#early-access'. English is
+ * the domain root; German is /de.
  */
 export function immvelaHref(locale: Locale = defaultLocale, hash = ''): string {
-  if (IMMVELA_MIGRATED) {
-    return `${IMMVELA_URL}${locale === 'de' ? '/de' : ''}${hash}`
-  }
-  return `${localePath(locale, '/immvela')}${hash}`
+  return `${IMMVELA_URL}${locale === 'de' ? '/de' : ''}${hash}`
 }
