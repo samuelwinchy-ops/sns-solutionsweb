@@ -18,16 +18,23 @@ const config: Config = {
         'sns-indigo': '#4f46e5', // primary accent (fills + accent text)
         'sns-violet': '#7c3aed', // gradient partner
         'sns-blue': '#2563eb', // brand blue
-        'sns-cyan': '#0891b2', // bright highlight (teal on light)
+        // Darkened from #0891b2 — the original only hit ~3.3:1 on cream, below
+        // WCAG AA's 4.5:1 for the small mono labels/status-chip text it's used
+        // for site-wide. This still clears AA with margin on every surface.
+        'sns-cyan': '#067590', // bright highlight (teal on light)
         'sns-accent': '#4338ca', // deep indigo — links / hover
         'sns-blue-dim': '#1d4ed8', // deep blue
         // ── Text (deep navy ink on cream) ──
         'sns-text': '#14192b', // primary text
         'sns-muted': '#545d70', // secondary text (AA on cream)
-        'sns-faint': '#878c99', // tertiary / decorative labels
-        // ── Status ──
-        'sns-green': '#059669',
-        'sns-amber': '#d97706',
+        // Darkened from #878c99 (~3:1 on cream, below AA for the small labels
+        // it's used for everywhere — nav meta, chip counts, footer text).
+        'sns-faint': '#686c76', // tertiary / decorative labels
+        // ── Status ── both darkened from their originals for the same reason:
+        // used as real small-text (status-chip labels, "qualified" tags), not
+        // just dots/borders, so they need text-level (4.5:1) contrast on cream.
+        'sns-green': '#047b56', // was #059669
+        'sns-amber': '#a35904', // was #d97706
       },
       fontFamily: {
         mono: ['var(--font-geist-mono)', 'JetBrains Mono', 'monospace'],
