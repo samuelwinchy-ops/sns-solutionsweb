@@ -3,14 +3,20 @@ import ImmvelaField from '@/components/ImmvelaField'
 import ImmvelaHeader from '@/components/ImmvelaHeader'
 import ImmvelaFooter from '@/components/ImmvelaFooter'
 import ImmvelaLanding from '@/components/ImmvelaLanding'
+import { IMMVELA_URL } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: { absolute: 'Immvela — das agentenbasierte Betriebssystem für Immobilien | SNS Solutions' },
   description:
     'Immvela ist der durchgängige KI-Agent für Immobilienteams — vom Lead über das Inserat bis zum Abschluss. Offen entwickelt von SNS Solutions. Tragen Sie sich für den Early Access ein.',
+  // Served from immvela.com — absolute canonical + language alternates.
   alternates: {
-    canonical: '/de/immvela',
-    languages: { en: '/immvela', de: '/de/immvela', 'x-default': '/immvela' },
+    canonical: `${IMMVELA_URL}/de`,
+    languages: {
+      en: IMMVELA_URL,
+      de: `${IMMVELA_URL}/de`,
+      'x-default': IMMVELA_URL,
+    },
   },
   openGraph: {
     locale: 'de_AT',

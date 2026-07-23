@@ -3,14 +3,21 @@ import ImmvelaField from '@/components/ImmvelaField'
 import ImmvelaHeader from '@/components/ImmvelaHeader'
 import ImmvelaFooter from '@/components/ImmvelaFooter'
 import ImmvelaLanding from '@/components/ImmvelaLanding'
+import { IMMVELA_URL } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Immvela — the AI operating system for real estate',
   description:
     'Immvela is the end-to-end AI agent for real-estate teams — from lead to listing to close. Built in the open by SNS Solutions. Join the early-access waitlist.',
+  // Immvela is served from its own domain, so its canonical and language
+  // alternates are absolute to that origin — not the SNS domain.
   alternates: {
-    canonical: '/immvela',
-    languages: { en: '/immvela', de: '/de/immvela', 'x-default': '/immvela' },
+    canonical: IMMVELA_URL,
+    languages: {
+      en: IMMVELA_URL,
+      de: `${IMMVELA_URL}/de`,
+      'x-default': IMMVELA_URL,
+    },
   },
   openGraph: {
     title: 'Immvela — the AI operating system for real estate',

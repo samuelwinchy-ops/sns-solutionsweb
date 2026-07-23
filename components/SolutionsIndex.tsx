@@ -5,7 +5,7 @@ import { motion, type Variants } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
-import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { type Locale, defaultLocale, localePath, immvelaHref } from '@/i18n/config'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 type Industry = 'hvac' | 'realEstate'
@@ -93,7 +93,7 @@ export default function SolutionsIndex({ locale = defaultLocale }: { locale?: Lo
           return (
             <motion.div key={ind.key} variants={item}>
               <Link
-                href={localePath(locale, industrySlug[key])}
+                href={key === 'realEstate' ? immvelaHref(locale) : localePath(locale, industrySlug[key])}
                 onClick={() => track('solutions_index_pick', { industry: ind.key })}
                 className={`group flex h-full flex-col rounded-sns-lg border border-sns-text/[0.08] bg-sns-surface p-6 shadow-[0_1px_0_0_rgba(255,255,255,0.8)_inset,0_24px_48px_-28px_rgba(20,25,43,0.2)] transition-colors duration-300 ease-sns-out ${acc.ring} md:p-7`}
               >

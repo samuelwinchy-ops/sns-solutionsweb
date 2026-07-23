@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { SITE_URL } from '@/lib/site'
 
 const SOCIALS = {
   linkedin: 'https://www.linkedin.com/company/sns-solutionswien/',
@@ -67,7 +68,7 @@ export default function ImmvelaFooter({ locale = defaultLocale }: { locale?: Loc
                 {l.label}
               </Link>
             ))}
-            <a href={localePath(locale, '/')} className="im-link-ink group inline-flex items-center gap-1.5 font-mono text-xs">
+            <a href={`${SITE_URL}${localePath(locale, '/')}`} className="im-link-ink group inline-flex items-center gap-1.5 font-mono text-xs">
               <svg
                 width="11"
                 height="11"

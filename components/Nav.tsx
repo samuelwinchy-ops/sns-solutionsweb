@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { getDict } from '@/i18n'
-import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { type Locale, defaultLocale, localePath, immvelaHref } from '@/i18n/config'
 import LanguageToggle from './LanguageToggle'
 
 export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
@@ -16,7 +16,7 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
   // than hiding behind a "Products" dropdown. Immvela lives on /immvela and
   // carries the live dot.
   const links = [
-    { href: localePath(locale, '/immvela'), id: 'immvela', label: t.realEstate, live: true },
+    { href: immvelaHref(locale), id: 'immvela', label: t.realEstate, live: true },
     { href: localePath(locale, '/solutions/hvac'), id: 'hvac', label: t.hvac, live: false },
     { href: localePath(locale, '/services'), id: 'services', label: t.services, live: false },
     { href: localePath(locale, '/team'), id: 'team', label: t.team, live: false },

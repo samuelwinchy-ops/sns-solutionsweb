@@ -5,7 +5,7 @@ import { motion, type Variants } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
-import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { type Locale, defaultLocale, localePath, immvelaHref } from '@/i18n/config'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 type Industry = 'hvac' | 'realEstate'
@@ -70,15 +70,14 @@ export default function Solutions({
   const industries = t.industries.filter((ind) => ind.key === industry)
 
   // Only a shipped product sends you to the general contact form. Everything
-  // else ("Get early access" / "Join the waitlist") asks to be put on a list,
-  // so it goes to the early-access form. Each industry has its own list —
-  // HVAC gets the HVAC waitlist, real estate the /immvela page — so a prospect
-  // never lands on the other industry's waitlist.
-  const waitlistPath = industry === 'hvac' ? '/solutions/hvac/waitlist' : '/immvela'
-  const ctaHref = (status: Status) =>
-    status === 'live'
-      ? localePath(locale, '/contact')
-      : `${localePath(locale, waitlistPath)}#early-access`
+  // else asks to be put on an early-access list, and each industry has its own —
+  // real estate's is the Immvela page (now on its own domain), HVAC's is the
+  // on-site HVAC waitlist — so a prospect never lands on the other's list.
+  const ctaHref = (status: Status) => {
+    if (status === 'live') return localePath(locale, '/contact')
+    if (industry === 'realEstate') return immvelaHref(locale, '#early-access')
+    return `${localePath(locale, '/solutions/hvac/waitlist')}#early-access`
+  }
 
   const primaryBtn =
     'group inline-flex items-center gap-2 rounded-full bg-sns-indigo px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent'
@@ -201,7 +200,7 @@ export default function Solutions({
                     <p className="mt-2 text-sm text-sns-muted">{t.fullStack.sub}</p>
                   </div>
                   <Link
-                    href={`${localePath(locale, '/immvela')}#early-access`}
+                    href={immvelaHref(locale, '#early-access')}
                     onClick={() => track('solutions_full_stack')}
                     className={`${primaryBtn} shrink-0`}
                   >

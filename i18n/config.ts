@@ -1,3 +1,5 @@
+import { IMMVELA_URL } from '@/lib/site'
+
 export const locales = ['en', 'de'] as const
 
 export type Locale = (typeof locales)[number]
@@ -12,4 +14,13 @@ export function localePath(locale: Locale, path: string): string {
   const clean = path.startsWith('/') ? path : `/${path}`
   if (locale === defaultLocale) return clean
   return clean === '/' ? `/${locale}` : `/${locale}${clean}`
+}
+
+/**
+ * Destination for links from the SNS site to Immvela — the immvela.com domain
+ * (Immvela runs on its own domain now). `hash` e.g. '#early-access'. English is
+ * the domain root; German is /de.
+ */
+export function immvelaHref(locale: Locale = defaultLocale, hash = ''): string {
+  return `${IMMVELA_URL}${locale === 'de' ? '/de' : ''}${hash}`
 }
