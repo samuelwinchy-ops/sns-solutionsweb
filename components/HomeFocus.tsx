@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { motion, type Variants } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { getDict } from '@/i18n'
-import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { type Locale, defaultLocale, localePath, immvelaHref } from '@/i18n/config'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 type Industry = 'hvac' | 'realEstate'
@@ -78,7 +78,7 @@ export default function HomeFocus({ locale = defaultLocale }: { locale?: Locale 
             return (
               <motion.div key={key} variants={item}>
                 <Link
-                  href={localePath(locale, industrySlug[key])}
+                  href={key === 'realEstate' ? immvelaHref(locale) : localePath(locale, industrySlug[key])}
                   className={`group flex h-full items-start gap-4 rounded-sns-lg border border-sns-text/[0.08] bg-sns-surface p-6 shadow-[0_1px_0_0_rgba(255,255,255,0.8)_inset,0_24px_48px_-28px_rgba(20,25,43,0.2)] transition-colors duration-300 ease-sns-out ${acc.ring} md:p-7`}
                 >
                   <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-sns-text/10 bg-white/70 ${acc.text}`}>

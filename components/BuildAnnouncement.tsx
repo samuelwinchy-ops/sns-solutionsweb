@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
-import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { type Locale, defaultLocale, immvelaHref } from '@/i18n/config'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const STORAGE_KEY = 'sns-announce-roadmap'
@@ -79,7 +79,7 @@ export default function BuildAnnouncement({ locale = defaultLocale }: { locale?:
           <p className="mt-1 text-sm leading-relaxed text-sns-muted">{t.body}</p>
 
           <Link
-            href={localePath(locale, '/immvela')}
+            href={immvelaHref(locale)}
             onClick={() => {
               track('announce_roadmap_cta')
               dismiss()

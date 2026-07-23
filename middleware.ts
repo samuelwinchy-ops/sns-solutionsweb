@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { IMMVELA_URL } from '@/lib/site'
+import { IMMVELA_URL, IMMVELA_MIGRATED } from '@/lib/site'
 
 /**
  * Immvela runs on its own domain (immvela.com) but is served from this same
@@ -14,19 +14,19 @@ import { IMMVELA_URL } from '@/lib/site'
  *   • On any other host (the SNS site) → the old /immvela URLs 301 to immvela.com
  *     so links and SEO consolidate on the new home.
  *
- * The SNS→Immvela redirect is gated behind IMMVELA_MIGRATED. Deploy this file
- * any time: immvela.com starts working as soon as the domain is added in Vercel,
- * while the SNS /immvela page keeps working untouched. Once immvela.com is
- * verified live, set IMMVELA_MIGRATED=1 (Vercel → Env Vars) and redeploy to
- * switch the handover on. Unset it to roll back instantly.
+ * The SNS→Immvela redirect is gated behind IMMVELA_MIGRATED (the shared flag in
+ * lib/site, driven by NEXT_PUBLIC_IMMVELA_MIGRATED). Deploy this file any time:
+ * immvela.com starts working as soon as the domain is added in Vercel, while the
+ * SNS /immvela page keeps working untouched. Once immvela.com is verified live,
+ * set NEXT_PUBLIC_IMMVELA_MIGRATED=1 (Vercel → Env Vars) and redeploy to switch
+ * the handover on — the same flag also repoints the SNS site's links straight at
+ * immvela.com. Unset it and redeploy to roll back.
  */
 
 // Apex + www of the dedicated Immvela domain. Vercel redirects www → apex, but
 // both are matched so the rewrite is robust regardless.
 const IMMVELA_HOST = new URL(IMMVELA_URL).host // e.g. "immvela.com"
 const IMMVELA_HOSTS = new Set([IMMVELA_HOST, `www.${IMMVELA_HOST}`])
-
-const MIGRATED = process.env.IMMVELA_MIGRATED === '1'
 
 export function middleware(req: NextRequest) {
   const host = (req.headers.get('host') ?? '').split(':')[0].toLowerCase()
@@ -50,7 +50,7 @@ export function middleware(req: NextRequest) {
   }
 
   // ── On the SNS domain: hand the old Immvela URLs over to immvela.com ───────
-  if (MIGRATED && (pathname === '/immvela' || pathname === '/de/immvela')) {
+  if (IMMVELA_MIGRATED && (pathname === '/immvela' || pathname === '/de/immvela')) {
     const dest = pathname === '/de/immvela' ? '/de' : '/'
     return NextResponse.redirect(`${IMMVELA_URL}${dest}`, 301)
   }

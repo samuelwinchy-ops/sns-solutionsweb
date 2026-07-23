@@ -22,6 +22,18 @@ export const IMMVELA_URL = (
   process.env.NEXT_PUBLIC_IMMVELA_URL || 'https://immvela.com'
 ).replace(/\/$/, '')
 
+/**
+ * The migration switch. When set to '1', the handover to immvela.com is live:
+ * middleware 301s the old SNS /immvela URLs to the new domain, and every link
+ * from the SNS site to Immvela (nav, cards, CTAs) points straight at immvela.com
+ * instead of the on-site path — see immvelaHref() in i18n/config.
+ *
+ * It's NEXT_PUBLIC so both the server (middleware) and the client links read the
+ * same value. Flip it in Vercel → Env Vars and redeploy; unset + redeploy to roll
+ * back. Keep it off until immvela.com is confirmed live.
+ */
+export const IMMVELA_MIGRATED = process.env.NEXT_PUBLIC_IMMVELA_MIGRATED === '1'
+
 export const SITE = {
   name: 'SNS Solutions',
   legalName: 'SNS Software Solutions GmbH',
