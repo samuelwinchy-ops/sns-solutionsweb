@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: { locale: 'de_AT' },
 }
 
-const UPDATED = '8. Juli 2026'
+const UPDATED = '30. Juli 2026'
 
 export default function ImprintPageDe() {
   return (
@@ -44,6 +44,15 @@ export default function ImprintPageDe() {
           Schrötlgasse 8a
           <br />
           1220 Wien, Österreich
+        </p>
+
+        <h2>Erfasste Websites</h2>
+        <p>
+          Dieses Impressum gilt für <strong>sns-austria.com</strong> und für{' '}
+          <strong>immvela.com</strong> (einschließlich der Anwendung unter
+          app.immvela.com). <strong>Immvela</strong> ist ein Produkt und eine
+          Marke der SNS Software Solutions GmbH und keine eigene Rechtsperson;
+          Betreiber beider Websites ist das oben genannte Unternehmen.
         </p>
 
         <h2>Vertreten durch die Geschäftsführer</h2>

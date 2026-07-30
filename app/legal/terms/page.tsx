@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-const UPDATED = 'July 3, 2026'
+const UPDATED = 'July 30, 2026'
 
 export default function TermsPage() {
   return (
@@ -37,20 +37,21 @@ export default function TermsPage() {
       <div className="legal-prose">
         <h2>1. Scope</h2>
         <p>
-          These Terms of Use govern your access to and use of the website
+          These Terms of Use govern your access to and use of the websites
           operated by <strong>SNS Software Solutions GmbH</strong> (“SNS”,
-          “we”,
-          “us”). By accessing or using this website, you agree to these terms.
-          If you do not agree, please do not use the website.
+          “we”, “us”), namely sns-austria.com and immvela.com. By accessing or
+          using either website, you agree to these terms. If you do not agree,
+          please do not use them.
         </p>
         <p>
-          These terms cover the use of the website itself. Any provision of
+          These terms cover the use of the websites themselves. Any provision of
           software development or other services by SNS is governed by a
-          separate written agreement concluded with the respective client. Use
-          of SNS’s social media scheduling application (“the App”) by an
-          authorized client is governed by the separate service agreement and
-          Data Processing Agreement (AVV) between SNS and that client, not by
-          these Terms of Use.
+          separate written agreement concluded with the respective client. Use of
+          Immvela, or of any other application SNS provides, by an authorized
+          client is governed by the separate service agreement and Data
+          Processing Agreement (AVV) between SNS and that client, not by these
+          Terms of Use. Section 4 below sets out the terms that apply in addition
+          to that agreement.
         </p>
 
         <h2>2. Use of the website</h2>
@@ -84,18 +85,75 @@ export default function TermsPage() {
           without our prior written consent.
         </p>
 
-        <h2>4. The App</h2>
+        <h2>4. Immvela and other client applications</h2>
         <p>
-          Where SNS provides the social media scheduling application to a client,
-          that client is solely responsible for the content it authorizes the
-          App to publish, and for ensuring it has the rights and permissions
-          necessary to publish that content and to operate the connected social
-          media accounts. SNS acts on the client’s instructions and is not
-          responsible for content decisions made by the client’s authorized
-          users. Use of the App is additionally governed by each connected
-          platform’s own developer terms and policies (Meta, LinkedIn,
-          Google/YouTube, TikTok), and the client is responsible for complying
-          with those terms.
+          Access to <strong>Immvela</strong> and to any other application SNS
+          provides to a client is governed by a separate written agreement.
+          Nothing on this website or in these Terms grants a right of access, and
+          where the separate agreement conflicts with these Terms, that agreement
+          prevails.
+        </p>
+
+        <h3>4.1 Early access</h3>
+        <p>
+          Immvela is offered module by module and parts of it are in early
+          access. Early-access functionality is provided as-is, may change or be
+          withdrawn, and carries no availability commitment. Descriptions of
+          modules that are in development are statements of current intent, not
+          a promise of a delivery date, a feature set, or a price.
+        </p>
+
+        <h3>4.2 Client content and connected accounts</h3>
+        <p>
+          The client is solely responsible for the content it publishes through
+          the application, for holding the rights and permissions needed to
+          publish it, and for operating its own connected accounts. SNS acts on
+          the client’s instructions and is not responsible for content decisions
+          made by the client’s authorized users. Use of connected platforms is
+          additionally governed by each platform’s own developer terms and
+          policies (Meta, LinkedIn, Google/YouTube, TikTok), and the client is
+          responsible for complying with those terms.
+        </p>
+
+        <h3>4.3 AI-generated output is a draft, not advice</h3>
+        <p>
+          Text, images and documents the platform generates are drafts for the
+          client to review. The client is responsible for checking output before
+          publishing it or relying on it. Where the platform states a factual
+          value it takes that value only from data the client has confirmed; it
+          does not independently verify that the confirmed value is correct.
+        </p>
+        <p>
+          Nothing produced by the platform constitutes legal, tax, financial or
+          valuation advice, and it does not replace a professional appraisal, a
+          survey, or advice from a qualified adviser.
+        </p>
+
+        <h3>4.4 Virtually staged images</h3>
+        <p>
+          Where the platform generates a virtually staged image it applies a
+          disclosure label to the image. The client must not remove, crop out or
+          obscure that label. Virtual staging adds furnishing and styling only
+          and must not be used to conceal or misrepresent the condition of a
+          property, including defects such as damage or damp. The client remains
+          responsible for the accuracy of the impression its listings give.
+        </p>
+
+        <h3>4.5 No automated commitments</h3>
+        <p>
+          The platform does not agree prices, appointments or contractual terms
+          with third parties on a client’s behalf. Where a module handles an
+          enquiry it gathers and prepares information; anything binding is
+          confirmed by a person.
+        </p>
+
+        <h3>4.6 The client’s own statutory duties</h3>
+        <p>
+          Using the platform does not transfer the client’s regulatory
+          obligations to SNS. In particular, disclosure duties for property
+          advertisements — for example energy-certificate information under the
+          Austrian EAVG or the German GEG — remain the client’s responsibility,
+          as do the client’s duties as a data controller under the GDPR.
         </p>
 
         <h2>5. No warranty</h2>

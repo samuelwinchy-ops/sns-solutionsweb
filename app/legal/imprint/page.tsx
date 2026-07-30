@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-const UPDATED = 'July 8, 2026'
+const UPDATED = 'July 30, 2026'
 
 export default function ImprintPage() {
   return (
@@ -43,6 +43,15 @@ export default function ImprintPage() {
           Schrötlgasse 8a
           <br />
           1220 Vienna, Austria
+        </p>
+
+        <h2>Websites covered</h2>
+        <p>
+          This imprint applies to <strong>sns-austria.com</strong> and to{' '}
+          <strong>immvela.com</strong> (including the application at
+          app.immvela.com). <strong>Immvela</strong> is a product and brand of
+          SNS Software Solutions GmbH; it is not a separate legal entity, and the
+          company named above is the operator of both sites.
         </p>
 
         <h2>Represented by the managing directors</h2>

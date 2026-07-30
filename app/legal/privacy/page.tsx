@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
-    'How SNS Software Solutions GmbH processes personal data in accordance with the EU General Data Protection Regulation (GDPR).',
+    'How SNS Software Solutions GmbH processes personal data on its websites and in the Immvela platform, in accordance with the EU General Data Protection Regulation (GDPR).',
   alternates: {
     canonical: '/legal/privacy',
     languages: {
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-const UPDATED = 'July 3, 2026'
+const UPDATED = 'July 30, 2026'
 
 export default function PrivacyPage() {
   return (
@@ -55,9 +55,17 @@ export default function PrivacyPage() {
         <p>
           We take the protection of your personal data seriously and process it
           only in accordance with statutory data protection regulations (GDPR,
-          Austrian Data Protection Act / DSG) and this privacy policy. This
-          website is an informational site; we collect as little personal data
-          as possible.
+          Austrian Data Protection Act / DSG) and this privacy policy.
+        </p>
+        <p>
+          This policy covers two different things, and the distinction matters
+          for your rights. <strong>Our websites</strong> (sns-austria.com and
+          immvela.com) are informational, and we collect as little personal data
+          as possible there — Sections 3 and 5 to 12 apply.{' '}
+          <strong>Immvela</strong>, the platform our clients sign in to, is
+          different: there we mostly process data on a client’s behalf rather
+          than our own, which changes who you should address a request to.
+          Section 4 covers it.
         </p>
 
         <h2>3. Hosting</h2>
@@ -72,71 +80,147 @@ export default function PrivacyPage() {
           by the EU Standard Contractual Clauses.
         </p>
 
-        <h2>4. Social Media Scheduling Tool (“the App”)</h2>
+        <h2>4. Immvela (our real-estate platform)</h2>
         <p>
-          In addition to this website, SNS operates a social media scheduling
-          and publishing tool (“the App”) on behalf of specific business
-          clients, used to schedule, publish, and manage content across the
-          client’s own social media accounts (including Facebook, Instagram,
-          LinkedIn, YouTube, and TikTok).
+          In addition to this website, SNS operates <strong>Immvela</strong> (
+          <a href="https://www.immvela.com" target="_blank" rel="noopener noreferrer">
+            immvela.com
+          </a>
+          , application at app.immvela.com), a modular platform for real-estate
+          agents and brokerages in Austria, Germany and Switzerland. Immvela is
+          a product of SNS Software Solutions GmbH and not a separate legal
+          entity; this privacy policy covers both domains. Modules are enabled
+          individually, so which of the processing described below actually
+          applies depends on the modules a given brokerage uses.
         </p>
 
-        <h3>4.1 Data we process on behalf of clients</h3>
+        <h3>4.1 Who is controller, and who is processor</h3>
         <p>
-          When a client connects their social media accounts to the App, we
-          process:
+          For the data a brokerage puts into Immvela about its own properties,
+          clients and prospects, the <strong>brokerage is the controller</strong>{' '}
+          and <strong>SNS acts as processor</strong> on its instructions
+          (Art. 28 GDPR), under a separate written agreement including a Data
+          Processing Agreement (AVV). For the brokerage’s own account and
+          contract data, SNS is the controller.
         </p>
+        <p>
+          Each brokerage is a separate tenant and its own controller. Where a
+          brokerage belongs to a franchise, franchise offices do{' '}
+          <strong>not</strong> have access to each other’s operational data;
+          a franchise can share reference material downward only by deliberate
+          publication, never operational records about properties or people.
+        </p>
+
+        <h3>4.2 Data we process on behalf of clients</h3>
         <ul>
           <li>
-            Account identifiers and access tokens issued by the relevant
-            platform (Facebook, Instagram, LinkedIn, YouTube, TikTok), used
-            solely to publish content and retrieve engagement data on the
-            client’s behalf.
+            Account data for the brokerage’s users: name, email address, role
+            within the organisation, and interface-language preference.
           </li>
           <li>
-            Content created, scheduled, and published by the client’s authorized
-            users through the App.
+            Property and listing records, including descriptive and technical
+            attributes such as floor area, year of construction and energy
+            certificate values.
           </li>
           <li>
-            Engagement data returned by the connected platforms (e.g. comments,
-            reactions, views, follower and post statistics).
+            Contacts, leads and deals — that is, personal data about prospective
+            buyers, sellers or tenants that the brokerage enters or receives.
           </li>
           <li>
-            User account information for individuals with App access (name,
-            email, role/permissions).
+            Documents the brokerage uploads (for example energy performance
+            certificates) and the values read out of them. Extracted values are
+            always shown to the brokerage for confirmation before the platform
+            relies on them.
+          </li>
+          <li>
+            Media the brokerage uploads or has generated: photographs, staged
+            images and walkthrough footage.
+          </li>
+          <li>
+            Text the platform drafts on the brokerage’s instruction (listing
+            copy, captions, Exposé documents) and the brokerage’s edits to it.
+          </li>
+          <li>
+            Access tokens issued by connected publishing platforms, used solely
+            to publish on the brokerage’s behalf and to retrieve the resulting
+            engagement data.
+          </li>
+          <li>
+            Engagement data returned by those platforms (for example views,
+            reactions and post statistics).
+          </li>
+          <li>
+            Records of platform activity showing which module produced or used
+            which record, used to operate the service and to make the
+            brokerage’s own data reusable across modules.
           </li>
         </ul>
 
-        <h3>4.2 Purpose and legal basis</h3>
+        <h3>4.3 Purpose and legal basis</h3>
         <p>
-          This data is processed solely to provide the scheduling, publishing,
-          approval-workflow, and reporting functions the client has authorized,
-          under a separate written agreement (including a Data Processing
-          Agreement / AVV) with the client. SNS acts as processor on the
-          client’s behalf; the client remains controller of their own social
-          media account data. The legal basis is performance of that agreement
-          (Art. 6(1)(b) GDPR) and our legitimate interest in providing the
-          contracted service (Art. 6(1)(f) GDPR).
+          This data is processed solely to provide the functions the brokerage
+          has enabled. The legal basis is performance of the agreement with the
+          brokerage (Art. 6(1)(b) GDPR) and our legitimate interest in providing
+          the contracted service (Art. 6(1)(f) GDPR). Where a brokerage
+          processes data about third parties such as prospective buyers, the
+          brokerage is responsible for the legal basis for that processing.
         </p>
 
-        <h3>4.3 Storage and sub-processors</h3>
-        <p>App data is stored and processed within the EU:</p>
+        <h3>4.4 AI processing, and what it does not decide</h3>
+        <p>
+          Several Immvela modules generate text or images using AI. For text
+          generation, the relevant listing and property data is transmitted to{' '}
+          <strong>Anthropic PBC</strong> (Claude models) acting as a
+          sub-processor, solely to produce the output the brokerage asked for.
+          Under Anthropic’s commercial API terms, data submitted through the API
+          is not used to train their models. We do not sell client data, use it
+          for advertising, or use it to train AI models of our own.
+        </p>
+        <p>
+          Two limits are built into the platform rather than left to policy.
+          Factual values in generated text are taken only from data the
+          brokerage has confirmed, so the platform does not invent property
+          specifications. And AI-staged images carry a “virtually staged” label
+          rendered into the image itself, so a staged photograph stays
+          identifiable as staged wherever it is published.
+        </p>
+        <p>
+          <strong>No automated decision-making.</strong> Immvela does not make
+          decisions about individuals that have legal or similarly significant
+          effects within the meaning of Art. 22 GDPR. Where a module qualifies
+          or routes an enquiry, it gathers and prepares information for a person
+          to act on; it does not agree prices, appointments or contractual terms,
+          and anything binding is confirmed by a human.
+        </p>
+
+        <h3>4.5 Storage and sub-processors</h3>
+        <p>Immvela’s data is stored in the European Union:</p>
         <ul>
-          <li>Application data and database: Supabase (Frankfurt, Germany)</li>
-          <li>Media storage: Cloudflare R2</li>
           <li>
-            Application hosting: Vercel (see Section 3 for Vercel’s data
-            handling)
+            Database, authentication and file storage:{' '}
+            <strong>Supabase</strong>, hosted in the EU (eu-central-1,
+            Frankfurt, Germany)
           </li>
-          <li>Job processing/queuing: Railway</li>
+          <li>
+            Application hosting: <strong>Vercel</strong> (see Section 3 for
+            Vercel’s data handling)
+          </li>
+          <li>
+            Background job processing: <strong>Trigger.dev</strong>
+          </li>
+          <li>
+            AI text generation: <strong>Anthropic PBC</strong> (see Section 4.4)
+          </li>
         </ul>
         <p>
-          Access tokens are stored encrypted, with access restricted to
-          authorized SNS personnel and logged. We do not sell this data or use
-          it for advertising, and we do not use it to train AI models.
+          Platform access tokens are encrypted at rest. Access by SNS personnel
+          is restricted to those who need it and is logged. Where a
+          sub-processor involves a transfer outside the EU/EEA, that transfer is
+          covered by a data processing agreement and safeguarded by the EU
+          Standard Contractual Clauses.
         </p>
 
-        <h3>4.4 Third-party platforms</h3>
+        <h3>4.6 Connected publishing platforms</h3>
         <p>
           Each connected platform (Meta/Facebook/Instagram, LinkedIn,
           Google/YouTube, TikTok) processes data under its own privacy policy and
@@ -145,13 +229,30 @@ export default function PrivacyPage() {
           of service.
         </p>
 
-        <h3>4.5 Data retention and deletion</h3>
+        <h3>4.7 Retention, media deletion and erasure requests</h3>
         <p>
-          Client and account data is retained for the duration of the client
-          agreement and deleted within 30 days of account disconnection or
-          contract termination, except where retention is required by law.
-          Clients may request deletion or disconnection at any time by
-          contacting{' '}
+          Client and account data is retained for the duration of the agreement
+          and deleted within 30 days of account disconnection or termination,
+          except where retention is required by law.
+        </p>
+        <p>
+          Generated media such as staged images and walkthrough renders is
+          deleted on a rolling basis unless the brokerage marks an item to keep,
+          within the limits of its plan. Items that have been published get a
+          short grace period first. Deleting our copy does not remove anything
+          already published to a third-party platform, which remains subject to
+          that platform’s own retention.
+        </p>
+        <p>
+          If you are a buyer, seller or tenant whose data a brokerage holds in
+          Immvela, that brokerage is your controller and is the right first point
+          of contact for an erasure request. When a brokerage passes such a
+          request to us, we erase that person’s records across the platform,
+          including derived records, values extracted from documents, generated
+          documents and stored files. We may retain a record that a business
+          event occurred where it no longer identifies the person and statutory
+          retention applies. Brokerages may request deletion or disconnection at
+          any time by contacting{' '}
           <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>.
         </p>
 

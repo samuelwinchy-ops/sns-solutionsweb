@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: { locale: 'de_AT' },
 }
 
-const UPDATED = '3. Juli 2026'
+const UPDATED = '30. Juli 2026'
 
 export default function TermsPageDe() {
   return (
@@ -39,20 +39,22 @@ export default function TermsPageDe() {
         <h2>1. Geltungsbereich</h2>
         <p>
           Diese Nutzungsbedingungen regeln Ihren Zugriff auf und die Nutzung der
-          Website, die von <strong>SNS Software Solutions GmbH</strong>{' '}
-          („SNS“, „wir“, „uns“) betrieben wird. Durch den Zugriff auf oder die
-          Nutzung dieser Website stimmen Sie diesen Bedingungen zu. Wenn Sie
-          nicht einverstanden sind, nutzen Sie die Website bitte nicht.
+          Websites, die von <strong>SNS Software Solutions GmbH</strong>{' '}
+          („SNS“, „wir“, „uns“) betrieben werden, nämlich sns-austria.com und
+          immvela.com. Durch den Zugriff auf oder die Nutzung einer dieser
+          Websites stimmen Sie diesen Bedingungen zu. Wenn Sie nicht
+          einverstanden sind, nutzen Sie sie bitte nicht.
         </p>
         <p>
-          Diese Bedingungen betreffen die Nutzung der Website selbst. Die
+          Diese Bedingungen betreffen die Nutzung der Websites selbst. Die
           Erbringung von Softwareentwicklung oder anderen Leistungen durch SNS
           richtet sich nach einer gesonderten schriftlichen Vereinbarung mit dem
-          jeweiligen Kunden. Die Nutzung der Social-Media-Planungsanwendung von
-          SNS („die App“) durch einen autorisierten Kunden richtet sich nach der
-          gesonderten Dienstleistungsvereinbarung und dem
+          jeweiligen Kunden. Die Nutzung von Immvela oder einer anderen von SNS
+          bereitgestellten Anwendung durch einen autorisierten Kunden richtet
+          sich nach der gesonderten Dienstleistungsvereinbarung und dem
           Auftragsverarbeitungsvertrag (AVV) zwischen SNS und diesem Kunden,
-          nicht nach diesen Nutzungsbedingungen.
+          nicht nach diesen Nutzungsbedingungen. Abschnitt 4 enthält die
+          Bedingungen, die zusätzlich zu dieser Vereinbarung gelten.
         </p>
 
         <h2>2. Nutzung der Website</h2>
@@ -92,19 +94,80 @@ export default function TermsPageDe() {
           abgeleitete Werke erstellen.
         </p>
 
-        <h2>4. Die App</h2>
+        <h2>4. Immvela und andere Kundenanwendungen</h2>
         <p>
-          Soweit SNS einem Kunden die Social-Media-Planungsanwendung
-          bereitstellt, ist dieser Kunde allein verantwortlich für die Inhalte,
-          deren Veröffentlichung er der App gestattet, sowie dafür, dass er über
-          die erforderlichen Rechte und Berechtigungen verfügt, um diese Inhalte
-          zu veröffentlichen und die verbundenen Social-Media-Konten zu
-          betreiben. SNS handelt nach den Weisungen des Kunden und ist nicht
-          verantwortlich für inhaltliche Entscheidungen der autorisierten Nutzer
-          des Kunden. Die Nutzung der App unterliegt zusätzlich den jeweiligen
-          Entwicklerbedingungen und -richtlinien der verbundenen Plattformen
+          Der Zugang zu <strong>Immvela</strong> und zu jeder anderen Anwendung,
+          die SNS einem Kunden bereitstellt, richtet sich nach einer gesonderten
+          schriftlichen Vereinbarung. Weder diese Website noch diese Bedingungen
+          begründen einen Anspruch auf Zugang; widerspricht die gesonderte
+          Vereinbarung diesen Bedingungen, so gilt jene Vereinbarung.
+        </p>
+
+        <h3>4.1 Early Access</h3>
+        <p>
+          Immvela wird Modul für Modul angeboten und Teile davon befinden sich im
+          Early Access. Early-Access-Funktionen werden „wie besehen“
+          bereitgestellt, können sich ändern oder entfallen und beinhalten keine
+          Verfügbarkeitszusage. Beschreibungen von Modulen in Entwicklung geben
+          die derzeitige Absicht wieder und sind keine Zusage über Liefertermin,
+          Funktionsumfang oder Preis.
+        </p>
+
+        <h3>4.2 Inhalte des Kunden und verbundene Konten</h3>
+        <p>
+          Der Kunde ist allein verantwortlich für die Inhalte, die er über die
+          Anwendung veröffentlicht, dafür, dass er über die erforderlichen Rechte
+          und Berechtigungen verfügt, sowie für den Betrieb seiner eigenen
+          verbundenen Konten. SNS handelt nach den Weisungen des Kunden und ist
+          nicht verantwortlich für inhaltliche Entscheidungen der autorisierten
+          Nutzer des Kunden. Die Nutzung verbundener Plattformen unterliegt
+          zusätzlich deren jeweiligen Entwicklerbedingungen und -richtlinien
           (Meta, LinkedIn, Google/YouTube, TikTok), und der Kunde ist für die
           Einhaltung dieser Bedingungen verantwortlich.
+        </p>
+
+        <h3>4.3 KI-Ergebnisse sind Entwürfe, keine Beratung</h3>
+        <p>
+          Texte, Bilder und Dokumente, die die Plattform erzeugt, sind Entwürfe
+          zur Prüfung durch den Kunden. Der Kunde ist dafür verantwortlich,
+          Ergebnisse zu prüfen, bevor er sie veröffentlicht oder sich darauf
+          verlässt. Gibt die Plattform einen Sachwert an, so stammt dieser
+          ausschließlich aus Daten, die der Kunde bestätigt hat; sie prüft nicht
+          eigenständig, ob der bestätigte Wert zutrifft.
+        </p>
+        <p>
+          Nichts, was die Plattform erzeugt, stellt eine rechtliche,
+          steuerliche, finanzielle oder bewertungsbezogene Beratung dar, und es
+          ersetzt weder ein Gutachten noch eine Bewertung noch die Beratung durch
+          eine qualifizierte Fachperson.
+        </p>
+
+        <h3>4.4 Virtuell möblierte Bilder</h3>
+        <p>
+          Erzeugt die Plattform ein virtuell möbliertes Bild, versieht sie das
+          Bild mit einem Hinweis. Der Kunde darf diesen Hinweis nicht entfernen,
+          wegschneiden oder verdecken. Virtuelles Staging ergänzt ausschließlich
+          Möblierung und Gestaltung und darf nicht dazu verwendet werden, den
+          Zustand eines Objekts zu verschleiern oder falsch darzustellen,
+          einschließlich Mängeln wie Schäden oder Feuchtigkeit. Für den Eindruck,
+          den seine Inserate vermitteln, bleibt der Kunde verantwortlich.
+        </p>
+
+        <h3>4.5 Keine automatisierten Zusagen</h3>
+        <p>
+          Die Plattform vereinbart im Namen eines Kunden keine Preise, Termine
+          oder Vertragsbedingungen mit Dritten. Bearbeitet ein Modul eine
+          Anfrage, sammelt und bereitet es Informationen auf; Verbindliches
+          bestätigt ein Mensch.
+        </p>
+
+        <h3>4.6 Eigene gesetzliche Pflichten des Kunden</h3>
+        <p>
+          Die Nutzung der Plattform überträgt die regulatorischen Pflichten des
+          Kunden nicht auf SNS. Insbesondere bleiben Angabepflichten für
+          Immobilienanzeigen — etwa Angaben zum Energieausweis nach dem
+          österreichischen EAVG oder dem deutschen GEG — Sache des Kunden, ebenso
+          wie seine Pflichten als Verantwortlicher nach der DSGVO.
         </p>
 
         <h2>5. Keine Gewährleistung</h2>
