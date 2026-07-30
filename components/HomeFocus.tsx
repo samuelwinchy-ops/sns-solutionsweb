@@ -9,8 +9,8 @@ import { type Locale, defaultLocale, localePath, immvelaHref } from '@/i18n/conf
 const EASE = [0.16, 1, 0.3, 1] as const
 type Industry = 'hvac' | 'realEstate'
 
-// Same color language as the /solutions industry selector: HVAC = cyan,
-// real estate = violet. Consistency signals "these are our two specialties".
+// Same color language as the /solutions industry selector: HVAC = violet,
+// real estate = cyan. Consistency signals "these are our two specialties".
 const industryIcon: Record<Industry, ReactNode> = {
   hvac: (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -28,8 +28,8 @@ const industryIcon: Record<Industry, ReactNode> = {
 }
 
 const industryAccent: Record<Industry, { text: string; lift: string }> = {
-  hvac: { text: 'text-sns-cyan', lift: 'lift-cyan' },
-  realEstate: { text: 'text-sns-violet', lift: 'lift-violet' },
+  hvac: { text: 'text-sns-violet', lift: 'lift-violet' },
+  realEstate: { text: 'text-sns-cyan', lift: 'lift-cyan' },
 }
 
 // Each industry has its own dedicated product page.
@@ -79,8 +79,8 @@ export default function HomeFocus({ locale = defaultLocale }: { locale?: Locale 
               <motion.div key={key} variants={item}>
                 <Link
                   href={key === 'realEstate' ? immvelaHref(locale) : localePath(locale, industrySlug[key])}
-                  // Each industry keeps its own hue: HVAC cyan, real estate
-                  // violet, the same pairing the /solutions selector uses.
+                  // Each industry keeps its own hue: HVAC violet, real estate
+                  // cyan, the same pairing the /solutions selector uses.
                   className={`lift lift-hover ${acc.lift} group flex h-full items-start gap-4 p-6 md:p-7`}
                 >
                   <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-sns-text/10 bg-white/70 ${acc.text}`}>

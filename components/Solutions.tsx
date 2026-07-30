@@ -27,7 +27,7 @@ const industryIcon: Record<Industry, ReactNode> = {
     </svg>
   ),
 }
-const industryText: Record<Industry, string> = { hvac: 'text-sns-cyan', realEstate: 'text-sns-violet' }
+const industryText: Record<Industry, string> = { hvac: 'text-sns-violet', realEstate: 'text-sns-cyan' }
 
 // Products that have a shipped app of their own, keyed `${industry}:${category}`.
 // These live on their own subdomain, so the link must be a plain <a> — a full
