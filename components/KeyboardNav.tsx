@@ -2,9 +2,13 @@
 
 import { useEffect } from 'react'
 
+// Homepage section anchors. Kept in step with what app/page.tsx actually
+// renders — #what-we-do and #team were both removed with their sections, and
+// a shortcut pointing at a section that no longer exists is a dead key.
 const shortcuts: Record<string, string> = {
-  '1': '#what-we-do',
-  '2': '#team',
+  '1': '#focus',
+  '2': '#how-we-work',
+  '3': '#contact',
 }
 
 export default function KeyboardNav() {

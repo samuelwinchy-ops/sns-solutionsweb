@@ -9,27 +9,34 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // ── Daylight surfaces (warm cream paper, mirrors Immvela) ──
-        'sns-bg': '#f2f1e8', // warm cream base
-        'sns-surface': '#faf9f2', // elevated surface (cards)
-        'sns-surface-2': '#f4f2e9', // higher elevation (hover / nested)
-        'sns-border': '#dcdacb', // solid border fallback
-        // ── Accent spectrum (indigo → blue → cyan), deepened to read on cream ──
+        // ── Daylight surfaces (cool porcelain, deliberately cooler/crisper than
+        //    Immvela's warm cream so the two brands read as distinct) ──
+        'sns-bg': '#eef0f7', // cool porcelain base
+        'sns-surface': '#ffffff', // elevated surface (cards) — pure white for real separation
+        'sns-surface-2': '#f6f7fc', // higher elevation (hover / nested)
+        'sns-border': '#d3d7e6', // solid border fallback (stronger, cooler)
+        // ── Accent spectrum (indigo → blue → cyan), richer for punch on light ──
         'sns-indigo': '#4f46e5', // primary accent (fills + accent text)
         'sns-violet': '#7c3aed', // gradient partner
         'sns-blue': '#2563eb', // brand blue
+        // NOTE: a rose CTA (#e11d48) was tried and rejected — it read as a
+        // harsh red against the cool porcelain rather than as energy. The
+        // conversion colour stays indigo. What the page was actually missing
+        // was surface treatment, not a second brand hue: see the `.lift` card
+        // system in globals.css, which gives every card a hue off the spectrum
+        // below instead of leaving it flat white.
         // Darkened from #0891b2 — the original only hit ~3.3:1 on cream, below
         // WCAG AA's 4.5:1 for the small mono labels/status-chip text it's used
         // for site-wide. This still clears AA with margin on every surface.
-        'sns-cyan': '#067590', // bright highlight (teal on light)
+        'sns-cyan': '#0685a6', // tertiary — bright highlight (teal on light)
         'sns-accent': '#4338ca', // deep indigo — links / hover
         'sns-blue-dim': '#1d4ed8', // deep blue
         // ── Text (deep navy ink on cream) ──
-        'sns-text': '#14192b', // primary text
-        'sns-muted': '#545d70', // secondary text (AA on cream)
+        'sns-text': '#0b0f22', // primary text — deepened for punchier headings
+        'sns-muted': '#4b5468', // secondary text (AA on porcelain)
         // Darkened from #878c99 (~3:1 on cream, below AA for the small labels
         // it's used for everywhere — nav meta, chip counts, footer text).
-        'sns-faint': '#686c76', // tertiary / decorative labels
+        'sns-faint': '#646a7a', // tertiary / decorative labels
         // ── Status ── both darkened from their originals for the same reason:
         // used as real small-text (status-chip labels, "qualified" tags), not
         // just dots/borders, so they need text-level (4.5:1) contrast on cream.

@@ -112,7 +112,10 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
 
           <a
             href={localePath(locale, '/contact')}
-            className="group ml-0.5 inline-flex items-center gap-1.5 rounded-full border border-sns-text/15 bg-white/50 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-widest text-sns-text transition-all duration-300 ease-sns-out hover:border-sns-indigo/50 hover:bg-sns-indigo/10 hover:text-sns-indigo md:text-xs"
+            // Tinted at rest, solid on hover. The nav sits over varying content
+            // so a permanently-filled button would fight the page; the tint is
+            // enough to separate the one action here from the text links.
+            className="group ml-0.5 inline-flex items-center gap-1.5 rounded-full border border-sns-indigo/30 bg-sns-indigo/[0.08] px-3.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-widest text-sns-accent transition-all duration-300 ease-sns-out hover:border-sns-indigo hover:bg-sns-indigo hover:text-white md:text-xs"
           >
             {t.contact}
           </a>
@@ -171,7 +174,9 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
             <a
               href={localePath(locale, '/contact')}
               onClick={() => setOpen(false)}
-              className="mt-2 flex items-center justify-center gap-1.5 rounded-full border border-sns-text/15 bg-sns-indigo/10 px-4 py-3 font-mono text-sm uppercase tracking-widest text-sns-text transition-colors duration-200 hover:border-sns-indigo/50 hover:bg-sns-indigo/20"
+              // Solid in the mobile sheet: there is no competing content behind
+              // it here, so the one action gets the full treatment.
+              className="mt-2 flex items-center justify-center gap-1.5 rounded-full bg-sns-indigo px-4 py-3 font-mono text-sm font-semibold uppercase tracking-widest text-white shadow-[0_8px_24px_-8px_rgba(79,70,229,0.65)] transition-colors duration-200 hover:bg-sns-accent"
             >
               {t.contact}
             </a>

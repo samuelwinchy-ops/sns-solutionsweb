@@ -44,7 +44,7 @@ export default function ImmvelaFooter({ locale = defaultLocale }: { locale?: Loc
               <span className="im-wordmark text-sm">
                 Immvela<span className="dot">.</span>
               </span>
-              <span className="ml-2">— a product by SNS Software Solutions GmbH · Vienna 2026</span>
+              <span className="ml-2">a product by SNS Software Solutions GmbH · Vienna 2026</span>
             </p>
             <div className="flex items-center gap-2">
               {(Object.keys(SOCIALS) as (keyof typeof SOCIALS)[]).map((key) => (

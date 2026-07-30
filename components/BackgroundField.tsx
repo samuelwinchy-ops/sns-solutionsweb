@@ -25,13 +25,14 @@ export default function BackgroundField() {
 
   return (
     <NeuralBackground
-      // Daylight: soft SNS blue drifting over cream. Lighter, less-saturated
-      // hues than the accents so the field recedes behind the text instead of
-      // vibrating against the warm paper. Glow off — additive blending brightens
-      // toward white, which would erase the particles on a light ground.
-      colors={['#818cf8', '#93c5fd', '#a5b4fc', '#6366f1']}
-      fadeColor="#f2f1e8"
-      trailOpacity={0.2}
+      // Daylight: SNS blue/indigo drifting over cool porcelain. Slightly deeper,
+      // more saturated hues than before so the field actually reads on the light
+      // ground and gives the page some motion — but still calm enough to sit
+      // behind the text. Glow off — additive blending brightens toward white,
+      // which would erase the particles on a light ground.
+      colors={['#6366f1', '#4f46e5', '#0ea5e9', '#7c3aed']}
+      fadeColor="#eef0f7"
+      trailOpacity={0.16}
       particleCount={FIELD_SIZE}
       density={isHome ? HOME_DENSITY : INNER_DENSITY}
       speed={0.4}

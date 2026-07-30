@@ -6,7 +6,7 @@ import Founders from '@/components/Founders'
 export const metadata: Metadata = {
   title: 'Team',
   description:
-    'Meet the founders of SNS Solutions — Samuel Winch (CTO), Nicholas Pellechi (CEO) and Samson Belachew (CSO), the team building custom software and AI automation in Vienna.',
+    'Meet the founders of SNS Solutions: Samuel Winch (CTO), Nicholas Pellechi (CEO) and Samson Belachew (CSO), the team building custom software and AI automation in Vienna.',
   alternates: {
     canonical: '/team',
     languages: { en: '/team', de: '/de/team', 'x-default': '/team' },

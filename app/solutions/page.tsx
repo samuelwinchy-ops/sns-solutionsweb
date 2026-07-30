@@ -4,9 +4,9 @@ import Footer from '@/components/Footer'
 import SolutionsIndex from '@/components/SolutionsIndex'
 
 export const metadata: Metadata = {
-  title: 'Solutions — AI Receptionist for trades & real estate',
+  title: 'Products · AI agents for trades & real estate',
   description:
-    'An AI receptionist that answers, qualifies and routes every inbound lead — 24/7, in German and English. Built for HVAC/SHK and real estate in the DACH market.',
+    'AI agents for HVAC/SHK and real estate in the DACH market: inbound handling that qualifies and routes every lead around the clock, and Immvela, our platform for real-estate teams.',
   alternates: {
     canonical: '/solutions',
     languages: { en: '/solutions', de: '/de/solutions', 'x-default': '/solutions' },

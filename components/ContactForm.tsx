@@ -67,7 +67,7 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
     }
 
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
-      const subject = encodeURIComponent(`New inquiry — ${data.get('service')}`)
+      const subject = encodeURIComponent(`New inquiry: ${data.get('service')}`)
       const body = encodeURIComponent(
         `Name: ${data.get('name')}\n` +
           `Email: ${data.get('email')}\n` +

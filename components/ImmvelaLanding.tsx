@@ -139,9 +139,11 @@ export default function ImmvelaLanding({ locale = defaultLocale }: { locale?: Lo
             )
           })}
 
-          {/* 9th cell — closes the 3×3: the sign-up note that used to sit
-              under the grid, now filling the empty corner. */}
-          <motion.div variants={item} className="im-card-cta flex min-h-[168px] flex-col p-6">
+          {/* Closes the grid exactly at both breakpoints: 7 modules + this cell
+              is 4 full rows at 2-up, and 7 + a double-width cell is 3 full rows
+              at 3-up. Change the module count and this span has to be re-checked
+              or the grid ends on a hole. */}
+          <motion.div variants={item} className="im-card-cta flex min-h-[168px] flex-col p-6 lg:col-span-2">
             <p className="text-sm leading-relaxed im-ink">{t.liveNote}</p>
             <div className="mt-auto flex flex-col items-start gap-2.5 pt-5">
               <a

@@ -23,7 +23,7 @@ type Industry = 'hvac' | 'realEstate'
 // Keeps the submission's subject line and analytics tagged to the right list,
 // so HVAC and real-estate sign-ups stay distinguishable in the inbox.
 const SUBJECT: Record<Industry, string> = {
-  hvac: 'HVAC / SHK — waitlist',
+  hvac: 'HVAC / SHK waitlist',
   realEstate: 'Immvela — waitlist',
 }
 

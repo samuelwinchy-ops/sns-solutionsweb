@@ -59,7 +59,7 @@ export const metadata: Metadata = {
         url: '/og.png',
         width: 1200,
         height: 630,
-        alt: 'SNS Solutions — AI-powered software studio',
+        alt: 'SNS Solutions · agentic software studio',
       },
     ],
   },
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#f2f1e8',
+  themeColor: '#eef0f7',
   colorScheme: 'light',
 }
 

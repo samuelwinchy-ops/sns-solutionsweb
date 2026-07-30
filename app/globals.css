@@ -7,22 +7,120 @@ html {
 }
 
 body {
-  /* Daylight: warm cream paper, deep navy ink (mirrors Immvela, in SNS blue). */
-  background-color: #f2f1e8;
-  color: #14192b;
-  /* Faint vertical falloff so the page feels lit from the top */
+  /* Daylight: cool porcelain paper, deep navy ink. Cooler and crisper than
+     Immvela's warm cream so the two brands read as distinct. */
+  background-color: #eef0f7;
+  color: #0b0f22;
+  /* Two coloured light sources — indigo from the top, cyan from the lower right
+     — so the page reads as lit and atmospheric instead of a flat cream field. */
   background-image: radial-gradient(
-    120% 80% at 50% -10%,
-    rgba(79, 70, 229, 0.05) 0%,
-    transparent 55%
-  );
+      100% 70% at 50% -12%,
+      rgba(79, 70, 229, 0.12) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      70% 60% at 108% 108%,
+      rgba(8, 145, 178, 0.1) 0%,
+      transparent 60%
+    );
   background-attachment: fixed;
 }
 
 ::selection {
-  background-color: rgba(79, 70, 229, 0.2);
-  color: #14192b;
+  background-color: rgba(79, 70, 229, 0.24);
+  color: #0b0f22;
 }
+
+/* ── Solid card with real edge definition (replaces the near-invisible
+   cream-on-cream cards) ─────────────────────────────────────────────── */
+.sns-card {
+  background: #ffffff;
+  border: 1px solid #d3d7e6;
+  border-radius: 20px;
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
+    0 20px 44px -28px rgba(11, 15, 34, 0.28);
+}
+
+/* ── `.lift` — the tinted-glass card ─────────────────────────────────────
+   Flat #fff on #eef0f7 is only ~2% apart in luminance, so a grid of white
+   cards reads as one blank slab: that was the "no life" problem, and it was
+   a surface problem, not a missing brand colour.
+
+   Each card carries a hue instead. Four things do the work together, and
+   removing any one of them takes most of the effect with it:
+     1. a gradient rule across the top edge — the single loudest signal;
+     2. a wash of the same hue bleeding out of the bottom-right corner;
+     3. a border and a drop shadow tinted toward that hue rather than grey;
+     4. a paper gradient so the face itself is never one flat value.
+
+   Set the hue per card with `--lift`. The page background does the rest of
+   the lifting and is deliberately NOT darkened to make cards pop: dropping
+   it even to #e4e8f4 pushes `sns-faint` body text under the 4.5:1 AA floor
+   that a previous a11y pass deliberately fixed. All the contrast here is
+   added on top of the page, never taken out of it.
+
+   Hover raises the card slightly and brightens the top rule. */
+.lift {
+  --lift: #4f46e5;
+  position: relative;
+  background: radial-gradient(
+      125% 100% at 100% 100%,
+      color-mix(in srgb, var(--lift) 10%, transparent) 0%,
+      transparent 58%
+    ),
+    linear-gradient(
+      168deg,
+      #ffffff 0%,
+      #fdfdff 58%,
+      color-mix(in srgb, var(--lift) 5%, #ffffff) 100%
+    );
+  border: 1px solid color-mix(in srgb, var(--lift) 20%, #d3d7e6);
+  border-radius: 20px;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.95),
+    0 1px 2px 0 rgba(11, 15, 34, 0.04),
+    0 22px 48px -30px color-mix(in srgb, var(--lift) 55%, rgba(11, 15, 34, 0.55));
+  overflow: hidden;
+  transition: box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s ease;
+}
+
+/* The top rule. Inset by the border so it doesn't sit proud of the radius. */
+.lift::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--lift) 20%,
+    color-mix(in srgb, var(--lift) 40%, transparent) 65%,
+    transparent 100%
+  );
+  opacity: 0.8;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+.lift-hover:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--lift) 42%, #d3d7e6);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.95),
+    0 1px 2px 0 rgba(11, 15, 34, 0.04),
+    0 30px 60px -28px color-mix(in srgb, var(--lift) 65%, rgba(11, 15, 34, 0.5));
+}
+.lift-hover:hover::before {
+  opacity: 1;
+}
+
+/* The site's accent spectrum. Cycle these across a row so a grid of cards
+   reads as a gradient rather than as repetition. */
+.lift-indigo { --lift: #4f46e5; }
+.lift-blue   { --lift: #2563eb; }
+.lift-cyan   { --lift: #0891b2; }
+.lift-violet { --lift: #7c3aed; }
 
 /* ── Text gradient (indigo → blue → cyan), deepened to read on cream ─── */
 .text-gradient-blue {

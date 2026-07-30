@@ -86,8 +86,8 @@ export default function GlowCard({
         } as React.CSSProperties
       }
       className={
-        'group relative overflow-hidden rounded-sns border border-sns-text/[0.1] ' +
-        'bg-sns-surface shadow-[0_1px_0_0_rgba(255,255,255,0.8)_inset,0_24px_48px_-28px_rgba(20,25,43,0.2)] ' +
+        'group relative overflow-hidden rounded-sns border border-sns-border ' +
+        'bg-sns-surface shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_20px_44px_-26px_rgba(11,15,34,0.3)] ' +
         'transition-colors duration-500 ease-sns-out ' +
         className
       }

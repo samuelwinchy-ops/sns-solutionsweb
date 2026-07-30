@@ -3,8 +3,9 @@
 import { motion, type Variants } from 'framer-motion'
 import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
-import { type Locale, defaultLocale, localePath, SLOGAN } from '@/i18n/config'
-import HeroLogo from './HeroLogo'
+import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { CTA_PRIMARY_SM, CTA_SECONDARY } from '@/lib/cta'
+import ImmvelaShowcase from './ImmvelaShowcase'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -21,123 +22,116 @@ export default function Hero({ locale = defaultLocale }: { locale?: Locale }) {
   const t = getDict(locale).hero
 
   return (
-    <section className="relative flex min-h-dvh flex-col items-start justify-center overflow-hidden px-5 pt-28 md:px-10 md:pt-32">
+    <section className="relative flex min-h-[74vh] flex-col justify-center overflow-hidden px-5 pb-16 pt-32 md:px-10 md:pb-20">
+      {/* Indigo light source, upper-left, behind the headline. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-0 z-0 h-[500px] w-[700px]"
+        className="pointer-events-none absolute left-0 top-0 z-0 h-[520px] w-[720px]"
         style={{
           background:
-            'radial-gradient(ellipse at 18% 38%, rgba(79, 70, 229, 0.1) 0%, transparent 68%)',
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 z-[1]"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, transparent 42%, rgba(242,241,232,0.85) 100%)',
+            'radial-gradient(ellipse at 22% 34%, rgba(79, 70, 229, 0.14) 0%, transparent 66%)',
         }}
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-[1.15fr_1fr] md:gap-16 2xl:max-w-7xl 2xl:gap-20">
-        <div className="flex min-w-0 flex-col">
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            custom={0}
-            className="mb-7 inline-flex w-fit items-center gap-2.5 rounded-full border border-sns-text/10 bg-white/50 py-1.5 pl-2.5 pr-3.5 backdrop-blur-sm"
-          >
-            <span className="h-2 w-2 rounded-full bg-sns-cyan" aria-hidden="true" />
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-sns-muted">
-              {SLOGAN}
-            </span>
-          </motion.div>
+      <div className="relative z-10 mx-auto w-full max-w-6xl 2xl:max-w-7xl">
+        {/* The Immvela panel isn't decoration filling dead space — it is the
+            studio's own product, so it gets real estate equal to the pitch.
+            Copy leads on lg; on smaller screens the panel stacks underneath,
+            because a carousel above the headline buries what we are. */}
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+          <div className="max-w-2xl">
+            <motion.h1
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              custom={0}
+              className="text-[2.6rem] font-bold leading-[1.05] tracking-[-0.02em] text-sns-text md:text-[3.4rem] 2xl:text-[3.9rem]"
+            >
+              {t.h1a}
+              <br />
+              <span className="text-gradient-blue text-glow">{t.h1b}</span>
+            </motion.h1>
 
-          <motion.h1
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            custom={1}
-            className="text-[2.6rem] font-bold leading-[1.04] tracking-[-0.02em] text-sns-text md:text-[4rem] 2xl:text-[4.6rem]"
-          >
-            {t.h1a}
-            <br />
-            <span className="text-gradient-blue text-glow">{t.h1b}</span>
-          </motion.h1>
+            <motion.p
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              custom={1}
+              className="mt-6 max-w-xl text-lg leading-relaxed text-sns-muted"
+            >
+              {t.subtitle.map((seg, i) => (
+                <span key={i} className={seg.strong ? 'font-semibold text-sns-text' : undefined}>
+                  {seg.t}
+                </span>
+              ))}
+            </motion.p>
 
-          <motion.p
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            custom={2}
-            className="mt-7 max-w-xl text-lg leading-relaxed text-sns-muted md:text-xl 2xl:max-w-2xl 2xl:text-[1.35rem]"
-          >
-            {t.subtitle.map((seg, i) => (
-              <span key={i} className={seg.strong ? 'font-medium text-sns-text' : undefined}>
-                {seg.t}
-              </span>
-            ))}
-            <span className="mt-4 block font-medium text-sns-text">{t.closer}</span>
-          </motion.p>
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              custom={2}
+              className="mt-9 flex flex-wrap items-center gap-3"
+            >
+              <a
+                href={localePath(locale, '/contact')}
+                onClick={() => track('hero_start_build')}
+                className={CTA_PRIMARY_SM}
+              >
+                {t.ctaStart}
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  aria-hidden="true"
+                  className="transition-transform duration-300 ease-sns-out group-hover:translate-x-1"
+                >
+                  <path
+                    d="M3 7h8M7.5 3.5 11 7l-3.5 3.5"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+              <a
+                href={localePath(locale, '/solutions')}
+                onClick={() => track('hero_view_solutions')}
+                className={CTA_SECONDARY}
+              >
+                {t.ctaSolutions}
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  aria-hidden="true"
+                  className="transition-transform duration-300 ease-sns-out group-hover:translate-x-1"
+                >
+                  <path
+                    d="M3 7h8M7.5 3.5 11 7l-3.5 3.5"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+            </motion.div>
+          </div>
 
           <motion.div
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
             custom={3}
-            className="mt-10 flex flex-wrap items-center gap-3"
+            className="w-full"
           >
-            <a
-              href={localePath(locale, '/contact')}
-              onClick={() => track('hero_start_build')}
-              className="group inline-flex items-center gap-2 rounded-full bg-sns-indigo px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
-            >
-              {t.ctaStart}
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                aria-hidden="true"
-                className="transition-transform duration-300 ease-sns-out group-hover:translate-x-1"
-              >
-                <path
-                  d="M3 7h8M7.5 3.5 11 7l-3.5 3.5"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-            <a
-              href={localePath(locale, '/solutions')}
-              onClick={() => track('hero_view_solutions')}
-              className="group inline-flex items-center gap-2 rounded-full border border-sns-text/15 bg-white/40 px-5 py-3 font-mono text-sm text-sns-text transition-all duration-300 ease-sns-out hover:border-sns-text/30 hover:bg-white/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
-            >
-              {t.ctaSolutions}
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                aria-hidden="true"
-                className="transition-transform duration-300 ease-sns-out group-hover:translate-x-1"
-              >
-                <path
-                  d="M3 7h8M7.5 3.5 11 7l-3.5 3.5"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
+            <ImmvelaShowcase locale={locale} />
           </motion.div>
         </div>
-
-        <HeroLogo />
       </div>
     </section>
   )

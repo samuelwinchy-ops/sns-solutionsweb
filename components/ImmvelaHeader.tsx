@@ -1,12 +1,11 @@
 'use client'
 
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
 import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath } from '@/i18n/config'
 import { SITE_URL } from '@/lib/site'
+import LanguageToggle from './LanguageToggle'
 
 /**
  * Slim, light header for the Immvela waitlist page — the "daylight" counterpart
@@ -16,10 +15,6 @@ import { SITE_URL } from '@/lib/site'
  */
 export default function ImmvelaHeader({ locale = defaultLocale }: { locale?: Locale }) {
   const t = getDict(locale).waitlistPage
-  const pathname = usePathname() || '/'
-  const isDe = pathname === '/de' || pathname.startsWith('/de/')
-  const enHref = isDe ? pathname.replace(/^\/de(?=\/|$)/, '') || '/' : pathname
-  const deHref = isDe ? pathname : pathname === '/' ? '/de' : `/de${pathname}`
 
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
@@ -28,8 +23,6 @@ export default function ImmvelaHeader({ locale = defaultLocale }: { locale?: Loc
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  const toggle = 'rounded px-1.5 py-0.5 font-mono text-[11px] uppercase tracking-widest transition-colors duration-300'
 
   return (
     <header
@@ -48,15 +41,10 @@ export default function ImmvelaHeader({ locale = defaultLocale }: { locale?: Loc
         </a>
 
         <div className="flex items-center gap-2 md:gap-4">
-          <div className="flex items-center gap-0.5" role="group" aria-label="Language / Sprache">
-            <Link href={enHref} aria-current={!isDe ? 'true' : undefined} className={`${toggle} im-link-ink ${!isDe ? 'is-active' : ''}`}>
-              EN
-            </Link>
-            <span className="im-faint" aria-hidden="true">/</span>
-            <Link href={deHref} aria-current={isDe ? 'true' : undefined} className={`${toggle} im-link-ink ${isDe ? 'is-active' : ''}`}>
-              DE
-            </Link>
-          </div>
+          {/* The same flag switch the SNS nav uses. It was a duplicated EN/DE
+              text pair here, which meant the flag change had to be made twice —
+              and the second copy is exactly the one that gets forgotten. */}
+          <LanguageToggle />
 
           {/* Immvela sits on its own domain; "back to SNS" crosses to the SNS
               marketing site, so this is an absolute URL rather than a path. */}

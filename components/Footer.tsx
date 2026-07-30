@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { getDict } from '@/i18n'
-import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { type Locale, defaultLocale, localePath, SLOGAN } from '@/i18n/config'
+import { CTA_PRIMARY } from '@/lib/cta'
 
 const EMAIL = 'office@sns-austria.com'
 
@@ -57,10 +58,10 @@ export default function Footer({
     <footer id="contact" className="relative scroll-mt-24 px-5 pb-12 pt-16 md:px-10">
       <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
         {showCta && (
-          <div className="glass edge-light relative overflow-hidden rounded-sns-lg p-8 md:p-12">
+          <div className="lift lift-indigo relative p-8 md:p-12">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-sns-indigo/20 blur-3xl"
+              className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-sns-indigo/15 blur-3xl"
             />
             <div
               aria-hidden="true"
@@ -81,7 +82,7 @@ export default function Footer({
               <div className="flex shrink-0 flex-col items-start gap-3 md:items-end">
                 <Link
                   href={localePath(locale, '/contact')}
-                  className="group inline-flex items-center gap-2 rounded-full bg-sns-indigo px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
+                  className={CTA_PRIMARY}
                 >
                   {t.ctaStart}
                   <svg
@@ -143,7 +144,25 @@ export default function Footer({
           </div>
         )}
 
-        <div className={`${showCta ? 'mt-12' : ''} hairline-shimmer h-px w-full`} />
+        {/* The brand line. It used to live in a rounded pill at the top of the
+            hero — which is the single most generic AI-startup element a page
+            can open with. Set as an editorial signature between two hairlines
+            down here, it reads as a closing line rather than a claim. */}
+        <div className={`${showCta ? 'mt-14' : 'mt-2'} flex items-center gap-5`}>
+          <span
+            aria-hidden="true"
+            className="h-px flex-1 bg-gradient-to-r from-transparent to-sns-indigo/25"
+          />
+          <p className="text-center font-mono text-[11px] uppercase tracking-[0.26em] text-sns-muted">
+            {SLOGAN}
+          </p>
+          <span
+            aria-hidden="true"
+            className="h-px flex-1 bg-gradient-to-l from-transparent to-sns-indigo/25"
+          />
+        </div>
+
+        <div className="hairline-shimmer mt-8 h-px w-full" />
         <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-5">
             <p className="font-mono text-xs text-sns-faint">

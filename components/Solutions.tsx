@@ -6,6 +6,7 @@ import type { ReactNode } from 'react'
 import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath, immvelaHref } from '@/i18n/config'
+import { CTA_PRIMARY } from '@/lib/cta'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 type Industry = 'hvac' | 'realEstate'
@@ -79,8 +80,11 @@ export default function Solutions({
     return `${localePath(locale, '/solutions/hvac/waitlist')}#early-access`
   }
 
-  const primaryBtn =
-    'group inline-flex items-center gap-2 rounded-full bg-sns-indigo px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent'
+  const primaryBtn = CTA_PRIMARY
+
+  // The accent spectrum, in the order cards should walk it. See `.lift` in
+  // globals.css.
+  const LIFT = ['lift-indigo', 'lift-blue', 'lift-cyan', 'lift-violet']
 
   return (
     <>
@@ -123,7 +127,7 @@ export default function Solutions({
 
               {/* category cards */}
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {ind.categories.map((cat) => {
+                {ind.categories.map((cat, ci) => {
                   const s = STATUS[cat.status as Status]
                   const appUrl = APP_URL[`${ind.key}:${cat.key}`]
                   return (
@@ -133,7 +137,9 @@ export default function Solutions({
                       initial="hidden"
                       whileInView="visible"
                       viewport={{ once: true, margin: '-60px' }}
-                      className="flex flex-col rounded-sns-lg border border-sns-text/[0.08] bg-sns-surface p-6 shadow-[0_1px_0_0_rgba(255,255,255,0.8)_inset,0_20px_44px_-28px_rgba(20,25,43,0.18)]"
+                      // Hue cycles down the grid so a column of cards reads as
+                      // a gradient rather than as the same block repeated.
+                      className={`lift lift-hover ${LIFT[ci % LIFT.length]} flex flex-col p-6`}
                     >
                       <div className="flex items-start justify-between gap-3">
                         <h3 className="text-lg font-semibold leading-snug text-sns-text">{cat.name}</h3>
@@ -191,7 +197,7 @@ export default function Solutions({
 
               {/* full-stack bundle CTA under real estate */}
               {isRealEstate && (
-                <div className="glass edge-light glow-blue mt-6 flex flex-col items-start justify-between gap-5 overflow-hidden rounded-sns-lg p-6 md:flex-row md:items-center md:p-8">
+                <div className="lift lift-violet glow-blue mt-6 flex flex-col items-start justify-between gap-5 p-6 md:flex-row md:items-center md:p-8">
                   <div className="max-w-xl">
                     <span className="inline-flex items-center gap-2 rounded-full border border-sns-indigo/30 bg-sns-indigo/[0.1] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-sns-accent">
                       {t.fullStack.tag}
@@ -214,8 +220,8 @@ export default function Solutions({
         })}
       </div>
 
-      {/* final CTA — generic, umbrella-level */}
-      <section className="glass edge-light glow-blue mt-16 flex flex-col items-start justify-between gap-6 rounded-sns-lg p-8 md:flex-row md:items-center md:p-10">
+      {/* final CTA, generic and umbrella-level */}
+      <section className="lift lift-indigo glow-blue mt-16 flex flex-col items-start justify-between gap-6 p-8 md:flex-row md:items-center md:p-10">
         <div className="max-w-xl">
           <h2 className="text-2xl font-bold tracking-[-0.02em] text-sns-text md:text-3xl">{t.ctaHeading}</h2>
           <p className="mt-2 text-sns-muted">{t.ctaSub}</p>

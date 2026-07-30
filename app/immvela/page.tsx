@@ -7,9 +7,9 @@ import { IMMVELA_URL, SITE_URL } from '@/lib/site'
 import { immvelaJsonLd } from '@/lib/immvela-schema'
 
 export const metadata: Metadata = {
-  title: 'Immvela — the AI operating system for real estate',
+  title: 'Immvela · the agentic operating system for real estate',
   description:
-    'Immvela is the end-to-end AI agent for real-estate teams — from lead to listing to close. Built in the open by SNS Solutions. Join the early-access waitlist.',
+    'One platform for real-estate teams, where every module writes back to the same verified record of your properties, leads and deals, so it gets sharper the longer you use it. German first, hosted in the EU. Built in the open by SNS Solutions.',
   // Immvela is served from its own domain, so its canonical and language
   // alternates are absolute to that origin — not the SNS domain.
   alternates: {
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Immvela — the AI operating system for real estate',
+    title: 'Immvela · the agentic operating system for real estate',
     description:
-      'The end-to-end AI agent for real-estate teams. Built in the open by SNS Solutions. Join the waitlist.',
+      'One record of your properties, leads and deals, with a module for each part of the job. Built in the open by SNS Solutions. Join the waitlist.',
     url: IMMVELA_URL,
     // No Immvela-specific image yet — reusing the SNS og.png (dark) beats no
     // image at all in link previews, but it doesn't match Immvela's light
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
   // Solutions" title/description while og:title correctly said "Immvela".
   twitter: {
     card: 'summary_large_image',
-    title: 'Immvela — the AI operating system for real estate',
+    title: 'Immvela · the agentic operating system for real estate',
     description:
-      'The end-to-end AI agent for real-estate teams. Built in the open by SNS Solutions. Join the waitlist.',
+      'One record of your properties, leads and deals, with a module for each part of the job. Built in the open by SNS Solutions. Join the waitlist.',
     images: [`${SITE_URL}/og.png`],
   },
 }

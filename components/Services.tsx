@@ -5,6 +5,7 @@ import { motion, type Variants } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { CTA_PRIMARY, CTA_PRIMARY_SM } from '@/lib/cta'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -56,7 +57,7 @@ export default function Services({ locale = defaultLocale }: { locale?: Locale }
 
       {/* Lead with the consultation — the page's primary action is a meeting,
           not a build request. */}
-      <section className="glass edge-light glow-blue mb-14 overflow-hidden rounded-sns-lg p-7 md:p-10">
+      <section className="lift lift-indigo glow-blue mb-14 p-7 md:p-10">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.1fr_1fr] md:gap-12">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-sns-indigo/30 bg-sns-indigo/[0.1] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-sns-accent">
@@ -88,7 +89,7 @@ export default function Services({ locale = defaultLocale }: { locale?: Locale }
 
             <Link
               href={localePath(locale, `/contact?service=${encodeURIComponent(consultService)}`)}
-              className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-sns-indigo px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent sm:w-auto"
+              className={`${CTA_PRIMARY} mt-6 w-full justify-center sm:w-auto`}
             >
               {t.consult.cta}
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform duration-300 ease-sns-out group-hover:translate-x-1">
@@ -109,7 +110,8 @@ export default function Services({ locale = defaultLocale }: { locale?: Locale }
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="glass edge-light scroll-mt-24 rounded-sns-lg p-7 md:p-10"
+          // One hue per service, walking the spectrum down the page.
+          className={`lift ${['lift-blue', 'lift-cyan', 'lift-violet'][index % 3]} scroll-mt-24 p-7 md:p-10`}
         >
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_1.1fr] md:gap-12">
             <div>
@@ -126,7 +128,7 @@ export default function Services({ locale = defaultLocale }: { locale?: Locale }
 
               <Link
                 href={localePath(locale, `/contact?service=${encodeURIComponent(service.name)}`)}
-                className="group mt-7 inline-flex items-center gap-2 rounded-full bg-sns-indigo px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
+                className={`${CTA_PRIMARY_SM} mt-7`}
               >
                 {service.cta}
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform duration-300 ease-sns-out group-hover:translate-x-1">
@@ -177,7 +179,7 @@ export default function Services({ locale = defaultLocale }: { locale?: Locale }
       ))}
       </div>
 
-      <div className="glass edge-light mt-12 flex flex-col items-start justify-between gap-6 rounded-sns-lg p-8 md:flex-row md:items-center md:p-10">
+      <div className="lift lift-indigo mt-12 flex flex-col items-start justify-between gap-6 p-8 md:flex-row md:items-center md:p-10">
         <div>
           <h2 className="text-2xl font-bold tracking-[-0.02em] text-sns-text md:text-3xl">
             {t.closingHeading}
@@ -186,7 +188,7 @@ export default function Services({ locale = defaultLocale }: { locale?: Locale }
         </div>
         <Link
           href={localePath(locale, '/contact')}
-          className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-sns-indigo px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
+          className={`${CTA_PRIMARY} shrink-0`}
         >
           {t.closingCta}
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform duration-300 ease-sns-out group-hover:translate-x-1">

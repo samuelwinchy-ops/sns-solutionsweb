@@ -7,9 +7,9 @@ import { IMMVELA_URL, SITE_URL } from '@/lib/site'
 import { immvelaJsonLd } from '@/lib/immvela-schema'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Immvela — das agentenbasierte Betriebssystem für Immobilien | SNS Solutions' },
+  title: { absolute: 'Immvela · das agentische Betriebssystem für Immobilien | SNS Solutions' },
   description:
-    'Immvela ist der durchgängige KI-Agent für Immobilienteams — vom Lead über das Inserat bis zum Abschluss. Offen entwickelt von SNS Solutions. Tragen Sie sich für den Early Access ein.',
+    'Eine Plattform für Immobilienteams, in der jedes Modul auf denselben geprüften Datenbestand Ihrer Objekte, Leads und Abschlüsse zurückschreibt, sodass sie mit der Zeit besser wird. Deutsch zuerst, in der EU gehostet. Offen entwickelt von SNS Solutions.',
   // Served from immvela.com — absolute canonical + language alternates.
   alternates: {
     canonical: `${IMMVELA_URL}/de`,
@@ -21,18 +21,18 @@ export const metadata: Metadata = {
   },
   openGraph: {
     locale: 'de_AT',
-    title: 'Immvela — das agentenbasierte Betriebssystem für Immobilien',
+    title: 'Immvela · das agentische Betriebssystem für Immobilien',
     description:
-      'Der durchgängige KI-Agent für Immobilienteams. Offen entwickelt von SNS Solutions. Auf die Warteliste.',
+      'Ein Datenbestand für Ihre Objekte, Leads und Abschlüsse, mit einem Modul für jeden Teil der Arbeit. Offen entwickelt von SNS Solutions. Auf die Warteliste.',
     url: `${IMMVELA_URL}/de`,
     // See app/immvela/page.tsx — no Immvela-specific image yet, reusing SNS's.
     images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: 'Immvela' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Immvela — das agentenbasierte Betriebssystem für Immobilien',
+    title: 'Immvela · das agentische Betriebssystem für Immobilien',
     description:
-      'Der durchgängige KI-Agent für Immobilienteams. Offen entwickelt von SNS Solutions. Auf die Warteliste.',
+      'Ein Datenbestand für Ihre Objekte, Leads und Abschlüsse, mit einem Modul für jeden Teil der Arbeit. Offen entwickelt von SNS Solutions. Auf die Warteliste.',
     images: [`${SITE_URL}/og.png`],
   },
 }

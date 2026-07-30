@@ -6,7 +6,7 @@ import Services from '@/components/Services'
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    "What SNS Solutions does, in plain terms: custom software, AI automation, and AI & IT consulting — the problems we solve and what you get.",
+    "What SNS Solutions does, in plain terms: custom software, AI automation, and AI & IT consulting. The problems we solve, and what you get.",
   alternates: {
     canonical: '/services',
     languages: { en: '/services', de: '/de/services', 'x-default': '/services' },

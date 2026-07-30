@@ -27,9 +27,9 @@ const industryIcon: Record<Industry, ReactNode> = {
   ),
 }
 
-const industryAccent: Record<Industry, { text: string; ring: string }> = {
-  hvac: { text: 'text-sns-cyan', ring: 'hover:border-sns-cyan/40' },
-  realEstate: { text: 'text-sns-violet', ring: 'hover:border-sns-violet/40' },
+const industryAccent: Record<Industry, { text: string; lift: string }> = {
+  hvac: { text: 'text-sns-cyan', lift: 'lift-cyan' },
+  realEstate: { text: 'text-sns-violet', lift: 'lift-violet' },
 }
 
 const industrySlug: Record<Industry, string> = {
@@ -95,7 +95,7 @@ export default function SolutionsIndex({ locale = defaultLocale }: { locale?: Lo
               <Link
                 href={key === 'realEstate' ? immvelaHref(locale) : localePath(locale, industrySlug[key])}
                 onClick={() => track('solutions_index_pick', { industry: ind.key })}
-                className={`group flex h-full flex-col rounded-sns-lg border border-sns-text/[0.08] bg-sns-surface p-6 shadow-[0_1px_0_0_rgba(255,255,255,0.8)_inset,0_24px_48px_-28px_rgba(20,25,43,0.2)] transition-colors duration-300 ease-sns-out ${acc.ring} md:p-7`}
+                className={`lift lift-hover ${acc.lift} group flex h-full flex-col p-6 md:p-7`}
               >
                 <div className="flex items-start gap-4">
                   <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-sns-text/10 bg-white/70 ${acc.text}`}>

@@ -27,9 +27,9 @@ const industryIcon: Record<Industry, ReactNode> = {
   ),
 }
 
-const industryAccent: Record<Industry, { text: string; ring: string }> = {
-  hvac: { text: 'text-sns-cyan', ring: 'group-hover:border-sns-cyan/40' },
-  realEstate: { text: 'text-sns-violet', ring: 'group-hover:border-sns-violet/40' },
+const industryAccent: Record<Industry, { text: string; lift: string }> = {
+  hvac: { text: 'text-sns-cyan', lift: 'lift-cyan' },
+  realEstate: { text: 'text-sns-violet', lift: 'lift-violet' },
 }
 
 // Each industry has its own dedicated product page.
@@ -79,7 +79,9 @@ export default function HomeFocus({ locale = defaultLocale }: { locale?: Locale 
               <motion.div key={key} variants={item}>
                 <Link
                   href={key === 'realEstate' ? immvelaHref(locale) : localePath(locale, industrySlug[key])}
-                  className={`group flex h-full items-start gap-4 rounded-sns-lg border border-sns-text/[0.08] bg-sns-surface p-6 shadow-[0_1px_0_0_rgba(255,255,255,0.8)_inset,0_24px_48px_-28px_rgba(20,25,43,0.2)] transition-colors duration-300 ease-sns-out ${acc.ring} md:p-7`}
+                  // Each industry keeps its own hue: HVAC cyan, real estate
+                  // violet, the same pairing the /solutions selector uses.
+                  className={`lift lift-hover ${acc.lift} group flex h-full items-start gap-4 p-6 md:p-7`}
                 >
                   <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-sns border border-sns-text/10 bg-white/70 ${acc.text}`}>
                     {industryIcon[key]}
