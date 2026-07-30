@@ -80,11 +80,21 @@ export default function WaitlistForm({
   locale = defaultLocale,
   industry = 'realEstate',
   theme = 'dark',
+  headingLevel = 2,
 }: {
   locale?: Locale
   industry?: Industry
   theme?: Theme
+  /**
+   * Heading level for the form's own title, because this component renders at
+   * two different depths and a fixed level is wrong at one of them: on
+   * /solutions/hvac/waitlist it sits directly under the page h1 (so h2), and on
+   * /immvela it sits inside a section that already has an h2 (so h3). Hardcoding
+   * h3 skipped a level on the HVAC waitlist page.
+   */
+  headingLevel?: 2 | 3
 }) {
+  const Heading = (headingLevel === 3 ? 'h3' : 'h2') as 'h2' | 'h3'
   const dict = getDict(locale)
   const t = (industry === 'hvac' ? dict.hvacWaitlistPage : dict.waitlistPage).form
   const ui = UI[theme]
@@ -167,7 +177,7 @@ export default function WaitlistForm({
             <path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
-        <h3 className={`mt-5 text-xl font-bold ${ui.successTitle}`}>{t.successTitle}</h3>
+        <Heading className={`mt-5 text-xl font-bold ${ui.successTitle}`}>{t.successTitle}</Heading>
         <p className={`mt-2 max-w-sm ${ui.successBody}`}>{t.successBody}</p>
         <button
           type="button"
@@ -195,7 +205,7 @@ export default function WaitlistForm({
     >
       <input type="hidden" name="form_type" value="waitlist" />
       <input type="hidden" name="industry" value={industry} />
-      <h3 className={`text-xl font-bold ${ui.heading}`}>{t.heading}</h3>
+      <Heading className={`text-xl font-bold ${ui.heading}`}>{t.heading}</Heading>
       <p className={`mt-2 text-sm ${ui.sub}`}>{t.sub}</p>
 
       {status === 'error' && (

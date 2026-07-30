@@ -108,7 +108,10 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
             <path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
-        <h3 className="mt-5 text-xl font-bold text-sns-text">{t.successTitle}</h3>
+        {/* h2: /contact has only the page h1 above this, so an h3 skips a
+            level. Latent rather than reported, because this state only exists
+            after a successful submit and an audit crawl never sees it. */}
+        <h2 className="mt-5 text-xl font-bold text-sns-text">{t.successTitle}</h2>
         <p className="mt-2 max-w-sm text-sns-muted">{t.successBody}</p>
         <button
           type="button"

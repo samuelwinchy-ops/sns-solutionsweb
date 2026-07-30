@@ -153,7 +153,10 @@ export default function SolutionsDemo({ locale = defaultLocale }: { locale?: Loc
 
       {/* FAQ — inbound-agent specifics live here, not on the umbrella products page */}
       <section className="mt-16">
-        <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.2em] text-sns-faint">{sp.faqLabel}</p>
+        {/* The section label is the h2 that the questions below hang off. As a
+            <p> it left them as h3s with no h2 anywhere above, which is what
+            broke the sequential-heading order on this page. */}
+        <h2 className="mb-6 font-mono text-[11px] uppercase tracking-[0.2em] text-sns-faint">{sp.faqLabel}</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {sp.faq.map((item) => (
             <div key={item.q} className="glass edge-light rounded-sns-lg p-6">

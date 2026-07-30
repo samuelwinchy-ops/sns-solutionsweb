@@ -196,16 +196,21 @@ export default function ImmvelaLanding({ locale = defaultLocale }: { locale?: Lo
             </p>
           </div>
 
-          <WaitlistForm locale={locale} industry="realEstate" theme="light" />
+          {/* h3: this sits inside the "Be first on Immvela" section, which
+              already carries the h2. */}
+          <WaitlistForm locale={locale} industry="realEstate" theme="light" headingLevel={3} />
         </div>
       </section>
 
       {/* ── FAQ ───────────────────────────────────────────────────────── */}
       <section className="mt-16 border-t border-[var(--im-line)] pt-16 md:pt-20">
-        <p className="mb-8 flex items-center gap-3 im-eyebrow text-xs">
+        {/* The section label carries the h2 the questions hang off. It passed
+            the audit as a <p> only by accident, because the waitlist section's
+            h2 happened to precede it. */}
+        <h2 className="mb-8 flex items-center gap-3 im-eyebrow text-xs">
           <span className="im-hairline h-px w-8" />
           {t.faqLabel}
-        </p>
+        </h2>
         <div className="grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2">
           {t.faq.map((f) => (
             <motion.div key={f.q} variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}>

@@ -250,9 +250,12 @@ export default function ImmvelaShowcase({ locale = defaultLocale }: { locale?: L
                 <span className={`font-mono text-[11px] uppercase tracking-[0.18em] ${accent.text}`}>
                   {slide.code}
                 </span>
-                <h3 className="mt-1 text-xl font-bold leading-tight tracking-[-0.02em] text-sns-text">
+                {/* h2, not h3: this panel sits in the hero directly after the
+                    page h1, so an h3 here skips a level and fails the
+                    sequential-heading audit. It is a section-level heading. */}
+                <h2 className="mt-1 text-xl font-bold leading-tight tracking-[-0.02em] text-sns-text">
                   {slide.name}
-                </h3>
+                </h2>
                 <p className="mt-2 text-sm leading-relaxed text-sns-muted">{slide.desc}</p>
               </motion.div>
             </AnimatePresence>
