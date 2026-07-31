@@ -28,17 +28,16 @@ const INTERVAL = 9000
  * in lower case (quill.mp4, verlag.mp4, …). Files are NOT required: a module
  * with no clip falls back to a title card, so the hero never renders a hole.
  *
- * They are **3:4 portrait**, which is not a free choice. The masters are
- * 1080×1920 vertical social ads whose content sits in a band from roughly 10%
- * to 85% of the frame height, stacked vertically (a "manual" panel above an
- * "with Quill" panel). Cropping that to landscape would throw away most of the
- * comparison the clip exists to make, so the slot is portrait and the caption
- * sits beside it rather than under it. Re-cut source at a different aspect and
- * this layout has to be revisited, not the crop.
+ * They are **1:1 square**, matching the 1080×1080 social-ad masters exactly.
+ * This slot was 3:4 while the masters were 1080×1920 vertical and had to be
+ * cropped; the square re-cuts compose for the frame themselves (header, demo
+ * and caption all inside it), so nothing is thrown away and the slot simply
+ * mirrors the source. The aspect ratio here and the crop in
+ * scripts/encode-immvela-clips.mjs are one decision in two files — a master at
+ * a new aspect means changing both, not either.
  *
- * Encoded with: crop=1080:1440:0:200 (drops the dead cream top and bottom),
- * normalised to 8.5s via setpts, 30fps, scaled to 600×800, no audio.
- * ~1.5 MB for all seven.
+ * Encoded with: normalised to 8.5s via setpts, 30fps, scaled to 600×600, no
+ * audio. ~1.1 MB for all seven.
  */
 const CLIP_DIR = '/immvela'
 
@@ -165,10 +164,7 @@ export default function ImmvelaShowcase({ locale = defaultLocale }: { locale?: L
           </span>
         </div>
 
-        {/* ── Clip + caption, side by side ──────────────────────────── */}
-        {/* The clip is portrait (see the note at the top of this file), so the
-            caption sits beside it. Stacked full-width on the narrowest screens
-            where there isn't room for two columns. */}
+        {/* ── Clip + caption, stacked ───────────────────────────────── */}
         {/* Stacked, with the clip capped and centred rather than sat beside the
             caption. The masters are 1080px wide UI recordings and they stop
             being readable below ~340px on screen — a side-by-side split of this
@@ -177,7 +173,7 @@ export default function ImmvelaShowcase({ locale = defaultLocale }: { locale?: L
         <div className="mt-4 flex flex-col items-center gap-4">
           <div
             className={`relative w-full max-w-[340px] overflow-hidden rounded-sns bg-gradient-to-br ${accent.grad} ring-1 ${accent.ring}`}
-            style={{ aspectRatio: '3 / 4' }}
+            style={{ aspectRatio: '1 / 1' }}
           >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div

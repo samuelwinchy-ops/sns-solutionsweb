@@ -1,32 +1,34 @@
 /**
  * Re-encode the Immvela hero clips from their social-ad masters.
  *
- * The masters are 1080×1920 vertical ads (9:16, 11–16.5s, 60fps, ~2MB each).
- * The hero needs something else, and three of the four transforms below are
- * decisions rather than housekeeping:
+ * The masters are 1080×1080 square ads (1:1, 13.2–17.4s, 60fps, ~3MB each).
  *
- *  1. CROP to 3:4. The masters put their content in a band from ~10% to ~85%
- *     of the frame height, stacked vertically (a "manual" panel above a "with
- *     <module>" panel, then a caption). The rest is dead cream. `crop` trims
- *     the dead space and lands on 3:4 — it does NOT crop toward landscape,
- *     because the whole point of these clips is a vertical before/after
- *     comparison and a landscape crop destroys it. The showcase panel is built
- *     around portrait for this reason; see components/ImmvelaShowcase.tsx.
+ * NOTE FOR ANYONE READING GIT HISTORY: these were 1080×1920 vertical (9:16)
+ * masters, and everything downstream had to be cropped to 3:4 and shown in a
+ * portrait slot. The 1:1 re-cuts compose for the square directly — header,
+ * demo and caption all sit inside the frame — so the crop is gone, not merely
+ * retuned. If a future master arrives vertical again, this needs the crop back
+ * AND the showcase's aspect ratio moved with it; the two are one decision.
  *
- *  2. SPEED to a uniform 8.5s via setpts, rather than trimming. Trimming from
+ * Three transforms remain, and two of them are decisions rather than
+ * housekeeping:
+ *
+ *  1. SPEED to a uniform 8.5s via setpts, rather than trimming. Trimming from
  *     the front loses the setup and from the back loses the payoff line, which
  *     is the most quotable part of every clip ("Jede Zahl hat eine Quelle.").
  *     Speeding preserves the whole argument. INTERVAL in the showcase component
  *     is 9000ms to give each clip a beat to finish — change one, change both.
  *
- *  3. SCALE to 600×800, i.e. ~1.75× the 340px the clip is displayed at, so it
+ *  2. SCALE to 600×600, i.e. ~1.75× the 340px the clip is displayed at, so it
  *     stays sharp on a 2× display. 340px is a measured floor, not a guess:
- *     below it the recorded interface text stops being readable.
+ *     below it the recorded interface text stops being readable. The square
+ *     re-cuts are easier on this than the old crops were — they carry the same
+ *     UI at a larger fraction of the frame.
  *
- *  4. Drop audio. The clips autoplay, and autoplay with sound is blocked
+ *  3. Drop audio. The clips autoplay, and autoplay with sound is blocked
  *     anyway.
  *
- * Result: ~1.5MB for all seven, down from ~19MB of masters.
+ * Result: ~1.5MB for all seven, down from ~23MB of masters.
  *
  * ── Running it ────────────────────────────────────────────────────────────
  *   node scripts/encode-immvela-clips.mjs [--src DIR] [--ffmpeg PATH]
@@ -49,13 +51,13 @@ const OUT_DIR = path.join(process.cwd(), 'public', 'immvela')
 // Re-derive the factor if a master is re-cut; a stale one silently changes the
 // clip's length out from under INTERVAL.
 const CLIPS = {
-  quill: ['s01_quill_master', 1.941], // 16.5s
-  iris: ['s02_iris_master', 1.824], // 15.5s
-  vignette: ['s03_vignette_master', 1.353], // 11.5s
-  immerse: ['s04_immerse_master', 1.765], // 15.0s
-  dossier: ['s05_dossier_master', 1.529], // 13.0s
-  winston: ['s06_winston_master', 1.529], // 13.0s
-  verlag: ['s07_verlag_master', 1.294], // 11.0s
+  quill: ['s01_quill_1x1_final', 2.047], // 17.4s
+  iris: ['s02_iris_1x1_final', 1.882], // 16.0s
+  vignette: ['s03_vignette_1x1_final', 1.553], // 13.2s
+  immerse: ['s04_immerse_1x1_final', 2.0], // 17.0s
+  dossier: ['s05_dossier_1x1_final', 1.553], // 13.2s
+  winston: ['s06_winston_1x1_final', 1.718], // 14.6s
+  verlag: ['s07_verlag_1x1_final', 1.6], // 13.6s
 }
 
 const ENCODERS = ['libx264', 'h264_qsv', 'h264_nvenc', 'h264_amf', 'h264_mf']
@@ -83,7 +85,7 @@ function tryEncode(enc, src, dst, factor) {
     [
       '-y', '-hide_banner', '-loglevel', 'error',
       '-i', src,
-      '-vf', `crop=1080:1440:0:200,setpts=PTS/${factor},fps=30,scale=600:800`,
+      '-vf', `setpts=PTS/${factor},fps=30,scale=600:600`,
       '-an',
       ...encoderArgs(enc),
       '-movflags', '+faststart',
