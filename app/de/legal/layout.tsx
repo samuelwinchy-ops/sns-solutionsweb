@@ -18,7 +18,7 @@ export default function LegalLayoutDe({
       <header className="glass-strong sticky top-0 z-50 border-b border-sns-text/[0.08] px-5">
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between">
           <Link href="/de" className="flex items-center gap-2.5">
-            <Image src="/sns-icon.png" alt="" width={914} height={914} className="h-8 w-8" />
+            <Image src="/sns-icon.png" alt="" width={970} height={970} className="h-8 w-8" />
             <span className="font-mono text-sm font-bold uppercase tracking-[0.22em] text-sns-text">
               SNS{' '}
               <span className="hidden font-normal text-sns-muted sm:inline">Solutions</span>

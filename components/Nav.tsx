@@ -69,8 +69,8 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
             <Image
               src="/sns-icon.png"
               alt="SNS Solutions"
-              width={914}
-              height={914}
+              width={970}
+              height={970}
               priority
               className="relative h-8 w-8 md:h-9 md:w-9"
             />
