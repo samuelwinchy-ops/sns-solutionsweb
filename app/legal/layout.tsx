@@ -23,8 +23,8 @@ export default function LegalLayout({
             <Image
               src="/sns-icon.png"
               alt=""
-              width={914}
-              height={914}
+              width={970}
+              height={970}
               className="h-8 w-8"
             />
             <span className="font-mono text-sm font-bold uppercase tracking-[0.22em] text-sns-text">

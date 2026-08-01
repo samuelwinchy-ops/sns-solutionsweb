@@ -34,18 +34,21 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
   manifest: '/site.webmanifest',
   icons: {
-    // Every icon (SVG + raster favicon.ico / PNGs) has a transparent background,
-    // so the glyph shows without a tile in the tab and in Google Search results.
-    // ?v=4 busts aggressive favicon caching after regenerating them transparent.
+    // Every icon (SVG + raster favicon.ico / PNGs) is transparent *outside* the
+    // disc, so the mark shows without a tile in the tab and in Google Search
+    // results. The disc itself is opaque — the monogram is knocked out of it in
+    // cream, so it reads the same on a light tab, a dark tab, and the dark share
+    // card. All of them come from scripts/make_icons.py.
+    // ?v=5 busts aggressive favicon caching after the SNS mark changed.
     icon: [
-      { url: '/icon.svg?v=4', type: 'image/svg+xml' },
-      { url: '/favicon.ico?v=4', sizes: 'any' },
-      { url: '/favicon-16x16.png?v=4', type: 'image/png', sizes: '16x16' },
-      { url: '/favicon-32x32.png?v=4', type: 'image/png', sizes: '32x32' },
-      { url: '/android-chrome-192x192.png?v=4', type: 'image/png', sizes: '192x192' },
-      { url: '/android-chrome-512x512.png?v=4', type: 'image/png', sizes: '512x512' },
+      { url: '/icon.svg?v=5', type: 'image/svg+xml' },
+      { url: '/favicon.ico?v=5', sizes: 'any' },
+      { url: '/favicon-16x16.png?v=5', type: 'image/png', sizes: '16x16' },
+      { url: '/favicon-32x32.png?v=5', type: 'image/png', sizes: '32x32' },
+      { url: '/android-chrome-192x192.png?v=5', type: 'image/png', sizes: '192x192' },
+      { url: '/android-chrome-512x512.png?v=5', type: 'image/png', sizes: '512x512' },
     ],
-    apple: [{ url: '/apple-touch-icon.png?v=4', sizes: '180x180' }],
+    apple: [{ url: '/apple-touch-icon.png?v=5', sizes: '180x180' }],
   },
   openGraph: {
     type: 'website',

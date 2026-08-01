@@ -277,14 +277,38 @@ body {
   border: 1px solid var(--im-line);
 }
 
-/* Warm aura wash behind the hero, bleeding off the top-left, echoing the ad. */
-.im-aura {
-  background: radial-gradient(
-    75% 65% at 0% -8%,
-    color-mix(in srgb, var(--im-amber) 24%, transparent) 0%,
-    color-mix(in srgb, var(--im-amber) 8%, transparent) 34%,
-    transparent 68%
-  );
+/* Module picker on the demo page — one tab per module. Selected is a solid
+   emerald fill rather than a tint, because seven quiet pills in a row give no
+   answer at a glance to "which one am I looking at". */
+.im-tab {
+  background: transparent;
+  color: var(--im-muted);
+  border: 1px solid var(--im-line-strong);
+  border-radius: 9999px;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.im-tab:hover {
+  color: var(--im-ink);
+  border-color: var(--im-green);
+}
+.im-tab.is-on {
+  background: var(--im-green);
+  color: #f6f8f4;
+  border-color: var(--im-green);
+}
+.im-tab.is-on:hover {
+  color: #f6f8f4;
+}
+/* The live/in-development dot inside a tab. Inherits the text colour when the
+   tab is selected so it stays legible on the emerald fill. */
+.im-tab .im-dot {
+  background: var(--im-green);
+}
+.im-tab.is-on .im-dot {
+  background: currentColor;
+}
+.im-tab .im-dot-quiet {
+  background: var(--im-faint);
 }
 
 /* Form inputs on paper */

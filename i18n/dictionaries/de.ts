@@ -458,19 +458,71 @@ export const de: Dictionary = {
     modulesHeadingB: 'Eine Plattform, die entsteht.',
     statusActive: 'Live',
     statusProgress: 'In Entwicklung',
+    // `demo` ist die Stichpunktliste der Modul-Seite (components/ImmvelaDemo.tsx).
+    // Sie steht am Modul-Datensatz und nicht in einer zweiten Liste, damit ein
+    // Modul nicht an zwei Stellen unterschiedlich beschrieben wird. Drei Zeilen
+    // je Modul: was es tut, unter welcher Einschränkung, und was es im
+    // Datenbestand hinterlässt.
     modules: [
-      { code: 'Quill', name: 'Listing Kit', desc: 'Captions, Broschüre und das vollständige Exposé, in Sekunden aus dem Objekt heraus. Zahlen stammen ausschließlich aus Angaben, die Sie bestätigt haben, und es lernt Ihren Ton aus jeder Überarbeitung.', status: 'active' },
-      { code: 'Verlag', name: 'Veröffentlichung', desc: 'Einmal planen, auf jedem Kanal posten. Nichts geht raus, ohne die Compliance-Prüfung zu passieren, und was jeder Beitrag bringt, fließt zurück in den Datenbestand.', status: 'active' },
-      { code: 'Iris', name: 'Empfang', desc: 'Jede Anfrage nach Budget, Absicht und Finanzierung qualifiziert und an den richtigen Makler weitergeleitet. Bucht nie, bepreist nie.', status: 'progress' },
-      { code: 'Winston', name: 'Wissen', desc: 'Ein DACH-Immobilien-Copilot, der aus den Quellen Ihres Büros und einem gepflegten Fachkorpus antwortet und dazu nennt, aus welcher Quelle jede Antwort stammt.', status: 'progress' },
-      { code: 'Vignette', name: 'Staging', desc: 'Leere Räume aus einem einzigen Foto möbliert. Es ergänzt nur und verdeckt nie einen Mangel, und die Kennzeichnung ist fest ins Bild gerendert.', status: 'progress' },
-      { code: 'Immerse', name: 'Rundgang', desc: 'Einmal mit dem Handy durch das Objekt gehen. Zurück kommt ein fertiges Rundgangsvideo für das Inserat und für Social.', status: 'progress' },
-      { code: 'Dossier', name: 'Dokumente', desc: 'Liest die Unterlagen, zieht die angabepflichtigen Werte heraus und legt Ihnen jeden einzelnen zur Bestätigung vor, bevor er zählt.', status: 'progress' },
+      { code: 'Quill', name: 'Listing Kit', desc: 'Captions, Broschüre und das vollständige Exposé, in Sekunden aus dem Objekt heraus. Zahlen stammen ausschließlich aus Angaben, die Sie bestätigt haben, und es lernt Ihren Ton aus jeder Überarbeitung.', status: 'active', demo: [
+        'Exposé, Broschüre und Captions für jeden Kanal, alles aus einem Objekt-Datensatz',
+        'Zahlen stammen nur aus Angaben, die Sie bestätigt haben — Lücken bleiben Lücken',
+        'Jede Überarbeitung an einem Entwurf bringt ihm bei, wie Sie schreiben',
+      ] },
+      { code: 'Verlag', name: 'Veröffentlichung', desc: 'Einmal planen, auf jedem Kanal posten. Nichts geht raus, ohne die Compliance-Prüfung zu passieren, und was jeder Beitrag bringt, fließt zurück in den Datenbestand.', status: 'active', demo: [
+        'Ein Composer und ein Terminplan über alle Kanäle, auf denen Sie posten',
+        'Die Compliance-Prüfung hält alles zurück, was eine Angabepflicht verletzt',
+        'Was jeder Beitrag bringt, fließt zurück zum Objekt, aus dem er stammt',
+      ] },
+      { code: 'Iris', name: 'Empfang', desc: 'Jede Anfrage nach Budget, Absicht und Finanzierung qualifiziert und an den richtigen Makler weitergeleitet. Bucht nie, bepreist nie.', status: 'progress', demo: [
+        'Antwortet, sobald eine Anfrage eingeht — auch nach Feierabend',
+        'Qualifiziert nach Objekt, Budget, Zeitrahmen und Finanzierung, dann leitet es weiter',
+        'Bucht nie und bepreist nie — Verbindliches bestätigt ein Mensch',
+      ] },
+      { code: 'Winston', name: 'Wissen', desc: 'Ein DACH-Immobilien-Copilot, der aus den Quellen Ihres Büros und einem gepflegten Fachkorpus antwortet und dazu nennt, aus welcher Quelle jede Antwort stammt.', status: 'progress', demo: [
+        'Antwortet aus den Unterlagen Ihres Büros und einem gepflegten DACH-Fachkorpus',
+        'Nennt zu jeder Antwort die Quelle, damit Sie sie nachprüfen können',
+        'Sagt lieber, dass es etwas nicht weiß, als zu einer plausiblen Antwort zu greifen',
+      ] },
+      { code: 'Vignette', name: 'Staging', desc: 'Leere Räume aus einem einzigen Foto möbliert. Es ergänzt nur und verdeckt nie einen Mangel, und die Kennzeichnung ist fest ins Bild gerendert.', status: 'progress', demo: [
+        'Möbliert einen leeren Raum aus einem einzigen Foto davon',
+        'Ergänzt ausschließlich — es übermalt keinen Mangel und ändert nichts an der Bausubstanz',
+        'Der Hinweis „virtuell möbliert“ ist ins Bild gerendert, nicht bloß eine Bildunterschrift',
+      ] },
+      { code: 'Immerse', name: 'Rundgang', desc: 'Einmal mit dem Handy durch das Objekt gehen. Zurück kommt ein fertiges Rundgangsvideo für das Inserat und für Social.', status: 'progress', demo: [
+        'Ein einziger Gang durch das Objekt mit dem Handy ist der ganze Dreh',
+        'Zurück kommt es im selben Durchlauf für das Inserat und für Social geschnitten',
+        'Kein Equipment, kein Team, kein zweiter Termin am Objekt',
+      ] },
+      { code: 'Dossier', name: 'Dokumente', desc: 'Liest die Unterlagen, zieht die angabepflichtigen Werte heraus und legt Ihnen jeden einzelnen zur Bestätigung vor, bevor er zählt.', status: 'progress', demo: [
+        'Liest die Unterlagen und zieht die angabepflichtigen Werte heraus',
+        'Legt Ihnen jeden ausgelesenen Wert zur Bestätigung vor, bevor er zählt',
+        'Was Sie bestätigen, ist der Wert, aus dem Quill schreibt und Winston antwortet',
+      ] },
     ],
+    // ── Modul-Seite (/immvela/demo) ─────────────────────────────────────
+    demo: {
+      eyebrow: 'Modul für Modul',
+      heading: 'Jedes Modul, in Betrieb.',
+      intro:
+        'Keine Anmeldung nötig. Wählen Sie ein Modul und sehen Sie ihm an einem echten Objekt bei der Arbeit zu. Zwei sind heute in Immvela live, der Rest sind Aufnahmen aus der laufenden Entwicklung — die Kennzeichnung sagt, was was ist.',
+      backCta: 'Zurück zu Immvela',
+      pickerLabel: 'Modul wählen',
+      panelLabel: 'Was Sie hier sehen',
+      clipNote:
+        'Aufgenommen in der Immvela-Oberfläche. Deutsch ist die voreingestellte Sprache, deshalb zeigen die Screens Deutsch.',
+      noClip: 'Für dieses Modul gibt es noch keine Aufnahme.',
+      prev: 'Vorheriges Modul',
+      next: 'Nächstes Modul',
+      ctaHeading: 'Zugang zu den Live-Modulen?',
+      ctaSub:
+        'Listing Kit und Veröffentlichung sind heute nutzbar. Melden Sie sich für den Early Access an, und wir richten Ihnen einen Zugang ein.',
+      ctaButton: 'Auf die Warteliste',
+    },
     liveNote:
       'Listing Kit und Veröffentlichung sind heute in Immvela live, und Veröffentlichung ist bei jedem bezahlten Modul kostenlos dabei. Melden Sie sich für den Early Access an, und wir richten Ihnen einen Zugang ein.',
     signinCta: 'Zugang anfordern',
-    demoCta: 'Empfang in Aktion',
+    demoCta: 'Jedes Modul in Aktion',
     closingA: 'Wir bauen die Plattform, die das ändert,',
     closingB: 'Stück für Stück.',
     eyebrow: 'Early Access',

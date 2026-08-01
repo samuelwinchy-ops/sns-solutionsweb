@@ -7,11 +7,11 @@ import NeuralBackground from './NeuralBackground'
 // across navigations. Only how much of it is *visible* changes per route.
 //
 // On daylight cream the field has to stay quiet so it never competes with the
-// text. The homepage shows just enough to let the hero logo form (~620 held
-// particles) with a thin remainder drifting — not the full field, which would
-// scatter behind the copy. Other pages have no logo, so they run sparser still.
+// text. The homepage carries the most of it, because the hero is largely open
+// space and a bare background there reads as unfinished. Inner pages are dense
+// with copy, so the field drops back to a hint of movement behind it.
 const FIELD_SIZE = 900
-const HOME_DENSITY = 0.72 // ~648 visible: enough for the 620-point logo, little scatter
+const HOME_DENSITY = 0.72 // ~648 visible
 const INNER_DENSITY = 0.22
 
 export default function BackgroundField() {
