@@ -480,19 +480,74 @@ export const en = {
     modulesHeadingB: 'A platform taking shape.',
     statusActive: 'Live',
     statusProgress: 'In development',
+    // `demo` is the module walkthrough page's bullet list (components/
+    // ImmvelaDemo.tsx). It lives on the module record rather than in a second
+    // array so a module can't end up described two different ways in two
+    // places. Three lines each: what it does, the constraint it works under,
+    // and what it leaves behind in the record. Nothing here may claim a
+    // capability the `desc` above doesn't already stand behind.
     modules: [
-      { code: 'Quill', name: 'Listing Kit', desc: 'Captions, brochure and the full Exposé, drafted from the listing in seconds. Numbers come only from facts you have confirmed, and it learns your voice from every edit you make.', status: 'active' },
-      { code: 'Verlag', name: 'Publishing', desc: 'Schedule once and post to every channel. Nothing leaves without clearing the compliance gate, and what each post earns comes back into the record.', status: 'active' },
-      { code: 'Iris', name: 'Reception', desc: 'Every inquiry qualified on budget, intent and financing, then routed to the right agent. It never books and it never quotes.', status: 'progress' },
-      { code: 'Winston', name: 'Knowledge', desc: 'A DACH real-estate copilot answering from your brokerage’s own sources plus a maintained domain corpus, and it names which source each answer came from.', status: 'progress' },
-      { code: 'Vignette', name: 'Staging', desc: 'Empty rooms furnished from a single photo. It only ever adds, never covers a defect, and the staged label is baked into the pixels.', status: 'progress' },
-      { code: 'Immerse', name: 'Walkthrough', desc: 'Walk the property once with a phone. It comes back as a finished walkthrough video for the listing and for social.', status: 'progress' },
-      { code: 'Dossier', name: 'Documents', desc: 'Reads the paperwork, pulls out the values you are legally required to disclose, and shows you each one to confirm before it counts.', status: 'progress' },
+      { code: 'Quill', name: 'Listing Kit', desc: 'Captions, brochure and the full Exposé, drafted from the listing in seconds. Numbers come only from facts you have confirmed, and it learns your voice from every edit you make.', status: 'active', demo: [
+        'Exposé, brochure and channel captions, all drafted from one listing record',
+        'Figures come only from fields you have confirmed — it does not fill gaps',
+        'Every edit you make to a draft teaches it how you write',
+      ] },
+      { code: 'Verlag', name: 'Publishing', desc: 'Schedule once and post to every channel. Nothing leaves without clearing the compliance gate, and what each post earns comes back into the record.', status: 'active', demo: [
+        'One composer and one schedule board across every channel you post to',
+        'The compliance gate holds anything that fails a disclosure check',
+        'What each post earns writes back to the listing it came from',
+      ] },
+      { code: 'Iris', name: 'Reception', desc: 'Every inquiry qualified on budget, intent and financing, then routed to the right agent. It never books and it never quotes.', status: 'progress', demo: [
+        'Answers inquiries the moment they arrive, including out of hours',
+        'Qualifies on property, budget, timing and financing before routing',
+        'Never books and never quotes — a person confirms anything binding',
+      ] },
+      { code: 'Winston', name: 'Knowledge', desc: 'A DACH real-estate copilot answering from your brokerage’s own sources plus a maintained domain corpus, and it names which source each answer came from.', status: 'progress', demo: [
+        'Answers from your brokerage’s own documents and a maintained DACH corpus',
+        'Names the source behind every answer, so you can check it',
+        'Says it doesn’t know rather than reaching for something plausible',
+      ] },
+      { code: 'Vignette', name: 'Staging', desc: 'Empty rooms furnished from a single photo. It only ever adds, never covers a defect, and the staged label is baked into the pixels.', status: 'progress', demo: [
+        'Furnishes an empty room from a single photo of it',
+        'Only ever adds — it will not paint over a defect or change the fabric',
+        'The staged label is rendered into the pixels, not left to a caption',
+      ] },
+      { code: 'Immerse', name: 'Walkthrough', desc: 'Walk the property once with a phone. It comes back as a finished walkthrough video for the listing and for social.', status: 'progress', demo: [
+        'One walk through the property with a phone is the whole shoot',
+        'Comes back cut for the listing and cut for social in the same pass',
+        'No rig, no crew, no second visit to the property',
+      ] },
+      { code: 'Dossier', name: 'Documents', desc: 'Reads the paperwork, pulls out the values you are legally required to disclose, and shows you each one to confirm before it counts.', status: 'progress', demo: [
+        'Reads the paperwork and pulls out the values you have to disclose',
+        'Shows you every extracted value to confirm before it counts',
+        'What you confirm becomes the value Quill writes from and Winston answers from',
+      ] },
     ],
+    // ── Module walkthrough page (/immvela/demo) ─────────────────────────
+    // The per-module copy is on the module records above; this is the page
+    // chrome around them.
+    demo: {
+      eyebrow: 'Module walkthrough',
+      heading: 'Every module, running.',
+      intro:
+        'No signup needed. Pick a module and watch it work on a real listing. Two are live in Immvela today; the rest are footage from the builds in progress, and the labels say which is which.',
+      backCta: 'Back to Immvela',
+      pickerLabel: 'Pick a module',
+      panelLabel: 'What you are looking at',
+      clipNote:
+        'Recorded from the Immvela interface. German is the default language, so that is what the screens show.',
+      noClip: 'Footage for this module is not ready yet.',
+      prev: 'Previous module',
+      next: 'Next module',
+      ctaHeading: 'Want a sign-in to the live modules?',
+      ctaSub:
+        'Listing Kit and Publishing are usable today. Join early access and we will set you up.',
+      ctaButton: 'Join the waitlist',
+    },
     liveNote:
       'Listing Kit and Publishing are live in Immvela today, and Publishing comes free with any paid module. Join early access and we will set you up with a sign-in.',
     signinCta: 'Get your sign-in',
-    demoCta: 'See Reception in action',
+    demoCta: 'See every module running',
     closingA: 'We’re building the platform that changes that,',
     closingB: 'piece by piece.',
     eyebrow: 'Early access',

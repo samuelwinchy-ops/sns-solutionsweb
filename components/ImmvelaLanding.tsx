@@ -4,7 +4,8 @@ import Link from 'next/link'
 import { motion, type Variants } from 'framer-motion'
 import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
-import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { type Locale, defaultLocale } from '@/i18n/config'
+import { useImmvelaPath } from '@/lib/immvela-nav'
 import WaitlistForm from './WaitlistForm'
 
 const EASE = [0.16, 1, 0.3, 1] as const
@@ -33,22 +34,18 @@ const Arrow = () => (
  */
 export default function ImmvelaLanding({ locale = defaultLocale }: { locale?: Locale }) {
   const t = getDict(locale).waitlistPage
+  const immvela = useImmvelaPath(locale)
 
   return (
     <>
       {/* ── HERO ──────────────────────────────────────────────────────── */}
-      <section id="top" className="relative overflow-hidden pb-16 pt-4 md:pb-24">
-        <div className="im-aura pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
-
+      {/* Deliberately bare: no status pill, no wash behind the wordmark. Both
+          were removed together — the pill ("Now in early access", pinging dot)
+          and the warm radial aura it sat in read as stock landing-page
+          furniture, and the aura's only job was to frame the pill. The proof
+          row below already says where the product stands, in specifics. */}
+      <section id="top" className="pb-16 pt-10 md:pb-24 md:pt-14">
         <motion.div variants={container} initial="hidden" animate="visible" className="max-w-3xl">
-          <motion.span variants={item} className="im-chip im-chip-active mb-8">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" style={{ backgroundColor: 'var(--im-green)' }} />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full" style={{ backgroundColor: 'var(--im-green)' }} />
-            </span>
-            {t.earlyAccess}
-          </motion.span>
-
           <motion.h1 variants={item} className="im-wordmark text-6xl leading-[0.92] tracking-[-0.035em] md:text-8xl">
             Immvela<span className="dot">.</span>
           </motion.h1>
@@ -154,8 +151,12 @@ export default function ImmvelaLanding({ locale = defaultLocale }: { locale?: Lo
                 {t.signinCta}
                 <Arrow />
               </a>
+              {/* Immvela's own module walkthrough, not the SNS inbound-agent
+                  demo at /solutions/demo this used to point at — that one lives
+                  on the SNS domain and shows a receptionist, which is one
+                  in-development module out of seven. */}
               <Link
-                href={localePath(locale, '/solutions/demo')}
+                href={immvela('/demo')}
                 onClick={() => track('immvela_see_demo')}
                 className="im-green group inline-flex items-center gap-1.5 font-mono text-xs font-semibold transition-opacity hover:opacity-70"
               >

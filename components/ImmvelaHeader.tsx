@@ -5,16 +5,30 @@ import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath } from '@/i18n/config'
 import { SITE_URL } from '@/lib/site'
+import { useImmvelaPath } from '@/lib/immvela-nav'
 import LanguageToggle from './LanguageToggle'
 
 /**
- * Slim, light header for the Immvela waitlist page — the "daylight" counterpart
- * to the dark SNS <Nav>. Keeps the same proportions (fixed, h-14, max-w-6xl)
- * but in Immvela's palette, so the page reads as its own product without
- * looking like a different website.
+ * Slim, light header for the Immvela pages — the "daylight" counterpart to the
+ * dark SNS <Nav>. Keeps the same proportions (fixed, h-14, max-w-6xl) but in
+ * Immvela's palette, so the page reads as its own product without looking like
+ * a different website.
+ *
+ * `subpage`: the wordmark and CTA are in-page anchors on the landing (#top,
+ * #early-access), and both are dead links anywhere else. On a subpage they
+ * become links back to the landing instead.
  */
-export default function ImmvelaHeader({ locale = defaultLocale }: { locale?: Locale }) {
+export default function ImmvelaHeader({
+  locale = defaultLocale,
+  subpage = false,
+}: {
+  locale?: Locale
+  subpage?: boolean
+}) {
   const t = getDict(locale).waitlistPage
+  const immvela = useImmvelaPath(locale)
+  const homeHref = subpage ? immvela() : '#top'
+  const ctaHref = subpage ? `${immvela()}#early-access` : '#early-access'
 
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
@@ -31,7 +45,7 @@ export default function ImmvelaHeader({ locale = defaultLocale }: { locale?: Loc
       }`}
     >
       <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-between 2xl:max-w-7xl">
-        <a href="#top" className="flex items-baseline gap-2.5" aria-label="Immvela — top">
+        <a href={homeHref} className="flex items-baseline gap-2.5" aria-label="Immvela — top">
           <span className="im-wordmark text-lg md:text-xl">
             Immvela<span className="dot">.</span>
           </span>
@@ -67,7 +81,7 @@ export default function ImmvelaHeader({ locale = defaultLocale }: { locale?: Loc
           </a>
 
           <a
-            href="#early-access"
+            href={ctaHref}
             onClick={() => track('immvela_header_cta')}
             className="im-btn inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold"
           >

@@ -6,8 +6,10 @@ import { IMMVELA_URL, SITE_URL } from '@/lib/site'
  * Next.js deployment as the SNS site. Routing is by hostname:
  *
  *   • On immvela.com  → the /immvela pages are served at the domain root:
- *       immvela.com/      → renders /immvela
- *       immvela.com/de    → renders /de/immvela
+ *       immvela.com/         → renders /immvela
+ *       immvela.com/de       → renders /de/immvela
+ *       immvela.com/demo     → renders /immvela/demo
+ *       immvela.com/de/demo  → renders /de/immvela/demo
  *     and the internal /immvela paths canonicalise back to the root so there's
  *     exactly one public URL per page.
  *
@@ -32,6 +34,24 @@ function hostSet(url: string): Set<string> {
 const IMMVELA_HOSTS = hostSet(IMMVELA_URL)
 const SNS_HOSTS = hostSet(SITE_URL)
 
+/**
+ * Every Immvela page, as `internal route → public path on immvela.com`. All
+ * three rules below (root rewrite, canonical redirect, SNS handover) read from
+ * this one map, so adding a page is one line here — miss it and the page is
+ * reachable on immvela.com only at its internal /immvela/… path, with the SNS
+ * domain still serving a second copy of it.
+ *
+ * `lib/immvela-nav.ts` is the client-side counterpart: it resolves links
+ * *between* these pages to whichever shape is currently being served.
+ */
+const IMMVELA_PAGES: Record<string, string> = {
+  '/immvela': '/',
+  '/de/immvela': '/de',
+  '/immvela/demo': '/demo',
+  '/de/immvela/demo': '/de/demo',
+}
+const IMMVELA_ROUTE_FOR = new Map(Object.entries(IMMVELA_PAGES).map(([route, pub]) => [pub, route]))
+
 export function middleware(req: NextRequest) {
   const host = (req.headers.get('host') ?? '').split(':')[0].toLowerCase()
   const { pathname } = req.nextUrl
@@ -53,25 +73,26 @@ export function middleware(req: NextRequest) {
       url.pathname = '/immvela/llms.txt'
       return NextResponse.rewrite(url)
     }
-    if (pathname === '/' || pathname === '/de') {
+    const route = IMMVELA_ROUTE_FOR.get(pathname)
+    if (route) {
       const url = req.nextUrl.clone()
-      url.pathname = pathname === '/de' ? '/de/immvela' : '/immvela'
+      url.pathname = route
       return NextResponse.rewrite(url)
     }
     // The internal paths shouldn't be a second public URL on this domain — send
     // them to their canonical root.
-    if (pathname === '/immvela' || pathname === '/de/immvela') {
+    const canonical = IMMVELA_PAGES[pathname]
+    if (canonical) {
       const url = req.nextUrl.clone()
-      url.pathname = pathname === '/de/immvela' ? '/de' : '/'
+      url.pathname = canonical
       return NextResponse.redirect(url, 308)
     }
     return NextResponse.next()
   }
 
   // ── On the SNS domain: hand the old Immvela URLs over to immvela.com ───────
-  if (SNS_HOSTS.has(host) && (pathname === '/immvela' || pathname === '/de/immvela')) {
-    const dest = pathname === '/de/immvela' ? '/de' : '/'
-    return NextResponse.redirect(`${IMMVELA_URL}${dest}`, 301)
+  if (SNS_HOSTS.has(host) && IMMVELA_PAGES[pathname]) {
+    return NextResponse.redirect(`${IMMVELA_URL}${IMMVELA_PAGES[pathname]}`, 301)
   }
 
   return NextResponse.next()

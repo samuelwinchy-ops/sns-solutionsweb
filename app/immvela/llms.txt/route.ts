@@ -23,6 +23,7 @@ Currently in early access — some modules are live today, the rest are shipping
 
 - [Immvela (English)](${IMMVELA_URL}/): product overview, modules, and early-access sign-up.
 - [Immvela (Deutsch)](${IMMVELA_URL}/de): deutsche Version der Produktseite.
+- [Module walkthrough](${IMMVELA_URL}/demo): a clip of each module working on a real listing ([Deutsch](${IMMVELA_URL}/de/demo)).
 - [Early access](${IMMVELA_URL}/#early-access): join the waitlist.
 - [SNS Solutions](${SITE_URL}/): the company behind Immvela.
 `
