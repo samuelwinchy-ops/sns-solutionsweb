@@ -53,11 +53,20 @@ export function immvelaJsonLd(locale: Locale) {
       {
         '@type': 'WebSite',
         '@id': `${IMMVELA_URL}/#website`,
-        url: pageUrl,
+        // The site is immvela.com as a whole, not the page being rendered —
+        // pointing this at /de made the German page claim a second, differently
+        // scoped site under the same @id.
+        url: IMMVELA_URL,
         name: t.brand,
+        alternateName: 'Immvela by SNS Solutions',
         description: t.heroSub,
         inLanguage: locale,
-        publisher: { '@id': SOFTWARE_ID },
+        // A publisher is an organization, not a piece of software: this pointed
+        // at Immvela itself, so the node said the site publishes itself and no
+        // machine-readable line ran from immvela.com back to SNS. The @id
+        // resolves against the Organization node the root layout emits.
+        publisher: { '@id': SNS_ORG_ID },
+        about: { '@id': SOFTWARE_ID },
       },
       {
         '@type': 'FAQPage',

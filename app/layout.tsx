@@ -84,8 +84,14 @@ export const viewport: Viewport = {
   colorScheme: 'light',
 }
 
-// Site-wide structured data (Organization / LocalBusiness + WebSite) so search
-// engines and AI answer engines can understand SNS as an entity.
+// Site-wide structured data (Organization / LocalBusiness) so search engines and
+// AI answer engines can understand SNS as an entity. This runs on immvela.com
+// too — that's deliberate and harmless, because Immvela's own schema names this
+// organization as its `brand`/`creator` by @id, and the reference has to
+// resolve. The matching WebSite node lives in <SnsWebSiteSchema /> on the SNS
+// homepage instead: it declares "this *site* is SNS Solutions", which is a
+// straight contradiction of Immvela's own WebSite node when both are emitted on
+// an immvela.com page, and Google takes the site name from exactly that node.
 const orgSchema = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -126,15 +132,6 @@ const orgSchema = {
           itemOffered: { '@type': 'Service', name },
         })),
       },
-    },
-    {
-      '@type': 'WebSite',
-      '@id': `${SITE_URL}/#website`,
-      url: SITE_URL,
-      name: SITE.name,
-      description: SITE.description,
-      inLanguage: 'en',
-      publisher: { '@id': `${SITE_URL}/#organization` },
     },
   ],
 }
