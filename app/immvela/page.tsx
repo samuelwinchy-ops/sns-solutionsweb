@@ -7,9 +7,34 @@ import { IMMVELA_URL, SITE_URL } from '@/lib/site'
 import { immvelaJsonLd } from '@/lib/immvela-schema'
 
 export const metadata: Metadata = {
-  title: 'Immvela · the agentic operating system for real estate',
+  // Absolute: the root layout's "%s | SNS Solutions" template put a competitor
+  // for its own brand name in the title of every Immvela page. Searching
+  // "immvela" is meant to find Immvela — the title is the strongest signal of
+  // what a page is about, and this one led with someone else's name.
+  title: { absolute: 'Immvela · the agentic operating system for real estate' },
   description:
     'One platform for real-estate teams, where every module writes back to the same verified record of your properties, leads and deals, so it gets sharper the longer you use it. German first, hosted in the EU. Built in the open by SNS Solutions.',
+  // The root layout's are SNS's ("AI software studio", "Vienna", …) and named
+  // Immvela nowhere. Same for applicationName/authors below.
+  keywords: [
+    'Immvela',
+    'real estate software',
+    'Immobiliensoftware',
+    'AI for real estate',
+    'property management platform',
+    'real estate CRM',
+    'Makler Software',
+    'Austria',
+  ],
+  applicationName: 'Immvela',
+  authors: [{ name: 'SNS Software Solutions GmbH', url: SITE_URL }],
+  // The root layout's /site.webmanifest names the app "SNS Solutions" and sets
+  // the dark #06080F theme — installing immvela.com from Android gave you an
+  // SNS-branded, dark-chromed app for a cream-coloured site. Relative, so it
+  // resolves on whichever host is serving the page. The icons inside it are
+  // still SNS's mark; swap them when an Immvela one exists (same gap as og.png
+  // below).
+  manifest: '/immvela.webmanifest',
   // Immvela is served from its own domain, so its canonical and language
   // alternates are absolute to that origin — not the SNS domain.
   alternates: {
@@ -21,6 +46,12 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    // Next replaces the parent `openGraph` object wholesale rather than merging
+    // into it, so type/locale/siteName have to be restated here — without them
+    // the page shipped no og:type and no og:site_name at all.
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'Immvela',
     title: 'Immvela · the agentic operating system for real estate',
     description:
       'One record of your properties, leads and deals, with a module for each part of the job. Built in the open by SNS Solutions. Join the waitlist.',

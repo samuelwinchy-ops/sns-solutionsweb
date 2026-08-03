@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description:
     'Sehen Sie jedem Immvela-Modul an einem echten Objekt bei der Arbeit zu: Listing Kit, Veröffentlichung, Empfang, Wissen, Staging, Rundgang und Dokumente. Ohne Anmeldung.',
   applicationName: 'Immvela',
+  // See app/immvela/page.tsx — the root layout's manifest is SNS-branded.
+  manifest: '/immvela.webmanifest',
   alternates: {
     canonical: `${IMMVELA_URL}/de/demo`,
     languages: {

@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 import ScrollProgress from '@/components/ScrollProgress'
 import KeyboardNav from '@/components/KeyboardNav'
 import BuildAnnouncement from '@/components/BuildAnnouncement'
+import SnsWebSiteSchema from '@/components/SnsWebSiteSchema'
 
 export const metadata: Metadata = {
   title: {
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
 export default function HomeDe() {
   return (
     <div lang="de">
+      <SnsWebSiteSchema locale="de" />
       <Nav locale="de" />
       <ScrollProgress />
       <KeyboardNav />

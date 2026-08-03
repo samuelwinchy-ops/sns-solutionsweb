@@ -7,9 +7,25 @@ import { IMMVELA_URL, SITE_URL } from '@/lib/site'
 import { immvelaJsonLd } from '@/lib/immvela-schema'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Immvela · das agentische Betriebssystem für Immobilien | SNS Solutions' },
+  // See app/immvela/page.tsx — the brand's own page shouldn't lead with another
+  // brand's name in the title.
+  title: { absolute: 'Immvela · das agentische Betriebssystem für Immobilien' },
   description:
     'Eine Plattform für Immobilienteams, in der jedes Modul auf denselben geprüften Datenbestand Ihrer Objekte, Leads und Abschlüsse zurückschreibt, sodass sie mit der Zeit besser wird. Deutsch zuerst, in der EU gehostet. Offen entwickelt von SNS Solutions.',
+  keywords: [
+    'Immvela',
+    'Immobiliensoftware',
+    'KI für Immobilien',
+    'Makler Software',
+    'Immobilienverwaltung',
+    'Immobilien CRM',
+    'Österreich',
+    'Wien',
+  ],
+  applicationName: 'Immvela',
+  authors: [{ name: 'SNS Software Solutions GmbH', url: SITE_URL }],
+  // See app/immvela/page.tsx — the root layout's manifest is SNS-branded.
+  manifest: '/immvela.webmanifest',
   // Served from immvela.com — absolute canonical + language alternates.
   alternates: {
     canonical: `${IMMVELA_URL}/de`,
@@ -20,7 +36,10 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    // Restated, not inherited — see app/immvela/page.tsx.
+    type: 'website',
     locale: 'de_AT',
+    siteName: 'Immvela',
     title: 'Immvela · das agentische Betriebssystem für Immobilien',
     description:
       'Ein Datenbestand für Ihre Objekte, Leads und Abschlüsse, mit einem Modul für jeden Teil der Arbeit. Offen entwickelt von SNS Solutions. Auf die Warteliste.',
