@@ -61,7 +61,30 @@ export default function ImmvelaShowcase({ locale = defaultLocale }: { locale?: L
   const [playing, setPlaying] = useState(true)
   const [hovered, setHovered] = useState(false)
   const [focused, setFocused] = useState(false)
-  const paused = !playing || hovered || focused || !!reduced
+  const paused = !playing || hovered || focused
+
+  // Reduced motion sets the spotlight's *starting* state — it must not clamp
+  // the control. Folding it into `paused` (and into the play/pause effect
+  // below) left the button inert: pressing play set `playing`, the clamp
+  // immediately overrode it, and the clip could never run at all. A control
+  // that can never do anything is a worse failure than the motion it was
+  // guarding against, and 2.2.2 only asks for a way to *stop* motion. So:
+  // start stopped, and honour an explicit press either way.
+  //
+  // Read the query directly rather than through `useReducedMotion` — measured,
+  // that hook resolves ~175ms after mount, by which point the clip has already
+  // autoplayed a fifth of a second, and it never updates if the preference
+  // changes (framer's own TODO). This lands on the mount commit instead, well
+  // before the clip has fetched, and follows the preference live.
+  const [userChose, setUserChose] = useState(false)
+  useEffect(() => {
+    if (userChose) return
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const apply = () => setPlaying(!mq.matches)
+    apply()
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
+  }, [userChose])
 
   // Clip loading is deliberately fail-closed: the title card is what renders
   // by default and the video only *reveals itself* once it reports it can
@@ -96,9 +119,44 @@ export default function ImmvelaShowcase({ locale = defaultLocale }: { locale?: L
   const accent = ACCENTS[index % ACCENTS.length]
   const clipKey = slide.code.toLowerCase()
   const hasClip = !broken[clipKey]
-  const isReady = !!ready[clipKey]
+
+  // A clip earns the right to cover the title card only once it is actually
+  // running. `ready` on its own is not enough: a clip paused at frame 0 is
+  // near-blank on these masters, so revealing it there replaces the title card
+  // with an empty box — which is exactly what a reduced-motion visitor saw in
+  // the hero. `rolling` re-arms per slide, so picking a module while the
+  // spotlight is stopped shows that module's title card, not a blank frame.
+  const [rolling, setRolling] = useState(false)
+  useEffect(() => setRolling(false), [clipKey])
+  const isReady = !!ready[clipKey] && (playing || rolling)
 
   const videoRef = useRef<HTMLVideoElement | null>(null)
+  // `autoPlay` is an initial attribute and fires before the effect below can
+  // pause it, so the clip briefly reports itself as playing even when we never
+  // wanted it to. Read the live intent to keep that blip out of `rolling`.
+  const playingRef = useRef(playing)
+  playingRef.current = playing
+
+  // Same trap as `ready` below, and worse: a React `onPlaying` prop is attached
+  // during commit, so for a cached clip the event has already been and gone and
+  // `rolling` would never be set — pausing would then wrongly snap the panel
+  // back to the title card. Bind the listeners directly and check the element
+  // as well. `timeupdate` is the reliable one: it only fires while frames are
+  // actually advancing, which is precisely the condition being tracked.
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+    const mark = () => {
+      if (playingRef.current) setRolling(true)
+    }
+    if (playing && !v.paused && v.readyState >= 3) mark()
+    v.addEventListener('playing', mark)
+    v.addEventListener('timeupdate', mark)
+    return () => {
+      v.removeEventListener('playing', mark)
+      v.removeEventListener('timeupdate', mark)
+    }
+  }, [clipKey, playing])
 
   // `onCanPlay` alone is not enough. Media events fire on the element itself
   // and don't bubble, so React attaches the handler during commit — and a
@@ -113,14 +171,14 @@ export default function ImmvelaShowcase({ locale = defaultLocale }: { locale?: L
 
   // Drive playback imperatively: `autoPlay` is only an initial attribute, so
   // toggling it does not pause an already-playing clip. Hover deliberately does
-  // NOT pause the video — you hover to watch it — only the explicit button and
-  // a reduced-motion preference do.
+  // NOT pause the video — you hover to watch it — only the explicit button
+  // does, and `playing` already carries the reduced-motion starting state.
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
-    if (playing && !reduced) void v.play().catch(() => {})
+    if (playing) void v.play().catch(() => {})
     else v.pause()
-  }, [playing, reduced, clipKey])
+  }, [playing, clipKey])
 
   const slideVariants: Variants = {
     enter: { opacity: 0, y: reduced ? 0 : 12 },
@@ -296,7 +354,10 @@ export default function ImmvelaShowcase({ locale = defaultLocale }: { locale?: L
 
           <button
             type="button"
-            onClick={() => setPlaying((v) => !v)}
+            onClick={() => {
+              setUserChose(true)
+              setPlaying((v) => !v)
+            }}
             aria-label={playing ? t.showcase.pause : t.showcase.play}
             className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-sns-text/15 text-sns-muted transition-colors duration-300 hover:border-sns-indigo/50 hover:text-sns-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent"
           >
