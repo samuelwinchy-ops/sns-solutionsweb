@@ -12,8 +12,11 @@ export const de: Dictionary = {
     contact: 'kontakt',
   },
   hero: {
-    h1a: 'Agentische Software,',
-    h1b: 'nachweisbar wirksam.',
+    // Siehe en.ts. Bewusst keine wörtliche Übersetzung: "einen Unterschied
+    // machen" ist ein Anglizismus, "wo sie etwas bringt" ist das, was ein
+    // österreichischer Unternehmer tatsächlich sagen würde.
+    h1a: 'KI dort einsetzen,',
+    h1b: 'wo sie etwas bringt.',
     // Siehe en.ts — der Hero gehört Immvela allein; Maßarbeit hat jetzt ihren
     // eigenen Abschnitt am Seitenende (`customBuilds`).
     subtitle: [

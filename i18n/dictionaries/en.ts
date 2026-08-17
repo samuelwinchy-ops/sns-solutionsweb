@@ -17,8 +17,18 @@ export const en = {
   // language names, so its labels live in LanguageToggle.tsx and are never
   // translated — "English"/"Deutsch" are endonyms in both locales.)
   hero: {
-    h1a: 'Agentic software,',
-    h1b: 'auditable by design.',
+    // "Agentic software, auditable by design" was a leftover from the studio
+    // positioning: "agentic" is AI-industry vocabulary a brokerage owner does
+    // not use — and in real estate "agent" already means a person — while
+    // "auditable by design" answered an objection before the reader had formed
+    // any desire. Neither said who it was for or what it did.
+    //
+    // This is the same selectivity /services already sells ("where AI and
+    // better systems would genuinely pay off, and where they wouldn't"), and it
+    // is a real differentiator while everyone else sells AI on everything. The
+    // headline carries the position; the subtitle below carries the specifics.
+    h1a: 'Implementing AI',
+    h1b: 'where it makes a difference.',
     // The hero is Immvela and nothing else. Custom builds used to be tacked on
     // here as "for everyone else", which read as a consolation prize to exactly
     // the prospect it was meant to attract — they now get their own section at
