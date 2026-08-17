@@ -199,10 +199,6 @@ export default function Footer({
                 {l.label}
               </Link>
             ))}
-            <span className="flex items-center gap-2 font-mono text-xs text-sns-faint">
-              <span className="h-1.5 w-1.5 rounded-full bg-sns-green" />
-              {t.status}
-            </span>
           </div>
         </div>
       </div>

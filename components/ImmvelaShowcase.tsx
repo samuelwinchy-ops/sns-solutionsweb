@@ -213,13 +213,6 @@ export default function ImmvelaShowcase({ locale = defaultLocale }: { locale?: L
               {t.byline}
             </span>
           </a>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-sns-green/30 bg-sns-green/[0.09] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-sns-green">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sns-green opacity-60" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-sns-green" />
-            </span>
-            {t.earlyAccess}
-          </span>
         </div>
 
         {/* ── Clip + caption, stacked ───────────────────────────────── */}
@@ -289,7 +282,10 @@ export default function ImmvelaShowcase({ locale = defaultLocale }: { locale?: L
                   : 'bg-sns-text/45 text-white'
               }`}
             >
-              {active && <span className="h-1.5 w-1.5 rounded-full bg-sns-green" />}
+              {/* No dot: the badge already says "Live" in words, so the dot
+                  restated it in the same status-page vocabulary the rest of the
+                  site just dropped. Live and in-development stay apart by
+                  colour and fill, which the text then names outright. */}
               {active ? t.statusActive : t.statusProgress}
             </span>
           </div>

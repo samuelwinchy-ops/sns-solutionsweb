@@ -57,10 +57,6 @@ export default function BuildAnnouncement({ locale = defaultLocale }: { locale?:
         >
           <div className="flex items-start justify-between gap-3">
             <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-sns-amber">
-              <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sns-amber opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-sns-amber" />
-              </span>
               {t.tag}
             </span>
             <button

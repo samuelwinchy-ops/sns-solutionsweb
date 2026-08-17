@@ -99,7 +99,7 @@ export const en = {
     cta: 'Tell us what you need',
   },
   announce: {
-    tag: 'Now in early access',
+    tag: 'Built in the open',
     heading: 'Meet Immvela.',
     body: 'Our own platform for real-estate teams: the operating system behind your listings, leads and deals. Two modules live, the rest shipping in the open.',
     cta: 'Join the waitlist',
@@ -123,7 +123,6 @@ export const en = {
     or: 'or',
     team: 'Team',
     legal: { imprint: 'Imprint', privacy: 'Privacy', terms: 'Terms' },
-    status: 'all systems operational',
   },
   servicesPage: {
     eyebrow: 'Custom builds & AI consulting',
@@ -266,7 +265,6 @@ export const en = {
     brand: 'Immvela',
     byline: 'by SNS Solutions',
     backToSns: 'Back to SNS',
-    earlyAccess: 'Now in early access',
     builtInOpen: 'Built in the open',
     tagline: 'The agentic operating system for real estate.',
     // The positioning is the flywheel, not a feature list: Immvela is the

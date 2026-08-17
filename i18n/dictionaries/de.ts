@@ -79,7 +79,7 @@ export const de: Dictionary = {
     cta: 'Sagen Sie uns, was Sie brauchen',
   },
   announce: {
-    tag: 'Jetzt im Early Access',
+    tag: 'Offen entwickelt',
     heading: 'Das ist Immvela.',
     body: 'Unsere eigene Plattform für Immobilienteams: das Betriebssystem hinter Ihren Objekten, Leads und Abschlüssen. Zwei Module live, der Rest entsteht offen.',
     cta: 'Auf die Warteliste',
@@ -100,7 +100,6 @@ export const de: Dictionary = {
     or: 'oder',
     team: 'Team',
     legal: { imprint: 'Impressum', privacy: 'Datenschutz', terms: 'AGB' },
-    status: 'alle Systeme betriebsbereit',
   },
   servicesPage: {
     eyebrow: 'Maßarbeit & KI-Beratung',
@@ -243,7 +242,6 @@ export const de: Dictionary = {
     brand: 'Immvela',
     byline: 'von SNS Solutions',
     backToSns: 'Zurück zu SNS',
-    earlyAccess: 'Jetzt im Early Access',
     builtInOpen: 'Offen entwickelt',
     tagline: 'Das agentische Betriebssystem für Immobilien.',
     // Die Positionierung ist das Schwungrad, keine Feature-Liste: Immvela ist

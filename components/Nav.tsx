@@ -12,13 +12,18 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
   const home = localePath(locale, '/')
   const pathname = usePathname()
 
-  // Flat nav, no "Products" dropdown. Immvela is the product — it lives on its
-  // own domain and carries the live dot. The HVAC/SHK tab went with the
-  // discontinued product line; its URLs 301 to Immvela (see middleware.ts).
+  // Flat nav, no "Products" dropdown. Immvela is the product and leads the
+  // list; the HVAC/SHK tab went with the discontinued product line, and its
+  // URLs 301 to Immvela (see middleware.ts).
+  //
+  // Immvela used to carry a pulsing green dot. That is status-page grammar — it
+  // reads as live telemetry — and nothing here polls anything, so it was
+  // borrowing credibility rather than reporting a fact. It also overclaimed:
+  // two of seven modules are live, which is not what a "live" dot says.
   const links = [
-    { href: immvelaHref(locale), id: 'immvela', label: t.realEstate, live: true },
-    { href: localePath(locale, '/services'), id: 'services', label: t.services, live: false },
-    { href: localePath(locale, '/team'), id: 'team', label: t.team, live: false },
+    { href: immvelaHref(locale), id: 'immvela', label: t.realEstate },
+    { href: localePath(locale, '/services'), id: 'services', label: t.services },
+    { href: localePath(locale, '/team'), id: 'team', label: t.team },
   ]
 
   const [scrolled, setScrolled] = useState(false)
@@ -95,12 +100,6 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
                   active ? 'text-sns-text' : 'text-sns-muted hover:text-sns-accent'
                 }`}
               >
-                {link.live && (
-                  <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sns-green opacity-60" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-sns-green" />
-                  </span>
-                )}
                 <span>{link.label}</span>
                 {active && (
                   <span className="absolute inset-x-2.5 -bottom-px h-px bg-gradient-to-r from-transparent via-sns-indigo to-transparent" />
@@ -163,9 +162,6 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
                     active ? 'text-sns-text' : 'text-sns-muted hover:bg-sns-text/[0.05] hover:text-sns-text'
                   }`}
                 >
-                  {link.live && (
-                    <span className="h-1.5 w-1.5 rounded-full bg-sns-green" aria-hidden="true" />
-                  )}
                   {link.label}
                 </a>
               )

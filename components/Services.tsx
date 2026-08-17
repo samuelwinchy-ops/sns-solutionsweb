@@ -61,10 +61,6 @@ export default function Services({ locale = defaultLocale }: { locale?: Locale }
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.1fr_1fr] md:gap-12">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-sns-indigo/30 bg-sns-indigo/[0.1] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-sns-accent">
-              <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sns-green opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-sns-green" />
-              </span>
               {t.consult.tag}
             </span>
             <h2 className="mt-4 text-2xl font-bold tracking-[-0.02em] text-sns-text md:text-3xl">
