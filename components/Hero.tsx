@@ -3,7 +3,7 @@
 import { motion, type Variants } from 'framer-motion'
 import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
-import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { type Locale, defaultLocale, localePath, immvelaHref } from '@/i18n/config'
 import { CTA_PRIMARY_SM, CTA_SECONDARY } from '@/lib/cta'
 import ImmvelaShowcase from './ImmvelaShowcase'
 
@@ -97,8 +97,8 @@ export default function Hero({ locale = defaultLocale }: { locale?: Locale }) {
                 </svg>
               </a>
               <a
-                href={localePath(locale, '/solutions')}
-                onClick={() => track('hero_view_solutions')}
+                href={immvelaHref(locale)}
+                onClick={() => track('hero_view_immvela')}
                 className={CTA_SECONDARY}
               >
                 {t.ctaSolutions}

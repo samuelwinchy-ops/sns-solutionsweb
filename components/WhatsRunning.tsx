@@ -10,7 +10,6 @@ const EASE = [0.16, 1, 0.3, 1] as const
 // SNS's active product lines. Names are shown; per-project details stay NDA'd.
 const SYSTEMS = [
   { tag: 'PROPTECH', name: 'Prop Tech Agents' },
-  { tag: 'HVAC', name: 'HVAC Agents' },
   { tag: 'WORKFLOW', name: 'End-to-End Workflow Agents' },
 ]
 

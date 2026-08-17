@@ -8,13 +8,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // each declaring the other as an hreflang alternate.
   const bilingual = [
     { path: '', changeFrequency: 'monthly' as const, priority: 1 },
-    { path: '/solutions', changeFrequency: 'weekly' as const, priority: 0.95 },
-    { path: '/solutions/hvac', changeFrequency: 'weekly' as const, priority: 0.9 },
-    { path: '/solutions/hvac/waitlist', changeFrequency: 'weekly' as const, priority: 0.7 },
-    { path: '/solutions/demo', changeFrequency: 'monthly' as const, priority: 0.6 },
     { path: '/services', changeFrequency: 'monthly' as const, priority: 0.9 },
-    // Immvela now lives on its own domain (immvela.com); the SNS /immvela URL
-    // 301-redirects there, so it's no longer advertised in this sitemap.
+    // The /solutions section is gone — the HVAC/SHK line is discontinued and
+    // real estate is Immvela, which has its own domain and its own sitemap.
+    // Those URLs 301 to it (middleware.ts) and a sitemap must only list URLs
+    // that answer 200, so listing a redirect here would be a crawl error.
+    // Immvela itself isn't advertised here for the same reason.
     { path: '/team', changeFrequency: 'monthly' as const, priority: 0.7 },
     { path: '/contact', changeFrequency: 'yearly' as const, priority: 0.8 },
   ]

@@ -9,8 +9,6 @@ export const en = {
   nav: {
     home: 'home',
     services: 'custom builds',
-    solutions: 'products',
-    hvac: 'hvac / shk',
     realEstate: 'immvela',
     team: 'team',
     contact: 'contact',
@@ -21,50 +19,64 @@ export const en = {
   hero: {
     h1a: 'Agentic software,',
     h1b: 'auditable by design.',
+    // The hero is Immvela and nothing else. Custom builds used to be tacked on
+    // here as "for everyone else", which read as a consolation prize to exactly
+    // the prospect it was meant to attract — they now get their own section at
+    // the foot of the page (`customBuilds`), where the pitch is an invitation
+    // rather than an afterthought.
     subtitle: [
-      { t: 'A Vienna studio building AI agents for two industries. In ' },
-      { t: 'real estate', strong: true },
-      { t: ', through our own platform ' },
+      { t: 'A Vienna studio building ' },
       { t: 'Immvela', strong: true },
-      { t: '. In ' },
-      { t: 'HVAC', strong: true },
-      { t: ', we consult on digital transformation and implement the AI behind it, with value you can actually check.' },
+      { t: ', the agentic operating system for ' },
+      { t: 'real estate', strong: true },
+      { t: '. One verified record of your properties, leads and deals, with a module for each part of the job.' },
     ] as Segment[],
     ctaStart: 'Book a free consultation',
-    ctaSolutions: 'view products',
+    ctaSolutions: 'see immvela',
   },
+  // One industry now, so this section carries the real-estate card's own copy
+  // rather than reading it out of the retired solutionsPage.industries list.
   homeFocus: {
     eyebrow: 'Who we build for',
-    heading: 'Purpose-built for HVAC and real estate.',
-    sub: 'We know two industries inside out: how they talk, how they work, what the day actually looks like. So our products fit the way you already do the job.',
-    cta: 'Explore the products',
+    heading: 'Purpose-built for real estate.',
+    sub: 'We know real estate inside out: how it talks, how it works, what the day actually looks like. So Immvela fits the way you already do the job.',
+    cta: 'See how Immvela works',
+    card: {
+      label: 'Immvela',
+      descriptor: 'Real estate · sales & lettings',
+      blurb:
+        'Our own platform, sold module by module. Each one stands alone, and all of them write back to the same record of your properties, leads and deals.',
+    },
   },
-  // Replaced the old "what we do" card trio. That section described the studio
-  // in the abstract, which is the least interesting thing on a page that can
-  // instead show the method — and the method is the differentiator, because
-  // measuring before and after is the part almost nobody does.
-  howWeWork: {
-    eyebrow: 'how we work',
-    heading: 'AI you can put a number on.',
-    sub: 'Most AI projects end the same way: it ships, everyone agrees it feels faster, and nobody can say what it was actually worth. We run it the other way round. The measurement comes first, so at the end there is a number to check instead of a feeling to argue about.',
+  // The closing section of the homepage, and the one job the hero no longer
+  // does: catching the visitor Immvela doesn't fit. It was a generic "how we
+  // work" method rail; the method is still the differentiator (measuring before
+  // and after is the part almost nobody does), so the four stages survive
+  // intact — what changed is the framing around them, from "here is our
+  // process" to "tell us what Immvela doesn't cover and we'll work it out with
+  // you." The last step is the invitation, not a description.
+  customBuilds: {
+    eyebrow: 'custom builds',
+    heading: 'Immvela not the shape of your problem?',
+    sub: 'Immvela covers the work most real-estate teams share. If yours runs on something it doesn’t reach — an in-house system it has to talk to, a process nobody else has, a piece of the job we haven’t built yet — that’s a custom build, and it’s half of what we do. We work it through with you first, and you get a straight answer on whether it’s worth building at all.',
     steps: [
       {
         k: '01',
-        name: 'Audit',
-        main: 'We find where the hours actually go.',
-        sub: 'Time inside your process, not a questionnaire. You get a written map of the work worth automating, and the work that isn’t.',
+        name: 'Talk it through',
+        main: 'You describe it. We ask the harder questions.',
+        sub: 'Thirty minutes, online, no cost and no obligation. Bring the workflow that’s costing you time and we’ll tell you what it would actually take.',
       },
       {
         k: '02',
         name: 'Baseline',
         main: 'We measure it before we touch it.',
-        sub: 'Handling time, error rate, cost per job. Without a number from before, “it feels faster” is the only result you can ever get.',
+        sub: 'Handling time, error rate, cost per listing or per deal. Without a number from before, “it feels faster” is the only result you can ever get.',
       },
       {
         k: '03',
         name: 'Pilot',
         main: 'One workflow, live, in weeks.',
-        sub: 'The smallest build that proves the case, running against real work, not a demo on sample data.',
+        sub: 'The smallest build that proves the case, running against your real listings and real leads, not a demo on sample data.',
       },
       {
         k: '04',
@@ -73,8 +85,8 @@ export const en = {
         sub: 'Before and after, side by side. You own the system, the documentation, and the decision about what comes next.',
       },
     ],
-    note: 'And if the audit says the honest answer is “don’t automate this”, that’s the answer you get.',
-    cta: 'See all custom builds',
+    note: 'And if the honest answer is “you don’t need this built”, that’s the answer you get.',
+    cta: 'Tell us what you need',
   },
   announce: {
     tag: 'Now in early access',
@@ -204,7 +216,7 @@ export const en = {
     },
   },
   contactForm: {
-    services: ['HVAC / SHK', 'Immvela · Real Estate', 'Custom Software', 'AI & Automation', 'AI & IT Consulting', 'Something else'],
+    services: ['Immvela · Real Estate', 'Custom Software', 'AI & Automation', 'AI & IT Consulting', 'Something else'],
     name: 'Name',
     email: 'Email',
     phone: 'Phone',
@@ -236,210 +248,6 @@ export const en = {
       consent: 'Please agree before sending.',
       send: 'Something went wrong sending your message. Please try again, or email us directly at',
     },
-  },
-  solutionsPage: {
-    eyebrow: 'Products',
-    heading: 'Pick the agent you need, or take the whole stack.',
-    intro:
-      'Modular agents for two industries we know deeply. Automate the part of your workflow you want handled now, or join the waitlist for the full suite. Built for the DACH market, in German and English.',
-    bundleNote: 'Buy what you need now, or join the waitlist for the full suite.',
-    whatLabel: 'What it does',
-    outcomeLabel: 'Outcome',
-    status: { live: 'Live', beta: 'Beta', waitlist: 'Waitlist', roadmap: 'Roadmap' },
-    cta: { live: 'Talk to us', beta: 'Get early access', waitlist: 'Join the waitlist', roadmap: 'Join the waitlist' },
-    demoCta: 'See how it works',
-    appCta: 'Open in Immvela',
-    indexCta: 'View products',
-    industries: [
-      {
-        key: 'hvac',
-        label: 'HVAC / SHK',
-        descriptor: 'Heating · plumbing · installation',
-        blurb: 'For heating, plumbing and installation teams, covering everything from the first inquiry through booking to the compliance paperwork after the job.',
-        categories: [
-          {
-            key: 'inbound',
-            name: 'Inbound Handling',
-            status: 'live',
-            demo: true,
-            what: 'Answers every call and message instantly, across voice, web form, WhatsApp or chat. It qualifies each one against your criteria and routes the good leads to your team. German (Sie-form) and English.',
-            outcome: 'Faster first response, and no lead falls through the cracks outside business hours.',
-          },
-          {
-            key: 'scheduling',
-            name: 'Scheduling & Booking',
-            status: 'roadmap',
-            demo: false,
-            what: 'Human-confirmed viewing and callback scheduling once a lead is qualified.',
-            outcome: 'Less back-and-forth to get a qualified lead on the calendar.',
-          },
-          {
-            key: 'docs',
-            name: 'Documentation & Compliance',
-            status: 'roadmap',
-            demo: false,
-            what: 'Post-install compliance documentation: BEG payout evidence, F-Gas logs, JAZ proofs.',
-            outcome: 'Removes the admin burden that slows down payouts and audits.',
-          },
-        ],
-      },
-      {
-        // Adding a product here? Add it to waitlistPage.tiers as well — the
-        // /immvela page lists these from its own hand-maintained copy.
-        key: 'realEstate',
-        label: 'Immvela',
-        descriptor: 'Real estate · sales & lettings',
-        blurb: 'Our own platform, sold module by module. Each one stands alone, and all of them write back to the same record of your properties, leads and deals.',
-        // Names and statuses track the Immvela repo's STATUS.md — see the
-        // waitlistPage.modules note. 'live' means signed-in and usable today;
-        // 'waitlist' is in active development; 'roadmap' is specced and queued.
-        // Bullseye (CMA/pricing) is out of scope by decision and is not listed.
-        categories: [
-          {
-            key: 'listingKit',
-            name: 'Listing Kit (Quill)',
-            status: 'live',
-            demo: false,
-            what: 'Three generators off one listing: social captions, the brochure, and the full Exposé, the detailed prospectus DACH buyers expect. Objektdaten labels and section names stay German because they name real documents.',
-            outcome: 'The listing write-up stops being an evening job, and every channel gets copy in the same voice.',
-          },
-          {
-            key: 'publishing',
-            name: 'Publishing (Verlag)',
-            status: 'live',
-            demo: false,
-            what: 'Media library, composer and schedule board across every channel, with a compliance gate that holds a post back until the required disclosures are on it. Included free with any paid module.',
-            outcome: 'One place to schedule from, and nothing goes out missing a disclosure.',
-          },
-          {
-            key: 'reception',
-            name: 'Reception (Iris)',
-            status: 'waitlist',
-            demo: true,
-            what: 'Qualifies each inquiry on budget, intent and financing, then routes it to the right agent. It never books and never quotes.',
-            outcome: 'Faster response to inquiries, and better-qualified viewings when a human takes over.',
-          },
-          {
-            key: 'knowledge',
-            name: 'Knowledge (Winston)',
-            status: 'waitlist',
-            demo: false,
-            what: 'A DACH real-estate copilot answering from a maintained domain corpus plus your own brokerage layer, citing which source each answer came from.',
-            outcome: 'A new agent gets the office’s answer, not their best guess.',
-          },
-          {
-            key: 'staging',
-            name: 'Staging (Vignette)',
-            status: 'roadmap',
-            demo: false,
-            what: 'A photo of an empty or dated room comes back photorealistically furnished. Furniture, styling and lighting are added digitally; the room structure is untouched. Every image is disclosed as AI-staged, in line with EU AI Act transparency norms.',
-            outcome: 'Listing-ready rooms without a staging budget, and the disclosure is handled for you.',
-          },
-          {
-            key: 'walkthrough',
-            name: 'Walkthrough (Immerse)',
-            status: 'roadmap',
-            demo: false,
-            what: 'Walk the property once with a phone. The sweep is reconstructed in 3D and rendered out as a walkthrough video for the listing and for social. No camera crew and no 3D scanning rig.',
-            outcome: 'A walkthrough on every listing, not just the ones worth hiring a videographer for.',
-          },
-          {
-            key: 'docs',
-            name: 'Documents (Dossier)',
-            status: 'roadmap',
-            demo: false,
-            what: 'Reads the listing paperwork, Energieausweis and friends, and pulls out the values that have to be disclosed, and shows you each one to confirm. It checks and extracts; it does not review contracts.',
-            outcome: 'The disclosure gaps surface while you can still fix them, not at the Notartermin.',
-          },
-        ],
-      },
-    ],
-    fullStack: {
-      tag: 'End-to-end',
-      heading: 'Get the full stack',
-      sub: 'Bundle every category above into one suite as it ships, from lead to listing to close, instead of buying one piece at a time.',
-      cta: 'Join the waitlist',
-    },
-    guardrail: {
-      label: 'By design',
-      text: "We don't let AI make promises to your customers. It gathers and qualifies. Pricing, appointments and commitments are always confirmed by a person.",
-    },
-    demo: {
-      label: 'Watch it work',
-      heading: 'A real inquiry, after hours.',
-      replay: 'Replay',
-      agentLabel: 'AI Receptionist',
-      leadLabel: 'Lead',
-      hvac: {
-        sub: 'A heat-pump retrofit lead arrives at 23:14. No one is at the office. Here is what happens.',
-        channel: 'Inbound · website form · 23:14',
-        qualified: 'Lead qualified → routed to dispatch · human follow-up scheduled',
-        script: [
-          { from: 'lead', text: "Hi there, we're renovating an old house just outside Graz, and we're thinking about putting in a heat pump. Is that something you'd handle?" },
-          { from: 'agent', text: "Good evening! Yes, heat-pump retrofits are exactly our thing. Let me get you to the right person. Do you mind if I ask a couple of quick questions first?" },
-          { from: 'agent', text: "Great. So, roughly how big is the space you'd be heating, and do you happen to know when the house was built?" },
-          { from: 'lead', text: "It's about 180 square metres. Built in 1968, and we're still on oil heating at the moment." },
-          { from: 'agent', text: "Got it. Switching from oil to a heat pump in a house from that era is very doable, and there's a good chance you'd qualify for a subsidy, too. Quick one: is it your own home, or is it rented out?" },
-          { from: 'lead', text: "No, it's ours, we live there." },
-          { from: 'agent', text: "Perfect, that's a really strong fit. I'll pass your details straight to our project team, and they'll give you a call first thing tomorrow. Just so you know, nothing's booked or priced until you've spoken with them yourself." },
-        ],
-      },
-      realEstate: {
-        sub: 'A buyer messages about a listing at 21:40, long after the office closed. Here is what happens.',
-        channel: 'Inbound · Instagram DM · 21:40',
-        qualified: 'Lead qualified → routed to listing agent · viewing follow-up scheduled',
-        script: [
-          { from: 'lead', text: "Hi! I saw that three-room apartment in the seventh district on your Instagram, and I wanted to ask, is it still available, and could we come see it this weekend?" },
-          { from: 'agent', text: "Good evening, and thanks for reaching out! Yes, the one in the seventh is still on the market. I'd be happy to set up a viewing. Could I just ask you a couple of quick things first?" },
-          { from: 'agent', text: "Are you looking for somewhere to live yourself, or more as an investment? And do you have a rough budget in mind?" },
-          { from: 'lead', text: "To live in, ourselves. Up to around 450,000 euros, though we'd need financing." },
-          { from: 'agent', text: "That works nicely, it's well within range for this one. And is your financing already pre-approved, or is that still something you'd need to sort out?" },
-          { from: 'lead', text: "Not yet, we'd still need to arrange it." },
-          { from: 'agent', text: "No problem at all. I'll mark you down as a qualified buyer and send your details over to the agent for this listing. They'll reach out tomorrow to set up the viewing, and they can point you toward a financing partner as well. And just so you know, nothing's confirmed until you've spoken with them yourself." },
-        ],
-      },
-    },
-    proofLabel: 'Early results',
-    proof: [
-      { stat: '4 sec', label: 'First reply, day or night' },
-      { stat: '24/7', label: 'Coverage, incl. weekends' },
-      { stat: 'DE · EN', label: 'German (Sie) & English' },
-    ],
-    faqLabel: 'Questions people ask',
-    faq: [
-      { q: 'Does it book appointments or quote prices?', a: "No, by design. It gathers and qualifies the lead, then a human confirms anything binding. We won't let AI make promises to your customers." },
-      { q: 'What does it cost?', a: 'Simple monthly pricing based on your channels and volume, with no per-lead fees. Tell us your setup and we’ll scope a quote.' },
-      { q: 'How long does setup take?', a: 'Most deployments go live within 2–3 weeks, including tuning the qualifying logic to your business.' },
-      { q: 'Which languages and channels?', a: 'German (Sie-form) and English today, across web form, WhatsApp and chat. Leads land in your inbox, CRM or dispatch, wherever you already work.' },
-    ],
-    ctaHeading: 'Not sure which piece you need?',
-    ctaSub: 'Tell us how your team works today, and we’ll point you to the agent that fits, or scope a custom build.',
-    ctaButton: 'Book a walkthrough',
-    stickyCta: 'See how it works',
-  },
-  demoPage: {
-    eyebrow: 'Live demo',
-    heading: 'See the inbound agent handle a real inquiry.',
-    intro:
-      'No signup needed. Watch the agent take an after-hours lead end to end, qualify it, and hand it to a human. Switch the channel and the industry to compare.',
-    channelLabel: 'Channel',
-    channels: { voice: 'Voice call', chat: 'Chat message' },
-    industryLabel: 'Industry',
-    voice: {
-      callHeader: 'Incoming call',
-      connecting: 'connecting…',
-      speaking: 'speaking',
-      listening: 'listening',
-      agentLabel: 'AI voice agent',
-      callerLabel: 'Caller',
-      listen: 'Play with sound',
-      mute: 'Mute',
-      note: 'Illustrative transcript of a live phone call the voice agent handles on its own.',
-    },
-    backCta: 'Back to products',
-    ctaHeading: 'Want this answering your calls?',
-    ctaSub: 'Tell us how leads reach you today and we’ll show you exactly where it fits.',
-    ctaButton: 'Book a walkthrough',
   },
   waitlistPage: {
     // Immvela is SNS's end-to-end real-estate product. This page is its
@@ -632,68 +440,6 @@ export const en = {
         email: 'Please enter your email.',
         emailInvalid: 'That email doesn’t look right.',
         size: 'Please choose a brokerage size.',
-        consent: 'Please agree before joining.',
-        send: 'Something went wrong. Please try again, or email us directly at',
-      },
-    },
-  },
-  // HVAC/SHK has its own early-access list — an HVAC prospect must never land
-  // on the real-estate waitlist above. Mirrors the HVAC categories in
-  // solutionsPage.industries; the tiers reflect actual build state.
-  hvacWaitlistPage: {
-    eyebrow: 'roadmap · in development',
-    heading: 'The HVAC / SHK agentic suite. Building in the open.',
-    intro:
-      'An AI receptionist and back-office for heating, plumbing and installation teams, covering everything from the first inquiry through booking to the compliance paperwork. Inbound handling ships today; the rest is on the roadmap below. Join the early-access list and help shape what we build next.',
-    tiersLabel: 'Build status by category',
-    tiers: [
-      {
-        label: 'Live',
-        status: 'shipping',
-        items: [
-          'Inbound Handling: answers, qualifies and routes every inbound lead 24/7, in German (Sie) and English',
-        ],
-      },
-      {
-        label: 'In progress',
-        status: 'in progress',
-        items: [
-          'Scheduling & Booking: human-confirmed viewing and callback scheduling once a lead is qualified',
-        ],
-      },
-      {
-        label: 'Queued',
-        status: 'queued',
-        items: [
-          'Documentation & Compliance: post-install paperwork: BEG payout evidence, F-Gas logs, JAZ proofs',
-        ],
-      },
-    ],
-    form: {
-      heading: 'Join the early-access list',
-      sub: 'No pricing, no ship date yet, just first access and a say in what we prioritize.',
-      name: 'Name',
-      namePlaceholder: 'Jane Doe',
-      email: 'Email',
-      emailPlaceholder: 'jane@company.com',
-      size: 'Team size',
-      sizePlaceholder: 'Select…',
-      sizes: ['Solo / owner-operator', 'Small team', 'Larger operation'],
-      consent: [
-        { t: 'I agree that my details may be used to contact me about early access, as described in the ' },
-        { t: 'Privacy Policy', link: true },
-        { t: '.' },
-      ] as ConsentSegment[],
-      submit: 'Join the waitlist',
-      sending: 'Joining…',
-      successTitle: "You're on the list.",
-      successBody: "Thanks, we'll be in touch as early-access spots open up.",
-      sendAnother: '← Add another',
-      errors: {
-        name: 'Please enter your name.',
-        email: 'Please enter your email.',
-        emailInvalid: 'That email doesn’t look right.',
-        size: 'Please choose a team size.',
         consent: 'Please agree before joining.',
         send: 'Something went wrong. Please try again, or email us directly at',
       },

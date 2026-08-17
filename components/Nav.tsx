@@ -12,12 +12,11 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
   const home = localePath(locale, '/')
   const pathname = usePathname()
 
-  // Flat nav: the two products (Immvela, HVAC) each get their own tab rather
-  // than hiding behind a "Products" dropdown. Immvela lives on /immvela and
-  // carries the live dot.
+  // Flat nav, no "Products" dropdown. Immvela is the product — it lives on its
+  // own domain and carries the live dot. The HVAC/SHK tab went with the
+  // discontinued product line; its URLs 301 to Immvela (see middleware.ts).
   const links = [
     { href: immvelaHref(locale), id: 'immvela', label: t.realEstate, live: true },
-    { href: localePath(locale, '/solutions/hvac'), id: 'hvac', label: t.hvac, live: false },
     { href: localePath(locale, '/services'), id: 'services', label: t.services, live: false },
     { href: localePath(locale, '/team'), id: 'team', label: t.team, live: false },
   ]

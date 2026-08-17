@@ -8,9 +8,10 @@
  * for a staging domain), but never a *.vercel.app URL, which would split
  * indexing.
  */
-export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sns-austria.com'
-).replace(/\/$/, '')
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sns-austria.com').replace(
+  /\/$/,
+  ''
+)
 
 /**
  * Immvela lives on its own domain but is served from this same deployment
@@ -28,9 +29,12 @@ export const IMMVELA_URL = (
 export const SITE = {
   name: 'SNS Solutions',
   legalName: 'SNS Software Solutions GmbH',
-  title: 'SNS Solutions | Custom Software, AI Automation & Consulting in Vienna',
+  // Real estate leads, because that is the focus and the product. The services
+  // follow it rather than the other way round — they are what SNS also sells,
+  // not what a search result should lead with.
+  title: 'SNS Solutions | AI for Real Estate, Custom Software & Automation in Vienna',
   description:
-    'SNS Solutions is an AI software studio in Vienna building custom software, AI automation, and AI & IT consulting for businesses. Powerful underneath, simple on top.',
+    'SNS Solutions is an AI software studio in Vienna. We build Immvela, our agentic platform for real-estate teams, plus custom software, AI automation and AI & IT consulting for businesses.',
   tagline: 'Simplicity is the solution.',
   email: 'office@sns-austria.com',
   phone: '+436701922538',
@@ -45,4 +49,56 @@ export const SITE = {
   founders: ['Samuel Winch', 'Nicholas Pellechi', 'Samson Adefris Belachew'],
   services: ['Custom Software', 'AI Automation', 'AI & IT Consulting'],
   url: SITE_URL,
+} as const
+
+/**
+ * The site-level title, description and keywords in each language.
+ *
+ * These are the *defaults* a page inherits when it doesn't set its own — the
+ * document title, the Open Graph card, the Twitter card. The German half used
+ * to exist only as literals inside app/de/page.tsx, which meant the German
+ * root had no defaults at all and every German page fell back to the English
+ * ones. See lib/metadata.ts.
+ */
+export const SITE_COPY = {
+  en: {
+    title: SITE.title,
+    description: SITE.description,
+    ogLocale: 'en_US',
+    imageAlt: 'SNS Solutions · agentic software studio',
+    keywords: [
+      'AI for real estate',
+      'real estate software',
+      'AI software studio',
+      'software development',
+      'AI automation',
+      'Vienna',
+      'Austria',
+      'SNS Solutions',
+      'Immvela',
+    ],
+  },
+  de: {
+    title: 'SNS Solutions | KI für Immobilien, individuelle Software & Automatisierung in Wien',
+    description:
+      'SNS Solutions ist ein KI-Software-Studio in Wien. Wir entwickeln Immvela, unsere agentische Plattform für Immobilienteams, sowie individuelle Software, KI-Automatisierung und KI- & IT-Beratung für Unternehmen.',
+    ogLocale: 'de_AT',
+    imageAlt: 'SNS Solutions · agentisches Software-Studio',
+    // Not a translation of the English list: these are the terms an Austrian
+    // business actually searches. "Immobiliensoftware" and "Softwareentwicklung
+    // Wien" are the queries; "automation infrastructure" has no German
+    // equivalent anyone types.
+    keywords: [
+      'KI für Immobilien',
+      'Immobiliensoftware',
+      'KI-Software-Studio',
+      'Softwareentwicklung Wien',
+      'KI-Automatisierung',
+      'KI-Beratung',
+      'Wien',
+      'Österreich',
+      'SNS Solutions',
+      'Immvela',
+    ],
+  },
 } as const

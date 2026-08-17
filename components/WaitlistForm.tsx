@@ -18,19 +18,20 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 type Status = 'idle' | 'sending' | 'success' | 'error'
 type FieldName = 'name' | 'email' | 'size' | 'consent'
 type Errors = Partial<Record<FieldName, string>>
-type Industry = 'hvac' | 'realEstate'
+// Immvela is the only waitlist now — the HVAC/SHK list went with the
+// discontinued product line — but the subject line stays explicit rather than
+// inlined, so a second list can be added back without hunting for the string.
+type Industry = 'realEstate'
 
-// Keeps the submission's subject line and analytics tagged to the right list,
-// so HVAC and real-estate sign-ups stay distinguishable in the inbox.
 const SUBJECT: Record<Industry, string> = {
-  hvac: 'HVAC / SHK waitlist',
   realEstate: 'Immvela — waitlist',
 }
 
 type Theme = 'dark' | 'light'
 
-// The form's markup and logic are shared; only the palette differs. 'dark' is
-// the SNS site (HVAC waitlist); 'light' is the Immvela page (cream/forest).
+// The form's markup and logic are shared; only the palette differs. 'light' is
+// the Immvela page (cream/forest); 'dark' is the SNS palette, unused since the
+// HVAC waitlist page was retired but kept so an SNS-side form still has one.
 const UI: Record<Theme, Record<string, string>> = {
   dark: {
     card: 'glass edge-light',
@@ -86,17 +87,16 @@ export default function WaitlistForm({
   industry?: Industry
   theme?: Theme
   /**
-   * Heading level for the form's own title, because this component renders at
-   * two different depths and a fixed level is wrong at one of them: on
-   * /solutions/hvac/waitlist it sits directly under the page h1 (so h2), and on
-   * /immvela it sits inside a section that already has an h2 (so h3). Hardcoding
-   * h3 skipped a level on the HVAC waitlist page.
+   * Heading level for the form's own title: on /immvela it sits inside a
+   * section that already has an h2, so it renders h3 there. Kept configurable
+   * because a form placed directly under a page h1 needs h2 instead, and
+   * hardcoding one of the two skips a level on the other.
    */
   headingLevel?: 2 | 3
 }) {
   const Heading = (headingLevel === 3 ? 'h3' : 'h2') as 'h2' | 'h3'
   const dict = getDict(locale)
-  const t = (industry === 'hvac' ? dict.hvacWaitlistPage : dict.waitlistPage).form
+  const t = dict.waitlistPage.form
   const ui = UI[theme]
   const [status, setStatus] = useState<Status>('idle')
   const [errors, setErrors] = useState<Errors>({})

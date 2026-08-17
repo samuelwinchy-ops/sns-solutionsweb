@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 // a shortcut pointing at a section that no longer exists is a dead key.
 const shortcuts: Record<string, string> = {
   '1': '#focus',
-  '2': '#how-we-work',
+  '2': '#custom-builds',
   '3': '#contact',
 }
 
