@@ -59,9 +59,18 @@ export default function ImmvelaShowcase({ locale = defaultLocale }: { locale?: L
   // stop it (the button, hover, keyboard focus inside the panel) and `paused`
   // is the union of all three.
   const [playing, setPlaying] = useState(true)
-  const [hovered, setHovered] = useState(false)
+  // Keyboard focus only — see the container's onFocusCapture below.
   const [focused, setFocused] = useState(false)
-  const paused = !playing || hovered || focused
+  //
+  // Hover used to be part of this union, and it silently broke the carousel.
+  // The clip is `loop` and its playback deliberately follows `playing` rather
+  // than `paused` (you hover to *watch* it), so hovering stopped the rotation
+  // while the same clip kept repeating — a stopped carousel and a broken one
+  // look identical. This panel fills half the hero, so a resting cursor meant
+  // it effectively never advanced. WCAG 2.2.2 asks for a way to stop motion,
+  // not for every incidental hover to stop it, and the explicit button is that
+  // way. So hover no longer pauses anything.
+  const paused = !playing || focused
 
   // Reduced motion sets the spotlight's *starting* state — it must not clamp
   // the control. Folding it into `paused` (and into the play/pause effect
@@ -191,9 +200,23 @@ export default function ImmvelaShowcase({ locale = defaultLocale }: { locale?: L
   return (
     <div
       className="lift lift-violet relative w-full"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocusCapture={() => setFocused(true)}
+      // Keyboard focus pauses the rotation so a tabbing visitor can read a
+      // slide without it changing underneath them. Plain `:focus` was wrong:
+      // clicking the play button also focuses it, so pressing play set
+      // `playing` and `focused` in the same tick, `paused` stayed true, and the
+      // rotation never started — the button could not do the one thing it
+      // exists for, while the looping clip made it look stuck rather than
+      // paused. `:focus-visible` is exactly the "arrived here by keyboard"
+      // distinction, so a mouse press on the control no longer counts.
+      onFocusCapture={(e) => {
+        let byKeyboard = true
+        try {
+          byKeyboard = (e.target as HTMLElement).matches(':focus-visible')
+        } catch {
+          // Pre-:focus-visible browser — pause, which is the safe direction.
+        }
+        if (byKeyboard) setFocused(true)
+      }}
       onBlurCapture={() => setFocused(false)}
       aria-roledescription="carousel"
       aria-label="Immvela — module spotlight"
