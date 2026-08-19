@@ -7,6 +7,7 @@ import { getDict } from '@/i18n'
 import { type Locale, defaultLocale } from '@/i18n/config'
 import { useImmvelaPath } from '@/lib/immvela-nav'
 import WaitlistForm from './WaitlistForm'
+import ImmvelaFilm from './ImmvelaFilm'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -89,6 +90,14 @@ export default function ImmvelaLanding({ locale = defaultLocale }: { locale?: Lo
           </motion.dl>
         </motion.div>
       </section>
+
+      {/* ── FILM ──────────────────────────────────────────────────────── */}
+      {/* Sits between the hero's claim and the module grid that details it,
+          because "what even is this" is the question a cold visitor has at
+          exactly this point — and the film answers it better than the grid
+          can. Anyone who does not want to spend the running time simply
+          scrolls past it into the modules, which lose nothing by following. */}
+      <ImmvelaFilm locale={locale} />
 
       {/* ── MODULES ───────────────────────────────────────────────────── */}
       <section id="modules" className="scroll-mt-20 border-t border-[var(--im-line)] pt-16 md:pt-20">

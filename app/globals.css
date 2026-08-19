@@ -188,6 +188,34 @@ body {
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.7) inset,
     0 24px 48px -32px rgba(22, 53, 42, 0.35);
 }
+
+/* ── The screening room ───────────────────────────────────────────────────
+   The explainer film is itself cream-on-cream — its title card uses the same
+   paper as this site — so on the page it would dissolve into the background
+   and read as an illustration rather than as something to watch. Putting it
+   in a dark surround is what makes it a *screen*: a bright rectangle in a
+   dark room, which is the whole of the cinema metaphor.
+
+   Forest rather than black, so the room still belongs to Immvela — black
+   would be a foreign object on a page with no true neutral in its palette.
+   The radial wash sits behind the frame and reads as projection spill. */
+.im-theatre {
+  background:
+    radial-gradient(
+      110% 75% at 50% 38%,
+      color-mix(in srgb, var(--im-green) 26%, transparent) 0%,
+      transparent 60%
+    ),
+    linear-gradient(180deg, #173a2d 0%, #0d1f17 100%);
+  border: 1px solid rgba(242, 241, 232, 0.1);
+  border-radius: 24px;
+}
+/* Cream-side type inside the dark room. Named rather than inlined so the two
+   sides of the inversion stay legible next to each other in the markup. */
+.im-theatre-ink { color: #f4f2e9; }
+.im-theatre-muted { color: rgba(244, 242, 233, 0.66); }
+.im-theatre-faint { color: rgba(244, 242, 233, 0.45); }
+.im-theatre-eyebrow { color: #7cc9a0; }
 /* Active-module card: a warm sunlight wash in one corner, like the ad. */
 .im-card-warm {
   background: radial-gradient(

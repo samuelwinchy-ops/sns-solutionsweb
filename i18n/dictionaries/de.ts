@@ -240,6 +240,19 @@ export const de: Dictionary = {
     // ihre Warteliste — die „Tag"-Version der SNS-Seite (siehe .immvela-theme
     // in globals.css). Die Texte spiegeln die Launch-Anzeige.
     brand: 'Immvela',
+    // Siehe en.ts — die Laufzeit steht bewusst dabei. Der deutsche Schnitt
+    // ist elf Sekunden länger als der englische.
+    // Siehe en.ts. Der deutsche Schnitt ist elf Sekunden länger.
+    film: {
+      eyebrow: 'Der Film',
+      heading: 'Das ganze Produkt, laut erklärt.',
+      sub: 'Ein vertonter Durchlauf durch Immvela: was der eine geprüfte Datenbestand wirklich ist, warum er sieben Tools mit gemeinsamem Login schlägt und was jedes Modul damit macht. Ohne Anmeldung, ohne Formular.',
+      play: 'Mit Ton abspielen',
+      duration: '2:27',
+      durationLong: '2 Minuten 27 Sekunden',
+      narration: 'Auf Deutsch vertont',
+      posterAlt: 'Immvela — sieben Module, ein System',
+    },
     byline: 'von SNS Solutions',
     backToSns: 'Zurück zu SNS',
     builtInOpen: 'Offen entwickelt',

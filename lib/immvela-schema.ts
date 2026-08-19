@@ -188,6 +188,27 @@ export function immvelaJsonLd(locale: Locale) {
       },
       breadcrumb(locale, '', []),
       {
+        // The explainer film. A narrated 16:9 video is one of the few assets a
+        // search engine will surface as its own result, and none of that works
+        // from a <video> tag alone — the duration, the thumbnail and the
+        // description all have to be declared. `uploadDate` is the date the
+        // film was first published here; move it only if the film is recut.
+        '@type': 'VideoObject',
+        '@id': `${url}#film`,
+        name: `${t.brand} — ${t.film.heading}`,
+        description: t.film.sub,
+        thumbnailUrl: `${IMMVELA_URL}/immvela/film-${locale}.jpg`,
+        contentUrl: `${IMMVELA_URL}/immvela/film-${locale}.mp4`,
+        // ISO 8601. The two cuts are genuinely different lengths, so this
+        // follows the locale rather than being a single shared constant.
+        duration: locale === 'de' ? 'PT2M27S' : 'PT2M16S',
+        uploadDate: '2026-08-19',
+        inLanguage: langTag(locale),
+        isFamilyFriendly: true,
+        publisher: { '@id': SNS_ORG_ID },
+        about: { '@id': SOFTWARE_ID },
+      },
+      {
         '@type': 'FAQPage',
         '@id': `${url}#faq`,
         inLanguage: langTag(locale),

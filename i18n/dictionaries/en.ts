@@ -263,6 +263,31 @@ export const en = {
     // waitlist landing — a "daylight" version of the SNS site (see the
     // .immvela-theme light system in globals.css). Copy mirrors the launch ad.
     brand: 'Immvela',
+    // ── The explainer film (components/ImmvelaFilm.tsx) ─────────────────
+    // The running time is stated outright rather than hidden: 2:16 is a real
+    // ask on a landing page, and naming it beside what the viewer gets for it
+    // is what earns the press. `covers` is the same argument in three beats,
+    // for anyone deciding whether it is worth the time. Durations differ per
+    // language because the two cuts do — keep each one honest.
+    // ── The explainer film (components/ImmvelaFilm.tsx) ─────────────────
+    // The running time is the block's signature, set large rather than hidden
+    // in a caption: 2:16 is the one real objection to a film on a landing
+    // page, and naming it at full size beside what it buys turns the cost into
+    // the offer. `durationLong` is the spoken form, because a screen reader
+    // says "2:16" as "two sixteen".
+    //
+    // `narration` states which language the voiceover is in — a real question
+    // for a bilingual DACH audience, and the reason the two cuts exist at all.
+    film: {
+      eyebrow: 'The film',
+      heading: 'The whole product, explained out loud.',
+      sub: 'One narrated run through Immvela: what the single verified record actually is, why it beats seven tools sharing a login, and what each module does with it. No signup, no form.',
+      play: 'Play with sound',
+      duration: '2:16',
+      durationLong: '2 minutes 16 seconds',
+      narration: 'Narrated in English',
+      posterAlt: 'Immvela — seven modules, one system',
+    },
     byline: 'by SNS Solutions',
     backToSns: 'Back to SNS',
     builtInOpen: 'Built in the open',
