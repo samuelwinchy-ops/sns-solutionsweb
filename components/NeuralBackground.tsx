@@ -112,7 +112,6 @@ export default function NeuralBackground({
     let particles: Particle[] = []
     let animationFrameId = 0
     let lastFrame = 0
-    const mouse = { x: -1000, y: -1000 }
 
     // Ambient drift looks identical at 30fps but halves the per-frame cost.
     const FRAME_INTERVAL = 1000 / 30
@@ -160,18 +159,6 @@ export default function NeuralBackground({
 
         this.vx += Math.cos(angle) * 0.2 * speed
         this.vy += Math.sin(angle) * 0.2 * speed
-
-        // Cursor repulsion — compare squared distance to avoid sqrt per frame
-        const dx = mouse.x - this.x
-        const dy = mouse.y - this.y
-        const distSq = dx * dx + dy * dy
-        const interactionRadius = 150
-        if (distSq < interactionRadius * interactionRadius && distSq > 0) {
-          const distance = Math.sqrt(distSq)
-          const force = (interactionRadius - distance) / interactionRadius
-          this.vx -= dx * force * 0.05
-          this.vy -= dy * force * 0.05
-        }
 
         this.x += this.vx
         this.y += this.vy
@@ -302,30 +289,15 @@ export default function NeuralBackground({
       start()
     }
 
-    const handleMouseMove = (e: MouseEvent) => {
-      // Canvas is fixed to the viewport, so client coords map directly
-      mouse.x = e.clientX
-      mouse.y = e.clientY
-    }
-
-    const handleMouseLeave = () => {
-      mouse.x = -1000
-      mouse.y = -1000
-    }
-
     start()
 
     window.addEventListener('resize', handleResize)
-    window.addEventListener('mousemove', handleMouseMove)
-    document.addEventListener('mouseleave', handleMouseLeave)
     prefersReducedMotion.addEventListener('change', start)
 
     return () => {
       cancelAnimationFrame(animationFrameId)
       staticRenderRef.current = null
       window.removeEventListener('resize', handleResize)
-      window.removeEventListener('mousemove', handleMouseMove)
-      document.removeEventListener('mouseleave', handleMouseLeave)
       prefersReducedMotion.removeEventListener('change', start)
     }
   }, [paletteKey, fadeColor, trailOpacity, particleCount, speed, glow])
