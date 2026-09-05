@@ -33,6 +33,20 @@ ${urls
 </url>`
   })
   .join('\n')}
+${
+  // The privacy policy is a single bilingual URL (German first), not an
+  // en/de pair, so it carries no hreflang alternates — declaring a pair here
+  // would advertise two documents where there is one. /legal/imprint and
+  // /legal/terms are deliberately absent: on this host they serve the SNS
+  // pages, which canonicalise to sns-austria.com, and a sitemap must not list
+  // a URL that points its canonical at another domain.
+  `<url>
+<loc>${IMMVELA_URL}/legal/privacy</loc>
+<lastmod>${now}</lastmod>
+<changefreq>yearly</changefreq>
+<priority>0.3</priority>
+</url>`
+}
 </urlset>`
 
   return new Response(body, { headers: { 'Content-Type': 'application/xml' } })

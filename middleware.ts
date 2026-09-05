@@ -54,6 +54,34 @@ const IMMVELA_PAGES: Record<string, string> = {
 const IMMVELA_ROUTE_FOR = new Map(Object.entries(IMMVELA_PAGES).map(([route, pub]) => [pub, route]))
 
 /**
+ * Immvela's own privacy policy, which is a different shape from IMMVELA_PAGES
+ * above and so has its own rule.
+ *
+ * `app.immvela.com/privacy` 307s to `www.immvela.com/legal/privacy`, and every
+ * platform review form (Meta, TikTok, LinkedIn, Google/YouTube) fetches that
+ * URL and checks it describes the app in front of the reviewer. Without this
+ * rewrite the path falls through to app/(en)/legal/privacy — the SNS policy,
+ * served byte-identically on both domains and canonicalising to
+ * sns-austria.com, i.e. telling every crawler the real document belongs to a
+ * differently-branded company. See the page's own header comment.
+ *
+ * Two public paths, one document: the page is bilingual (German first), so
+ * /de/legal/privacy renders the same file rather than a German translation of
+ * it, and both declare the same canonical. That is why this is a Set mapping
+ * onto a single route and not a two-way map like IMMVELA_PAGES.
+ *
+ * ⚠️ Only PRIVACY is Immvela's own. `/legal/imprint` and `/legal/terms` stay
+ * shared with the SNS site on purpose — the imprint names SNS Software
+ * Solutions GmbH as media owner of both domains (it says so in its own text),
+ * and the terms already govern both by name. Duplicating either would buy a
+ * second document to keep current and no reviewer-facing benefit; privacy is
+ * the only one whose subject is the app itself.
+ */
+const IMMVELA_PRIVACY_ROUTE = '/immvela/legal/privacy'
+const IMMVELA_PRIVACY_PATHS = new Set(['/legal/privacy', '/de/legal/privacy'])
+const IMMVELA_PRIVACY_CANONICAL = '/legal/privacy'
+
+/**
  * The machine-readable files every domain serves at its own root: two for
  * crawlers, two for answer engines (llmstxt.org). On immvela.com each is
  * rewritten to its /immvela/… counterpart. Adding one means adding it here
@@ -114,6 +142,19 @@ export function middleware(req: NextRequest) {
       url.pathname = `/immvela${pathname}`
       return NextResponse.rewrite(url)
     }
+    // Ahead of the IMMVELA_PAGES rules: the privacy document, whose public
+    // paths (/legal/privacy, /de/legal/privacy) are not in that map.
+    if (IMMVELA_PRIVACY_PATHS.has(pathname)) {
+      const url = req.nextUrl.clone()
+      url.pathname = IMMVELA_PRIVACY_ROUTE
+      return NextResponse.rewrite(url)
+    }
+    // The internal path shouldn't be a second public URL on this domain.
+    if (pathname === IMMVELA_PRIVACY_ROUTE) {
+      const url = req.nextUrl.clone()
+      url.pathname = IMMVELA_PRIVACY_CANONICAL
+      return NextResponse.redirect(url, 308)
+    }
     const route = IMMVELA_ROUTE_FOR.get(pathname)
     if (route) {
       const url = req.nextUrl.clone()
@@ -134,6 +175,14 @@ export function middleware(req: NextRequest) {
   // ── On the SNS domain: hand the old Immvela URLs over to immvela.com ───────
   if (SNS_HOSTS.has(host) && IMMVELA_PAGES[pathname]) {
     return NextResponse.redirect(`${IMMVELA_URL}${IMMVELA_PAGES[pathname]}`, 301)
+  }
+
+  // Same handover for the Immvela privacy route: on the SNS domain it would
+  // otherwise render a second, Immvela-branded privacy policy alongside SNS's
+  // own at /legal/privacy. Note this is the INTERNAL path only — the SNS
+  // domain's own /legal/privacy is untouched and keeps serving SNS's policy.
+  if (SNS_HOSTS.has(host) && pathname === IMMVELA_PRIVACY_ROUTE) {
+    return NextResponse.redirect(`${IMMVELA_URL}${IMMVELA_PRIVACY_CANONICAL}`, 301)
   }
 
   return NextResponse.next()

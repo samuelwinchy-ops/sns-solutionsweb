@@ -249,12 +249,16 @@ export default function PrivacyPageDe() {
           gelöscht, sofern keine gesetzliche Aufbewahrungspflicht besteht.
         </p>
         <p>
-          Erzeugte Medien wie gestagte Bilder und Rundgangsvideos werden laufend
-          gelöscht, sofern das Maklerbüro einzelne Inhalte nicht im Rahmen seines
-          Tarifs zum Behalten markiert. Bereits veröffentlichte Inhalte erhalten
-          davor eine kurze Schonfrist. Das Löschen unserer Kopie entfernt nichts,
-          was bereits auf einer Drittplattform veröffentlicht wurde; dort gilt die
-          Aufbewahrung der jeweiligen Plattform.
+          Medien, die ein Maklerbüro hochlädt oder erzeugen lässt, bleiben
+          gespeichert, bis das Maklerbüro sie löscht oder sein Konto gelöscht
+          wird.{' '}
+          <strong>
+            Eine automatische Löschung von Mediendateien findet derzeit nicht
+            statt.
+          </strong>{' '}
+          Das Löschen unserer Kopie entfernt nichts, was bereits auf einer
+          Drittplattform veröffentlicht wurde; dort gilt die Aufbewahrung der
+          jeweiligen Plattform.
         </p>
         <p>
           Sind Sie Kauf-, Verkaufs- oder Mietinteressent und hält ein Maklerbüro
@@ -263,12 +267,24 @@ export default function PrivacyPageDe() {
           Maklerbüro einen solchen Antrag an uns weiter, löschen wir die
           Datensätze dieser Person plattformweit, einschließlich abgeleiteter
           Datensätze, aus Dokumenten ausgelesener Werte, erzeugter Dokumente und
-          gespeicherter Dateien. Wir können festhalten, dass ein Geschäftsvorfall
+          gespeicherter Dateien. Wir führen dies innerhalb von 30 Tagen manuell
+          durch; einen automatisierten Löschvorgang gibt es in der Anwendung
+          derzeit nicht. Wir können festhalten, dass ein Geschäftsvorfall
           stattgefunden hat, sofern dieser die Person nicht mehr identifiziert und
           eine gesetzliche Aufbewahrungspflicht besteht. Maklerbüros können
           jederzeit die Löschung oder Trennung verlangen, indem sie sich an{' '}
           <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>{' '}
-          wenden.
+          wenden. Eine Schritt-für-Schritt-Anleitung zur Löschung der über eine
+          verbundene Veröffentlichungsplattform erhaltenen Daten finden Sie
+          unter{' '}
+          <a
+            href="https://app.immvela.com/data-deletion"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            app.immvela.com/data-deletion
+          </a>
+          .
         </p>
 
         <h2>5. Server-Logfiles</h2>

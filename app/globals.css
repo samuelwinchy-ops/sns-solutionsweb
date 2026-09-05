@@ -181,6 +181,45 @@ body {
   letter-spacing: 0.2em;
 }
 
+/* Body copy for Immvela's legal pages — the daylight counterpart to
+   .legal-prose, which is coloured for the dark SNS site and would put indigo
+   links and slate text on cream. Same rhythm and sizes, Immvela's tokens. */
+.im-legal-prose {
+  color: var(--im-muted);
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+.im-legal-prose p {
+  margin-bottom: 1rem;
+}
+.im-legal-prose p:last-child {
+  margin-bottom: 0;
+}
+.im-legal-prose ul {
+  margin: 0 0 1rem 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.im-legal-prose li {
+  margin-bottom: 0.4rem;
+}
+.im-legal-prose strong {
+  color: var(--im-ink);
+  font-weight: 600;
+}
+.im-legal-prose em {
+  font-style: italic;
+}
+.im-legal-prose a {
+  color: var(--im-green);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+.im-legal-prose a:hover {
+  color: var(--im-green-bright);
+}
+
 .im-card {
   background: var(--im-paper);
   border: 1px solid var(--im-line);
