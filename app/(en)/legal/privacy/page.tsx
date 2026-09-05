@@ -236,12 +236,14 @@ export default function PrivacyPage() {
           except where retention is required by law.
         </p>
         <p>
-          Generated media such as staged images and walkthrough renders is
-          deleted on a rolling basis unless the brokerage marks an item to keep,
-          within the limits of its plan. Items that have been published get a
-          short grace period first. Deleting our copy does not remove anything
-          already published to a third-party platform, which remains subject to
-          that platform’s own retention.
+          Media a brokerage uploads or has generated is retained until the
+          brokerage deletes it or its account is deleted.{' '}
+          <strong>
+            There is currently no automatic deletion of media files.
+          </strong>{' '}
+          Deleting our copy does not remove anything already published to a
+          third-party platform, which remains subject to that platform’s own
+          retention.
         </p>
         <p>
           If you are a buyer, seller or tenant whose data a brokerage holds in
@@ -249,11 +251,22 @@ export default function PrivacyPage() {
           of contact for an erasure request. When a brokerage passes such a
           request to us, we erase that person’s records across the platform,
           including derived records, values extracted from documents, generated
-          documents and stored files. We may retain a record that a business
+          documents and stored files. We carry this out by hand, within 30 days;
+          there is currently no automated erasure flow in the application. We may retain a record that a business
           event occurred where it no longer identifies the person and statutory
           retention applies. Brokerages may request deletion or disconnection at
           any time by contacting{' '}
           <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>.
+          Step-by-step instructions for deleting the data obtained through a
+          connected publishing platform are at{' '}
+          <a
+            href="https://app.immvela.com/data-deletion"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            app.immvela.com/data-deletion
+          </a>
+          .
         </p>
 
         <h2>5. Server log files</h2>
