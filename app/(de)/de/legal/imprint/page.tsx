@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-const UPDATED = '30. Juli 2026'
+const UPDATED = '5. September 2026'
 
 export default function ImprintPageDe() {
   return (
@@ -71,7 +71,7 @@ export default function ImprintPageDe() {
           <br />
           Firmenbuchgericht: Handelsgericht Wien
           <br />
-          Umsatzsteuer-Identifikationsnummer (UID): wird zugewiesen
+          Umsatzsteuer-Identifikationsnummer (UID): ATU83471949
         </p>
 
         <h2>Gewerbebehörde & anwendbare Vorschriften</h2>
