@@ -21,7 +21,7 @@ import { IMMVELA_URL } from '@/lib/site'
  * processing and can disagree. That was traded deliberately against the
  * reviewer question above. Anything changed here about tokens, engagement,
  * retention or deletion must be checked against section 4 of the SNS policy
- * (app/(en)/legal/privacy) and against app.immvela.com/data-deletion.
+ * (app/(en)/legal/privacy) and against /legal/data-deletion next door.
  *
  * ── Why BOTH languages are on one page, German first ────────────────────────
  *
@@ -105,7 +105,10 @@ export const metadata: Metadata = {
 const UPDATED_DE = '5. September 2026'
 const UPDATED_EN = 'September 5, 2026'
 
-const DATA_DELETION_URL = 'https://app.immvela.com/data-deletion'
+// Same host now. The app served this page until the 2026-09-05 split put
+// every legal document on the landing page and left the product with
+// outward links only, so this is a relative path and costs no hop.
+const DATA_DELETION_URL = '/legal/data-deletion'
 const CONTACT = 'office@sns-austria.com'
 
 function Section({
@@ -287,7 +290,7 @@ export default function ImmvelaPrivacyPage() {
               </p>
               <p>
                 Ausführliche Anleitung:{' '}
-                <a href={DATA_DELETION_URL}>app.immvela.com/data-deletion</a>.
+                <a href={DATA_DELETION_URL}>immvela.com/legal/data-deletion</a>.
               </p>
             </Section>
 
@@ -401,7 +404,7 @@ export default function ImmvelaPrivacyPage() {
                 currently no button for it in the application.
               </p>
               <p>
-                Full instructions: <a href={DATA_DELETION_URL}>app.immvela.com/data-deletion</a>.
+                Full instructions: <a href={DATA_DELETION_URL}>immvela.com/legal/data-deletion</a>.
               </p>
             </Section>
 

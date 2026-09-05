@@ -260,11 +260,11 @@ export default function PrivacyPage() {
           Step-by-step instructions for deleting the data obtained through a
           connected publishing platform are at{' '}
           <a
-            href="https://app.immvela.com/data-deletion"
+            href="https://www.immvela.com/legal/data-deletion"
             target="_blank"
             rel="noopener noreferrer"
           >
-            app.immvela.com/data-deletion
+            immvela.com/legal/data-deletion
           </a>
           .
         </p>
