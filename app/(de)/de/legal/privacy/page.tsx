@@ -278,11 +278,11 @@ export default function PrivacyPageDe() {
           verbundene Veröffentlichungsplattform erhaltenen Daten finden Sie
           unter{' '}
           <a
-            href="https://app.immvela.com/data-deletion"
+            href="https://www.immvela.com/legal/data-deletion"
             target="_blank"
             rel="noopener noreferrer"
           >
-            app.immvela.com/data-deletion
+            immvela.com/legal/data-deletion
           </a>
           .
         </p>

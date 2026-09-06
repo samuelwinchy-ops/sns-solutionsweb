@@ -54,8 +54,11 @@ const IMMVELA_PAGES: Record<string, string> = {
 const IMMVELA_ROUTE_FOR = new Map(Object.entries(IMMVELA_PAGES).map(([route, pub]) => [pub, route]))
 
 /**
- * Immvela's own privacy policy, which is a different shape from IMMVELA_PAGES
- * above and so has its own rule.
+ * Immvela's own legal documents, a different shape from IMMVELA_PAGES above and
+ * so with their own rule. Two of them: the privacy policy, and — since the
+ * 2026-09-05 split, where `immvela.com` is the landing page and
+ * `app.immvela.com` is the product and nothing legal belongs on the product —
+ * the data-deletion instructions the app used to serve itself.
  *
  * `app.immvela.com/privacy` 307s to `www.immvela.com/legal/privacy`, and every
  * platform review form (Meta, TikTok, LinkedIn, Google/YouTube) fetches that
@@ -77,9 +80,16 @@ const IMMVELA_ROUTE_FOR = new Map(Object.entries(IMMVELA_PAGES).map(([route, pub
  * second document to keep current and no reviewer-facing benefit; privacy is
  * the only one whose subject is the app itself.
  */
-const IMMVELA_PRIVACY_ROUTE = '/immvela/legal/privacy'
-const IMMVELA_PRIVACY_PATHS = new Set(['/legal/privacy', '/de/legal/privacy'])
-const IMMVELA_PRIVACY_CANONICAL = '/legal/privacy'
+const IMMVELA_LEGAL_ROUTE_FOR: Record<string, string> = {
+  '/legal/privacy': '/immvela/legal/privacy',
+  '/de/legal/privacy': '/immvela/legal/privacy',
+  '/legal/data-deletion': '/immvela/legal/data-deletion',
+  '/de/legal/data-deletion': '/immvela/legal/data-deletion',
+}
+const IMMVELA_LEGAL_CANONICAL: Record<string, string> = {
+  '/immvela/legal/privacy': '/legal/privacy',
+  '/immvela/legal/data-deletion': '/legal/data-deletion',
+}
 
 /**
  * The machine-readable files every domain serves at its own root: two for
@@ -142,17 +152,19 @@ export function middleware(req: NextRequest) {
       url.pathname = `/immvela${pathname}`
       return NextResponse.rewrite(url)
     }
-    // Ahead of the IMMVELA_PAGES rules: the privacy document, whose public
-    // paths (/legal/privacy, /de/legal/privacy) are not in that map.
-    if (IMMVELA_PRIVACY_PATHS.has(pathname)) {
+    // Ahead of the IMMVELA_PAGES rules: the legal documents, whose public
+    // paths (/legal/…, /de/legal/…) are not in that map.
+    const legalRoute = IMMVELA_LEGAL_ROUTE_FOR[pathname]
+    if (legalRoute) {
       const url = req.nextUrl.clone()
-      url.pathname = IMMVELA_PRIVACY_ROUTE
+      url.pathname = legalRoute
       return NextResponse.rewrite(url)
     }
-    // The internal path shouldn't be a second public URL on this domain.
-    if (pathname === IMMVELA_PRIVACY_ROUTE) {
+    // The internal paths shouldn't be a second public URL on this domain.
+    const legalCanonical = IMMVELA_LEGAL_CANONICAL[pathname]
+    if (legalCanonical) {
       const url = req.nextUrl.clone()
-      url.pathname = IMMVELA_PRIVACY_CANONICAL
+      url.pathname = legalCanonical
       return NextResponse.redirect(url, 308)
     }
     const route = IMMVELA_ROUTE_FOR.get(pathname)
@@ -181,8 +193,8 @@ export function middleware(req: NextRequest) {
   // otherwise render a second, Immvela-branded privacy policy alongside SNS's
   // own at /legal/privacy. Note this is the INTERNAL path only — the SNS
   // domain's own /legal/privacy is untouched and keeps serving SNS's policy.
-  if (SNS_HOSTS.has(host) && pathname === IMMVELA_PRIVACY_ROUTE) {
-    return NextResponse.redirect(`${IMMVELA_URL}${IMMVELA_PRIVACY_CANONICAL}`, 301)
+  if (SNS_HOSTS.has(host) && IMMVELA_LEGAL_CANONICAL[pathname]) {
+    return NextResponse.redirect(`${IMMVELA_URL}${IMMVELA_LEGAL_CANONICAL[pathname]}`, 301)
   }
 
   return NextResponse.next()
