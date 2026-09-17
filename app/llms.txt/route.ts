@@ -1,5 +1,6 @@
 import { getDict } from '@/i18n'
 import { IMMVELA_URL, SITE, SITE_URL } from '@/lib/site'
+import { sortedPosts } from '@/lib/blog'
 
 /**
  * /llms.txt — the concise index an answer engine reads to find its way around
@@ -30,6 +31,9 @@ export function GET() {
     .map((m) => `${m.name} (${m.code})`)
     .join(', ')
 
+  const posts = sortedPosts()
+  const blogList = posts.map((p) => `  - [${p.title}](${url(`/blog/${p.slug}`)}): ${p.description}`).join('\n')
+
   const body = `# ${SITE.name}
 
 > ${SITE.description}
@@ -49,6 +53,8 @@ Contact: ${SITE.email}, ${SITE.phone}. ${t.contactPage.details.response}: ${t.co
 - [Immvela](${IMMVELA_URL}/): our real-estate platform, on its own domain, with its own ${IMMVELA_URL}/llms.txt and module-by-module build status.
 - [Team](${url('/team')}): the three founders and what each of them leads. [Deutsch](${url('/de/team')}).
 - [Contact](${url('/contact')}): email, phone, and the inquiry form. [Deutsch](${url('/de/contact')}).
+- [Blog](${url('/blog')}): AI infrastructure for real estate and service businesses — Immvela, data fragmentation, QFUtool, and AI outbound. English only. Posts:
+${blogList}
 
 ## Optional
 
