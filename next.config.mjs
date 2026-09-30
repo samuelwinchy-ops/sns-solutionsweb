@@ -13,6 +13,18 @@ const nextConfig = {
       // Real estate folded into Immvela. Keep old links working.
       { source: '/solutions/real-estate', destination: '/immvela', permanent: true },
       { source: '/de/solutions/real-estate', destination: '/de/immvela', permanent: true },
+      // QFUtool is for salespeople in general now, not HVAC installers; its two
+      // posts were rewritten and renamed. Old links keep working.
+      {
+        source: '/blog/hvac-data-fragmentation',
+        destination: '/blog/why-quotes-go-unanswered',
+        permanent: true,
+      },
+      {
+        source: '/blog/qfutool-ai-follow-up-hvac-quotes',
+        destination: '/blog/qfutool-automated-quote-follow-up',
+        permanent: true,
+      },
     ]
   },
 }

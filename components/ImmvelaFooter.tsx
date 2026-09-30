@@ -18,14 +18,22 @@ const socialIcons: Record<keyof typeof SOCIALS, JSX.Element> = {
   ),
   instagram: (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" stroke="currentColor" strokeWidth="1.7" />
+      <rect
+        x="3.5"
+        y="3.5"
+        width="17"
+        height="17"
+        rx="4.5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
       <circle cx="12" cy="12" r="3.7" stroke="currentColor" strokeWidth="1.7" />
       <circle cx="17" cy="7" r="1.1" fill="currentColor" />
     </svg>
   ),
 }
 
-/** Slim, light footer for the Immvela waitlist page. */
+/** Slim footer for the Immvela pages. */
 export default function ImmvelaFooter({ locale = defaultLocale }: { locale?: Locale }) {
   const t = getDict(locale).footer
   const legalLinks = [
@@ -37,10 +45,10 @@ export default function ImmvelaFooter({ locale = defaultLocale }: { locale?: Loc
   return (
     <footer className="relative px-5 pb-12 pt-16 md:px-10">
       <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
-        <div className="im-hairline h-px w-full" />
+        <div className="h-px w-full bg-[var(--im-line)]" />
         <div className="mt-6 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-            <p className="font-mono text-xs im-faint">
+            <p className="im-faint text-[13px]">
               <span className="im-wordmark text-sm">
                 Immvela<span className="dot">.</span>
               </span>
@@ -54,7 +62,7 @@ export default function ImmvelaFooter({ locale = defaultLocale }: { locale?: Loc
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`SNS Solutions on ${key === 'linkedin' ? 'LinkedIn' : 'Instagram'}`}
-                  className="im-link flex h-8 w-8 items-center justify-center rounded-full border border-[var(--im-line-strong)]"
+                  className="im-link flex h-11 w-11 items-center justify-center rounded-full"
                 >
                   {socialIcons[key]}
                 </a>
@@ -62,22 +70,28 @@ export default function ImmvelaFooter({ locale = defaultLocale }: { locale?: Loc
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-0">
             {legalLinks.map((l) => (
-              <Link key={l.href} href={l.href} className="im-link-ink font-mono text-xs">
+              <Link
+                key={l.href}
+                href={l.href}
+                className="im-link-ink inline-flex min-h-11 items-center text-[13px]"
+              >
                 {l.label}
               </Link>
             ))}
-            <a href={`${SITE_URL}${localePath(locale, '/')}`} className="im-link-ink group inline-flex items-center gap-1.5 font-mono text-xs">
-              <svg
-                width="11"
-                height="11"
-                viewBox="0 0 14 14"
-                fill="none"
-                aria-hidden="true"
-                className="transition-transform duration-300 ease-sns-out group-hover:-translate-x-0.5"
-              >
-                <path d="M11 7H3M6.5 3.5 3 7l3.5 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            <a
+              href={`${SITE_URL}${localePath(locale, '/')}`}
+              className="im-link-ink inline-flex min-h-11 items-center gap-2 text-[13px]"
+            >
+              <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path
+                  d="M11 7H3M6.5 3.5 3 7l3.5 3.5"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               SNS Solutions
             </a>

@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import ImmvelaField from '@/components/ImmvelaField'
 import ImmvelaHeader from '@/components/ImmvelaHeader'
 import ImmvelaFooter from '@/components/ImmvelaFooter'
 import ImmvelaDemo from '@/components/ImmvelaDemo'
@@ -67,10 +66,7 @@ export default function ImmvelaDemoPage() {
   return (
     <div className="immvela-theme relative min-h-dvh">
       <JsonLd data={immvelaDemoJsonLd('en')} />
-      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-        <div className="absolute inset-0 bg-[#f2f1e8]" />
-        <ImmvelaField />
-      </div>
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[#f2f1e8]" aria-hidden="true" />
 
       <div className="relative z-10">
         <ImmvelaHeader subpage />

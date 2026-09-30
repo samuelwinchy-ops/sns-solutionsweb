@@ -43,23 +43,18 @@ export default function ImmvelaFilm({ locale = defaultLocale }: { locale?: Local
   return (
     <section id="film" className="mt-16 scroll-mt-20 md:mt-20">
       <div className="im-theatre px-5 py-10 md:px-10 md:py-12">
-        {/* Left-aligned with a hairline, the same header shape every other
-            section on this page uses. Centring it made the block read as a
-            foreign object pasted into the layout. */}
+        {/* Left-aligned, the same header shape every other section on this
+            page uses. Centring it made the block read as a foreign object
+            pasted into the layout. */}
         <div className="mb-8 max-w-2xl md:mb-10">
-          <p className="im-theatre-eyebrow mb-5 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em]">
-            <span className="h-px w-8 bg-current opacity-60" />
-            {t.eyebrow}
-          </p>
-          <h2 className="im-theatre-ink text-[1.9rem] font-bold leading-[1.1] tracking-[-0.02em] md:text-[2.5rem]">
-            {t.heading}
-          </h2>
+          <p className="im-theatre-eyebrow mb-3 text-sm font-semibold">{t.eyebrow}</p>
+          <h2 className="im-title im-section-title im-theatre-ink">{t.heading}</h2>
           <p className="im-theatre-muted mt-4 text-base leading-relaxed">{t.sub}</p>
         </div>
 
         {/* ── The screen ──────────────────────────────────────────────── */}
         <div
-          className="relative overflow-hidden rounded-xl bg-black/25 shadow-[0_40px_90px_-45px_rgba(0,0,0,0.85)] ring-1 ring-white/10"
+          className="relative overflow-hidden rounded-lg bg-black/25 ring-1 ring-white/10"
           style={{ aspectRatio: '16 / 9' }}
         >
           {started ? (
@@ -111,25 +106,31 @@ export default function ImmvelaFilm({ locale = defaultLocale }: { locale?: Local
                   ground. This darkens only the middle, so the art still reads
                   to the edges, and lifts further on hover. */}
               <span
-                className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-60"
+                className="absolute inset-0 transition-opacity duration-200 group-hover:opacity-60"
                 style={{
                   background:
                     'radial-gradient(44% 52% at 50% 50%, rgba(13,31,23,0.70) 0%, rgba(13,31,23,0.26) 62%, rgba(13,31,23,0.04) 100%)',
                 }}
               />
-              <span className="absolute inset-0 flex flex-col items-center justify-center gap-2.5 md:gap-3.5">
+              <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 md:gap-4">
                 {/* The universal affordance stays a plain circle: the ring is
                     the "this plays", the line under it is the "and it has
                     sound". One job each, rather than a fat pill doing both. */}
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#f4f2e9] text-[#16352a] shadow-[0_14px_36px_-12px_rgba(0,0,0,0.7)] transition-transform duration-300 ease-sns-out group-hover:scale-[1.06] md:h-16 md:w-16">
-                  <svg width="14" height="17" viewBox="0 0 14 17" aria-hidden="true" className="ml-0.5">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#f4f2e9] text-[#16352a] md:h-16 md:w-16">
+                  <svg
+                    width="14"
+                    height="17"
+                    viewBox="0 0 14 17"
+                    aria-hidden="true"
+                    className="ml-1"
+                  >
                     <path d="M1 1 13 8.5 1 16Z" fill="currentColor" />
                   </svg>
                 </span>
                 {/* Chipped rather than bare: on a phone the frame shrinks
                     but the poster's own headline does not, so a floating label
                     landed straight on top of "Seven modules, one system". */}
-                <span className="rounded-full bg-[#0d1f17]/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[#f4f2e9] backdrop-blur-sm md:text-[11px]">
+                <span className="rounded-md bg-[#0d1f17]/80 px-3 py-2 text-[13px] font-medium text-[#f4f2e9]">
                   {t.play}
                 </span>
               </span>
@@ -141,11 +142,9 @@ export default function ImmvelaFilm({ locale = defaultLocale }: { locale?: Local
             Set like a film credit: what it is on the left, how long it runs on
             the right, at a size that answers the question before it is asked. */}
         <div className="mt-5 flex items-end justify-between gap-6 border-t border-white/10 pt-4">
-          <p className="im-theatre-faint font-mono text-[11px] uppercase tracking-[0.16em]">
-            {t.narration}
-          </p>
+          <p className="im-theatre-faint text-sm">{t.narration}</p>
           <p
-            className="im-theatre-ink shrink-0 text-3xl font-bold leading-none tracking-[-0.03em] tabular-nums md:text-[2.75rem]"
+            className="im-theatre-ink shrink-0 text-3xl font-bold tabular-nums leading-none tracking-[-0.03em] md:text-[2.75rem]"
             aria-hidden="true"
           >
             {t.duration}

@@ -32,9 +32,9 @@ export const SITE = {
   // Real estate leads, because that is the focus and the product. The services
   // follow it rather than the other way round — they are what SNS also sells,
   // not what a search result should lead with.
-  title: 'SNS Solutions | AI for Real Estate, Custom Software & Automation in Vienna',
+  title: 'SNS Solutions | Software company in Vienna, maker of Immvela and QFUtool',
   description:
-    'SNS Solutions is an AI software studio in Vienna. We build Immvela, our agentic platform for real-estate teams, plus custom software, AI automation and AI & IT consulting for businesses.',
+    'SNS Solutions is a software company in Vienna. We build Immvela, which drafts listings, Exposés and social posts for estate agents, and QFUtool, which follows up on sent quotes for salespeople. Free consultation for custom software.',
   tagline: 'Simplicity is the solution.',
   email: 'office@sns-austria.com',
   phone: '+436701922538',
@@ -65,7 +65,7 @@ export const SITE_COPY = {
     title: SITE.title,
     description: SITE.description,
     ogLocale: 'en_US',
-    imageAlt: 'SNS Solutions · agentic software studio',
+    imageAlt: 'SNS Solutions · software studio in Vienna',
     keywords: [
       'AI for real estate',
       'real estate software',
@@ -79,11 +79,11 @@ export const SITE_COPY = {
     ],
   },
   de: {
-    title: 'SNS Solutions | KI für Immobilien, individuelle Software & Automatisierung in Wien',
+    title: 'SNS Solutions | Softwareunternehmen in Wien, Hersteller von Immvela und QFUtool',
     description:
-      'SNS Solutions ist ein KI-Software-Studio in Wien. Wir entwickeln Immvela, unsere agentische Plattform für Immobilienteams, sowie individuelle Software, KI-Automatisierung und KI- & IT-Beratung für Unternehmen.',
+      'SNS Solutions ist ein Softwareunternehmen aus Wien. Wir bauen Immvela, das Inserate, Exposés und Beiträge für Makler schreibt, und QFUtool, das bei versendeten Angeboten nachfasst. Kostenlose Beratung für Software nach Maß.',
     ogLocale: 'de_AT',
-    imageAlt: 'SNS Solutions · agentisches Software-Studio',
+    imageAlt: 'SNS Solutions · Softwareunternehmen in Wien',
     // Not a translation of the English list: these are the terms an Austrian
     // business actually searches. "Immobiliensoftware" and "Softwareentwicklung
     // Wien" are the queries; "automation infrastructure" has no German

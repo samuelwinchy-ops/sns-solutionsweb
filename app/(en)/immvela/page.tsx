@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import ImmvelaField from '@/components/ImmvelaField'
 import ImmvelaHeader from '@/components/ImmvelaHeader'
 import ImmvelaFooter from '@/components/ImmvelaFooter'
 import ImmvelaLanding from '@/components/ImmvelaLanding'
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
   // for its own brand name in the title of every Immvela page. Searching
   // "immvela" is meant to find Immvela — the title is the strongest signal of
   // what a page is about, and this one led with someone else's name.
-  title: { absolute: 'Immvela · the agentic operating system for real estate' },
+  title: { absolute: 'Immvela · listings, Exposés and posts for estate agents' },
   description:
     'One platform for real-estate teams, where every module writes back to the same verified record of your properties, leads and deals, so it gets sharper the longer you use it. German first, hosted in the EU. Built in the open by SNS Solutions.',
   // The root layout's are SNS's ("AI software studio", "Vienna", …) and named
@@ -53,7 +52,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     siteName: 'Immvela',
-    title: 'Immvela · the agentic operating system for real estate',
+    title: 'Immvela · listings, Exposés and posts for estate agents',
     description:
       'One record of your properties, leads and deals, with a module for each part of the job. Built in the open by SNS Solutions. Join the waitlist.',
     url: IMMVELA_URL,
@@ -67,7 +66,7 @@ export const metadata: Metadata = {
   // Solutions" title/description while og:title correctly said "Immvela".
   twitter: {
     card: 'summary_large_image',
-    title: 'Immvela · the agentic operating system for real estate',
+    title: 'Immvela · listings, Exposés and posts for estate agents',
     description:
       'One record of your properties, leads and deals, with a module for each part of the job. Built in the open by SNS Solutions. Join the waitlist.',
     images: [`${SITE_URL}/og.png`],
@@ -85,11 +84,7 @@ export default function ImmvelaPage() {
   return (
     <div className="immvela-theme relative min-h-dvh">
       <JsonLd data={immvelaJsonLd('en')} />
-      {/* Immvela's green-on-cream particle field, covering the dark base. */}
-      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-        <div className="absolute inset-0 bg-[#f2f1e8]" />
-        <ImmvelaField />
-      </div>
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[#f2f1e8]" aria-hidden="true" />
 
       <div className="relative z-10">
         <ImmvelaHeader />

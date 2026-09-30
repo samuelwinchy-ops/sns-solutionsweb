@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath } from '@/i18n/config'
+import { CTA_PRIMARY } from '@/lib/cta'
 
 // Public by design — EmailJS keys live in the browser. Kept in env so they're
 // configurable per-environment and never hard-coded in the repo.
@@ -97,15 +97,16 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
 
   if (status === 'success') {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="glass edge-light flex flex-col items-center rounded-sns-lg p-10 text-center"
-      >
+      <div className="sns-card flex flex-col items-center p-10 text-center">
         <span className="flex h-14 w-14 items-center justify-center rounded-full border border-sns-green/30 bg-sns-green/10 text-sns-green">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="m5 12.5 4.5 4.5L19 7.5"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </span>
         {/* h2: /contact has only the page h1 above this, so an h3 skips a
@@ -116,30 +117,36 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
         <button
           type="button"
           onClick={() => setStatus('idle')}
-          className="mt-6 font-mono text-xs uppercase tracking-widest text-sns-muted transition-colors duration-300 hover:text-sns-accent"
+          className="mt-6 inline-flex min-h-11 items-center px-2 text-sm font-medium text-sns-muted transition-colors duration-150 hover:text-sns-accent"
         >
           {t.sendAnother}
         </button>
-      </motion.div>
+      </div>
     )
   }
 
-  const labelClass = 'mb-2 block font-mono text-[11px] uppercase tracking-[0.15em] text-sns-faint'
+  const labelClass = 'mb-2 block text-sm font-medium text-sns-text'
+  // Every field is opaque white on the grey paper. They used to be 70% white
+  // over a moving particle field, which is what made the service dropdown hard
+  // to find.
   const fieldBase =
-    'w-full rounded-sns border bg-white/70 px-4 py-3 text-sns-text outline-none transition-colors duration-200 placeholder:text-sns-faint focus:bg-white/90'
-  const ok = 'border-sns-text/15 focus:border-sns-indigo/60'
-  const bad = 'border-red-500/60 focus:border-red-500'
+    'min-h-11 w-full rounded-sns border bg-white px-4 py-3 text-base text-sns-text transition-colors focus:outline-none focus-visible:ring-2 duration-150 placeholder:text-sns-faint focus:border-sns-action focus:ring-2 focus:ring-sns-action/20'
+  const ok = 'border-sns-border hover:border-sns-text/40'
+  const bad = 'border-red-600 focus:border-red-600 focus:ring-red-600/20'
 
   return (
     <form
       onSubmit={handleSubmit}
       onInput={(e) => clearError((e.target as HTMLInputElement).name)}
       noValidate
-      className="glass edge-light rounded-sns-lg p-6 md:p-8"
+      className="sns-card p-6 md:p-8"
     >
       <input type="hidden" name="form_type" value="contact" />
       {status === 'error' && (
-        <div role="alert" className="mb-6 rounded-sns border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700">
+        <div
+          role="alert"
+          className="mb-6 rounded-sns border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700"
+        >
           {t.errors.send}{' '}
           <a href={`mailto:${FALLBACK_EMAIL}`} className="underline">
             {FALLBACK_EMAIL}
@@ -148,7 +155,10 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
         </div>
       )}
 
-      <div aria-hidden="true" className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden"
+      >
         <label>
           Company
           <input type="text" name="company" tabIndex={-1} autoComplete="off" />
@@ -158,10 +168,14 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelClass}>
-            {t.name} <span className="text-sns-indigo">*</span>
+            {t.name}{' '}
+            <span className="text-sns-muted" aria-hidden="true">
+              *
+            </span>
           </label>
           <input
             id="name"
+            aria-required="true"
             name="name"
             type="text"
             autoComplete="name"
@@ -171,7 +185,7 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
             className={`${fieldBase} ${errors.name ? bad : ok}`}
           />
           {errors.name && (
-            <p id="name-error" className="mt-1.5 text-xs text-red-600">
+            <p id="name-error" className="mt-2 text-xs text-red-600">
               {errors.name}
             </p>
           )}
@@ -179,10 +193,14 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
 
         <div>
           <label htmlFor="email" className={labelClass}>
-            {t.email} <span className="text-sns-indigo">*</span>
+            {t.email}{' '}
+            <span className="text-sns-muted" aria-hidden="true">
+              *
+            </span>
           </label>
           <input
             id="email"
+            aria-required="true"
             name="email"
             type="email"
             autoComplete="email"
@@ -192,7 +210,7 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
             className={`${fieldBase} ${errors.email ? bad : ok}`}
           />
           {errors.email && (
-            <p id="email-error" className="mt-1.5 text-xs text-red-600">
+            <p id="email-error" className="mt-2 text-xs text-red-600">
               {errors.email}
             </p>
           )}
@@ -202,36 +220,69 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
           <label htmlFor="phone" className={labelClass}>
             {t.phone} <span className="text-sns-faint">{t.optional}</span>
           </label>
-          <input id="phone" name="phone" type="tel" autoComplete="tel" placeholder="+43 …" className={`${fieldBase} ${ok}`} />
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            placeholder="+43 …"
+            className={`${fieldBase} ${ok}`}
+          />
         </div>
 
         <div>
           <label htmlFor="service" className={labelClass}>
-            {t.service} <span className="text-sns-indigo">*</span>
+            {t.service}{' '}
+            <span className="text-sns-muted" aria-hidden="true">
+              *
+            </span>
           </label>
-          <select
-            id="service"
-            name="service"
-            value={service}
-            onChange={(e) => {
-              setService(e.target.value)
-              clearError('service')
-            }}
-            aria-invalid={errors.service ? 'true' : undefined}
-            aria-describedby={errors.service ? 'service-error' : undefined}
-            className={`${fieldBase} ${errors.service ? bad : ok} appearance-none bg-[length:0] pr-10`}
-          >
-            <option value="" disabled>
-              {t.servicePlaceholder}
-            </option>
-            {t.services.map((s) => (
-              <option key={s} value={s} className="bg-sns-surface text-sns-text">
-                {s}
+          {/* A native <select>, so it opens the way every other dropdown on the
+              visitor's device does. The browser arrow is replaced by a chevron
+              we control so it is visible on the white field; the placeholder
+              renders faint until a real choice is made. */}
+          <div className="relative">
+            <select
+              id="service"
+              aria-required="true"
+              name="service"
+              value={service}
+              onChange={(e) => {
+                setService(e.target.value)
+                clearError('service')
+              }}
+              aria-invalid={errors.service ? 'true' : undefined}
+              aria-describedby={errors.service ? 'service-error' : undefined}
+              className={`${fieldBase.replace('text-sns-text', service ? 'text-sns-text' : 'text-sns-faint')} ${errors.service ? bad : ok} cursor-pointer appearance-none pr-11`}
+            >
+              <option value="" disabled>
+                {t.servicePlaceholder}
               </option>
-            ))}
-          </select>
+              {t.services.map((s) => (
+                <option key={s} value={s} className="bg-white text-sns-text">
+                  {s}
+                </option>
+              ))}
+            </select>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+              className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sns-muted"
+            >
+              <path
+                d="m4 6 4 4 4-4"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
           {errors.service && (
-            <p id="service-error" className="mt-1.5 text-xs text-red-600">
+            <p id="service-error" className="mt-2 text-xs text-red-600">
               {errors.service}
             </p>
           )}
@@ -240,10 +291,14 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
 
       <div className="mt-5">
         <label htmlFor="message" className={labelClass}>
-          {t.message} <span className="text-sns-indigo">*</span>
+          {t.message}{' '}
+          <span className="text-sns-muted" aria-hidden="true">
+            *
+          </span>
         </label>
         <textarea
           id="message"
+          aria-required="true"
           name="message"
           rows={5}
           placeholder={t.messagePlaceholder}
@@ -252,7 +307,7 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
           className={`${fieldBase} resize-y ${errors.message ? bad : ok}`}
         />
         {errors.message && (
-          <p id="message-error" className="mt-1.5 text-xs text-red-600">
+          <p id="message-error" className="mt-2 text-xs text-red-600">
             {errors.message}
           </p>
         )}
@@ -260,11 +315,20 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
 
       <div className="mt-5">
         <label className="flex items-start gap-3">
-          <input type="checkbox" name="consent" aria-invalid={errors.consent ? 'true' : undefined} className="mt-1 h-4 w-4 shrink-0 accent-sns-indigo" />
+          <input
+            type="checkbox"
+            name="consent"
+            aria-invalid={errors.consent ? 'true' : undefined}
+            className="mt-1 h-5 w-5 shrink-0 accent-sns-indigo"
+          />
           <span className="text-sm leading-relaxed text-sns-muted">
             {t.consent.map((seg, i) =>
               seg.link ? (
-                <Link key={i} href={localePath(locale, '/legal/privacy')} className="text-sns-accent underline underline-offset-2 hover:text-sns-cyan">
+                <Link
+                  key={i}
+                  href={localePath(locale, '/legal/privacy')}
+                  className="text-sns-accent underline underline-offset-2 hover:text-sns-text"
+                >
                   {seg.t}
                 </Link>
               ) : (
@@ -273,25 +337,34 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
             )}
           </span>
         </label>
-        {errors.consent && <p className="mt-1.5 text-xs text-red-600">{errors.consent}</p>}
+        {errors.consent && <p className="mt-2 text-xs text-red-600">{errors.consent}</p>}
       </div>
 
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="group mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-sns-indigo px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] transition-all duration-300 ease-sns-out hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+        className={`${CTA_PRIMARY} mt-7 w-full disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto`}
       >
         {status === 'sending' ? t.sending : t.submit}
         {status !== 'sending' && (
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform duration-300 ease-sns-out group-hover:translate-x-1">
-            <path d="M3 7h8M7.5 3.5 11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path
+              d="M3 7h8M7.5 3.5 11 7l-3.5 3.5"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         )}
       </button>
 
-      <p className="mt-4 font-mono text-xs text-sns-faint">
+      <p className="mt-4 text-sm text-sns-muted">
         {t.preferEmail}{' '}
-        <a href={`mailto:${FALLBACK_EMAIL}`} className="text-sns-muted underline underline-offset-2 hover:text-sns-accent">
+        <a
+          href={`mailto:${FALLBACK_EMAIL}`}
+          className="text-sns-text underline underline-offset-2 hover:text-sns-accent"
+        >
           {FALLBACK_EMAIL}
         </a>
       </p>

@@ -12,20 +12,26 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
   const home = localePath(locale, '/')
   const pathname = usePathname()
 
-  // Flat nav, no "Products" dropdown. Immvela is the product and leads the
-  // list; the HVAC/SHK tab went with the discontinued product line, and its
-  // URLs 301 to Immvela (see middleware.ts).
+  // Flat nav, company-site order: the two products first, then consulting,
+  // then the company. No "Products" dropdown — two items do not need one.
+  // QFUtool lives on its own domain, so its link opens there and says so with
+  // a small out-arrow. The HVAC/SHK tab went with the discontinued product
+  // line, and its URLs 301 to Immvela (see middleware.ts).
   //
-  // Immvela used to carry a pulsing green dot. That is status-page grammar — it
-  // reads as live telemetry — and nothing here polls anything, so it was
-  // borrowing credibility rather than reporting a fact. It also overclaimed:
-  // two of seven modules are live, which is not what a "live" dot says.
-  const links = [
+  // No status dots on product names: a pulsing dot reads as live telemetry,
+  // and nothing here polls anything.
+  const links: { href: string; id: string; label: string; external?: boolean }[] = [
     { href: immvelaHref(locale), id: 'immvela', label: t.realEstate },
+    {
+      href: locale === 'de' ? 'https://www.qfutool.com/de' : 'https://www.qfutool.com',
+      id: 'qfutool',
+      label: t.qfutool,
+      external: true,
+    },
     { href: localePath(locale, '/services'), id: 'services', label: t.services },
     // English only, for now: the blog doesn't have a German translation yet
     // (see lib/blog.ts), and a nav link into a 404 would be worse than no link.
-    ...(locale === 'en' ? [{ href: '/blog', id: 'blog', label: 'blog' }] : []),
+    ...(locale === 'en' ? [{ href: '/blog', id: 'blog', label: 'Blog' }] : []),
     { href: localePath(locale, '/team'), id: 'team', label: t.team },
   ]
 
@@ -34,7 +40,8 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
 
   // Exact match for every current link except Blog, which also has post pages
   // under it (/blog/<slug>) that should still light up the same nav item.
-  const isActive = (href: string) => pathname === href || (href === '/blog' && pathname?.startsWith('/blog/'))
+  const isActive = (href: string) =>
+    pathname === href || (href === '/blog' && pathname?.startsWith('/blog/'))
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -60,21 +67,18 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
 
   return (
     <nav
-      className={`fixed inset-x-0 top-0 z-50 h-14 px-5 transition-all duration-500 ease-sns-out md:px-10 ${
-        solid
-          ? 'glass-strong border-b border-sns-text/[0.08] shadow-[0_8px_32px_-12px_rgba(20,25,43,0.12)]'
-          : 'border-b border-transparent bg-transparent'
+      className={`fixed inset-x-0 top-0 z-50 h-14 px-5 transition-colors duration-200 md:px-10 ${
+        solid ? 'border-b border-sns-border bg-white' : 'border-b border-transparent bg-sns-bg'
       }`}
     >
       <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-between 2xl:max-w-7xl">
         <a
           href={home}
           aria-label="SNS Solutions — home"
-          className="group flex min-w-0 items-center gap-2.5"
+          className="group flex min-w-0 items-center gap-3"
           onClick={() => setOpen(false)}
         >
           <span className="relative shrink-0">
-            <span className="absolute inset-0 rounded-full bg-sns-indigo/30 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100" />
             <Image
               src="/sns-icon.png"
               alt="SNS Solutions"
@@ -84,11 +88,9 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
               className="relative h-8 w-8 md:h-9 md:w-9"
             />
           </span>
-          <span className="truncate font-mono text-sm font-bold uppercase tracking-[0.22em] text-sns-text">
+          <span className="truncate text-[15px] font-bold tracking-tight text-sns-text">
             SNS
-            <span className="ml-1.5 hidden font-normal text-sns-muted sm:inline">
-              Solutions
-            </span>
+            <span className="ml-1 hidden font-medium text-sns-muted sm:inline">Solutions</span>
           </span>
         </a>
 
@@ -100,14 +102,16 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
               <a
                 key={link.id}
                 href={link.href}
+                {...(link.external ? { target: '_blank', rel: 'noopener' } : {})}
                 aria-current={active ? 'true' : undefined}
-                className={`relative flex items-center gap-1.5 rounded-full px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-widest transition-colors duration-300 md:text-xs ${
-                  active ? 'text-sns-text' : 'text-sns-muted hover:text-sns-accent'
+                className={`relative flex min-h-11 items-center px-3 text-[15px] transition-colors duration-150 ${
+                  active ? 'font-medium text-sns-text' : 'text-sns-muted hover:text-sns-text'
                 }`}
               >
                 <span>{link.label}</span>
+                {link.external && <OutArrow />}
                 {active && (
-                  <span className="absolute inset-x-2.5 -bottom-px h-px bg-gradient-to-r from-transparent via-sns-indigo to-transparent" />
+                  <span className="absolute inset-x-2.5 bottom-2 h-0.5 rounded-full bg-sns-action" />
                 )}
               </a>
             )
@@ -115,10 +119,7 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
 
           <a
             href={localePath(locale, '/contact')}
-            // Tinted at rest, solid on hover. The nav sits over varying content
-            // so a permanently-filled button would fight the page; the tint is
-            // enough to separate the one action here from the text links.
-            className="group ml-0.5 inline-flex items-center gap-1.5 rounded-full border border-sns-indigo/30 bg-sns-indigo/[0.08] px-3.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-widest text-sns-accent transition-all duration-300 ease-sns-out hover:border-sns-indigo hover:bg-sns-indigo hover:text-white md:text-xs"
+            className="ml-2 inline-flex min-h-9 items-center rounded-sns bg-sns-action px-4 text-[15px] font-semibold text-white transition-colors duration-150 hover:bg-sns-action-hover"
           >
             {t.contact}
           </a>
@@ -135,13 +136,23 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? 'Close menu' : 'Open menu'}
-            className="ml-1 flex h-9 w-9 items-center justify-center rounded-full text-sns-text transition-colors duration-300 hover:bg-sns-text/[0.06]"
+            className="ml-1 flex h-11 w-11 items-center justify-center rounded-sns text-sns-text transition-colors duration-150 hover:bg-sns-text/[0.06]"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               {open ? (
-                <path d="M4 4l10 10M14 4L4 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                <path
+                  d="M4 4l10 10M14 4L4 14"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                />
               ) : (
-                <path d="M2.5 5h13M2.5 9h13M2.5 13h13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                <path
+                  d="M2.5 5h13M2.5 9h13M2.5 13h13"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                />
               )}
             </svg>
           </button>
@@ -152,7 +163,7 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
       {open && (
         <div
           id="mobile-menu"
-          className="glass-strong absolute inset-x-0 top-full border-b border-sns-text/[0.08] px-5 pb-5 pt-2 md:hidden"
+          className="absolute inset-x-0 top-full border-b border-sns-border bg-white px-5 pb-5 pt-2 shadow-[0_12px_24px_-16px_rgba(11,15,34,0.25)] md:hidden"
         >
           <div className="mx-auto flex max-w-6xl flex-col">
             {links.map((link) => {
@@ -161,22 +172,24 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
                 <a
                   key={link.id}
                   href={link.href}
+                  {...(link.external ? { target: '_blank', rel: 'noopener' } : {})}
                   onClick={() => setOpen(false)}
                   aria-current={active ? 'true' : undefined}
-                  className={`flex items-center gap-2 rounded-lg px-3 py-3 font-mono text-sm uppercase tracking-widest transition-colors duration-200 ${
-                    active ? 'text-sns-text' : 'text-sns-muted hover:bg-sns-text/[0.05] hover:text-sns-text'
+                  className={`flex min-h-11 items-center gap-2 rounded-sns px-3 text-base transition-colors duration-150 ${
+                    active
+                      ? 'font-medium text-sns-text'
+                      : 'text-sns-muted hover:bg-sns-text/[0.05] hover:text-sns-text'
                   }`}
                 >
                   {link.label}
+                  {link.external && <OutArrow />}
                 </a>
               )
             })}
             <a
               href={localePath(locale, '/contact')}
               onClick={() => setOpen(false)}
-              // Solid in the mobile sheet: there is no competing content behind
-              // it here, so the one action gets the full treatment.
-              className="mt-2 flex items-center justify-center gap-1.5 rounded-full bg-sns-indigo px-4 py-3 font-mono text-sm font-semibold uppercase tracking-widest text-white shadow-[0_8px_24px_-8px_rgba(79,70,229,0.65)] transition-colors duration-200 hover:bg-sns-accent"
+              className="mt-2 flex min-h-11 items-center justify-center rounded-sns bg-sns-action px-4 text-base font-semibold text-white transition-colors duration-150 hover:bg-sns-action-hover"
             >
               {t.contact}
             </a>
@@ -184,5 +197,20 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
         </div>
       )}
     </nav>
+  )
+}
+
+/** Marks a link that leaves this site. */
+function OutArrow() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" className="ml-1">
+      <path
+        d="M3 7l4-4M3.5 3H7v3.5"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   )
 }

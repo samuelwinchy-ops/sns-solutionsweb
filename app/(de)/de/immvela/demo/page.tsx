@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import ImmvelaField from '@/components/ImmvelaField'
 import ImmvelaHeader from '@/components/ImmvelaHeader'
 import ImmvelaFooter from '@/components/ImmvelaFooter'
 import ImmvelaDemo from '@/components/ImmvelaDemo'
@@ -39,7 +38,8 @@ export const metadata: Metadata = {
     locale: 'de_AT',
     siteName: 'Immvela',
     title: 'Immvela · jedes Modul, in Betrieb',
-    description: 'Wählen Sie ein Modul und sehen Sie ihm an einem echten Objekt bei der Arbeit zu. Ohne Anmeldung.',
+    description:
+      'Wählen Sie ein Modul und sehen Sie ihm an einem echten Objekt bei der Arbeit zu. Ohne Anmeldung.',
     url: `${IMMVELA_URL}/de/demo`,
     // See app/(en)/immvela/demo/page.tsx — without this the page shipped no
     // og:image at all, because declaring `openGraph` replaces the parent's.
@@ -48,7 +48,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Immvela · jedes Modul, in Betrieb',
-    description: 'Wählen Sie ein Modul und sehen Sie ihm an einem echten Objekt bei der Arbeit zu. Ohne Anmeldung.',
+    description:
+      'Wählen Sie ein Modul und sehen Sie ihm an einem echten Objekt bei der Arbeit zu. Ohne Anmeldung.',
     images: [`${SITE_URL}/og.png`],
   },
 }
@@ -62,10 +63,7 @@ export default function ImmvelaDemoPageDe() {
   return (
     <div className="immvela-theme relative min-h-dvh">
       <JsonLd data={immvelaDemoJsonLd('de')} />
-      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-        <div className="absolute inset-0 bg-[#f2f1e8]" />
-        <ImmvelaField />
-      </div>
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[#f2f1e8]" aria-hidden="true" />
 
       <div className="relative z-10">
         <ImmvelaHeader locale="de" subpage />

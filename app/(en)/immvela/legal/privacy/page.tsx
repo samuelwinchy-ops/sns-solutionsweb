@@ -321,7 +321,7 @@ function Section({
 }) {
   return (
     <section lang={lang} className="mt-9 first:mt-0">
-      <h2 className="mb-2.5 text-[1.05rem] font-semibold tracking-[-0.01em] text-[color:var(--im-ink)]">
+      <h2 className="mb-3 text-[1.05rem] font-semibold tracking-[-0.01em] text-[color:var(--im-ink)]">
         {title}
       </h2>
       <div className="im-legal-prose">{children}</div>
@@ -341,12 +341,7 @@ export default function ImmvelaPrivacyPage() {
           overscroll bounce shows a band of porcelain against Immvela's warm
           cream — two near-whites that disagree, which reads as a rendering
           fault rather than a colour choice. Fixed + inset-0 covers the whole
-          viewport including the bounce, and covers SiteShell's SNS particle
-          field (also fixed, z-0) consistently at every scroll position.
-
-          No <ImmvelaField /> here, unlike the landing: drifting particles
-          behind a legal document are a distraction and a canvas this page has
-          no use for. The ground is the part that has to be right. */}
+          viewport including the bounce, at every scroll position. */}
       <div className="pointer-events-none fixed inset-0 z-0 bg-[#f2f1e8]" aria-hidden="true" />
 
       <div className="relative z-10">
@@ -357,7 +352,7 @@ export default function ImmvelaPrivacyPage() {
             </a>
             <a
               href="/"
-              className="font-mono text-xs uppercase tracking-widest text-[color:var(--im-muted)] transition-colors duration-300 hover:text-[color:var(--im-green)]"
+              className="inline-flex min-h-11 items-center text-sm font-medium text-[color:var(--im-muted)] transition-colors duration-150 hover:text-[color:var(--im-green)]"
             >
               ← Zur Website
             </a>
@@ -366,15 +361,15 @@ export default function ImmvelaPrivacyPage() {
 
         <main className="mx-auto w-full max-w-3xl px-5 pb-24 pt-12 md:pt-16">
           <div className="mb-10 border-b border-[color:var(--im-line)] pb-8">
-            <p className="im-eyebrow mb-3 font-mono text-xs uppercase tracking-[0.2em]">Immvela</p>
+            <p className="im-eyebrow mb-3 text-sm">Immvela</p>
             <h1 className="text-3xl font-bold tracking-[-0.02em] text-[color:var(--im-ink)] md:text-4xl">
               Datenschutzerklärung <span className="text-[color:var(--im-faint)]">/</span> Privacy
               Policy
             </h1>
-            <p className="mt-3 font-mono text-sm text-[color:var(--im-muted)]">
+            <p className="mt-3 text-sm text-[color:var(--im-muted)]">
               Immvela — SNS Software Solutions GmbH, Wien
             </p>
-            <p className="mt-1 font-mono text-xs text-[color:var(--im-faint)]">
+            <p className="mt-1 text-[13px] text-[color:var(--im-faint)]">
               Stand / Last updated: {UPDATED_DE} · {UPDATED_EN}
             </p>
           </div>
@@ -459,8 +454,8 @@ export default function ImmvelaPrivacyPage() {
                 Erneuerungstoken (verschlüsselt), die Kennung und den Namen Ihres Kanals, die
                 Kennung der über Immvela hochgeladenen Videos sowie die genannten Gesamtzahlen mit
                 dem Zeitpunkt ihres Abrufs, dazu den Ablaufzeitpunkt des Tokens und die Liste der
-                von Ihnen erteilten Berechtigungen. Mehr nicht: keine Kommentartexte, keine Namen von
-                Kommentierenden, keine Angaben zur Zusammensetzung Ihres Publikums, keine
+                von Ihnen erteilten Berechtigungen. Mehr nicht: keine Kommentartexte, keine Namen
+                von Kommentierenden, keine Angaben zur Zusammensetzung Ihres Publikums, keine
                 Wiedergabeverläufe, keine Abonnentenlisten.
               </p>
               <p>
@@ -556,8 +551,7 @@ export default function ImmvelaPrivacyPage() {
                 </li>
                 <li>
                   <strong>Zugriffstoken der verbundenen Konten.</strong> Diese Token sind die
-                  sicherheitskritischsten Daten, die wir speichern, und werden vor dem Speichern
-                  mit{' '}
+                  sicherheitskritischsten Daten, die wir speichern, und werden vor dem Speichern mit{' '}
                   <strong>AES-256-GCM</strong> verschlüsselt. Der Schlüssel liegt ausschließlich in
                   der Laufzeitumgebung und niemals in der Datenbank: ein Datenbankauszug allein
                   genügt nicht, um Zugriff auf Ihre Konten zu erlangen. Fehlt der Schlüssel, so
@@ -570,10 +564,10 @@ export default function ImmvelaPrivacyPage() {
                 </li>
                 <li>
                   <strong>Trennung der Mandanten.</strong> Jeder Datensatz ist genau einer
-                  Organisation zugeordnet, und die Anwendung prüft diese Trennung bei jedem
-                  Zugriff. Läuft eine Anfrage unter Ihrer eigenen Anmeldung, setzt die Datenbank
-                  sie zusätzlich auf Zeilenebene durch (Row-Level-Security). Hintergrundaufgaben
-                  und serverseitige Vorgänge, die ein Plattform-Token speichern, nutzen erweiterte
+                  Organisation zugeordnet, und die Anwendung prüft diese Trennung bei jedem Zugriff.
+                  Läuft eine Anfrage unter Ihrer eigenen Anmeldung, setzt die Datenbank sie
+                  zusätzlich auf Zeilenebene durch (Row-Level-Security). Hintergrundaufgaben und
+                  serverseitige Vorgänge, die ein Plattform-Token speichern, nutzen erweiterte
                   Datenbankrechte; dort ist die Prüfung der Anwendung die Grenze, ebenso wie bei
                   Dateien im Medienspeicher.
                 </li>
@@ -598,8 +592,8 @@ export default function ImmvelaPrivacyPage() {
               <p>
                 Immvela setzt ein Cookie ausschließlich dafür, Sie angemeldet zu halten. Es ist für
                 den von Ihnen angeforderten Dienst unbedingt erforderlich, daher ist dafür keine
-                Einwilligung erforderlich. Wir setzen keine Tracking-, Werbe- oder
-                Analyse-Cookies und lesen zu keinem anderen Zweck Daten von Ihrem Gerät.
+                Einwilligung erforderlich. Wir setzen keine Tracking-, Werbe- oder Analyse-Cookies
+                und lesen zu keinem anderen Zweck Daten von Ihrem Gerät.
               </p>
             </Section>
 
@@ -822,11 +816,10 @@ export default function ImmvelaPrivacyPage() {
                 <li>
                   <strong>Connected-account access tokens.</strong> These are the most
                   security-sensitive data we hold, and they are encrypted with{' '}
-                  <strong>AES-256-GCM</strong> before they
-                  are stored. The key exists only in the runtime environment and never in the
-                  database, so a database dump on its own does not yield access to your accounts. If
-                  the key is absent, the system refuses to store tokens in production rather than
-                  falling back to plaintext.
+                  <strong>AES-256-GCM</strong> before they are stored. The key exists only in the
+                  runtime environment and never in the database, so a database dump on its own does
+                  not yield access to your accounts. If the key is absent, the system refuses to
+                  store tokens in production rather than falling back to plaintext.
                 </li>
                 <li>
                   <strong>At rest.</strong> The database and file storage are operated by Supabase
@@ -834,11 +827,11 @@ export default function ImmvelaPrivacyPage() {
                 </li>
                 <li>
                   <strong>Tenant separation.</strong> Every record belongs to exactly one
-                  organisation, and the application checks that separation on every access. Where
-                  a request runs under your own sign-in, the database enforces it a second time at
-                  row level (row-level security). Background jobs and the server-side paths that
-                  store a platform token run with elevated database rights, and there the
-                  application check is the boundary, as it is for files in media storage.
+                  organisation, and the application checks that separation on every access. Where a
+                  request runs under your own sign-in, the database enforces it a second time at row
+                  level (row-level security). Background jobs and the server-side paths that store a
+                  platform token run with elevated database rights, and there the application check
+                  is the boundary, as it is for files in media storage.
                 </li>
                 <li>
                   <strong>Media files.</strong> Photos and videos are held in non-public storage and
@@ -908,19 +901,19 @@ export default function ImmvelaPrivacyPage() {
           <nav className="mt-14 flex flex-wrap gap-x-5 gap-y-2 border-t border-[color:var(--im-line)] pt-8">
             <a
               href="/legal/imprint"
-              className="font-mono text-xs text-[color:var(--im-muted)] transition-colors duration-300 hover:text-[color:var(--im-green)]"
+              className="inline-flex min-h-11 items-center text-[13px] text-[color:var(--im-muted)] transition-colors duration-150 hover:text-[color:var(--im-green)]"
             >
               Impressum / Imprint
             </a>
             <a
               href="/legal/terms"
-              className="font-mono text-xs text-[color:var(--im-muted)] transition-colors duration-300 hover:text-[color:var(--im-green)]"
+              className="inline-flex min-h-11 items-center text-[13px] text-[color:var(--im-muted)] transition-colors duration-150 hover:text-[color:var(--im-green)]"
             >
               Nutzungsbedingungen / Terms
             </a>
             <a
               href={DATA_DELETION_URL}
-              className="font-mono text-xs text-[color:var(--im-muted)] transition-colors duration-300 hover:text-[color:var(--im-green)]"
+              className="inline-flex min-h-11 items-center text-[13px] text-[color:var(--im-muted)] transition-colors duration-150 hover:text-[color:var(--im-green)]"
             >
               Datenlöschung / Data deletion
             </a>

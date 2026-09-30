@@ -95,6 +95,14 @@ ${t.waitlistPage.modules
   )
   .join('\n')}`)
 
+  // ── QFUtool ──────────────────────────────────────────────────────────────
+  sections.push(`## QFUtool — https://www.qfutool.com/
+
+QFUtool is ${SITE.name}'s second product, separate from Immvela, on its own
+domain. This is the summary as it appears on the SNS site.
+
+${t.products.qfutool.tagline} ${t.products.qfutool.desc} ${t.products.qfutool.status}.`)
+
   // ── /blog ────────────────────────────────────────────────────────────────
   // Every post's full text, so an answer engine can quote from a post — or
   // answer a question its FAQ section covers — without a second fetch. English
@@ -102,7 +110,7 @@ ${t.waitlistPage.modules
   sections.push(
     `## Blog — ${url('/blog')}
 
-AI infrastructure for real estate and service businesses: Immvela, data fragmentation, QFUtool, and where AI outbound is headed.
+Notes from SNS Solutions on the problems behind our products: Immvela for estate agents, and QFUtool for salespeople chasing quotes.
 
 ${sortedPosts()
   .map(

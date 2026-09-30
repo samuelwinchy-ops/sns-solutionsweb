@@ -15,14 +15,12 @@ const EASE = [0.16, 1, 0.3, 1] as const
  * SNS inbound-agent demo at /solutions/demo.
  *
  * ── Why a picker and not a carousel ─────────────────────────────────────
- * The homepage showcase (components/ImmvelaShowcase.tsx) rotates on a timer
- * because it's an advert in a hero: nobody came to the page for it, so it has
- * to offer itself. This page is the opposite — the visitor arrived *to look at
- * the modules*, so it never moves on its own. Seven tabs, you choose.
+ * The visitor arrived here *to look at the modules*, so nothing moves on its
+ * own. Seven tabs, you choose.
  *
  * ── On the clips ────────────────────────────────────────────────────────
- * Same silent 1:1 files the showcase uses, `${CLIP_DIR}/<code>.mp4` in lower
- * case, and the same fail-closed loading: the title card renders by default and
+ * Silent 1:1 files, `${CLIP_DIR}/<code>.mp4` in lower case, with fail-closed
+ * loading: the title card renders by default and
  * the video only reveals itself once it reports it can play, so a missing file
  * is a designed frame rather than an empty box. Encoded by
  * scripts/encode-immvela-clips.mjs.
@@ -42,8 +40,21 @@ const Arrow = ({ back = false }: { back?: boolean }) => (
 )
 
 const Check = () => (
-  <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="mt-[3px] shrink-0">
-    <path d="M3.2 8.4 6.3 11.4 12.8 4.9" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+  <svg
+    width="15"
+    height="15"
+    viewBox="0 0 16 16"
+    fill="none"
+    aria-hidden="true"
+    className="mt-1 shrink-0"
+  >
+    <path
+      d="M3.2 8.4 6.3 11.4 12.8 4.9"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 )
 
@@ -116,27 +127,28 @@ export default function ImmvelaDemo({ locale = defaultLocale }: { locale?: Local
     <>
       {/* ── Header ────────────────────────────────────────────────────── */}
       <div className="mb-9 max-w-2xl">
-        <Link href={immvela()} className="im-link-ink group mb-6 inline-flex items-center gap-1.5 font-mono text-xs">
-          <span className="transition-transform duration-300 ease-sns-out group-hover:-translate-x-0.5">
-            <Arrow back />
-          </span>
+        <Link
+          href={immvela()}
+          className="im-link-ink mb-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium"
+        >
+          <Arrow back />
           {d.backCta}
         </Link>
-        <p className="mb-4 flex items-center gap-3 im-eyebrow text-xs">
-          <span className="im-hairline h-px w-8" />
-          {d.eyebrow}
-        </p>
-        <h1 className="text-[2.2rem] font-bold leading-[1.06] tracking-[-0.02em] im-ink md:text-[2.9rem]">
-          {d.heading}
-        </h1>
-        <p className="mt-5 text-lg leading-relaxed im-muted">{d.intro}</p>
+        <p className="im-eyebrow mb-3 text-sm">{d.eyebrow}</p>
+        <h1 className="im-title im-ink text-[2.25rem] md:text-[3rem]">{d.heading}</h1>
+        <p className="im-muted mt-5 text-lg leading-relaxed">{d.intro}</p>
       </div>
 
       {/* ── Module picker ─────────────────────────────────────────────── */}
-      <p className="mb-2.5 font-mono text-[10px] uppercase tracking-[0.2em] im-faint" id="module-picker-label">
+      <p className="im-ink mb-3 text-[13px] font-medium" id="module-picker-label">
         {d.pickerLabel}
       </p>
-      <div role="tablist" aria-labelledby="module-picker-label" onKeyDown={onTabKey} className="mb-8 flex flex-wrap gap-2">
+      <div
+        role="tablist"
+        aria-labelledby="module-picker-label"
+        onKeyDown={onTabKey}
+        className="mb-8 flex flex-wrap gap-2"
+      >
         {modules.map((m, i) => {
           const on = i === index
           const live = m.status === 'active'
@@ -155,9 +167,12 @@ export default function ImmvelaDemo({ locale = defaultLocale }: { locale?: Local
               // it. Seven stops in a row would bury the panel for keyboard users.
               tabIndex={on ? 0 : -1}
               onClick={() => go(i)}
-              className={`im-tab ${on ? 'is-on' : ''} inline-flex items-center gap-2 px-3.5 py-2 text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--im-green)]`}
+              className={`im-tab ${on ? 'is-on' : ''} inline-flex min-h-11 items-center gap-2 px-4 text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--im-green)]`}
             >
-              <span className={`h-1.5 w-1.5 rounded-full ${live ? 'im-dot' : 'im-dot-quiet'}`} aria-hidden="true" />
+              <span
+                className={`h-1.5 w-1.5 rounded-full ${live ? 'im-dot' : 'border border-current'}`}
+                aria-hidden="true"
+              />
               {m.code}
             </button>
           )
@@ -176,19 +191,21 @@ export default function ImmvelaDemo({ locale = defaultLocale }: { locale?: Local
         <div className="mx-auto w-full max-w-[460px] lg:mx-0">
           <div className="im-card relative overflow-hidden" style={{ aspectRatio: '1 / 1' }}>
             <AnimatePresence mode="wait" initial={false}>
-              <motion.div key={module_.code} variants={fade} initial="hidden" animate="visible" exit="exit" className="absolute inset-0">
+              <motion.div
+                key={module_.code}
+                variants={fade}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="absolute inset-0"
+              >
                 {/* Title card, always underneath the clip, so a module with no
                     footage reads as a deliberate frame and not a missing asset. */}
                 <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-[var(--im-cream-2)]">
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 flex select-none items-center justify-center font-mono text-[7rem] font-bold leading-none"
-                    style={{ color: 'color-mix(in srgb, var(--im-green) 12%, transparent)' }}
-                  >
-                    {module_.code.slice(0, 2).toUpperCase()}
-                  </span>
-                  <p className="relative text-3xl font-bold tracking-[-0.03em] im-ink">{module_.code}</p>
-                  <p className="relative max-w-[16rem] px-6 text-center font-mono text-[11px] leading-relaxed im-faint">
+                  <p className="im-ink relative text-3xl font-bold tracking-[-0.03em]">
+                    {module_.code}
+                  </p>
+                  <p className="im-faint relative max-w-[16rem] px-6 text-center text-[13px] leading-relaxed">
                     {d.noClip}
                   </p>
                 </div>
@@ -218,37 +235,43 @@ export default function ImmvelaDemo({ locale = defaultLocale }: { locale?: Local
               </motion.div>
             </AnimatePresence>
 
-            <span className={`pointer-events-none absolute left-3 top-3 im-chip ${active ? 'im-chip-active' : 'im-chip-progress'} backdrop-blur-md`}>
-              {active ? (
-                <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: 'var(--im-green)' }} />
-              ) : (
-                <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M4 2.5h6M4 11.5h6M4.5 2.5c0 2.5 5 3 5 4.5s-5 2-5 4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-                </svg>
-              )}
+            {/* Opaque paper behind the capsule: it sits on top of the video. */}
+            <span
+              className={`im-chip pointer-events-none absolute left-3 top-3 bg-[var(--im-paper)] ${active ? 'im-chip-active' : 'im-chip-progress'}`}
+            >
+              <span
+                aria-hidden="true"
+                className={`h-1.5 w-1.5 rounded-full ${active ? 'bg-current' : 'border border-current'}`}
+              />
               {active ? t.statusActive : t.statusProgress}
             </span>
           </div>
 
-          <p className="mt-3 font-mono text-[10px] leading-relaxed im-faint">{d.clipNote}</p>
+          <p className="im-faint mt-3 text-[13px] leading-relaxed">{d.clipNote}</p>
         </div>
 
         {/* Detail. min-h so the panel doesn't jump between modules of different
             copy lengths; German runs ~25% longer, so the floor is its worst case. */}
         <div className="flex min-h-[420px] flex-col">
           <AnimatePresence mode="wait" initial={false}>
-            <motion.div key={module_.code} variants={fade} initial="hidden" animate="visible" exit="exit">
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] im-green">{module_.code}</p>
+            <motion.div
+              key={module_.code}
+              variants={fade}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <p className="im-green text-sm font-semibold">{module_.code}</p>
               {/* h2: the page h1 is the heading above. */}
-              <h2 className="mt-1.5 text-3xl font-bold leading-[1.1] tracking-[-0.02em] im-ink md:text-[2.1rem]">
+              <h2 className="im-title im-ink mt-2 text-[1.875rem] md:text-[2.25rem]">
                 {module_.name}
               </h2>
-              <p className="mt-4 text-base leading-relaxed im-muted md:text-lg">{module_.desc}</p>
+              <p className="im-muted mt-4 text-base leading-relaxed md:text-lg">{module_.desc}</p>
 
-              <p className="mt-7 im-eyebrow text-[11px]">{d.panelLabel}</p>
+              <p className="im-ink mt-7 text-[13px] font-medium">{d.panelLabel}</p>
               <ul className="mt-3 flex flex-col gap-3">
                 {module_.demo.map((point) => (
-                  <li key={point} className="flex items-start gap-2.5 text-sm leading-relaxed im-ink">
+                  <li key={point} className="im-ink flex items-start gap-3 text-sm leading-relaxed">
                     <span className="im-green">
                       <Check />
                     </span>
@@ -262,13 +285,23 @@ export default function ImmvelaDemo({ locale = defaultLocale }: { locale?: Local
           {/* Prev/next duplicates the tablist on purpose: the tabs answer "which
               module", these answer "show me the next one" without aiming. */}
           <div className="mt-auto flex items-center gap-2 pt-8">
-            <button type="button" onClick={() => go(index - 1)} aria-label={d.prev} className="im-btn-ghost flex h-9 w-9 items-center justify-center">
+            <button
+              type="button"
+              onClick={() => go(index - 1)}
+              aria-label={d.prev}
+              className="im-btn-ghost flex h-11 w-11 items-center justify-center"
+            >
               <Arrow back />
             </button>
-            <button type="button" onClick={() => go(index + 1)} aria-label={d.next} className="im-btn-ghost flex h-9 w-9 items-center justify-center">
+            <button
+              type="button"
+              onClick={() => go(index + 1)}
+              aria-label={d.next}
+              className="im-btn-ghost flex h-11 w-11 items-center justify-center"
+            >
               <Arrow />
             </button>
-            <span className="ml-1 font-mono text-[11px] im-faint" aria-hidden="true">
+            <span className="im-faint ml-1 font-mono text-[13px] tabular-nums" aria-hidden="true">
               {index + 1} / {modules.length}
             </span>
           </div>
@@ -278,40 +311,40 @@ export default function ImmvelaDemo({ locale = defaultLocale }: { locale?: Local
       {/* ── Proof + guardrail ─────────────────────────────────────────── */}
       <section className="mt-16 grid grid-cols-1 gap-4 border-t border-[var(--im-line)] pt-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10">
         <div>
-          <h2 className="mb-4 im-eyebrow text-[11px]">{t.proofLabel}</h2>
+          <h2 className="im-eyebrow mb-4 text-sm">{t.proofLabel}</h2>
           {/* Stacked below sm: three columns on a 390px screen leaves ~90px per
               card, which breaks "EU-hosted; you stay the data controller" over
               four lines. */}
           <dl className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {t.proof.map((p) => (
               <div key={p.label} className="im-card p-4">
-                <dt className="im-green text-xl font-bold tracking-[-0.02em] md:text-2xl">{p.stat}</dt>
-                <dd className="mt-1.5 text-[11px] leading-snug im-muted">{p.label}</dd>
+                <dt className="im-green text-xl font-bold tracking-[-0.02em] md:text-2xl">
+                  {p.stat}
+                </dt>
+                <dd className="im-muted mt-2 text-[13px] leading-snug">{p.label}</dd>
               </div>
             ))}
           </dl>
         </div>
         <div className="im-panel p-6">
-          <h2 className="mb-2 im-eyebrow text-[11px]">{t.guardrail.label}</h2>
-          <p className="text-sm leading-relaxed im-ink">{t.guardrail.text}</p>
+          <h2 className="im-eyebrow mb-2 text-sm">{t.guardrail.label}</h2>
+          <p className="im-ink text-sm leading-relaxed">{t.guardrail.text}</p>
         </div>
       </section>
 
       {/* ── CTA ───────────────────────────────────────────────────────── */}
-      <section className="im-card-cta mt-14 flex flex-col items-start justify-between gap-6 p-8 md:flex-row md:items-center md:p-10">
+      <section className="im-panel mt-14 flex flex-col items-start justify-between gap-6 p-8 md:flex-row md:items-center md:p-10">
         <div className="max-w-xl">
-          <h2 className="text-2xl font-bold tracking-[-0.02em] im-ink md:text-3xl">{d.ctaHeading}</h2>
-          <p className="mt-2 im-muted">{d.ctaSub}</p>
+          <h2 className="im-title im-section-title im-ink">{d.ctaHeading}</h2>
+          <p className="im-muted mt-2">{d.ctaSub}</p>
         </div>
         <Link
           href={`${immvela()}#early-access`}
           onClick={() => track('immvela_demo_cta')}
-          className="im-btn group inline-flex shrink-0 items-center gap-2 px-6 py-3 text-sm font-semibold"
+          className="im-btn inline-flex shrink-0 items-center gap-2 px-5 py-3 text-[15px] font-semibold"
         >
           {d.ctaButton}
-          <span className="transition-transform duration-300 ease-sns-out group-hover:translate-x-1">
-            <Arrow />
-          </span>
+          <Arrow />
         </Link>
       </section>
     </>

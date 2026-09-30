@@ -34,11 +34,11 @@ type Theme = 'dark' | 'light'
 // HVAC waitlist page was retired but kept so an SNS-side form still has one.
 const UI: Record<Theme, Record<string, string>> = {
   dark: {
-    card: 'glass edge-light',
+    card: 'sns-card',
     heading: 'text-sns-text',
     sub: 'text-sns-muted',
     label: 'text-sns-faint',
-    field: 'rounded-sns border bg-white/70 text-sns-text placeholder:text-sns-faint focus:bg-white/90',
+    field: 'min-h-11 rounded-sns border bg-white text-sns-text placeholder:text-sns-faint',
     fieldOk: 'border-sns-text/15 focus:border-sns-indigo/60',
     fieldBad: 'border-red-500/60 focus:border-red-500',
     error: 'text-red-600',
@@ -48,7 +48,7 @@ const UI: Record<Theme, Record<string, string>> = {
     consentLink: 'text-sns-accent underline underline-offset-2 hover:text-sns-cyan',
     checkbox: 'accent-sns-indigo',
     submit:
-      'bg-sns-indigo text-white shadow-[0_8px_30px_-8px_rgba(99,102,241,0.7)] hover:-translate-y-0.5 hover:bg-sns-accent hover:shadow-[0_12px_40px_-8px_rgba(99,102,241,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent',
+      'min-h-11 rounded-sns bg-sns-indigo text-white hover:bg-sns-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent',
     successIcon: 'border-sns-green/30 bg-sns-green/10 text-sns-green',
     successTitle: 'text-sns-text',
     successBody: 'text-sns-muted',
@@ -58,19 +58,19 @@ const UI: Record<Theme, Record<string, string>> = {
     card: 'im-card',
     heading: 'im-ink',
     sub: 'im-muted',
-    label: 'im-faint',
+    label: 'im-ink',
     field: 'im-field',
     fieldOk: '',
     fieldBad: 'im-field-bad',
-    error: 'text-[#c2543f]',
-    alert: 'rounded-xl border border-[#c2543f]/40 bg-[#c2543f]/10 text-[#a23f2e]',
+    error: 'text-[#a23f2e]',
+    alert: 'rounded-lg border border-[#b3452f]/40 bg-[#fbeee9] text-[#a23f2e]',
     option: 'bg-white text-[#16352a]',
     consent: 'im-muted',
     consentLink: 'im-green underline underline-offset-2 hover:opacity-70',
-    checkbox: 'accent-[#2f7d5b]',
+    checkbox: 'accent-[var(--im-green)]',
     submit:
-      'im-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2f7d5b]',
-    successIcon: 'border-[#2f7d5b]/30 bg-[#2f7d5b]/10 im-green',
+      'im-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--im-green)]',
+    successIcon: 'border-[var(--im-line-strong)] bg-[var(--im-paper)] im-green',
     successTitle: 'im-ink',
     successBody: 'im-muted',
     sendAnother: 'im-link',
@@ -172,9 +172,17 @@ export default function WaitlistForm({
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`${ui.card} flex flex-col items-center rounded-sns-lg p-10 text-center`}
       >
-        <span className={`flex h-14 w-14 items-center justify-center rounded-full border ${ui.successIcon}`}>
+        <span
+          className={`flex h-14 w-14 items-center justify-center rounded-full border ${ui.successIcon}`}
+        >
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="m5 12.5 4.5 4.5L19 7.5"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </span>
         <Heading className={`mt-5 text-xl font-bold ${ui.successTitle}`}>{t.successTitle}</Heading>
@@ -182,7 +190,7 @@ export default function WaitlistForm({
         <button
           type="button"
           onClick={() => setStatus('idle')}
-          className={`mt-6 font-mono text-xs uppercase tracking-widest transition-colors duration-300 ${ui.sendAnother}`}
+          className={`mt-6 inline-flex min-h-11 items-center text-sm font-medium transition-colors duration-150 ${ui.sendAnother}`}
         >
           {t.sendAnother}
         </button>
@@ -190,8 +198,8 @@ export default function WaitlistForm({
     )
   }
 
-  const labelClass = `mb-2 block font-mono text-[11px] uppercase tracking-[0.15em] ${ui.label}`
-  const fieldBase = `w-full px-4 py-3 outline-none transition-colors duration-200 ${ui.field}`
+  const labelClass = `mb-2 block text-[13px] font-medium ${ui.label}`
+  const fieldBase = `w-full px-4 py-3 transition-colors duration-150 focus:outline-none focus-visible:ring-2 ${ui.field}`
   const ok = ui.fieldOk
   const bad = ui.fieldBad
   const req = theme === 'light' ? 'im-green' : 'text-sns-indigo'
@@ -218,7 +226,10 @@ export default function WaitlistForm({
         </div>
       )}
 
-      <div aria-hidden="true" className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden"
+      >
         <label>
           Company
           <input type="text" name="company" tabIndex={-1} autoComplete="off" />
@@ -241,7 +252,7 @@ export default function WaitlistForm({
             className={`${fieldBase} ${errors.name ? bad : ok}`}
           />
           {errors.name && (
-            <p id="wl-name-error" className={`mt-1.5 text-xs ${ui.error}`}>
+            <p id="wl-name-error" className={`mt-2 text-xs ${ui.error}`}>
               {errors.name}
             </p>
           )}
@@ -262,7 +273,7 @@ export default function WaitlistForm({
             className={`${fieldBase} ${errors.email ? bad : ok}`}
           />
           {errors.email && (
-            <p id="wl-email-error" className={`mt-1.5 text-xs ${ui.error}`}>
+            <p id="wl-email-error" className={`mt-2 text-xs ${ui.error}`}>
               {errors.email}
             </p>
           )}
@@ -295,7 +306,7 @@ export default function WaitlistForm({
           ))}
         </select>
         {errors.size && (
-          <p id="wl-size-error" className={`mt-1.5 text-xs ${ui.error}`}>
+          <p id="wl-size-error" className={`mt-2 text-xs ${ui.error}`}>
             {errors.size}
           </p>
         )}
@@ -303,11 +314,20 @@ export default function WaitlistForm({
 
       <div className="mt-5">
         <label className="flex items-start gap-3">
-          <input type="checkbox" name="consent" aria-invalid={errors.consent ? 'true' : undefined} className={`mt-1 h-4 w-4 shrink-0 ${ui.checkbox}`} />
+          <input
+            type="checkbox"
+            name="consent"
+            aria-invalid={errors.consent ? 'true' : undefined}
+            className={`mt-1 h-4 w-4 shrink-0 ${ui.checkbox}`}
+          />
           <span className={`text-sm leading-relaxed ${ui.consent}`}>
             {t.consent.map((seg, i) =>
               seg.link ? (
-                <Link key={i} href={localePath(locale, '/legal/privacy')} className={ui.consentLink}>
+                <Link
+                  key={i}
+                  href={localePath(locale, '/legal/privacy')}
+                  className={ui.consentLink}
+                >
                   {seg.t}
                 </Link>
               ) : (
@@ -316,18 +336,24 @@ export default function WaitlistForm({
             )}
           </span>
         </label>
-        {errors.consent && <p className={`mt-1.5 text-xs ${ui.error}`}>{errors.consent}</p>}
+        {errors.consent && <p className={`mt-2 text-xs ${ui.error}`}>{errors.consent}</p>}
       </div>
 
       <button
         type="submit"
         disabled={status === 'sending'}
-        className={`group mt-7 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 ease-sns-out disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 ${ui.submit}`}
+        className={`group mt-7 inline-flex items-center justify-center gap-2 px-6 py-3 text-[15px] font-semibold disabled:cursor-not-allowed disabled:opacity-60 ${ui.submit}`}
       >
         {status === 'sending' ? t.sending : t.submit}
         {status !== 'sending' && (
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform duration-300 ease-sns-out group-hover:translate-x-1">
-            <path d="M3 7h8M7.5 3.5 11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path
+              d="M3 7h8M7.5 3.5 11 7l-3.5 3.5"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         )}
       </button>

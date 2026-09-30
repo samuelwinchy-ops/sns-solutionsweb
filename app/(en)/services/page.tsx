@@ -2,13 +2,14 @@ import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import Services from '@/components/Services'
+import CustomBuilds from '@/components/CustomBuilds'
 import JsonLd from '@/components/JsonLd'
 import { servicesGraph } from '@/lib/schema'
 
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    "What SNS Solutions does, in plain terms: custom software, AI automation, and AI & IT consulting. The problems we solve, and what you get.",
+    'What SNS Solutions does, in plain terms: custom software, AI automation, and AI & IT consulting. The problems we solve, and what you get.',
   alternates: {
     canonical: '/services',
     languages: { en: '/services', de: '/de/services', 'x-default': '/services' },
@@ -24,6 +25,7 @@ export default function ServicesPage() {
         <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
           <Services />
         </div>
+        <CustomBuilds />
       </main>
       <Footer showCta={false} />
     </>

@@ -121,7 +121,7 @@ function Section({
 }) {
   return (
     <section lang={lang} className="mt-9 first:mt-0">
-      <h2 className="mb-2.5 text-[1.05rem] font-semibold tracking-[-0.01em] text-[color:var(--im-ink)]">
+      <h2 className="mb-3 text-[1.05rem] font-semibold tracking-[-0.01em] text-[color:var(--im-ink)]">
         {title}
       </h2>
       <div className="im-legal-prose">{children}</div>
@@ -147,7 +147,7 @@ export default function ImmvelaDataDeletionPage() {
             </a>
             <a
               href="/"
-              className="font-mono text-xs uppercase tracking-widest text-[color:var(--im-muted)] transition-colors duration-300 hover:text-[color:var(--im-green)]"
+              className="inline-flex min-h-11 items-center text-sm font-medium text-[color:var(--im-muted)] transition-colors duration-150 hover:text-[color:var(--im-green)]"
             >
               ← Zur Website
             </a>
@@ -156,14 +156,14 @@ export default function ImmvelaDataDeletionPage() {
 
         <main className="mx-auto w-full max-w-3xl px-5 pb-24 pt-12 md:pt-16">
           <div className="mb-10 border-b border-[color:var(--im-line)] pb-8">
-            <p className="im-eyebrow mb-3 font-mono text-xs uppercase tracking-[0.2em]">Immvela</p>
+            <p className="im-eyebrow mb-3 text-sm">Immvela</p>
             <h1 className="text-3xl font-bold tracking-[-0.02em] text-[color:var(--im-ink)] md:text-4xl">
               Datenlöschung <span className="text-[color:var(--im-faint)]">/</span> Data deletion
             </h1>
-            <p className="mt-3 font-mono text-sm text-[color:var(--im-muted)]">
+            <p className="mt-3 text-sm text-[color:var(--im-muted)]">
               Immvela — SNS Software Solutions GmbH, Wien
             </p>
-            <p className="mt-1 font-mono text-xs text-[color:var(--im-faint)]">
+            <p className="mt-1 text-[13px] text-[color:var(--im-faint)]">
               Stand / Last updated: {UPDATED_DE} · {UPDATED_EN}
             </p>
           </div>
@@ -252,19 +252,19 @@ export default function ImmvelaDataDeletionPage() {
           <nav className="mt-14 flex flex-wrap gap-x-5 gap-y-2 border-t border-[color:var(--im-line)] pt-8">
             <a
               href="/legal/privacy"
-              className="font-mono text-xs text-[color:var(--im-muted)] transition-colors duration-300 hover:text-[color:var(--im-green)]"
+              className="inline-flex min-h-11 items-center text-[13px] text-[color:var(--im-muted)] transition-colors duration-150 hover:text-[color:var(--im-green)]"
             >
               Datenschutzerklärung / Privacy policy
             </a>
             <a
               href="/legal/imprint"
-              className="font-mono text-xs text-[color:var(--im-muted)] transition-colors duration-300 hover:text-[color:var(--im-green)]"
+              className="inline-flex min-h-11 items-center text-[13px] text-[color:var(--im-muted)] transition-colors duration-150 hover:text-[color:var(--im-green)]"
             >
               Impressum / Imprint
             </a>
             <a
               href="/legal/terms"
-              className="font-mono text-xs text-[color:var(--im-muted)] transition-colors duration-300 hover:text-[color:var(--im-green)]"
+              className="inline-flex min-h-11 items-center text-[13px] text-[color:var(--im-muted)] transition-colors duration-150 hover:text-[color:var(--im-green)]"
             >
               Nutzungsbedingungen / Terms
             </a>

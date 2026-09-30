@@ -9,36 +9,23 @@ const legalLinks = [
   { href: '/legal/terms', label: 'Terms of Use' },
 ]
 
-export default function LegalLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function LegalLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative z-10 flex min-h-dvh flex-col">
       {/* Header */}
-      <header className="glass-strong sticky top-0 z-50 border-b border-sns-text/[0.08] px-5">
+      <header className="sticky top-0 z-50 border-b border-sns-border bg-white px-5">
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <Image
-              src="/sns-icon.png"
-              alt=""
-              width={970}
-              height={970}
-              className="h-8 w-8"
-            />
-            <span className="font-mono text-sm font-bold uppercase tracking-[0.22em] text-sns-text">
-              SNS{' '}
-              <span className="hidden font-normal text-sns-muted sm:inline">
-                Solutions
-              </span>
+          <Link href="/" className="flex items-center gap-3">
+            <Image src="/sns-icon.png" alt="" width={970} height={970} className="h-8 w-8" />
+            <span className="text-[15px] font-bold tracking-tight text-sns-text">
+              SNS <span className="hidden font-medium text-sns-muted sm:inline">Solutions</span>
             </span>
           </Link>
           <div className="flex items-center gap-4">
             <LanguageToggle />
             <Link
               href="/"
-              className="font-mono text-xs uppercase tracking-widest text-sns-muted transition-colors duration-300 hover:text-sns-accent"
+              className="inline-flex min-h-11 items-center text-sm font-medium text-sns-muted transition-colors duration-150 hover:text-sns-text"
             >
               ← Back to site
             </Link>
@@ -47,22 +34,18 @@ export default function LegalLayout({
       </header>
 
       {/* Content */}
-      <main className="mx-auto w-full max-w-3xl flex-1 px-5 pb-24 pt-12 md:pt-16">
-        {children}
-      </main>
+      <main className="mx-auto w-full max-w-3xl flex-1 px-5 pb-24 pt-12 md:pt-16">{children}</main>
 
       {/* Footer */}
-      <footer className="border-t border-sns-text/[0.08] px-5">
+      <footer className="border-t border-sns-border px-5">
         <div className="mx-auto flex max-w-3xl flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-xs text-sns-faint">
-            {SITE.legalName} — Vienna, Austria
-          </p>
-          <nav className="flex flex-wrap gap-x-5 gap-y-2">
+          <p className="text-sm text-sns-muted">{SITE.legalName} — Vienna, Austria</p>
+          <nav className="-mx-2 flex flex-wrap">
             {legalLinks.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="font-mono text-xs text-sns-muted transition-colors duration-300 hover:text-sns-accent"
+                className="inline-flex min-h-11 items-center px-2 text-sm text-sns-muted transition-colors duration-150 hover:text-sns-text"
               >
                 {l.label}
               </Link>

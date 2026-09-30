@@ -19,20 +19,14 @@ const UPDATED = 'September 5, 2026'
 export default function ImprintPage() {
   return (
     <article>
-      <header className="mb-10 border-b border-sns-text/[0.08] pb-8">
-        <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-sns-indigo">
-          Legal
+      <header className="mb-10 border-b border-sns-border pb-8">
+        <p className="eyebrow mb-3">Legal</p>
+        <h1 className="section-title text-sns-text">Imprint</h1>
+        <p className="mt-3 text-base leading-relaxed text-sns-muted">
+          Information pursuant to §5 E-Commerce Act (ECG) and disclosure pursuant to §25 Media Act
+          (MedienG).
         </p>
-        <h1 className="text-3xl font-bold tracking-[-0.02em] text-sns-text md:text-4xl">
-          Imprint
-        </h1>
-        <p className="mt-3 font-mono text-sm text-sns-muted">
-          Information pursuant to §5 E-Commerce Act (ECG) and disclosure
-          pursuant to §25 Media Act (MedienG).
-        </p>
-        <p className="mt-1 font-mono text-xs text-sns-faint">
-          Last updated: {UPDATED}
-        </p>
+        <p className="mt-2 text-sm text-sns-muted">Last updated: {UPDATED}</p>
       </header>
 
       <div className="legal-prose">
@@ -48,23 +42,17 @@ export default function ImprintPage() {
         <h2>Websites covered</h2>
         <p>
           This imprint applies to <strong>sns-austria.com</strong> and to{' '}
-          <strong>immvela.com</strong> (including the application at
-          app.immvela.com). <strong>Immvela</strong> is a product and brand of
-          SNS Software Solutions GmbH; it is not a separate legal entity, and the
-          company named above is the operator of both sites.
+          <strong>immvela.com</strong> (including the application at app.immvela.com).{' '}
+          <strong>Immvela</strong> is a product and brand of SNS Software Solutions GmbH; it is not
+          a separate legal entity, and the company named above is the operator of both sites.
         </p>
 
         <h2>Represented by the managing directors</h2>
-        <p>
-          Samuel Winch, Samson Adefris Belachew
-        </p>
+        <p>Samuel Winch, Samson Adefris Belachew</p>
 
         <h2>Contact</h2>
         <p>
-          Email:{' '}
-          <a href="mailto:office@sns-austria.com">
-            office@sns-austria.com
-          </a>
+          Email: <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>
           <br />
           Phone: <a href="tel:+436701922538">+43 670 1922538</a>
         </p>
@@ -82,64 +70,51 @@ export default function ImprintPage() {
         <p>
           Object of the company: software development and IT services.
           <br />
-          Chamber membership: Austrian Federal Economic Chamber
-          (Wirtschaftskammer Österreich), Wirtschaftskammer Wien.
+          Chamber membership: Austrian Federal Economic Chamber (Wirtschaftskammer Österreich),
+          Wirtschaftskammer Wien.
           <br />
           Trade regulations: Gewerbeordnung 1994, available at{' '}
-          <a
-            href="https://www.ris.bka.gv.at"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://www.ris.bka.gv.at" target="_blank" rel="noopener noreferrer">
             ris.bka.gv.at
           </a>
           .
         </p>
 
         <h2>Supervisory authority</h2>
-        <p>
-          Magistrat der Stadt Wien
-        </p>
+        <p>Magistrat der Stadt Wien</p>
 
         <h2>Online dispute resolution</h2>
         <p>
-          The European Commission provides a platform for online dispute
-          resolution (ODR):{' '}
-          <a
-            href="https://ec.europa.eu/consumers/odr"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          The European Commission provides a platform for online dispute resolution (ODR):{' '}
+          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">
             ec.europa.eu/consumers/odr
           </a>
-          . We are neither obliged nor willing to participate in dispute
-          resolution proceedings before a consumer arbitration board.
+          . We are neither obliged nor willing to participate in dispute resolution proceedings
+          before a consumer arbitration board.
         </p>
 
         <h2>Liability for content</h2>
         <p>
-          The contents of this website were created with the greatest possible
-          care. However, we assume no liability for the accuracy, completeness,
-          or timeliness of the content. As a service provider, we are
-          responsible for our own content on these pages in accordance with
-          general law, but we are not obliged to monitor transmitted or stored
-          third-party information.
+          The contents of this website were created with the greatest possible care. However, we
+          assume no liability for the accuracy, completeness, or timeliness of the content. As a
+          service provider, we are responsible for our own content on these pages in accordance with
+          general law, but we are not obliged to monitor transmitted or stored third-party
+          information.
         </p>
 
         <h2>Liability for links</h2>
         <p>
-          Our website may contain links to external third-party websites over
-          whose content we have no influence. We therefore cannot accept any
-          liability for this third-party content. The respective provider or
-          operator of the linked pages is always responsible for their content.
+          Our website may contain links to external third-party websites over whose content we have
+          no influence. We therefore cannot accept any liability for this third-party content. The
+          respective provider or operator of the linked pages is always responsible for their
+          content.
         </p>
 
         <h2>Copyright</h2>
         <p>
-          The content and works created by the operator on these pages are
-          subject to copyright law. Reproduction, processing, distribution, and
-          any form of commercialisation of such material beyond the scope of
-          copyright law require the prior written consent of SNS Software
+          The content and works created by the operator on these pages are subject to copyright law.
+          Reproduction, processing, distribution, and any form of commercialisation of such material
+          beyond the scope of copyright law require the prior written consent of SNS Software
           Solutions GmbH.
         </p>
       </div>
