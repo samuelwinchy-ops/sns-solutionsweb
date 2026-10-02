@@ -38,8 +38,7 @@ export const de: Dictionary = {
       status: 'Zwei von sieben Modulen live · Early Access offen',
       cta: 'Auf die Warteliste',
       webAlt: 'Immvela am Laptop: das Rad eines Objekts mit Dossier, Quill, Vignette und Verlag',
-      phoneAlt:
-        'Immvela am Handy: ein Makler bittet, eine Wohnung fertig für das Inserat zu machen, und Immvela legt den Plan vor',
+      phoneAlt: 'Der Anmeldebildschirm von Immvela am Handy, im dunklen Modus',
     },
     qfutool: {
       audience: 'Für Verkäufer',

@@ -52,8 +52,7 @@ export const en = {
       cta: 'Join the waitlist',
       webAlt:
         "Immvela on a laptop: a property's Wheel, with Dossier, Quill, Vignette and Verlag around it",
-      phoneAlt:
-        'Immvela on a phone: an agent asks to get a flat ready to advertise, and Immvela lays out its plan',
+      phoneAlt: "Immvela's sign-in screen on a phone, in dark mode",
     },
     qfutool: {
       audience: 'For salespeople',

@@ -81,12 +81,15 @@ export function IPhone({
   alt,
   width,
   height,
+  theme = 'light',
   className = '',
 }: {
   src: string
   alt: string
   width: number
   height: number
+  /** The captured screen's appearance, so the status bar above it matches. */
+  theme?: 'light' | 'dark'
   /** Pass positioning here; without `absolute`/`fixed` it stays in flow. */
   className?: string
 }) {
@@ -95,9 +98,11 @@ export function IPhone({
       {/* Titanium edge, then a thin black bezel, then the screen. */}
       <div className="rounded-[16cqw] bg-gradient-to-b from-[#c8c9cc] to-[#8e9094] p-[1.1cqw] shadow-[0_30px_60px_-24px_rgba(16,24,20,0.6)]">
         <div className="rounded-[15cqw] bg-black p-[2.6cqw]">
-          <div className="relative overflow-hidden rounded-[12.6cqw] bg-[#f4f3ee]">
+          <div
+            className={`relative overflow-hidden rounded-[12.6cqw] ${theme === 'dark' ? 'bg-[#16201f] text-[#eef2ef]' : 'bg-[#f4f3ee] text-[#16352a]'}`}
+          >
             {/* Status bar: the time left of the island, the indicators right. */}
-            <div className="relative flex h-[12cqw] items-center justify-between px-[8cqw] font-inter text-[4.2cqw] font-semibold text-[#16352a]">
+            <div className="relative flex h-[12cqw] items-center justify-between px-[8cqw] font-inter text-[4.2cqw] font-semibold">
               <span>9:41</span>
               <span
                 aria-hidden="true"
@@ -144,7 +149,7 @@ export function IPhone({
             {/* Home indicator */}
             <span
               aria-hidden="true"
-              className="absolute bottom-[2cqw] left-1/2 h-[1.4cqw] w-[34cqw] -translate-x-1/2 rounded-full bg-black/70"
+              className={`absolute bottom-[2cqw] left-1/2 h-[1.4cqw] w-[34cqw] -translate-x-1/2 rounded-full ${theme === 'dark' ? 'bg-white/80' : 'bg-black/70'}`}
             />
           </div>
         </div>

@@ -81,13 +81,15 @@ export default function ProductTiles({ locale = defaultLocale }: { locale?: Loca
             <p className="mt-3 font-inter text-sm text-[#5e6d62]">{t.immvela.status}</p>
 
             {/* The product as it is today, captured from app.immvela.com on
-                2026-10-02: the property page's Wheel on the laptop (Manual
-                mode), and Auto's conversation on the phone. The workspace name
-                was swapped for a sample one before capture. Re-capture when the
+                2026-10-02, in the page's own language (…-en / …-de): the
+                property page's Wheel on the laptop (Manual mode, workspace
+                name swapped for a sample one before capture), and the sign-in
+                screen on the phone (dark appearance, 402×820 at 3x — the
+                height Safari leaves under the status bar). Re-capture when the
                 UI moves on — an out-of-date screen here is a false claim. */}
             <div className="relative mx-auto mt-12 max-w-5xl pb-4 md:mt-16 md:pb-8">
               <MacBook
-                src="/products/immvela/immvela-web.jpg"
+                src={`/products/immvela/immvela-web-${locale}.jpg`}
                 alt={t.immvela.webAlt}
                 url="app.immvela.com"
                 width={1123}
@@ -95,10 +97,11 @@ export default function ProductTiles({ locale = defaultLocale }: { locale?: Loca
                 className="mx-auto w-[86%] md:w-[82%]"
               />
               <IPhone
-                src="/products/immvela/immvela-phone.jpg"
+                src={`/products/immvela/immvela-phone-login-${locale}.jpg`}
                 alt={t.immvela.phoneAlt}
-                width={322}
-                height={699}
+                width={1206}
+                height={2460}
+                theme="dark"
                 className="absolute bottom-0 right-0 w-[26%] md:right-[3%] md:w-[19%]"
               />
             </div>
