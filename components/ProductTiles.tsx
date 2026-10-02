@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { track } from '@vercel/analytics'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, immvelaHref } from '@/i18n/config'
+import { IPhone, MacBook } from './DeviceMockups'
 
 const QFUTOOL_URL = 'https://www.qfutool.com'
 
@@ -39,10 +40,19 @@ export default function ProductTiles({ locale = defaultLocale }: { locale?: Loca
         <h2 className="sr-only">{t.heading}</h2>
         <div className="flex flex-col gap-4">
           {/* ── Immvela ─────────────────────────────────────────────── */}
-          <article className="overflow-hidden rounded-sns-lg bg-[#f2f1e8] px-6 pt-12 text-center md:px-12 md:pt-16">
+          <article className="overflow-hidden rounded-sns-lg bg-[#f2f1e8] px-6 py-12 text-center md:px-12 md:py-16">
             <p className="text-sm font-semibold text-[#2b7554]">{t.immvela.audience}</p>
-            <h3 className="mt-3 font-inter text-5xl font-extrabold tracking-[-0.035em] text-[#16352a] md:text-7xl">
-              Immvela<span className="text-[#2e9e6a]">.</span>
+            {/* Immvela's own lockup (the house line, the wordmark, "real
+                estate"), copied from the Immvela repo's apps/web/public. */}
+            <h3 className="mt-4 flex justify-center">
+              <Image
+                src="/products/immvela/immvela-lockup.png"
+                alt="Immvela real estate"
+                width={1456}
+                height={591}
+                priority
+                className="h-auto w-[240px] md:w-[320px]"
+              />
             </h3>
             <p className="mx-auto mt-4 max-w-2xl text-balance font-title text-2xl font-semibold leading-tight text-[#16352a] md:text-[2rem]">
               {t.immvela.tagline}
@@ -70,14 +80,26 @@ export default function ProductTiles({ locale = defaultLocale }: { locale?: Loca
             </div>
             <p className="mt-3 font-inter text-sm text-[#5e6d62]">{t.immvela.status}</p>
 
-            <div className="mx-auto mt-12 max-w-4xl overflow-hidden rounded-t-sns-lg border border-b-0 border-[rgba(22,53,42,0.12)]">
-              <Image
-                src={`/immvela/film-${locale}.jpg`}
-                alt={t.immvela.imageAlt}
-                width={1600}
-                height={900}
-                sizes="(min-width: 1024px) 896px, 100vw"
-                className="block h-auto w-full"
+            {/* The product as it is today, captured from app.immvela.com on
+                2026-10-02: the property page's Wheel on the laptop (Manual
+                mode), and Auto's conversation on the phone. The workspace name
+                was swapped for a sample one before capture. Re-capture when the
+                UI moves on — an out-of-date screen here is a false claim. */}
+            <div className="relative mx-auto mt-12 max-w-5xl pb-4 md:mt-16 md:pb-8">
+              <MacBook
+                src="/products/immvela/immvela-web.jpg"
+                alt={t.immvela.webAlt}
+                url="app.immvela.com"
+                width={1123}
+                height={729}
+                className="mx-auto w-[86%] md:w-[82%]"
+              />
+              <IPhone
+                src="/products/immvela/immvela-phone.jpg"
+                alt={t.immvela.phoneAlt}
+                width={322}
+                height={699}
+                className="absolute bottom-0 right-0 w-[26%] md:right-[3%] md:w-[19%]"
               />
             </div>
           </article>

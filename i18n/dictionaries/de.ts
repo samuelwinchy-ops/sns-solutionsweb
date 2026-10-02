@@ -37,8 +37,9 @@ export const de: Dictionary = {
       desc: 'Sie erfassen ein Objekt einmal und bestätigen die Angaben. Immvela schreibt daraus Captions, Broschüre und Exposé und veröffentlicht auf Ihren Kanälen.',
       status: 'Zwei von sieben Modulen live · Early Access offen',
       cta: 'Auf die Warteliste',
-      imageAlt:
-        'Immvela: sieben Module um ein System — Quill, Dossier, Vignette, Immerse, Verlag, Iris und Winston',
+      webAlt: 'Immvela am Laptop: das Rad eines Objekts mit Dossier, Quill, Vignette und Verlag',
+      phoneAlt:
+        'Immvela am Handy: ein Makler bittet, eine Wohnung fertig für das Inserat zu machen, und Immvela legt den Plan vor',
     },
     qfutool: {
       audience: 'Für Verkäufer',

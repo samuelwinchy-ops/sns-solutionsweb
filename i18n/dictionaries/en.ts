@@ -50,8 +50,10 @@ export const en = {
       desc: 'Enter a property once and confirm its facts. Immvela drafts the captions, the brochure and the Exposé from them and posts to your channels.',
       status: 'Two of seven modules live · early access open',
       cta: 'Join the waitlist',
-      imageAlt:
-        'Immvela: seven modules around one system — Quill, Dossier, Vignette, Immerse, Verlag, Iris and Winston',
+      webAlt:
+        "Immvela on a laptop: a property's Wheel, with Dossier, Quill, Vignette and Verlag around it",
+      phoneAlt:
+        'Immvela on a phone: an agent asks to get a flat ready to advertise, and Immvela lays out its plan',
     },
     qfutool: {
       audience: 'For salespeople',
