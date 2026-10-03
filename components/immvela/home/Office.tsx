@@ -411,7 +411,7 @@ export default function Office({ t }: { t: T }) {
               textWrap: 'pretty',
             }}
           >
-            <span style={{ fontWeight: '600', color: '#3f574f' }}>{t('Next:')}</span>
+            <span style={{ fontWeight: '600', color: '#3f574f' }}>{t('Next:')}</span>{' '}
             {t(
               'set your office’s own rules, required documents, templates and approval before publishing.'
             )}

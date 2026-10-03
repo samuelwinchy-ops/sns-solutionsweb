@@ -13,6 +13,8 @@
 :where(.imv) a:focus-visible,:where(.imv) button:focus-visible{outline:2px solid #1f7a5a;outline-offset:3px}
 .imv-band{width:100%;color:#0a2b22;overflow-x:clip}
 .imv-band-h{overflow-x:hidden}
+/* Trust and partner pages: headlines in the home page's forest, like every other headline */
+.imv-page{color:#14473a}
 .imv-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 /* text in three greens: forest for headlines and the wordmark (9.3:1 on the ground), a green grey for body (6.9:1), a lighter one for small print (5.7:1). App mockups, documents and photos keep their own ink. */

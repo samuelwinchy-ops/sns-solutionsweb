@@ -126,8 +126,8 @@ export function toJsx(node, sizes = '600px') {
   if (node.nodeType === 3) {
     const raw = node.rawText
     if (!raw.trim()) return /\n/.test(raw) || !raw ? '' : "{' '}"
-    const lead = /^[ \t]+\S/.test(raw) && node.previousSibling ? "{' '}" : ''
-    const trail = /\S[ \t]+$/.test(raw) && node.nextSibling ? "{' '}" : ''
+    const lead = /^\s+\S/.test(raw) ? "{' '}" : ''
+    const trail = /\S\s+$/.test(raw) ? "{' '}" : ''
     const text = decode(raw.trim().replace(/\s+/g, ' '))
     const body = text.includes('{{') ? `{${bind(text)}}` : hasWords(text) ? `{${t(text)}}` : `{${str(text)}}`
     return lead + body + trail

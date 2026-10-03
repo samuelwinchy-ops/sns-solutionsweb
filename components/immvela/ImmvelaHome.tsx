@@ -51,7 +51,8 @@ export default function ImmvelaHome({ locale }: { locale: Locale }) {
       <div className="imv-band imv-band-h">
         <People t={t} v={v} />
       </div>
-      <div className="imv-band imv-band-h">
+      {/* #early-access: the old landing's anchor, still linked from the SNS home and the demo pages */}
+      <div className="imv-band imv-band-h" id="early-access">
         <Apply t={t} v={v} />
       </div>
     </>

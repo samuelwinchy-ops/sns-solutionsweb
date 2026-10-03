@@ -8,7 +8,7 @@ import PartnerSections from './PartnerSections'
 export function ImmvelaTrustPage({ locale }: { locale: Locale }) {
   return (
     <ImmvelaFrame locale={locale}>
-      <div className="imv-band">
+      <div className="imv-band imv-page">
         <TrustSections t={immvelaT(locale)} />
       </div>
     </ImmvelaFrame>
@@ -18,7 +18,7 @@ export function ImmvelaTrustPage({ locale }: { locale: Locale }) {
 export function ImmvelaPartnerPage({ locale }: { locale: Locale }) {
   return (
     <ImmvelaFrame locale={locale}>
-      <div className="imv-band">
+      <div className="imv-band imv-page">
         <PartnerSections
           t={immvelaT(locale)}
           locale={locale}

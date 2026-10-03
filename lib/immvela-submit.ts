@@ -1,7 +1,7 @@
 import emailjs from '@emailjs/browser'
 
 /**
- * The immvela.com forms go out the same way WaitlistForm and ContactForm always have: one
+ * The immvela.com forms go out the way the old waitlist form and ContactForm always have: one
  * EmailJS service and template, configured by the three NEXT_PUBLIC_EMAILJS_* variables, and a
  * mailto to the office as the fallback when they are not set (local builds, previews).
  *

@@ -250,7 +250,7 @@ export default function TrustSections({ t }: { t: T }) {
               textWrap: 'pretty',
             }}
           >
-            {t('Write to')}
+            {t('Write to')}{' '}
             <a className="tp-mail" href="mailto:office@sns-austria.com">
               {t('office@sns-austria.com')}
             </a>
