@@ -14,6 +14,10 @@ export function GET() {
     { path: '/de', alt: '/de', priority: '0.9' },
     { path: '/demo', alt: '/de/demo', priority: '0.8' },
     { path: '/de/demo', alt: '/de/demo', priority: '0.7' },
+    { path: '/trust', alt: '/de/trust', priority: '0.6' },
+    { path: '/de/trust', alt: '/de/trust', priority: '0.5' },
+    { path: '/partner', alt: '/de/partner', priority: '0.6' },
+    { path: '/de/partner', alt: '/de/partner', priority: '0.5' },
   ]
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>

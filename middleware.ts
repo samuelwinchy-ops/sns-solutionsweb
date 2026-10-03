@@ -10,6 +10,7 @@ import { IMMVELA_URL, SITE_URL } from '@/lib/site'
  *       immvela.com/de       → renders /de/immvela
  *       immvela.com/demo     → renders /immvela/demo
  *       immvela.com/de/demo  → renders /de/immvela/demo
+ *       immvela.com/trust, /partner (and /de/…) → the same pattern
  *     and the internal /immvela paths canonicalise back to the root so there's
  *     exactly one public URL per page.
  *
@@ -50,6 +51,10 @@ const IMMVELA_PAGES: Record<string, string> = {
   '/de/immvela': '/de',
   '/immvela/demo': '/demo',
   '/de/immvela/demo': '/de/demo',
+  '/immvela/trust': '/trust',
+  '/de/immvela/trust': '/de/trust',
+  '/immvela/partner': '/partner',
+  '/de/immvela/partner': '/de/partner',
 }
 const IMMVELA_ROUTE_FOR = new Map(Object.entries(IMMVELA_PAGES).map(([route, pub]) => [pub, route]))
 

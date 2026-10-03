@@ -1,56 +1,34 @@
-import { getDict } from '@/i18n'
 import { IMMVELA_URL, SITE_URL } from '@/lib/site'
 
-// Served at the public path /llms.txt on immvela.com via the middleware
-// rewrite. public/llms.txt (a static file, so it can't be host-aware) used to
-// be served on every domain by default — without this override, immvela.com's
-// /llms.txt was the SNS Solutions one: wrong product, wrong page list.
-// Content is pulled from the same dictionary the page itself renders, so it
-// can't drift from the real copy.
-//
-// Keep this short and link-shaped; the full text is at /llms-full.txt.
+// Served at the public path /llms.txt on immvela.com via the middleware rewrite, so answer
+// engines read Immvela's own summary rather than the SNS one. Kept to what the site itself
+// claims (design/immvela-redesign/TRUTH.md): present tense only for what works today, "Next"
+// for what does not, and no hosting, compliance or pricing claims. Full text: /llms-full.txt.
 export function GET() {
-  const t = getDict('en').waitlistPage
-
-  const live = t.modules.filter((m) => m.status === 'active')
-  const building = t.modules.filter((m) => m.status !== 'active')
-  const names = (ms: typeof t.modules) => ms.map((m) => `${m.name} (${m.code})`).join(', ')
-
   const body = `# Immvela
 
-> ${t.tagline}
+> Your personal real estate assistant. Documents in, a checked listing out.
 
-${t.heroSub} A product by SNS Software Solutions GmbH, based in Vienna, Austria.
+Immvela is a product by SNS Software Solutions GmbH, Vienna, Austria, for estate agents and
+offices in Austria, Germany and Switzerland. It is in a closed beta. German first, English available.
 
-German is the default interface language, not a translation; English is
-selectable per user. Data is hosted in the EU and each brokerage stays its own
-data controller.
-
-Currently in early access. ${live.length} of ${t.modules.length} modules are live and usable today: ${names(live)}. The rest are shipping incrementally: ${names(building)}.
-
-${t.guardrail.label}: ${t.guardrail.text}
-
-## Modules
-
-${t.modules
-  .map(
-    (m) =>
-      `- **${m.name} (${m.code})** — ${m.status === 'active' ? t.statusActive : t.statusProgress}: ${m.desc}`
-  )
-  .join('\n')}
+Give it the Energieausweis, the floor plan and the photos. Immvela drafts the Exposé and the posts,
+keeps the document and line every value was read from, and asks the agent before anything goes out
+when two documents disagree. Nothing read from a document is used until a person confirms it.
 
 ## Pages
 
-- [Immvela (English)](${IMMVELA_URL}/): product overview, modules, and early-access sign-up.
-- [Immvela (Deutsch)](${IMMVELA_URL}/de): deutsche Version der Produktseite.
-- [Module walkthrough](${IMMVELA_URL}/demo): a clip of each module working on a real listing ([Deutsch](${IMMVELA_URL}/de/demo)).
-- [Early access](${IMMVELA_URL}/#early-access): join the waitlist.
+- [Immvela (English)](${IMMVELA_URL}/): what Immvela does today, and the closed beta application.
+- [Immvela (Deutsch)](${IMMVELA_URL}/de): deutsche Version.
+- [How Immvela handles documents and data](${IMMVELA_URL}/trust) ([Deutsch](${IMMVELA_URL}/de/trust)).
+- [Help us build Immvela](${IMMVELA_URL}/partner): book a 30 minute conversation ([Deutsch](${IMMVELA_URL}/de/partner)).
+- [Module walkthrough](${IMMVELA_URL}/demo) ([Deutsch](${IMMVELA_URL}/de/demo)).
+- [Apply for the closed beta](${IMMVELA_URL}/#apply).
 - [SNS Solutions](${SITE_URL}/): the company behind Immvela.
 
 ## Optional
 
-- [Full product text](${IMMVELA_URL}/llms-full.txt): every page's content, including the FAQ, in one Markdown file.
+- [Full product text](${IMMVELA_URL}/llms-full.txt)
 `
-
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }
