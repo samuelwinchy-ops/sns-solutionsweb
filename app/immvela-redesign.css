@@ -516,6 +516,42 @@
 @media (max-width:640px){.ap-sec{padding:64px 20px !important}}
 @media (prefers-reduced-transparency:reduce){.ap-form{background-color:#ffffff !important;background-image:none !important}}
 
+/* ================= LAPTOP FIT =================
+   Not in the design file, which was composed at 1440 x 7520. On a laptop screen (1366 x 768,
+   1440 x 900) each tall section keeps its headline and its proof in one screen under the nav:
+   the stages scale down with the viewport height instead of the width, and the section
+   padding tightens. Nothing changes at taller screens or on phones. */
+@media (min-width:960px) and (max-height:960px){
+  .pv-sec,.tr-sec,.of-sec,.sw-sec{padding-top:64px !important;padding-bottom:72px !important}
+  .pv-sec{--pvw:min(100%,1160px,max(820px,calc((100svh - 330px) * 2.0714)))}
+  .pv-sec [data-pv-stage]{max-width:var(--pvw);margin:32px auto 0 !important}
+  .tr-sec{--trw:min(100%,1160px,max(800px,calc((100svh - 300px) * 1.875)))}
+  .tr-stage{max-width:var(--trw) !important;margin-top:32px !important}
+  .tr-note{max-width:var(--trw);padding-left:calc(var(--trw) * .058333)}
+  .of-grid{row-gap:32px}
+  .of-row{padding-top:10px;padding-bottom:10px}
+  .of-row-held{padding:10px 12px}
+  .sw-stage{margin-top:32px !important}
+  .sw-photo{aspect-ratio:auto !important;height:clamp(320px,calc(100svh - 370px),580px)}
+}
+/* the phone stage's compact size, also on 768-tall laptops (the design switched under 700) */
+@media (min-width:761px) and (min-height:701px) and (max-height:800px){
+  .ml-sec{padding:48px 24px !important}
+  .ml-vis{height:540px}
+  .ml-pos{left:calc(50% - 98px);top:16px;width:234px}
+  .ml-persp{zoom:.78}
+  .ml-chip{top:120px}
+  .ml-glow{left:calc(50% + 20px - 250px);top:20px;width:500px;height:500px}
+  .ml-contact{left:calc(50% + 20px - 140px);top:496px;width:280px;height:40px}
+}
+
+/* the narrowest phones: the office list keeps its name column readable */
+@media (max-width:400px){
+  .of-list{padding:16px 12px 8px}
+  .of-cols,.of-row{grid-template-columns:minmax(0,1fr) repeat(3,46px)}
+  .of-cols span{font-size:11px}
+}
+
 /* ================= TRUST PAGE ================= */
 
 /* A still page. Each topic is one row: the plain question left, the true answer right, in one white sheet. */

@@ -62,7 +62,7 @@ const DE: Record<string, string> = {
 
   // trace
   'Every number in your Exposé, traced to its document':
-    'Jede Zahl in Ihrem Exposé, zurückverfolgt bis zum Dokument',
+    'Jede Zahl im Exposé, belegt durch ihr Dokument',
   'Immvela keeps the page and the exact line each value was read from, so any number can be checked in one tap.':
     'Immvela merkt sich die Seite und die genaue Zeile, aus der jeder Wert gelesen wurde. So lässt sich jede Zahl mit einem Tippen prüfen.',
   'Key facts. Choose a value to see the line it was read from.':

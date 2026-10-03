@@ -92,6 +92,8 @@ function Sent({
   )
 }
 
+const FIELD_ORDER = ['name', 'office', 'email', 'size', 'consent']
+
 function useSubmit(validate: (d: FormData) => Errors, send: (d: FormData) => Promise<void>) {
   const [status, setStatus] = useState<Status>('idle')
   const [errors, setErrors] = useState<Errors>({})
@@ -106,8 +108,10 @@ function useSubmit(validate: (d: FormData) => Errors, send: (d: FormData) => Pro
     }
     const found = validate(data)
     setErrors(found)
-    if (Object.values(found).some(Boolean)) {
-      ;(form.querySelector('[aria-invalid="true"]') as HTMLElement | null)?.focus()
+    const first = FIELD_ORDER.find((k) => found[k])
+    if (first) {
+      const el = form.elements.namedItem(first)
+      ;((el instanceof RadioNodeList ? el[0] : el) as HTMLElement | null)?.focus()
       return
     }
     try {

@@ -637,7 +637,7 @@ export default function Trace({ t, v }: { t: T; v: HomeVals }) {
                       borderTop: '1px solid rgba(10,43,34,0.10)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '.35em',
+                      gap: '5em',
                       whiteSpace: 'nowrap',
                     }}
                   >
@@ -665,7 +665,7 @@ export default function Trace({ t, v }: { t: T; v: HomeVals }) {
                       borderTop: '1px solid rgba(10,43,34,0.10)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '.35em',
+                      gap: '5em',
                       whiteSpace: 'nowrap',
                     }}
                   >
@@ -972,7 +972,7 @@ export default function Trace({ t, v }: { t: T; v: HomeVals }) {
                       borderTop: '1px solid rgba(10,43,34,0.10)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '.35em',
+                      gap: '5em',
                       whiteSpace: 'nowrap',
                     }}
                   >
@@ -1000,7 +1000,7 @@ export default function Trace({ t, v }: { t: T; v: HomeVals }) {
                       borderTop: '1px solid rgba(10,43,34,0.10)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '.35em',
+                      gap: '5em',
                       whiteSpace: 'nowrap',
                     }}
                   >
@@ -1028,7 +1028,7 @@ export default function Trace({ t, v }: { t: T; v: HomeVals }) {
                       borderTop: '1px solid rgba(10,43,34,0.10)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '.35em',
+                      gap: '5em',
                       whiteSpace: 'nowrap',
                     }}
                   >
@@ -1956,7 +1956,7 @@ export default function Trace({ t, v }: { t: T; v: HomeVals }) {
                       borderTop: '1px solid rgba(10,43,34,0.10)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '.35em',
+                      gap: '5em',
                       whiteSpace: 'nowrap',
                     }}
                   >
@@ -1984,7 +1984,7 @@ export default function Trace({ t, v }: { t: T; v: HomeVals }) {
                       borderTop: '1px solid rgba(10,43,34,0.10)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '.35em',
+                      gap: '5em',
                       whiteSpace: 'nowrap',
                     }}
                   >
@@ -2291,7 +2291,7 @@ export default function Trace({ t, v }: { t: T; v: HomeVals }) {
                       borderTop: '1px solid rgba(10,43,34,0.10)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '.35em',
+                      gap: '5em',
                       whiteSpace: 'nowrap',
                     }}
                   >
@@ -2319,7 +2319,7 @@ export default function Trace({ t, v }: { t: T; v: HomeVals }) {
                       borderTop: '1px solid rgba(10,43,34,0.10)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '.35em',
+                      gap: '5em',
                       whiteSpace: 'nowrap',
                     }}
                   >
@@ -2347,7 +2347,7 @@ export default function Trace({ t, v }: { t: T; v: HomeVals }) {
                       borderTop: '1px solid rgba(10,43,34,0.10)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '.35em',
+                      gap: '5em',
                       whiteSpace: 'nowrap',
                     }}
                   >
