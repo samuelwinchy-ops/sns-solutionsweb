@@ -1,0 +1,1528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Immvela home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid #1f7a5a;outline-offset:3px}
+/* text in three greens: forest for headlines and the wordmark (9.3:1 on the ground), a green grey for body (6.9:1), a lighter one for small print (5.7:1). App mockups, documents and photos keep their own ink. */
+
+/* ================= SHELL: ground, glass, nav ================= */
+.site-navlink{text-decoration:none;font-size:14px;color:#3f574f}
+.site-navlink:hover{color:#14473a}
+.site-foot a{text-decoration:none}
+.site-foot a:hover{color:#14473a}
+@media (max-width:860px){
+  .site-side{visibility:hidden !important}
+  .site-mods{display:none !important}
+}
+@media (max-width:640px){
+  .site-navwrap{padding:8px 12px !important}
+  .site-head{padding:7px 8px 7px 16px !important}
+}
+/* the ground, fixed behind everything: light from above, three calm pools, the vignette, then the grain */
+.gl-ground,.gl-grain{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.gl-ground{background:radial-gradient(ellipse 75% 50% at 50% -14%,color-mix(in srgb,#fff 16%,transparent),transparent 70%),radial-gradient(42% 48% at 12% 30%,rgb(22 70 58 / .12),transparent 72%),radial-gradient(40% 46% at 92% 62%,rgb(62 108 140 / .11),transparent 72%),radial-gradient(36% 40% at 30% 100%,rgb(115 92 110 / .09),transparent 72%),radial-gradient(ellipse 120% 90% at 50% 40%,transparent 60%,color-mix(in srgb,#6b6a55 18%,transparent) 100%)}
+.gl-grain{background-image:url(/_blob/75f99c1e1542e7819fc1196d8df8f89b);background-size:180px;opacity:.08;mix-blend-mode:multiply}
+/* glass only where something floats: the nav bar and the product chips. The sheen is the solid card face */
+.gl-sheen{background-color:rgb(255 255 255 / .8);border:1px solid rgb(255 255 255 / .85);background-image:linear-gradient(180deg,rgb(255 255 255 / .5),transparent 70px);box-shadow:inset 0 1px 0 #fff,0 1px 2px rgb(40 40 20 / .05),0 14px 30px -18px rgb(40 40 20 / .16)}
+.gl-glass{background-color:rgb(255 255 255 / .72);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%);border:1px solid rgb(255 255 255 / .85);background-image:linear-gradient(180deg,rgb(255 255 255 / .5),transparent 42%);box-shadow:inset 0 1px 0 #fff,0 16px 36px -20px rgb(40 40 20 / .2)}
+/* the nav's helix waits while the big mark is on screen, then arrives once the hero mark scrolls under the bar */
+.nv-mark{justify-self:center;display:flex;opacity:0;transform:scale(.6);visibility:hidden;transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s linear .45s}
+.nv-mark.is-on{opacity:1;transform:none;visibility:visible;transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s}
+@media (prefers-reduced-motion:reduce){.nv-mark{transition:none !important}}
+@media (prefers-reduced-transparency:reduce){.gl-sheen,.gl-glass{background-color:#ffffff !important;background-image:none !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important}}
+
+/* ================= HERO ================= */
+.hv-cta{transition:background-color .15s ease}
+.hv-cta:hover{background:#18664a !important}
+
+/* ---------- HERO: the mark arrives ----------
+   0.15 back tier draws, 0.5 middle, 0.9 front, the coil-in settles by 2.7.
+   2.1 the wordmark rises, 2.95 the full stop drops, 3.22 the helix answers with one breath,
+   3.55 the line, 3.95 the button, 4.2 the proof line, 4.15 on the helix breathes for good. */
+@keyframes drDraw{0%{stroke-dashoffset:1;opacity:0}8%{opacity:1}100%{stroke-dashoffset:0;opacity:1}}
+.dr-seg{stroke-dasharray:1 2;stroke-dashoffset:0;animation:drDraw .8s cubic-bezier(.3,.1,.2,1) both;animation-delay:calc(var(--t0) + var(--a) * var(--sw))}
+.dr-back{--t0:.15s;--sw:.7s}
+.dr-mid{--t0:.5s;--sw:.8s}
+.dr-front{--t0:.9s;--sw:.8s}
+@keyframes drTurn{to{transform:rotate(360deg)}}
+@keyframes drCoil{0%{transform:rotate(-72deg) scale(.9)}100%{transform:none}}
+.dr-turn{animation:drTurn 24s linear infinite}
+.dr-coil{animation:drCoil 2.6s cubic-bezier(.16,1,.3,1) .1s both}
+@keyframes drAck{0%{transform:none}38%{transform:scale(1.045)}100%{transform:none}}
+.dr-ack{animation:drAck .95s cubic-bezier(.4,0,.2,1) 3.22s both}
+@keyframes drBreath{
+  0%{transform:none;opacity:1;animation-timing-function:cubic-bezier(.61,1,.88,1)}
+  25%{transform:scale(var(--hi));opacity:var(--lo);animation-timing-function:cubic-bezier(.12,0,.39,0)}
+  50%{transform:none;opacity:1;animation-timing-function:cubic-bezier(.61,1,.88,1)}
+  75%{transform:scale(var(--dn));opacity:1;animation-timing-function:cubic-bezier(.12,0,.39,0)}
+  100%{transform:none;opacity:1}
+}
+.dr-tier{transform-box:view-box;transform-origin:100px 100px;animation:drBreath 4.8s linear infinite}
+.dr-front{--hi:1.032;--dn:.97;--lo:.86;animation-delay:4.15s}
+.dr-mid{--hi:1.026;--dn:.975;--lo:.7;animation-delay:4.4s}
+.dr-back{--hi:1.02;--dn:.98;--lo:.55;animation-delay:4.65s}
+@keyframes drRise{0%{transform:translateY(108%)}100%{transform:none}}
+.dr-mask{display:inline-flex;overflow:hidden;padding:0 .06em .1em;margin:0 -.06em -.1em}
+.dr-l{display:inline-block;animation:drRise .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(2.1s + var(--i) * .05s)}
+@keyframes drDot{
+  0%{opacity:0;transform:translateY(-1.1em) scale(.55);animation-timing-function:cubic-bezier(.55,0,.9,.4)}
+  25%{opacity:1}
+  58%{transform:translateY(0) scale(1.18,.78);animation-timing-function:cubic-bezier(.2,.8,.3,1)}
+  78%{transform:translateY(-.05em) scale(.96,1.04);animation-timing-function:cubic-bezier(.4,0,.6,1)}
+  100%{opacity:1;transform:none}
+}
+.dr-dot{display:inline-block;transform-origin:50% 88%;animation:drDot .55s linear 2.95s both}
+@keyframes drIn{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+.dr-line{animation:drIn .7s cubic-bezier(.2,.8,.2,1) 3.55s both}
+.dr-cta{animation:drIn .6s cubic-bezier(.2,.8,.2,1) 3.95s both}
+.dr-proof{animation:drIn .6s cubic-bezier(.2,.8,.2,1) 4.2s both}
+/* sized by width AND height, so the whole reveal sits in one laptop screen (1440x900 and 1366x768) */
+.dr-helix{width:min(25vw,36svh,330px)}
+.dr-word{font-size:min(10vw,16svh,140px)}
+.hv-hero{min-height:max(600px,min(760px,calc(100svh - 84px)))}
+@media (max-width:600px){
+  .dr-helix{width:min(58vw,240px)}
+  .dr-word{font-size:min(18vw,76px)}
+  .hv-hero{padding:16px 20px 48px !important}
+}
+@media (prefers-reduced-motion:reduce){
+  .dr-stage,.dr-stage *{animation:none !important;transition:none !important}
+}
+
+/* ================= PRODUCT ================= */
+/* ---------- PRODUCT: documents in, a checked listing out ----------
+   Plays once when the stage scrolls into view. Base styles ARE the final frame; every
+   animation fills backwards, so a paused stage shows the opening frame (documents waiting).
+   0.15 to 1.75 documents fly into the helix, which spins up and settles by 3.5.
+   2.3 Exposé, 2.6 staged print, 2.8 post. 3.6 Wohnfläche turns amber, 4.0 the question,
+   4.5 the cursor, 5.68 the tap on 76 m², 6.15 the cell turns green, 6.3 the confirmation row,
+   6.6 status ready, 6.7 the post asks to publish. */
+.pv-stage{transition:opacity .3s ease}
+.pv-stage.is-out{opacity:0}
+.pv-stage.is-reset{opacity:0;transition:none}
+.pv-stage.is-reset *{animation:none !important}
+.pv-stage.is-idle .pv-a{animation-play-state:paused !important}
+.pv-stage.is-done .pv-a{animation:none !important}
+
+@keyframes pvTurn{to{transform:rotate(360deg)}}
+.pv-turn{animation:pvTurn 40s linear infinite}
+@keyframes pvSpin{0%{transform:none}100%{transform:rotate(1080deg)}}
+.pv-spin{animation:pvSpin 3.4s cubic-bezier(.5,0,.25,1) .1s both}
+@keyframes pvAck{0%{transform:none}40%{transform:scale(1.08)}100%{transform:none}}
+.pv-ack{animation:pvAck .9s cubic-bezier(.4,0,.2,1) 6.2s both}
+
+@keyframes pvFly{0%{opacity:1;transform:none}20%{opacity:1;transform:translateY(-6em)}78%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.12)}}
+.pv-doc{opacity:0;animation:pvFly .9s cubic-bezier(.55,0,.7,.45) var(--d) both}
+
+@keyframes pvArrive{0%{opacity:0;transform:translate(var(--fx),var(--fy)) rotate(var(--r0)) scale(.94)}100%{opacity:1;transform:rotate(var(--r))}}
+.pv-arrive{animation:pvArrive 1s cubic-bezier(.16,1,.3,1) var(--d) both}
+
+@keyframes pvWin{0%{opacity:0}8%{opacity:1}90%{opacity:1}100%{opacity:0}}
+.pv-win{opacity:0;animation:pvWin var(--len) linear var(--d) both}
+@keyframes pvIn{0%{opacity:0}100%{opacity:1}}
+.pv-in{animation:pvIn .5s ease var(--d) both}
+
+@keyframes pvPulse{0%,100%{background-color:#f4b860}50%{background-color:#f9d49b}}
+.pv-amber{opacity:0;background:#f4b860;animation:pvWin 2.6s linear 3.6s both,pvPulse .8s ease-in-out 3.9s 3}
+@keyframes pvFlash{0%{box-shadow:inset 0 0 0 1em rgba(166,232,204,.45)}30%{box-shadow:inset 0 0 0 3em #a6e8cc}100%{box-shadow:inset 0 0 0 1em rgba(166,232,204,.45)}}
+.pv-flash{animation:pvFlash 1s ease 6.15s both}
+
+@keyframes pvQ{0%{opacity:0;transform:translateY(10em)}10%{opacity:1;transform:none}90%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-4em)}}
+.pv-q{opacity:0;animation:pvQ 2.2s cubic-bezier(.2,.8,.2,1) 4s both}
+@keyframes pvCursor{
+  0%{opacity:0;transform:translate(150em,90em)}
+  12%{opacity:1}
+  55%{transform:none;animation-timing-function:ease-in}
+  62%{transform:scale(.84)}
+  70%{transform:none}
+  86%{opacity:1}
+  100%{opacity:0;transform:none}
+}
+.pv-cursor{opacity:0;transform-origin:4em 3em;animation:pvCursor 1.9s cubic-bezier(.3,.7,.2,1) 4.5s both}
+@keyframes pvPress{0%{background:#ffffff;color:#0a2b22;border-color:rgba(10,43,34,.16)}100%{background:#1f7a5a;color:#ffffff;border-color:#1f7a5a}}
+.pv-press{animation:pvPress .3s ease 5.68s both}
+@keyframes pvGrow{0%{grid-template-rows:0fr;opacity:0}100%{grid-template-rows:1fr;opacity:1}}
+.pv-grow{display:grid;grid-template-rows:1fr;animation:pvGrow .55s cubic-bezier(.2,.8,.2,1) 6.3s both}
+
+.hl-d1{box-shadow:0 0 0 1px rgba(10,43,34,0.08),0 1px 2px rgba(10,43,34,0.06),0 10px 18px -12px rgba(10,43,34,0.22)}
+.hl-d2{box-shadow:inset 0 1px 0 #fff,0 0 0 1px rgba(10,43,34,0.06),0 2px 4px rgba(10,43,34,0.05),0 22px 40px -24px rgba(10,43,34,0.30)}
+.hl-d3{box-shadow:0 0 0 1px rgba(10,43,34,0.08),0 2px 4px rgba(10,43,34,0.05),0 28px 56px -26px rgba(10,43,34,0.32),0 64px 120px -44px rgba(10,43,34,0.26)}
+
+.pv-replay{font:inherit;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:0;background:transparent;color:#14473a;cursor:pointer}
+.pv-replay:hover{background:rgba(10,43,34,0.06)}
+/* key-fact values in the Exposé strip: the display face at a small optical size */
+.pv-kf{font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;letter-spacing:-.025em;font-variation-settings:'opsz' 32}
+
+.pv-sm{display:none}
+@media (max-width:959px){
+  .pv-h2{font-size:40px !important}
+}
+@media (max-width:760px){
+  .pv-sd{display:none !important}
+  .pv-sm{display:block !important}
+  .pv-sec{padding:56px 20px 72px !important}
+}
+@media (max-width:640px){
+  .pv-h2{font-size:34px !important}
+}
+@media (prefers-reduced-motion:reduce){
+  .pv-stage .pv-a,.pv-turn{animation:none !important;transition:none !important}
+  .pv-replay{display:none !important}
+}
+
+/* ================= RECORD ================= */
+.tr-sec{padding:96px 24px}
+/* sections share one lit ground, so each opens on the same faint hairline and the same header edge */
+.tr-sec{position:relative}
+.tr-sec::before{content:"";position:absolute;top:0;left:max(24px,calc(50% - 580px));right:max(24px,calc(50% - 580px));height:1px;background:rgba(10,43,34,.06);pointer-events:none}
+@media (max-width:640px){.tr-sec::before{left:20px;right:20px}}
+/* the header opens on the shared section edge; the captions under the stage sit on the Exposé's left edge (70 of 1200 design px) */
+.tr-head{max-width:1160px;margin:0 auto;box-sizing:border-box}
+.tr-note{max-width:1160px;margin:0 auto;box-sizing:border-box;padding-left:5.8333%}
+/* at rest the trace is already drawn; motion starts only when the visitor taps a value */
+.tr-stage.is-still *{animation:none !important}
+.tr-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* the key-facts strip: every value is a button; the traced one turns the same pale green as its evidence line */
+.tr-v{appearance:none;-webkit-appearance:none;margin:0;border:0;border-left:1px solid rgba(255,255,255,0.14);font:inherit;text-align:left;color:#eef3ef;background-color:transparent;cursor:pointer;transition:background-color .25s ease,color .25s ease}
+.tr-v:first-child{border-left:0}
+.tr-v:hover{background-color:rgba(255,255,255,0.08)}
+.tr-v.is-on{background-color:#e3efe8;color:#0a2b22}
+.tr-v:focus-visible{outline:2px solid #fbfaf5;outline-offset:-4px}
+.tr-v.is-on:focus-visible{outline-color:#1f7a5a}
+
+/* the source page slides out from behind the Exposé, opened to page 1; switching to a value on the same page keeps it still */
+.tr-doc{display:none}
+.tr-doc.is-on{display:block;transform-origin:0 50%;animation:trSlide .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes trSlide{0%{opacity:0;transform:translateX(-200em) rotate(-2.5deg)}35%{opacity:1}100%{opacity:1;transform:none}}
+.tr-sm .tr-doc.is-on{animation-name:trDrop}
+@keyframes trDrop{0%{opacity:0;transform:translateY(-56em)}35%{opacity:1}100%{opacity:1;transform:none}}
+
+/* the evidence line lifts off the page once the connector reaches it */
+.tr-hl{display:none}
+.tr-hl.is-on{display:block;animation:trLift .4s cubic-bezier(.2,.8,.2,1) .62s both}
+@keyframes trLift{0%{opacity:0;transform:scale(.97)}100%{opacity:1;transform:none}}
+
+/* the connector: from the lit value to the quoted line */
+.tr-k{display:none}
+.tr-k.is-on{display:inline}
+.tr-kp{stroke:#1f7a5a;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 2;stroke-dashoffset:0}
+.tr-k0,.tr-k1{fill:#1f7a5a}
+.tr-k.is-on .tr-kp{animation:trDraw .45s cubic-bezier(.45,0,.25,1) .3s both}
+.tr-k.is-on .tr-k0{animation:trDot .2s ease .2s both}
+.tr-k.is-on .tr-k1{animation:trDot .2s ease .72s both}
+@keyframes trDraw{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+@keyframes trDot{0%{opacity:0}100%{opacity:1}}
+
+/* key-fact values in the Exposé strip: the display face at a small optical size */
+.rc-kf{font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;letter-spacing:-.025em;font-variation-settings:'opsz' 32}
+
+.tr-sm{display:none}
+@media (max-width:959px){
+  .tr-sd{display:none !important}
+  .tr-sm{display:block !important}
+  .tr-h2{font-size:40px !important}
+  .tr-note{padding-left:0}
+}
+@media (max-width:640px){
+  .tr-sec{padding:64px 20px !important}
+  .tr-h2{font-size:34px !important}
+}
+@media (prefers-reduced-motion:reduce){
+  .tr-sd *,.tr-sm *{animation:none !important;transition:none !important}
+}
+
+/* ================= OFFICE ================= */
+/* The header opens the section on the shared edge, the office view sits under it. A composed still: nothing here moves. */
+.of-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"text" "vis";row-gap:48px}
+.of-text{grid-area:text;min-width:0}
+.of-vis{grid-area:vis;min-width:0}
+
+.of-app{display:grid;grid-template-columns:minmax(0,1fr) 300px;border-radius:20px;overflow:hidden;background-color:rgb(255 255 255 / .8);border:1px solid rgb(255 255 255 / .85);background-image:linear-gradient(180deg,rgb(255 255 255 / .5),transparent 70px);box-shadow:inset 0 1px 0 #fff,0 1px 2px rgb(40 40 20 / .05),0 14px 30px -18px rgb(40 40 20 / .16)}
+.of-list{min-width:0;padding:24px 28px 12px}
+.of-cols,.of-row{display:grid;grid-template-columns:minmax(0,1fr) repeat(3,112px);gap:4px;align-items:center}
+.of-cols{padding:0 0 10px;border-bottom:1px solid rgba(10,43,34,0.08)}
+.of-cols span{font-size:12px;line-height:1.3;color:#4f5c57;text-align:center}
+.of-cols span:first-child{text-align:left}
+.of-rows{margin:0;padding:0;list-style:none}
+.of-row{padding:12px 0;border-bottom:1px solid rgba(10,43,34,0.06)}
+.of-row:last-child{border-bottom:0}
+.of-row-held{margin:0 -12px;padding:12px;border-radius:12px;border-bottom:0;background:#fdf5e6;box-shadow:inset 0 0 0 1px rgba(168,111,18,0.22)}
+.of-who{min-width:0;display:flex;flex-direction:column;gap:2px}
+.of-addr{font-size:14px;line-height:1.35;color:#4f5c57;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.of-c{display:flex;justify-content:center}
+.of-ok{width:20px;height:20px;border-radius:50%;background:#1f7a5a;display:flex;align-items:center;justify-content:center}
+.of-held{width:20px;height:20px;border-radius:50%;box-sizing:border-box;border:2px solid #c98a1e;background:#fbeacb}
+.of-tag{font-size:12px;line-height:1;font-weight:600;padding:5px 9px;border-radius:999px;background:#fbeacb;color:#6b4a12}
+
+.of-side{min-width:0;padding:24px;background:rgb(251 250 245 / .55);border-left:1px solid rgba(10,43,34,0.08);display:flex;flex-direction:column;gap:16px}
+
+@media (max-width:959px){
+  .of-app{grid-template-columns:minmax(0,1fr) 240px}
+  .of-cols,.of-row{grid-template-columns:minmax(0,1fr) repeat(3,72px)}
+  .of-h2{font-size:40px !important}
+}
+@media (max-width:640px){
+  .of-h2{font-size:34px !important}
+  .of-app{grid-template-columns:minmax(0,1fr)}
+  .of-side{border-left:0;border-top:1px solid rgba(10,43,34,0.08)}
+  .of-list{padding:16px 16px 8px}
+  .of-cols,.of-row{grid-template-columns:minmax(0,1fr) repeat(3,60px);gap:2px}
+  .of-row-held{margin:0 -8px;padding:12px 8px}
+}
+.of-sec{padding:96px 24px}
+/* sections share one lit ground, so each opens on the same faint hairline and the same header edge */
+.of-sec{position:relative}
+.of-sec::before{content:"";position:absolute;top:0;left:max(24px,calc(50% - 580px));right:max(24px,calc(50% - 580px));height:1px;background:rgba(10,43,34,.06);pointer-events:none}
+@media (max-width:640px){.of-sec::before{left:20px;right:20px}}
+@media (max-width:640px){.of-sec{padding:64px 20px !important}}
+@media (prefers-reduced-transparency:reduce){.of-app{background-color:#ffffff !important;background-image:none !important}.of-side{background:#fbfaf5 !important}}
+
+/* ================= LISTEN ================= */
+/* 12 columns on the shared edge: text takes 5 and sits centred against the stage, the stage takes 7. A composed still: nothing moves. */
+.ml-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:32px;align-items:center}
+.ml-text{grid-column:1 / span 5;min-width:0;max-width:420px}
+.ml-vis{grid-column:6 / span 7;position:relative;height:600px;min-width:0}
+
+/* the stage: forest, lit from above, a faint grain in the felt; the whole phone lives inside it */
+.ml-stage{position:absolute;inset:0;border-radius:30px;overflow:hidden;background:radial-gradient(ellipse 70% 46% at 50% -8%,rgb(166 232 204 / .2),transparent 72%),radial-gradient(ellipse 100% 36% at 50% 112%,rgb(0 12 8 / .4),transparent 70%),linear-gradient(180deg,#16463a 0%,#0f3a2f 100%);box-shadow:inset 0 1px 0 rgb(255 255 255 / .14),inset 0 0 0 1px rgb(255 255 255 / .04),0 40px 70px -40px rgb(10 30 20 / .55)}
+.ml-stage::after{content:"";position:absolute;inset:0;background-image:url(/_blob/75f99c1e1542e7819fc1196d8df8f89b);background-size:200px;opacity:.14;mix-blend-mode:soft-light;pointer-events:none}
+.ml-glow{position:absolute;left:calc(50% + 22px - 280px);top:20px;width:560px;height:560px;border-radius:50%;background:radial-gradient(closest-side,rgba(76,193,150,.18),rgba(76,193,150,.06) 60%,transparent);pointer-events:none}
+.ml-contact{position:absolute;left:calc(50% + 22px - 160px);top:552px;width:320px;height:46px;border-radius:50%;background:radial-gradient(closest-side,rgb(0 10 6 / .7),rgb(0 10 6 / .25) 60%,transparent);pointer-events:none}
+.ml-contact::after{content:"";position:absolute;left:58px;right:58px;top:12px;height:18px;border-radius:50%;background:radial-gradient(closest-side,rgb(0 6 4 / .75),transparent)}
+
+/* the phone and the Exposé that leaves it, in one tilted plane: a thin graphite edge, real 1:2.17 proportions.
+   Drawn at 300 x 650 and zoomed to 262 x 568 so the whole section fits a laptop screen under the nav. */
+.ml-pos{position:absolute;left:calc(50% - 109px);top:16px;width:262px;z-index:2}
+.ml-persp{width:300px;perspective:1800px;zoom:.8733}
+.ml-tilt{position:relative;transform:rotateY(-10deg) rotateX(4deg);transform-origin:50% 40%}
+.ml-device{position:relative;width:300px;height:650px;border-radius:50px;background:#14201d;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18),inset 0 0 0 2px rgb(0 0 0 / .35),0 -8px 22px -10px rgb(214 255 236 / .45),0 2px 4px rgb(0 16 10 / .35),0 24px 40px -14px rgb(0 16 10 / .58),0 60px 90px -36px rgb(0 10 6 / .72)}
+.ml-screen{position:absolute;left:7px;top:7px;right:7px;bottom:7px;border-radius:43px;overflow:hidden;background:#fbfaf5;box-shadow:0 0 0 1px rgb(0 0 0 / .55)}
+.ml-island{position:absolute;left:50%;top:11px;width:92px;height:26px;margin-left:-46px;border-radius:13px;background:#0b1210;z-index:2}
+.ml-home{position:absolute;left:50%;bottom:8px;width:110px;height:4px;margin-left:-55px;border-radius:2px;background:rgba(10,43,34,.35)}
+/* side buttons: 3px nubs on the graphite edge */
+.ml-nub{position:absolute;width:3px;background:#1c2a26;box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+.ml-nub-l{left:-3px;border-radius:2px 0 0 2px}
+.ml-nub-r{right:-3px;border-radius:0 2px 2px 0}
+/* rim light on the device edge: brightest on the top, which the tilt turns toward the light, fading down the sides */
+.ml-rim{position:absolute;left:-1.5px;top:-1.5px;width:303px;height:653px;border-radius:51.5px;padding:1.5px;box-sizing:border-box;background:linear-gradient(180deg,rgb(255 255 255 / .9) 0%,rgb(232 255 244 / .5) 16%,rgb(255 255 255 / .12) 52%,rgb(255 255 255 / .05) 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none;z-index:3}
+.ml-out{position:absolute;left:58px;top:318px;width:290px;z-index:4;border-radius:18px;overflow:hidden;background-color:rgb(255 255 255 / .97);border:1px solid rgb(255 255 255 / .95);box-shadow:inset 0 1px 0 #fff,0 2px 4px rgb(0 16 10 / .18),0 22px 34px -14px rgb(0 16 10 / .5),0 50px 70px -30px rgb(0 10 6 / .55)}
+
+/* glass only where something floats over something else: the status chip, the message bar */
+.ml-glass{background-color:rgb(255 255 255 / .8);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%);border:1px solid rgb(255 255 255 / .85);background-image:linear-gradient(180deg,rgb(255 255 255 / .5),transparent 42%);box-shadow:inset 0 1px 0 #fff,0 16px 36px -20px rgb(40 40 20 / .2)}
+/* the chip is the nearest layer: it straddles the stage's left edge, never its top */
+.ml-chip{position:absolute;left:-40px;top:136px;z-index:5;box-shadow:inset 0 1px 0 #fff,0 3px 8px rgb(0 16 10 / .16),0 26px 44px -18px rgb(0 16 10 / .55)}
+.ml-bar{position:absolute;left:12px;right:12px;bottom:26px}
+
+/* stacked: text on top, the stage full width under it */
+@media (max-width:960px){
+  .ml-grid{grid-template-columns:minmax(0,1fr);row-gap:48px}
+  .ml-text,.ml-vis{grid-column:1 / -1}
+  .ml-text{max-width:560px}
+  .ml-chip{left:24px}
+  .ml-h2{font-size:40px !important}
+}
+/* short laptop screens (under about 700 tall): a smaller stage and phone, so the whole device is still in view */
+@media (min-width:761px) and (max-height:700px){
+  .ml-sec{padding:48px 24px !important}
+  .ml-vis{height:540px}
+  .ml-pos{left:calc(50% - 98px);top:16px;width:234px}
+  .ml-persp{zoom:.78}
+  .ml-chip{top:120px}
+  .ml-glow{left:calc(50% + 20px - 250px);top:20px;width:500px;height:500px}
+  .ml-contact{left:calc(50% + 20px - 140px);top:496px;width:280px;height:40px}
+}
+/* phone: the same device faces the visitor at 260 x 563, inside a 648 stage, the chip centred above it */
+@media (max-width:760px){
+  .ml-grid{row-gap:40px}
+  .ml-vis{height:648px}
+  .ml-stage{border-radius:24px}
+  .ml-pos{left:0;right:0;top:68px;width:auto;display:flex;justify-content:center}
+  .ml-persp{zoom:.8667}
+  .ml-tilt{transform:none}
+  .ml-out{left:30px}
+  .ml-chip{left:0;right:0;top:12px;width:max-content;margin:0 auto;padding:6px 16px 6px 6px !important;gap:10px !important}
+  .ml-chip-mark{width:32px !important;height:32px !important}
+  .ml-chip-mark img{width:26px !important;height:26px !important}
+  .ml-chip-label{font-size:15px !important}
+  .ml-glow{left:calc(50% - 220px);top:130px;width:440px;height:440px}
+  .ml-contact{left:calc(50% - 125px);top:610px;width:250px;height:36px}
+  .ml-contact::after{left:48px;right:48px;top:10px;height:14px}
+}
+@media (max-width:640px){
+  .ml-h2{font-size:34px !important}
+}
+.ml-sec{padding:64px 24px}
+/* sections share one lit ground, so each opens on the same faint hairline and the same header edge */
+.ml-sec{position:relative}
+.ml-sec::before{content:"";position:absolute;top:0;left:max(24px,calc(50% - 580px));right:max(24px,calc(50% - 580px));height:1px;background:rgba(10,43,34,.06);pointer-events:none}
+@media (max-width:640px){.ml-sec::before{left:20px;right:20px}}
+@media (max-width:640px){.ml-sec{padding:64px 20px !important}}
+@media (prefers-reduced-transparency:reduce){.ml-glass,.ml-out{background-color:#ffffff !important;background-image:none !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important}}
+
+/* ================= STAGING ================= */
+/* At rest: a still split with the helix handle on the seam. Nothing plays; only the visitor moves it. */
+.sw-stage{--lens:64px}
+.sw-lens{transform:translate(-50%,-50%)}
+.sw-grip{position:absolute;top:50%;width:14px;height:14px;margin-top:-7px;color:#ffffff;filter:drop-shadow(0 1px 2px rgba(10,43,34,0.45))}
+.sw-ease .sw-staged{transition:clip-path .7s cubic-bezier(.65,0,.35,1)}
+.sw-ease .sw-mover{transition:left .7s cubic-bezier(.65,0,.35,1)}
+
+.sw-range{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;opacity:0;cursor:ew-resize;z-index:3;-webkit-appearance:none;appearance:none;background:transparent;touch-action:pan-y}
+.sw-range:focus-visible ~ .sw-seam .sw-face{box-shadow:0 0 0 3px #1f7a5a,0 12px 32px rgba(10,43,34,0.2)}
+
+.sw-segs{display:inline-flex;padding:4px;border-radius:999px;background:#dedbd0}
+.sw-seg{font:inherit;font-size:14px;font-weight:600;padding:9px 16px;border:0;border-radius:999px;background:transparent;color:#3f574f;cursor:pointer;transition:background-color .2s ease,color .2s ease,box-shadow .2s ease}
+.sw-seg:hover{color:#14473a}
+.sw-seg.is-on{background:#ffffff;color:#14473a;box-shadow:0 0 0 1px rgba(10,43,34,0.08),0 1px 2px rgba(0,0,0,0.06)}
+
+@media (max-width:959px){
+  .sw-h2{font-size:40px !important}
+  .sw-photo{aspect-ratio:4/5 !important}
+  .sw-stage{--lens:52px}
+  .sw-bar{flex-direction:column;align-items:flex-start !important}
+  .sw-chip-row{font-size:12px !important}
+}
+@media (prefers-reduced-motion:reduce){
+  .sw-stage *{transition:none !important}
+}
+.sw-sec{padding:96px 24px}
+/* sections share one lit ground, so each opens on the same faint hairline and the same header edge */
+.sw-sec{position:relative}
+.sw-sec::before{content:"";position:absolute;top:0;left:max(24px,calc(50% - 580px));right:max(24px,calc(50% - 580px));height:1px;background:rgba(10,43,34,.06);pointer-events:none}
+@media (max-width:640px){.sw-sec::before{left:20px;right:20px}}
+@media (max-width:640px){.sw-sec{padding:64px 20px !important}.sw-h2{font-size:34px !important}}
+
+/* ================= SPECS ================= */
+/* A spec sheet, set like type: one glass sheet, hairlines inside, no icons. "Live" is green, "Next" is an outline. */
+.sp-wrap{max-width:1160px;margin:0 auto}
+.sp-grid{margin:48px 0 0;padding:0 48px;border-radius:20px;background-color:rgb(255 255 255 / .8);border:1px solid rgb(255 255 255 / .85);background-image:linear-gradient(180deg,rgb(255 255 255 / .5),transparent 70px);box-shadow:inset 0 1px 0 #fff,0 1px 2px rgb(40 40 20 / .05),0 14px 30px -18px rgb(40 40 20 / .16);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:56px}
+.sp-cell:nth-child(-n+3){border-top:0}
+/* rows breathe: an office owner reads this list slowly */
+.sp-cell{min-width:0;padding:36px 0 40px;border-top:1px solid rgba(10,43,34,0.14);display:flex;flex-direction:column;gap:12px}
+.sp-name{margin:0;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:18px;line-height:1.3;font-weight:600;letter-spacing:-0.01em;color:#14473a}
+.sp-name span:first-child{min-width:0}
+.sp-line{margin:0;max-width:360px;font-size:16px;line-height:1.55;color:#3f574f;text-wrap:pretty}
+.sp-live,.sp-next{flex:none;font-size:13px;line-height:1;font-weight:600;letter-spacing:0;padding:6px 11px;border-radius:999px}
+.sp-live{background:#d3e7da;color:#124a36}
+.sp-next{background:#ebe8de;color:#3f574f;box-shadow:inset 0 0 0 1px rgba(10,43,34,0.18)}
+.sp-link{color:#1a6b4f;font-weight:600;text-decoration:none}
+.sp-link:hover{text-decoration:underline}
+
+@media (max-width:959px){
+  .sp-grid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px;padding:0 36px}
+  .sp-cell:nth-child(3){border-top:1px solid rgba(10,43,34,0.14)}
+  .sp-h2{font-size:40px !important}
+}
+@media (max-width:640px){
+  .sp-h2{font-size:34px !important}
+  .sp-grid{grid-template-columns:minmax(0,1fr);margin-top:40px;padding:0 20px}
+  .sp-cell:nth-child(2){border-top:1px solid rgba(10,43,34,0.14)}
+  .sp-cell{padding:28px 0 32px}
+  .sp-line{max-width:none}
+}
+.sp-sec{padding:96px 24px}
+/* sections share one lit ground, so each opens on the same faint hairline and the same header edge */
+.sp-sec{position:relative}
+.sp-sec::before{content:"";position:absolute;top:0;left:max(24px,calc(50% - 580px));right:max(24px,calc(50% - 580px));height:1px;background:rgba(10,43,34,.06);pointer-events:none}
+@media (max-width:640px){.sp-sec::before{left:20px;right:20px}}
+@media (max-width:640px){.sp-sec{padding:64px 20px !important}}
+@media (prefers-reduced-transparency:reduce){.sp-grid{background-color:#ffffff !important;background-image:none !important}}
+
+/* ================= PEOPLE ================= */
+/* Text left, the three founders right. A still: nothing here moves. */
+.pp-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:72px;align-items:center}
+.pp-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:0;padding:0;list-style:none}
+.pp-card{display:flex;flex-direction:column;gap:16px;min-width:0}
+.pp-photo{width:100%;aspect-ratio:4/5;border-radius:16px;background:#dcd9ce;display:flex;align-items:center;justify-content:center;flex:none}
+.pp-link{text-decoration:none;color:#1a6b4f;font-weight:600}
+.pp-link:hover{text-decoration:underline}
+
+@media (max-width:959px){
+  .pp-grid{grid-template-columns:minmax(0,1fr);gap:48px}
+  .pp-h2{font-size:40px !important}
+}
+@media (max-width:640px){
+  .pp-h2{font-size:34px !important}
+  .pp-cards{grid-template-columns:minmax(0,1fr);gap:16px}
+  .pp-card{flex-direction:row;align-items:center}
+  .pp-photo{width:88px;border-radius:12px}
+}
+.pp-sec{padding:96px 24px}
+/* sections share one lit ground, so each opens on the same faint hairline and the same header edge */
+.pp-sec{position:relative}
+.pp-sec::before{content:"";position:absolute;top:0;left:max(24px,calc(50% - 580px));right:max(24px,calc(50% - 580px));height:1px;background:rgba(10,43,34,.06);pointer-events:none}
+@media (max-width:640px){.pp-sec::before{left:20px;right:20px}}
+@media (max-width:640px){.pp-sec{padding:64px 20px !important}}
+
+/* ================= APPLY ================= */
+/* The form left, three short answers right. The headline sits over the form so the answers line up with its top edge. */
+.ap-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"head head" "form answers";column-gap:72px;row-gap:48px;align-items:start}
+.ap-head{grid-area:head;min-width:0}
+.ap-form{grid-area:form;min-width:0;max-width:520px;box-sizing:border-box;padding:32px;border-radius:20px;background-color:rgb(255 255 255 / .8);border:1px solid rgb(255 255 255 / .85);background-image:linear-gradient(180deg,rgb(255 255 255 / .5),transparent 70px);box-shadow:inset 0 1px 0 #fff,0 1px 2px rgb(40 40 20 / .05),0 14px 30px -18px rgb(40 40 20 / .16);display:flex;flex-direction:column;gap:24px}
+.ap-answers{grid-area:answers;min-width:0;max-width:520px;margin:0;padding:0}
+
+.ap-field{display:flex;flex-direction:column;gap:8px}
+.ap-label{font-size:14px;line-height:1.3;font-weight:600;color:#14473a}
+.ap-input{font:inherit;font-size:16px;line-height:1.3;height:48px;box-sizing:border-box;width:100%;padding:0 16px;border-radius:12px;border:1px solid rgba(10,43,34,0.22);background:#ffffff;color:#14473a}
+.ap-input:focus-visible{outline:2px solid #1f7a5a;outline-offset:1px;border-color:#1f7a5a}
+
+.ap-set{margin:0;padding:0;border:0;min-width:0;display:flex;flex-direction:column;gap:8px}
+.ap-set legend{padding:0;margin-bottom:8px}
+.ap-opts{display:flex;flex-wrap:wrap;gap:8px}
+.ap-opt{display:inline-flex;align-items:center;gap:8px;font-size:16px;line-height:1.3;padding:0 16px;height:44px;border-radius:999px;border:1px solid rgba(10,43,34,0.22);background:#ffffff;color:#14473a;cursor:pointer}
+.ap-opt input{margin:0;width:16px;height:16px;accent-color:#1f7a5a}
+.ap-opt:has(input:checked){border-color:#1f7a5a;background:#e9f2ed}
+.ap-opt:has(input:focus-visible){outline:2px solid #1f7a5a;outline-offset:2px}
+
+.ap-consent{display:flex;align-items:flex-start;gap:12px;font-size:14px;line-height:1.45;color:#3f574f;cursor:pointer}
+.ap-consent input{margin:2px 0 0;width:18px;height:18px;flex:none;accent-color:#1f7a5a}
+.ap-consent input:focus-visible{outline:2px solid #1f7a5a;outline-offset:2px}
+.ap-plink{color:#1a6b4f;font-weight:600;text-decoration:none}
+.ap-plink:hover{text-decoration:underline}
+
+.ap-btn{font:inherit;font-size:16px;font-weight:600;align-self:flex-start;padding:14px 32px;border:0;border-radius:999px;background:#1f7a5a;color:#ffffff;cursor:pointer}
+.ap-btn:hover{background:#1a6b4f}
+
+.ap-q{padding:24px 0;border-top:1px solid rgba(10,43,34,0.12);display:flex;flex-direction:column;gap:8px}
+.ap-q:first-child{padding-top:0;border-top:0}
+.ap-todo{display:inline-block;padding:4px 10px;border-radius:8px;border:1px dashed rgba(10,43,34,0.35);color:#4e635b}
+
+@media (max-width:959px){
+  .ap-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "form" "answers";row-gap:40px}
+  .ap-h2{font-size:40px !important}
+}
+@media (max-width:640px){
+  .ap-h2{font-size:34px !important}
+  .ap-form{padding:24px 20px}
+}
+.ap-sec{padding:96px 24px}
+/* sections share one lit ground, so each opens on the same faint hairline and the same header edge */
+.ap-sec{position:relative}
+.ap-sec::before{content:"";position:absolute;top:0;left:max(24px,calc(50% - 580px));right:max(24px,calc(50% - 580px));height:1px;background:rgba(10,43,34,.06);pointer-events:none}
+@media (max-width:640px){.ap-sec::before{left:20px;right:20px}}
+@media (max-width:640px){.ap-sec{padding:64px 20px !important}}
+@media (prefers-reduced-transparency:reduce){.ap-form{background-color:#ffffff !important;background-image:none !important}}
+</style>
+</helmet>
+<div style="position:relative;isolation:isolate;width:100%;background:#f2f1e8;color:#14473a;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip">
+  <div class="gl-ground" aria-hidden="true"></div><div class="gl-grain" aria-hidden="true"></div>
+
+
+  <!-- nav: maker left, the helix centred, links and sign in right -->
+  <!-- the nav floats: a sticky glass bar, the one surface besides the chat chip and message bar that blurs -->
+  <div class="site-navwrap" style="position:sticky;top:0;z-index:50;padding:12px 24px 10px">
+  <header class="site-head gl-glass" style="max-width:1200px;margin:0 auto;padding:9px 12px 9px 24px;border-radius:999px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;box-sizing:border-box">
+    <span class="site-side" style="font-size:14px;color:#3f574f">by SNS Solutions</span>
+    <a href="#" aria-label="Immvela home" class="{{navMarkClass}}">
+      <img src="/_blob/56a98e7e934950f3a0e9e16206cf637e" alt="Immvela" style="width:40px;height:40px;display:block">
+    </a>
+    <nav aria-label="Main" style="justify-self:end;display:flex;align-items:center;gap:24px">
+      <a class="site-navlink site-mods" href="ModulesLight.dc.html">Modules</a>
+      <a class="site-navlink site-mods" href="WhyLight.dc.html">Why Immvela</a>
+      <a href="#" style="text-decoration:none;font-size:14px;font-weight:600;padding:9px 18px;border-radius:999px;background:#1f7a5a;color:#ffffff">Sign in</a>
+    </nav>
+  </header>
+  </div>
+
+
+  <!-- the hero: the brand reveal. The helix draws on, then the wordmark, the line, the button and the proof -->
+  <div style="width:100%;background:transparent;color:#0a2b22;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip">
+    <!-- 1. HERO: the brand is the centre of the page -->
+    <section class="hv-hero" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 24px 48px;box-sizing:border-box;text-align:center">
+      <div class="dr-stage" style="display:flex;flex-direction:column;align-items:center;width:100%">
+
+        <div class="dr-helix" data-hero-mark="" ref="{{setMark}}" role="img" aria-label="The Immvela helix" style="aspect-ratio:1;max-width:100%">
+          <div class="dr-turn" style="width:100%;height:100%">
+            <div class="dr-coil" style="width:100%;height:100%">
+              <div class="dr-ack" style="width:100%;height:100%">
+        <svg viewBox="0 0 200 200" fill="none" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%;display:block;overflow:visible" aria-hidden="true">
+          <g class="dr-tier dr-back" stroke="#1f7a5a" stroke-opacity=".35" stroke-width=".9">
+            <path class="dr-seg" pathLength="1" style="--a:0.044" d="M54.3 55.2C55.9 54.4 60.4 51.7 63.8 50.3C67.2 48.9 70.9 47.6 74.7 46.6C78.6 45.6 82.6 44.7 86.9 44.1C91.1 43.5 95.5 43 100 42.8C104.5 42.6 109.2 42.7 113.8 42.9C118.5 43.2 123.3 43.7 127.9 44.5C132.5 45.3 137.2 46.3 141.6 47.6C146 48.9 150.3 50.5 154.3 52.3C158.3 54 162 56.1 165.3 58.3C168.6 60.6 172.5 64.4 174 65.6"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.080" d="M66.6 53C68.3 52.5 73.2 51 76.7 50.3C80.3 49.6 84 49 87.9 48.6C91.8 48.2 95.9 48 100 48C104.1 47.9 108.4 48.1 112.7 48.4C117 48.8 121.4 49.3 125.7 50.1C130 50.9 134.4 51.9 138.5 53.1C142.7 54.3 146.8 55.7 150.5 57.4C154.3 59 157.9 60.9 161.1 63C164.3 65 167.2 67.3 169.6 69.7C172 72.1 174.6 76 175.6 77.3"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.083" d="M69.3 55.6C70.9 55.4 75.5 54.4 78.7 54C82 53.6 85.4 53.3 89 53.1C92.5 53 96.2 53 100 53.1C103.8 53.2 107.7 53.5 111.6 53.9C115.6 54.4 119.6 54.9 123.6 55.7C127.5 56.5 131.6 57.4 135.5 58.5C139.3 59.6 143.2 61 146.8 62.5C150.3 64 153.8 65.7 156.9 67.6C160 69.5 162.9 71.6 165.3 73.8C167.7 76 170.3 79.6 171.3 80.8"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.103" d="M80.7 57.7C82.3 57.7 86.8 57.6 90 57.7C93.3 57.8 96.6 58 100 58.2C103.4 58.5 106.9 58.9 110.5 59.4C114.1 59.9 117.8 60.5 121.4 61.3C125.1 62 128.8 62.9 132.4 64C136 65 139.6 66.2 143 67.6C146.4 69 149.7 70.5 152.7 72.2C155.7 73.9 158.5 75.8 160.9 77.8C163.3 79.8 166.1 83.2 167.1 84.3"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.108" d="M82.7 61.3C84.1 61.5 88.2 61.8 91.1 62.2C94 62.5 96.9 62.9 100 63.4C103.1 63.8 106.2 64.3 109.4 64.9C112.6 65.5 116 66.1 119.3 66.9C122.6 67.6 126 68.5 129.3 69.4C132.7 70.4 136 71.5 139.2 72.7C142.4 73.9 145.6 75.3 148.5 76.8C151.4 78.4 154.2 80.1 156.6 81.9C159 83.7 161.9 86.8 162.9 87.8"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.151" d="M92.2 66.7C93.5 67 97.3 67.9 100 68.5C102.7 69.1 105.5 69.8 108.3 70.4C111.2 71.1 114.1 71.7 117.1 72.5C120.1 73.2 123.2 74 126.3 74.9C129.3 75.8 132.5 76.7 135.5 77.8C138.5 78.9 141.5 80.1 144.3 81.5C147.1 82.8 149.8 84.3 152.2 86C154.6 87.6 156.9 89.4 158.7 91.3C160.6 93.2 162.6 96.3 163.3 97.4"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.176" d="M100 73.7C101.2 74 104.7 75.2 107.2 75.9C109.7 76.7 112.3 77.3 115 78.1C117.6 78.8 120.4 79.5 123.2 80.3C126 81.1 128.9 82 131.7 82.9C134.5 83.9 137.4 84.9 140.1 86.1C142.8 87.3 145.5 88.6 147.9 90C150.3 91.5 152.6 93.1 154.5 94.8C156.5 96.5 158.7 99.4 159.5 100.4"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.191" d="M100 78.8C101 79.2 104 80.6 106.1 81.4C108.2 82.2 110.5 82.9 112.8 83.7C115.2 84.4 117.6 85.1 120.1 85.8C122.7 86.5 125.3 87.2 127.9 88C130.6 88.9 133.3 89.7 135.9 90.7C138.5 91.7 141.1 92.8 143.5 94.1C145.9 95.3 148.3 96.7 150.3 98.3C152.4 99.8 154.8 102.5 155.7 103.4"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.824" d="M34.1 102.4C34.3 100.4 34.5 94.5 35.4 90.4C36.2 86.3 37.4 82 39.1 77.8C40.7 73.7 42.8 69.4 45.3 65.4C47.7 61.4 50.6 57.5 53.7 53.9C56.8 50.3 62.3 45.6 64 44"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.828" d="M30.2 87.2C31 85 32.8 78.2 34.7 73.8C36.7 69.4 39.1 64.9 41.8 60.7C44.6 56.6 49.7 50.9 51.2 48.9"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.832" d="M30.4 69.7C31.7 67.4 37.1 58.3 38.4 56.1"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.837" d="M39.9 104.4C40 102.6 39.9 97.3 40.5 93.6C41.1 89.8 42.1 85.8 43.4 81.9C44.8 78 46.6 73.9 48.7 70.1C50.8 66.3 53.4 62.4 56.2 58.9C59 55.4 62.2 52 65.6 49C69 46.1 74.6 42.4 76.4 41.1"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.848" d="M53.6 115.6C53.2 114.4 51.9 111.2 51.4 108.6C51 105.9 50.7 103 50.8 99.9C50.9 96.8 51.3 93.4 52.1 90C52.9 86.6 54.1 83 55.6 79.5C57.1 76 58.9 72.3 61.1 68.9C63.3 65.5 65.9 62.2 68.8 59.1C71.6 56.1 74.8 53.2 78.1 50.7C81.4 48.2 85 46 88.7 44.2C92.3 42.5 98.1 40.8 100 40.2"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.850" d="M45.7 106.5C45.7 104.9 45.3 100.2 45.7 96.7C46 93.3 46.7 89.6 47.8 86C48.9 82.3 50.3 78.5 52.1 74.8C53.9 71.1 56.2 67.4 58.7 63.9C61.2 60.5 64.1 57.1 67.2 54.1C70.3 51.1 73.7 48.3 77.3 45.9C80.8 43.5 86.5 40.9 88.4 39.9"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.885" d="M59.7 116.4C59.3 115.4 57.8 112.9 57.2 110.6C56.6 108.4 56.1 105.8 56 103.1C55.9 100.3 56 97.2 56.5 94.1C57 90.9 57.8 87.5 59 84.2C60.2 80.8 61.7 77.3 63.6 73.9C65.5 70.6 67.8 67.2 70.3 64.2C72.9 61.1 75.8 58.1 78.9 55.5C82 52.9 85.5 50.5 89 48.6C92.5 46.7 96.2 45 100 43.9C103.8 42.8 107.7 42 111.5 41.7C115.3 41.4 121 42.1 122.9 42.2"></path>
+          </g>
+          <g class="dr-tier dr-mid" stroke="#16463a" stroke-opacity=".7" stroke-width="1.15">
+            <path class="dr-seg" pathLength="1" style="--a:0.207" d="M174 65.6C174.9 67 178.4 71 179.8 73.8C181.1 76.6 182 79.5 182.3 82.3C182.6 85.2 181.6 89.4 181.4 90.8"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.209" d="M51.2 48.9C53.1 47.2 58.5 41.9 62.4 39C66.4 36.1 70.6 33.5 74.8 31.5C79 29.5 83.4 27.9 87.6 26.9C91.8 25.8 96 25.3 100 25.2C104 25.2 107.9 25.7 111.5 26.6C115 27.5 118.4 28.9 121.4 30.6C124.5 32.4 127.2 34.5 129.6 37C132 39.4 134.1 42.2 135.9 45.1C137.7 48 139.1 51.3 140.3 54.6C141.5 57.9 142.4 61.4 143.1 64.9C143.8 68.4 144.3 72.1 144.6 75.7C145 79.4 145.1 83.1 145.1 86.7C145.1 90.4 145 94.1 144.8 97.7C144.6 101.4 144.3 105 143.9 108.6C143.5 112.2 143 115.7 142.3 119.2C141.7 122.6 140.9 126 140 129.3C139 132.6 138 135.8 136.7 138.8C135.4 141.8 133.9 144.8 132.2 147.4C130.4 150.1 128.5 152.6 126.3 154.7C124.1 156.9 121.6 158.9 118.9 160.4C116.2 162 113.2 163.2 110 164.1C106.9 164.9 103.5 165.3 100 165.3C96.5 165.3 92.8 164.9 89.1 164.1C85.5 163.2 81.7 161.9 78 160.2C74.3 158.5 70.6 156.3 67.2 153.8C63.7 151.4 58.9 146.8 57.3 145.4"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.220" d="M175.6 77.3C176 78.6 178 82.6 178.5 85.3C178.9 88 178.3 92.1 178.3 93.4"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.225" d="M64 44C66 42.7 71.7 38.4 75.6 36.3C79.6 34.2 83.8 32.4 87.8 31.2C91.9 30 96.1 29.2 100 29C103.9 28.7 107.8 29 111.5 29.6C115.1 30.3 118.6 31.4 121.7 32.9C124.9 34.4 127.8 36.4 130.4 38.6C133.1 40.9 135.4 43.5 137.5 46.3C139.5 49.1 141.2 52.2 142.8 55.4C144.3 58.6 145.5 62.1 146.5 65.6C147.5 69.1 148.3 72.8 148.9 76.5C149.5 80.2 149.8 84 150.1 87.8C150.3 91.6 150.4 95.4 150.3 99.2C150.3 103 150.1 106.9 149.7 110.6C149.3 114.4 148.8 118.1 148.1 121.8C147.4 125.4 146.5 129 145.4 132.5C144.3 135.9 143.1 139.3 141.5 142.4C140 145.5 138.3 148.5 136.2 151.2C134.2 153.9 131.9 156.5 129.3 158.6C126.8 160.7 123.9 162.6 120.9 164.1C117.8 165.5 114.5 166.6 111 167.3C107.5 167.9 103.8 168.1 100 167.9C96.2 167.6 92.3 166.9 88.4 165.8C84.5 164.6 78.6 161.7 76.7 160.9"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.225" d="M171.3 80.8C171.9 82 174.1 85.8 174.7 88.3C175.3 90.9 175 94.8 175.1 96"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.231" d="M167.1 84.3C167.8 85.5 170.1 88.9 170.9 91.3C171.7 93.7 171.8 97.5 171.9 98.7"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.237" d="M162.9 87.8C163.6 88.9 166.1 92.1 167.1 94.3C168.1 96.6 168.5 100.2 168.8 101.3"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.239" d="M181.4 90.8C180.7 92.1 178 97.3 177.3 98.6"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.241" d="M76.4 41.1C78.4 40.2 84.2 36.9 88.1 35.6C92 34.2 96.1 33.2 100 32.7C103.9 32.2 107.8 32.2 111.5 32.6C115.1 33.1 118.7 34 122 35.3C125.3 36.5 128.4 38.3 131.3 40.3C134.1 42.3 136.7 44.8 139 47.4C141.3 50.1 143.4 53.1 145.2 56.2C147 59.4 148.5 62.8 149.8 66.3C151.2 69.8 152.2 73.5 153.1 77.3C154 81.1 154.6 85 155.1 88.9C155.5 92.8 155.8 96.8 155.8 100.8C155.9 104.7 155.8 108.7 155.5 112.7C155.1 116.6 154.6 120.6 153.9 124.4C153.1 128.2 152.1 132 150.9 135.6C149.7 139.2 148.2 142.7 146.4 146C144.6 149.2 142.6 152.3 140.3 155.1C137.9 157.8 135.3 160.3 132.4 162.5C129.5 164.6 126.3 166.4 122.9 167.7C119.5 169.1 115.8 170 111.9 170.5C108.1 170.9 104.1 170.9 100 170.4C95.9 169.9 89.7 168 87.6 167.5"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.244" d="M178.3 93.4C177.7 94.7 175.5 99.8 175 101"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.251" d="M88.4 39.9C90.3 39.3 96.2 37.1 100 36.4C103.8 35.7 107.8 35.5 111.5 35.7C115.2 35.9 118.9 36.5 122.3 37.6C125.8 38.6 129.1 40.1 132.1 42C135.2 43.8 138 46.1 140.6 48.6C143.2 51.1 145.5 54 147.6 57.1C149.7 60.1 151.6 63.5 153.2 67C154.8 70.5 156.2 74.3 157.3 78.1C158.5 81.9 159.4 85.9 160 90C160.7 94 161.1 98.1 161.3 102.3C161.6 106.4 161.5 110.6 161.2 114.7C161 118.9 160.4 123 159.6 127C158.8 131 157.7 135 156.3 138.8C155 142.5 153.3 146.2 151.3 149.5C149.3 152.9 146.9 156.1 144.3 158.9C141.7 161.7 138.7 164.2 135.5 166.3C132.2 168.4 128.6 170.2 124.9 171.4C121.1 172.6 117 173.4 112.9 173.7C108.8 174 102.1 173.1 100 173"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.252" d="M163.3 97.4C163.7 98.5 165.2 102.9 165.6 104"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.256" d="M100 40.2C101.9 39.9 107.7 38.7 111.5 38.7C115.2 38.7 119 39.1 122.6 39.9C126.2 40.7 129.7 42 132.9 43.7C136.2 45.3 139.3 47.4 142.2 49.8C145 52.1 147.7 54.9 150.1 57.9C152.5 60.9 154.7 64.2 156.6 67.7C158.5 71.2 160.1 75 161.5 78.9C163 82.8 164.1 86.9 165 91C165.9 95.2 166.5 99.5 166.9 103.8C167.2 108.1 167.3 112.5 167 116.8C166.8 121.1 166.3 125.5 165.4 129.6C164.5 133.8 163.3 138 161.8 141.9C160.3 145.8 158.4 149.6 156.1 153.1C153.9 156.6 151.3 159.9 148.4 162.7C145.4 165.6 142.1 168.1 138.5 170.2C134.9 172.2 131 173.9 126.9 175C122.8 176.2 116 176.6 113.9 176.9"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.257" d="M175.1 96C174.7 97.3 173.9 101.1 172.6 103.5C171.3 105.9 168.2 109.2 167.3 110.3"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.259" d="M159.5 100.4C160 101.4 162 105.6 162.5 106.6"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.263" d="M171.9 98.7C171.7 99.9 171.2 103.6 170.2 105.9C169.2 108.3 166.5 111.6 165.8 112.7"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.267" d="M155.7 103.4C156.3 104.3 158.7 108.3 159.3 109.2"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.278" d="M168.8 101.3C168.6 102.5 168.6 106.1 167.8 108.4C167.1 110.7 165.8 113 164.3 115.2C162.7 117.4 159.4 120.4 158.4 121.5"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.285" d="M165.6 104C165.6 105.1 165.9 108.5 165.4 110.8C165 113.1 164 115.4 162.7 117.6C161.5 119.9 158.5 123.1 157.7 124.1"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.286" d="M122.9 42.2C124.7 42.7 130.3 43.9 133.8 45.3C137.2 46.8 140.6 48.7 143.7 50.9C146.9 53.2 149.8 55.8 152.5 58.7C155.2 61.7 157.7 65 159.9 68.4C162.1 71.9 164.1 75.8 165.8 79.7C167.5 83.6 168.9 87.8 170 92.1C171.1 96.4 171.9 100.8 172.4 105.3C172.8 109.8 173 114.3 172.8 118.8C172.6 123.3 172.1 127.9 171.2 132.3C170.2 136.6 168.9 141 167.3 145.1C165.6 149.1 163.5 153.1 161 156.7C158.5 160.3 155.6 163.6 152.4 166.5C149.2 169.4 145.5 172 141.6 174C137.7 176.1 133.4 177.7 128.9 178.7C124.4 179.7 117.2 179.9 114.8 180.1"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.302" d="M162.5 106.6C162.6 107.7 163.3 111 163.1 113.3C162.9 115.5 162.2 117.8 161.2 120.1C160.2 122.4 158.8 124.6 157 126.8C155.2 129 151.7 132.1 150.6 133.1"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.309" d="M159.3 109.2C159.5 110.3 160.6 113.5 160.7 115.7C160.8 117.9 160.4 120.3 159.7 122.6C159 124.8 157.8 127.2 156.3 129.5C154.8 131.7 151.6 135 150.6 136.2"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.611" d="M136.2 74.1C136 75.9 135.6 81.1 135.2 84.6C134.8 88 134.3 91.4 133.8 94.7C133.3 98 132.8 101.3 132.3 104.5C131.8 107.7 131.3 110.8 130.8 113.9C130.2 117 129.7 120 129.1 123C128.4 126 127.8 128.9 127 131.7C126.1 134.5 125.2 137.2 124.1 139.8C122.9 142.3 121.7 144.8 120.1 147C118.6 149.2 116.9 151.3 114.9 153.1C112.9 154.9 110.6 156.4 108.1 157.6C105.7 158.8 102.9 159.7 100 160.2C97.1 160.7 93.9 160.9 90.7 160.6C87.5 160.4 84 159.7 80.6 158.7C77.2 157.6 73.7 156.1 70.3 154.3C67 152.5 63.6 150.3 60.4 147.8C57.2 145.3 54.1 142.4 51.3 139.3C48.6 136.3 46 132.9 43.7 129.5C41.5 126 39.5 122.4 37.9 118.7C36.3 115.1 35 111.3 34.1 107.6C33.2 103.9 32.6 100.2 32.5 96.7C32.3 93.1 32.5 89.6 33 86.3C33.5 83 34.4 79.8 35.6 76.8C36.7 73.9 38.3 71 40.1 68.4C41.9 65.8 44 63.4 46.4 61.2C48.8 59 53 56.2 54.3 55.2"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.654" d="M78.9 121.5C78.2 121.7 76.2 122.3 74.9 122.6C73.6 122.8 72.2 123 70.9 123C69.6 123 68.2 122.8 66.9 122.4C65.6 121.9 64.3 121.3 63.1 120.3C61.9 119.3 60.3 117 59.7 116.4"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.658" d="M75.1 126.6C74.3 126.7 71.8 126.9 70.2 126.8C68.6 126.7 67 126.6 65.5 126.2C63.9 125.7 62.4 125.2 61 124.3C59.5 123.4 58.1 122.3 56.9 120.8C55.7 119.4 54.1 116.5 53.6 115.6"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.672" d="M71.3 131.8C70.4 131.6 67.4 131.5 65.5 131C63.6 130.6 61.8 130.1 60 129.3C58.3 128.5 56.6 127.5 55 126.2C53.5 124.9 52 123.3 50.7 121.4C49.5 119.5 48.3 117.3 47.5 114.8C46.6 112.3 46 107.9 45.7 106.5"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.675" d="M67.6 136.9C66.4 136.6 63 136 60.8 135.3C58.6 134.6 56.5 133.7 54.6 132.5C52.6 131.3 50.7 129.8 49 128.1C47.4 126.3 45.8 124.3 44.5 121.9C43.2 119.6 42.1 116.9 41.3 114C40.6 111.1 40.1 106 39.9 104.4"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.677" d="M63.8 142C62.5 141.6 58.5 140.6 56.1 139.5C53.6 138.5 51.3 137.2 49.1 135.6C46.9 134 44.9 132.2 43.1 130C41.3 127.8 39.6 125.3 38.3 122.5C37 119.7 35.9 116.6 35.2 113.2C34.5 109.9 34.3 104.2 34.1 102.4"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.682" d="M69.3 148.9C67.8 148.6 63 147.9 60 147.1C57 146.2 54.1 145.2 51.4 143.8C48.7 142.4 46 140.7 43.7 138.8C41.3 136.8 39 134.5 37.1 131.9C35.2 129.2 33.5 126.3 32.1 123C30.8 119.8 29.7 116.2 29.1 112.4C28.5 108.6 28.2 104.5 28.4 100.3C28.5 96.1 29.9 89.4 30.2 87.2"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.696" d="M66.6 154.6C64.9 154.2 59.6 153.3 56.3 152.2C52.9 151.1 49.7 149.7 46.7 148C43.7 146.3 40.8 144.3 38.2 141.9C35.6 139.5 33.2 136.8 31.1 133.8C29.1 130.7 27.3 127.3 25.9 123.6C24.6 119.9 23.5 115.8 23 111.6C22.4 107.4 22.2 102.8 22.6 98.2C22.9 93.6 23.7 88.8 25 84C26.3 79.3 29.5 72.1 30.4 69.7"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.825" d="M35.8 101.3C35.8 99.6 35.4 94.1 35.8 90.8C36.1 87.5 36.8 84.3 37.8 81.4C38.8 78.6 40.1 75.9 41.6 73.5C43.1 71.1 44.8 68.9 46.8 67C48.7 65.1 50.9 63.5 53.3 62C55.6 60.5 58.1 59.3 60.8 58.3C63.5 57.2 67.9 56.1 69.3 55.6"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.836" d="M63.8 160.3C61.9 159.8 56.1 158.6 52.5 157.3C48.8 155.9 45.3 154.3 42 152.3C38.7 150.2 35.5 147.8 32.7 145.1C29.9 142.3 27.3 139.1 25.2 135.7C23 132.2 21.1 128.3 19.7 124.2C18.3 120 17.3 115.5 16.8 110.8C16.3 106.2 16.3 101.2 16.8 96.2C17.3 91.2 18.3 85.9 19.9 80.8C21.4 75.8 23.5 70.5 26 65.6C28.5 60.7 31.6 55.8 35 51.4C38.4 46.9 42.2 42.6 46.3 38.9C50.3 35.1 54.8 31.7 59.3 28.9C63.8 26 68.5 23.7 73.1 21.9C77.8 20.1 82.5 18.8 87 18.2C91.5 17.5 95.9 17.4 100 17.8C104.1 18.2 108 19.2 111.5 20.5C114.9 21.9 118.1 23.8 120.9 26C123.6 28.2 126 30.8 128 33.6C129.9 36.4 131.9 41.3 132.7 42.8"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.861" d="M38.4 56.1C40.1 54 45 47.6 48.8 43.9C52.5 40.2 56.7 36.8 60.9 33.9C65.1 31 69.6 28.6 74 26.7C78.4 24.8 82.9 23.4 87.3 22.5C91.6 21.6 96 21.3 100 21.5C104 21.7 107.9 22.4 111.5 23.6C115 24.7 118.3 26.3 121.2 28.3C124 30.3 126.6 32.7 128.8 35.3C131 37.9 132.8 40.9 134.3 43.9C135.8 47 137 50.4 137.9 53.7C138.8 57.1 139.3 60.7 139.8 64.2C140.2 67.7 140.3 71.3 140.4 74.9C140.5 78.5 140.3 82.1 140.1 85.6C140 89.2 139.7 92.7 139.3 96.2C139 99.7 138.6 103.1 138.1 106.5C137.7 109.9 137.2 113.3 136.6 116.5C136 119.8 135.3 123 134.5 126.2C133.7 129.3 132.9 132.3 131.8 135.2C130.7 138.1 129.6 141 128.1 143.6C126.7 146.2 125.1 148.7 123.2 150.9C121.3 153.1 119.2 155.1 116.9 156.8C114.5 158.4 111.9 159.8 109.1 160.8C106.3 161.8 103.2 162.5 100 162.8C96.8 163 93.4 162.9 89.9 162.3C86.5 161.8 82.9 160.8 79.3 159.4C75.8 158 72.2 156.2 68.8 154.1C65.3 151.9 61.9 149.4 58.8 146.6C55.7 143.8 52.7 140.6 50.1 137.3C47.5 134 45 130.4 43 126.8C41 123.2 39.2 119.4 37.9 115.7C36.5 111.9 35.6 108.1 34.9 104.5C34.3 100.8 34 97.2 34.1 93.7C34.2 90.3 34.6 87 35.4 83.9C36.1 80.8 37.2 77.9 38.6 75.2C39.9 72.5 41.6 70 43.4 67.7C45.3 65.5 47.5 63.4 49.8 61.6C52.2 59.8 54.8 58.2 57.6 56.7C60.4 55.3 65.1 53.6 66.6 53"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.862" d="M40.2 79C40.9 77.8 42.9 73.9 44.6 71.8C46.2 69.7 48.1 67.9 50.2 66.3C52.2 64.8 54.4 63.5 56.7 62.4C59 61.3 61.5 60.5 64.1 59.8C66.6 59.1 69.3 58.7 72.1 58.3C74.9 58 79.3 57.8 80.7 57.7"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.877" d="M47.6 70.1C48.5 69.4 51.4 66.8 53.5 65.6C55.6 64.4 57.9 63.5 60.2 62.8C62.5 62.1 64.9 61.7 67.3 61.4C69.8 61.1 72.3 61 74.8 61C77.4 61 81.4 61.3 82.7 61.3"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.890" d="M50.6 68.5C51.6 67.9 54.7 65.8 56.9 64.9C59.1 64 61.3 63.5 63.6 63.2C65.9 62.9 68.2 62.8 70.6 62.9C72.9 63 75.2 63.3 77.6 63.7C80 64 82.3 64.5 84.8 65C87.2 65.5 90.9 66.4 92.2 66.7"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.913" d="M60.2 64.2C61.4 64.1 64.8 63.5 67.1 63.6C69.3 63.6 71.6 64 73.8 64.5C76 64.9 78.2 65.6 80.3 66.3C82.5 67 84.6 67.9 86.8 68.7C88.9 69.5 91 70.4 93.2 71.2C95.5 72.1 98.9 73.3 100 73.7"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.927" d="M70.5 64C71.6 64.3 74.9 65.2 77 66C79.1 66.8 81.1 67.9 83.1 69C85 70.1 86.9 71.3 88.8 72.4C90.6 73.5 92.4 74.7 94.3 75.8C96.2 76.8 99.1 78.3 100 78.8"></path>
+          </g>
+          <g class="dr-tier dr-front" stroke="#0f3a2f" stroke-width="1.5">
+            <path class="dr-seg" pathLength="1" style="--a:0.112" d="M132.7 42.8C133.2 44.5 134.8 49.5 135.4 52.9C136 56.4 136.3 60 136.4 63.5C136.5 67 136.2 72.4 136.2 74.1"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.348" d="M177.3 98.6C176.2 99.7 173.1 103.3 170.4 105.4C167.7 107.4 164.5 109.3 161.2 110.8C157.9 112.4 154.2 113.7 150.5 114.8C146.9 115.9 143 116.7 139.2 117.3C135.4 117.9 131.6 118.3 128 118.6C124.3 118.9 120.7 119 117.4 119C114.1 119.1 110.9 119 108 119C105.1 118.9 102.5 118.8 100 118.8C97.5 118.8 95.4 118.8 93.3 118.9C91.3 119 89.5 119.2 87.8 119.5C86.1 119.7 84.6 120 83.1 120.4C81.6 120.7 79.6 121.4 78.9 121.5"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.370" d="M175 101C173.9 102.2 171.3 105.8 168.9 107.8C166.5 109.9 163.6 111.8 160.5 113.5C157.5 115.2 154 116.6 150.6 117.8C147.1 119.1 143.4 120.1 139.8 120.9C136.1 121.7 132.4 122.3 128.8 122.8C125.2 123.3 121.6 123.6 118.3 123.8C114.9 124.1 111.6 124.2 108.6 124.4C105.5 124.5 102.7 124.5 100 124.6C97.3 124.8 94.9 124.8 92.5 125C90.2 125.1 88.1 125.3 86.1 125.5C84 125.7 82.2 125.9 80.3 126.1C78.5 126.3 76 126.6 75.1 126.6"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.411" d="M167.3 110.3C166.1 111.3 162.6 114.4 159.8 116.1C157 117.9 153.8 119.5 150.6 120.9C147.3 122.3 143.8 123.5 140.3 124.5C136.8 125.5 133.2 126.3 129.6 127C126.1 127.7 122.5 128.2 119.1 128.7C115.7 129.1 112.3 129.4 109.1 129.7C106 130 102.9 130.2 100 130.5C97.1 130.7 94.4 130.8 91.8 131C89.1 131.2 86.7 131.4 84.3 131.5C82 131.6 79.8 131.8 77.6 131.8C75.4 131.8 72.4 131.8 71.3 131.8"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.424" d="M165.8 112.7C164.7 113.8 161.6 116.9 159.1 118.8C156.6 120.7 153.6 122.4 150.6 123.9C147.5 125.5 144.2 126.8 140.8 128.1C137.5 129.3 133.9 130.3 130.4 131.2C127 132.1 123.4 132.8 119.9 133.5C116.5 134.2 113 134.7 109.7 135.1C106.4 135.6 103.1 136 100 136.3C96.9 136.6 93.9 136.9 91 137.1C88.1 137.3 85.3 137.4 82.6 137.5C79.9 137.6 77.3 137.6 74.8 137.5C72.3 137.4 68.8 137 67.6 136.9"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.444" d="M157.7 124.1C156.5 125.1 153.2 128.2 150.6 130C148 131.9 145 133.6 141.9 135.2C138.8 136.8 135.5 138.3 132.1 139.6C128.7 140.9 125.2 142.1 121.6 143.2C118.1 144.2 114.4 145.1 110.8 145.9C107.2 146.7 103.6 147.4 100 147.9C96.4 148.4 92.9 148.9 89.4 149.1C85.9 149.4 82.5 149.6 79.2 149.5C75.8 149.5 71 149 69.3 148.9"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.455" d="M158.4 121.5C157.1 122.4 153.4 125.3 150.6 127C147.8 128.7 144.6 130.2 141.4 131.6C138.2 133 134.7 134.3 131.3 135.4C127.8 136.5 124.3 137.5 120.8 138.3C117.3 139.2 113.7 139.9 110.2 140.5C106.8 141.1 103.3 141.7 100 142.1C96.7 142.5 93.4 142.9 90.2 143.1C87 143.3 83.9 143.5 80.9 143.5C77.9 143.5 74.9 143.5 72.1 143.2C69.2 142.9 65.2 142.2 63.8 142"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.466" d="M150.6 133.1C149.3 134.1 145.4 137 142.5 138.8C139.5 140.6 136.3 142.3 132.9 143.8C129.6 145.3 126 146.7 122.4 148C118.8 149.2 115.1 150.3 111.4 151.3C107.6 152.3 103.8 153.1 100 153.7C96.2 154.4 92.4 154.9 88.6 155.2C84.9 155.5 81.1 155.6 77.4 155.5C73.8 155.4 68.4 154.8 66.6 154.6"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.470" d="M150.6 136.2C149.4 137.2 145.8 140.4 143 142.4C140.2 144.4 137.1 146.3 133.8 148C130.5 149.7 126.9 151.4 123.3 152.8C119.6 154.3 115.8 155.6 111.9 156.7C108 157.8 104 158.8 100 159.5C96 160.3 91.9 160.9 87.8 161.2C83.8 161.5 79.7 161.7 75.7 161.5C71.7 161.4 65.8 160.5 63.8 160.3"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.675" d="M113.9 176.9C111.5 176.7 104.6 176.5 100 175.5C95.4 174.5 90.6 173 86 170.9C81.5 168.8 76.9 166.2 72.7 163.2C68.5 160.2 64.5 156.6 60.9 152.9C57.3 149.1 53.9 144.9 51.1 140.6C48.2 136.3 45.8 131.7 43.9 127.2C41.9 122.7 40.5 117.9 39.5 113.5C38.5 109 38 104.5 38 100.4C37.9 96.3 38.3 92.3 39.1 88.7C39.8 85.2 41 81.9 42.4 79C43.8 76.2 45.6 73.7 47.4 71.7C49.3 69.7 51.4 68 53.5 66.8C55.7 65.5 59.1 64.6 60.2 64.2"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.677" d="M100 173C97.8 172.4 91.1 170.9 86.8 169.2C82.5 167.4 78.1 165.1 74.1 162.4C70 159.8 66 156.6 62.4 153.1C58.9 149.7 55.5 145.8 52.6 141.8C49.7 137.8 47.2 133.5 45.1 129.2C43 124.9 41.4 120.4 40.2 116.1C39 111.9 38.3 107.5 38 103.5C37.6 99.4 37.8 95.5 38.3 91.9C38.7 88.3 39.6 84.9 40.8 82C41.9 79 43.4 76.4 45 74.1C46.7 71.9 49.6 69.4 50.6 68.5"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.686" d="M57.3 145.4C55.9 143.7 51.3 138.8 48.8 135.3C46.4 131.7 44.1 127.9 42.3 124.1C40.5 120.4 39 116.4 37.9 112.6C36.8 108.8 36.1 103.2 35.8 101.3"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.689" d="M76.7 160.9C74.8 159.7 69.1 156.4 65.6 153.6C62.1 150.8 58.7 147.6 55.7 144.2C52.7 140.8 50 137 47.6 133.2C45.2 129.5 43.2 125.4 41.6 121.5C40 117.5 38.8 113.4 37.9 109.6C37.1 105.7 36.7 101.8 36.6 98.2C36.5 94.6 36.8 91.1 37.4 87.9C38 84.7 39.7 80.5 40.2 79"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.689" d="M114.8 180.1C112.3 179.8 104.9 179.3 100 178.1C95.1 176.8 90 175 85.3 172.6C80.5 170.3 75.8 167.3 71.4 164C67.1 160.6 62.9 156.7 59.3 152.6C55.6 148.6 52.3 144 49.5 139.4C46.7 134.8 44.4 129.9 42.6 125.1C40.8 120.4 39.6 115.5 38.8 110.8C38 106.2 37.8 101.6 38 97.4C38.2 93.2 38.9 89.1 39.9 85.6C40.9 82 42.4 78.8 44.1 76.1C45.7 73.4 47.8 71.1 49.8 69.3C51.9 67.4 54.3 66.1 56.5 65.1C58.8 64.2 61.3 63.7 63.6 63.5C65.9 63.3 69.4 63.9 70.5 64"></path>
+            <path class="dr-seg" pathLength="1" style="--a:0.691" d="M87.6 167.5C85.6 166.5 79.3 164 75.4 161.7C71.4 159.3 67.6 156.5 64 153.4C60.5 150.2 57.1 146.7 54.2 143C51.2 139.3 48.6 135.3 46.4 131.2C44.1 127.2 42.3 122.9 40.9 118.8C39.5 114.7 38.5 110.5 37.9 106.5C37.4 102.5 37.2 98.6 37.4 95C37.6 91.4 38.2 88 39.1 84.9C40 81.8 41.2 79 42.6 76.6C44 74.1 46.7 71.2 47.6 70.1"></path>
+          </g>
+        </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="dr-word" aria-label="Immvela." style="color:#14473a;margin:clamp(14px,2.2vw,28px) 0 0;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 96;font-weight:700;line-height:1;letter-spacing:-0.05em;display:flex;align-items:baseline;white-space:nowrap">
+          <span class="dr-mask" aria-hidden="true">
+            <span class="dr-l" style="--i:0">I</span><span class="dr-l" style="--i:1">m</span><span class="dr-l" style="--i:2">m</span><span class="dr-l" style="--i:3">v</span><span class="dr-l" style="--i:4">e</span><span class="dr-l" style="--i:5">l</span><span class="dr-l" style="--i:6">a</span>
+          </span><span class="dr-dot" aria-hidden="true" style="color:#1f7a5a">.</span>
+        </h1>
+
+        <p class="dr-line" style="margin:clamp(12px,1.6vw,20px) 0 0;max-width:32ch;font-size:clamp(19px,1.7vw,24px);font-weight:400;letter-spacing:-0.01em;line-height:1.4;color:#3f574f;text-wrap:balance">Your personal real estate assistant</p>
+
+        <div class="dr-cta" style="margin-top:28px;display:flex;justify-content:center"><a class="hv-cta" href="#apply" style="text-decoration:none;font-size:16px;font-weight:600;padding:14px 24px;border-radius:999px;background:#1f7a5a;color:#ffffff">Apply for the closed beta</a></div>
+        <p class="dr-proof" style="margin:14px 0 0;font-size:14px;line-height:1.4;color:#4e635b;text-wrap:balance">Live today in a closed beta, built in Vienna by SNS Solutions.</p>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- the product: documents in, a checked listing out. Plays once when it scrolls into view -->
+  <div style="width:100%;background:transparent;color:#0a2b22;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip">
+    <!-- 2. PRODUCT: one claim, one sentence, then the stage that plays once -->
+    <section class="pv-sec" style="padding:72px 24px 104px;box-sizing:border-box">
+      <div style="max-width:1160px;margin:0 auto">
+        <div style="max-width:640px">
+          <h2 class="pv-h2" style="margin:0;color:#14473a;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 72;font-weight:650;font-size:52px;line-height:1.02;letter-spacing:-0.035em;text-wrap:balance">Documents in, a checked listing out</h2>
+          <p style="margin:16px 0 0;font-size:18px;line-height:1.55;color:#3f574f;text-wrap:pretty">Give it the Energieausweis, the floor plan and the photos. Immvela drafts the Exposé and the posts, and when two documents disagree, it asks you before anything goes out.</p>
+        </div>
+
+        <div data-pv-stage="" ref="{{pvSetStage}}" style="margin-top:40px">
+        <div class="{{pvStageClass}}" key="{{pvRun}}">
+
+          <!-- DESKTOP STAGE, 1160 x 560 design px: 1em is one design pixel -->
+          <div class="pv-sd" role="img" aria-label="Five documents, an Energieausweis, a floor plan and three photos, go into the Immvela helix. An Exposé for Gentzgasse 14 in 1180 Wien comes out, with an Instagram post and a virtually staged photo behind it. The Wohnfläche reads 78 m² in the Energieausweis and 76 m² in the floor plan, so Immvela asks which is right. The agent picks 76 m², the value is confirmed from the floor plan, and the post is ready to publish." style="container-type:inline-size;width:100%">
+            <div style="position:relative;font-size:calc(100cqw / 1160);height:560em">
+
+              <!-- documents, waiting above the helix -->
+              <div class="pv-a pv-doc" style="position:absolute;left:0;top:20em;width:150em;z-index:5;--dx:100em;--dy:211em;--d:.15s">
+                <div class="gl-sheen" style="display:flex;align-items:center;gap:8em;padding:8em 10em;border-radius:10em">
+                  <span style="width:24em;height:30em;flex:none;border-radius:3em;background:#ffffff;box-shadow:inset 0 0 0 1px rgba(10,43,34,.16);display:flex;flex-direction:column;justify-content:flex-end;gap:2em;padding:0 4em 5em;box-sizing:border-box"><span style="display:block;height:3em;width:40%;background:#1f7a5a;border-radius:1em"></span><span style="display:block;height:3em;width:65%;background:#7fb069;border-radius:1em"></span><span style="display:block;height:3em;width:90%;background:#f4b860;border-radius:1em"></span></span>
+                  <div style="display:flex;flex-direction:column;min-width:0"><span style="font-size:12.5em;line-height:1.3;font-weight:600;white-space:nowrap">Energieausweis</span><span style="font-size:11em;line-height:1.3;color:#4f5c57">PDF</span></div>
+                </div>
+              </div>
+              <div class="pv-a pv-doc" style="position:absolute;left:162em;top:20em;width:128em;z-index:5;--dx:-51em;--dy:211em;--d:.35s">
+                <div class="gl-sheen" style="display:flex;align-items:center;gap:8em;padding:8em 10em;border-radius:10em">
+                  <svg viewBox="0 0 24 30" style="width:24em;height:30em;flex:none;display:block" fill="#ffffff" stroke="#0a2b22" stroke-opacity=".55" stroke-width="1.2"><rect x=".6" y=".6" width="22.8" height="28.8" rx="3"></rect><path d="M5 7h14v16H5zM12 7v8M5 15h9" fill="none"></path></svg>
+                  <div style="display:flex;flex-direction:column;min-width:0"><span style="font-size:12.5em;line-height:1.3;font-weight:600;white-space:nowrap">Grundriss</span><span style="font-size:11em;line-height:1.3;color:#4f5c57">PDF</span></div>
+                </div>
+              </div>
+              <div class="pv-a pv-doc" style="position:absolute;left:22em;top:92em;width:64em;z-index:5;--dx:121em;--dy:139em;--d:.55s">
+                <div class="hl-d1" style="background:#ffffff;padding:3em;border-radius:5em"><img src="/_blob/b4dd5eae354b5250c168b8ed89537a28" alt="" style="display:block;width:58em;height:42em;object-fit:cover;border-radius:3em"></div>
+              </div>
+              <div class="pv-a pv-doc" style="position:absolute;left:108em;top:92em;width:64em;z-index:5;--dx:35em;--dy:139em;--d:.7s">
+                <div class="hl-d1" style="background:#ffffff;padding:3em;border-radius:5em"><img src="/_blob/b65e1092c2fc4f4d44ea8d3aa50f42b7" alt="" style="display:block;width:58em;height:42em;object-fit:cover;border-radius:3em"></div>
+              </div>
+              <div class="pv-a pv-doc" style="position:absolute;left:194em;top:92em;width:64em;z-index:5;--dx:-51em;--dy:139em;--d:.85s">
+                <div class="hl-d1" style="background:#ffffff;padding:3em;border-radius:5em"><img src="/_blob/4ced161614b4c37b6a2daca57a98edf1" alt="" style="display:block;width:58em;height:42em;object-fit:cover;border-radius:3em"></div>
+              </div>
+
+              <!-- the helix: takes the documents in, spins up, settles -->
+              <div style="position:absolute;left:90em;top:170em;width:170em;height:170em;z-index:4">
+                <div class="gl-glass" style="width:100%;height:100%;border-radius:50%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 #fff,0 2px 4px rgba(10,43,34,0.06),0 18px 34px -16px rgba(10,43,34,0.30)">
+                  <div class="pv-a pv-ack" style="width:136em;height:136em"><div class="pv-a pv-spin" style="width:100%;height:100%"><div class="pv-turn" style="width:100%;height:100%"><img src="/_blob/56a98e7e934950f3a0e9e16206cf637e" alt="" style="width:100%;height:100%;display:block"></div></div></div>
+                </div>
+              </div>
+              <div style="position:absolute;left:55em;top:356em;width:240em;display:grid;justify-items:center;z-index:4">
+                <div class="gl-glass pv-a pv-win" style="grid-area:1/1;--d:.3s;--len:2.2s;display:flex;align-items:center;gap:7em;padding:6em 12em;border-radius:999em;white-space:nowrap"><span style="width:8em;height:8em;border-radius:50%;background:#1f7a5a;flex:none"></span><span style="font-size:13.5em;line-height:1.3;font-weight:600">Reading 5 documents</span></div>
+                <div class="gl-glass pv-a pv-win" style="grid-area:1/1;--d:2.5s;--len:1.1s;display:flex;align-items:center;gap:7em;padding:6em 12em;border-radius:999em;white-space:nowrap"><span style="width:8em;height:8em;border-radius:50%;background:#1f7a5a;flex:none"></span><span style="font-size:13.5em;line-height:1.3;font-weight:600">Drafting the Exposé</span></div>
+                <div class="gl-glass pv-a pv-win" style="grid-area:1/1;--d:3.6s;--len:3s;display:flex;align-items:center;gap:7em;padding:6em 12em;border-radius:999em;white-space:nowrap"><span style="width:8em;height:8em;border-radius:50%;background:#f4b860;flex:none"></span><span style="font-size:13.5em;line-height:1.3;font-weight:600">1 question for you</span></div>
+                <div class="gl-glass pv-a pv-in" style="grid-area:1/1;--d:6.6s;display:flex;align-items:center;gap:7em;padding:6em 12em;border-radius:999em;white-space:nowrap"><span style="width:8em;height:8em;border-radius:50%;background:#1f7a5a;flex:none"></span><span style="font-size:13.5em;line-height:1.3;font-weight:600">Ready to advertise</span></div>
+              </div>
+
+              <!-- back: the staged print, peeking out left -->
+              <div class="pv-a pv-arrive" style="position:absolute;left:290em;top:250em;width:220em;z-index:1;--r:-6deg;--r0:-11deg;--fx:-40em;--fy:30em;--d:2.6s;transform:rotate(-6deg)">
+                <div class="hl-d1" style="position:relative;background:#ffffff;padding:6em;border-radius:4em">
+                  <img src="/_blob/b4dd5eae354b5250c168b8ed89537a28" alt="" style="display:block;width:208em;height:156em;object-fit:cover;border-radius:2em">
+                  <div style="position:absolute;left:14em;bottom:14em;padding:4em 8em;border-radius:999em;background:rgba(255,255,255,0.92)"><span style="display:block;font-size:11.5em;line-height:1.3;font-weight:600;white-space:nowrap">Virtually staged</span></div>
+                </div>
+              </div>
+
+              <!-- middle: the post, tucked behind on the right; its words sit in the part the Exposé leaves open -->
+              <div class="pv-a pv-arrive" style="position:absolute;left:830em;top:80em;width:300em;z-index:2;--r:4deg;--r0:9deg;--fx:50em;--fy:30em;--d:2.8s;transform:rotate(4deg)">
+                <div class="gl-sheen hl-d2" style="border-radius:14em;overflow:hidden">
+                  <div style="display:flex;align-items:center;justify-content:flex-end;gap:8em;padding:10em 14em">
+                    <span style="width:20em;height:20em;border-radius:6em;background:linear-gradient(45deg,#f9a52b,#e1306c,#833ab4);display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" style="width:12em;height:12em" fill="none" stroke="#ffffff" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle></svg></span>
+                    <span style="font-size:12.5em;line-height:1.4;color:#4f5c57">Instagram</span>
+                  </div>
+                  <img src="/_blob/b65e1092c2fc4f4d44ea8d3aa50f42b7" alt="" style="width:100%;height:200em;object-fit:cover;display:block">
+                  <div style="padding:12em 14em 0 96em"><span style="display:block;font-size:13em;line-height:1.45;color:#0a2b22">Altbau in Währing, Balkon zum Innenhof. HWB 48, fGEE 0,92.</span></div>
+                  <div style="display:grid;justify-items:end;padding:12em 14em 14em">
+                    <span class="pv-a pv-win" style="grid-area:1/1;--d:3.2s;--len:3.5s;display:inline-flex;align-items:center;gap:.5em;white-space:nowrap;font-size:12.5em;line-height:1.3;font-weight:600;padding:.45em .85em;border-radius:999em;background:#f1efe8;color:#0a2b22"><span style="width:.5em;height:.5em;border-radius:50%;background:#f4b860;flex:none"></span>Held until you confirm</span>
+                    <span class="pv-a pv-in" style="grid-area:1/1;--d:6.7s;display:inline-flex;align-items:center;gap:.5em;white-space:nowrap;font-size:12.5em;line-height:1.3;font-weight:600;padding:.45em .85em;border-radius:999em;background:#f1efe8;color:#0a2b22"><span style="width:.5em;height:.5em;border-radius:50%;background:#1f7a5a;flex:none"></span>Ready. Publish?</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- front: the Exposé, the hero object -->
+              <div class="pv-a pv-arrive" style="position:absolute;left:440em;top:30em;width:460em;z-index:3;--r:-2deg;--r0:-5deg;--fx:-70em;--fy:40em;--d:2.3s;transform:rotate(-2deg)">
+                <div class="hl-d3" style="background:#fbfaf5;color:#1c2a25;border-radius:8em;overflow:hidden">
+                  <img src="/_blob/9fc80a4b6bfd62ebb10883374144ccfb" alt="" style="width:100%;height:166em;object-fit:cover;display:block">
+                  <div style="padding:16em 18em 18em">
+                    <div style="display:flex;flex-direction:column;gap:4em">
+                      <span style="font-size:13em;line-height:1.5;color:#5b6862">Exposé, Gentzgasse 14, 1180 Wien</span>
+                      <span style="font-size:22em;line-height:1.15;font-weight:600;letter-spacing:-0.02em;text-wrap:balance">Helle 3-Zimmer-Wohnung mit Balkon in Währing</span>
+                    </div>
+                    <div style="margin-top:12em;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-radius:5em;overflow:hidden;background:#1f3a31;color:#eef3ef;font-variant-numeric:tabular-nums">
+                      <div class="pv-a pv-flash" style="position:relative;padding:8em 8em 9em;background:#1f7a5a;color:#ffffff;box-shadow:inset 0 0 0 1em rgba(166,232,204,0.45)">
+                        <div style="white-space:nowrap;line-height:1.2"><span style="font-size:10.5em;opacity:.9">Wohnfläche</span></div>
+                        <div style="margin-top:2em;white-space:nowrap"><span class="pv-kf" style="font-size:16em;line-height:1.3;font-weight:600">76 m²</span></div>
+                        <div class="pv-a pv-amber" style="position:absolute;inset:0;padding:8em 8em 9em;color:#0a2b22">
+                          <div style="white-space:nowrap;line-height:1.2"><span style="font-size:10.5em">Wohnfläche</span></div>
+                          <div style="margin-top:2em;white-space:nowrap"><span class="pv-kf" style="font-size:15em;line-height:1.3;font-weight:600">2 values</span></div>
+                        </div>
+                      </div>
+                      <div style="padding:8em 8em 9em;border-left:1px solid rgba(255,255,255,0.14)"><div style="white-space:nowrap;line-height:1.2"><span style="font-size:10.5em;opacity:.85">Zimmer</span></div><div style="margin-top:2em;white-space:nowrap"><span class="pv-kf" style="font-size:16em;line-height:1.3;font-weight:600">3</span></div></div>
+                      <div style="padding:8em 8em 9em;border-left:1px solid rgba(255,255,255,0.14)"><div style="white-space:nowrap;line-height:1.2"><span style="font-size:10.5em;opacity:.85">Baujahr</span></div><div style="margin-top:2em;white-space:nowrap"><span class="pv-kf" style="font-size:16em;line-height:1.3;font-weight:600">1908</span></div></div>
+                      <div style="padding:8em 8em 9em;border-left:1px solid rgba(255,255,255,0.14)"><div style="white-space:nowrap;line-height:1.2"><span style="font-size:10.5em;opacity:.85">HWB</span></div><div style="margin-top:2em;white-space:nowrap"><span class="pv-kf" style="font-size:16em;line-height:1.3;font-weight:600">48</span></div></div>
+                      <div style="padding:8em 8em 9em;border-left:1px solid rgba(255,255,255,0.14)"><div style="white-space:nowrap;line-height:1.2"><span style="font-size:10.5em;opacity:.85">fGEE</span></div><div style="margin-top:2em;white-space:nowrap"><span class="pv-kf" style="font-size:16em;line-height:1.3;font-weight:600">0,92</span></div></div>
+                    </div>
+                    <!-- the answer, kept in the card under the cell it is about -->
+                    <div class="pv-a pv-grow">
+                      <div style="min-height:0;overflow:hidden">
+                        <div style="padding-top:10em">
+                          <div style="display:flex;align-items:center;gap:10em;padding:10em 12em;border-radius:6em;background:#ecf4ef">
+                            <span style="width:24em;height:24em;border-radius:50%;background:#1f7a5a;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" style="width:14em;height:14em" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"></path></svg></span>
+                            <div style="display:flex;flex-direction:column;gap:2em;min-width:0">
+                              <span style="font-size:14em;line-height:1.3;font-weight:600;color:#0a2b22">Wohnfläche set to 76&#160;m²</span>
+                              <span style="font-size:12.5em;line-height:1.35;color:#4f5c57">From the floor plan. Confirmed by you.</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="margin-top:14em;display:flex;flex-direction:column;gap:4em">
+                      <span style="font-size:12.5em;line-height:1.3;font-weight:600">Objektbeschreibung</span>
+                      <span style="font-size:13em;line-height:1.5;color:#4f5c57">Altbauwohnung im zweiten Stock, ruhig zum Innenhof gelegen, mit Flügeltüren und Fischgrätparkett.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- the catch: a question under the Wohnfläche cell -->
+              <div class="pv-a pv-q" style="position:absolute;left:384em;top:364em;width:330em;z-index:6">
+                <div class="hl-d3" style="position:relative;background:#ffffff;border-radius:14em;padding:14em">
+                  <span style="position:absolute;left:110em;top:-6em;width:12em;height:12em;background:#ffffff;transform:rotate(45deg);border-radius:2em"></span>
+                  <div style="display:flex;align-items:center;gap:7em"><span style="width:8em;height:8em;border-radius:50%;background:#f4b860;flex:none"></span><span style="font-size:12em;line-height:1.5;color:#4f5c57">Before this goes out</span></div>
+                  <div style="margin-top:6em"><span style="display:block;font-size:14em;line-height:1.45;font-weight:500;color:#0a2b22">Wohnfläche: 78&#160;m² in the Energieausweis, 76&#160;m² in the floor plan. Which is right?</span></div>
+                  <div style="margin-top:12em;display:grid;grid-template-columns:1fr 1fr;gap:8em">
+                    <span style="display:flex;flex-direction:column;gap:1em;padding:8em 12em;border-radius:10em;border:1px solid rgba(10,43,34,.16);background:#ffffff;color:#0a2b22"><span style="font-size:14em;line-height:1.3;font-weight:600">78&#160;m²</span><span style="font-size:11.5em;line-height:1.3;opacity:.75">Energieausweis</span></span>
+                    <span class="pv-a pv-press" style="display:flex;flex-direction:column;gap:1em;padding:8em 12em;border-radius:10em;border:1px solid rgba(10,43,34,.16);background:#ffffff;color:#0a2b22"><span style="font-size:14em;line-height:1.3;font-weight:600">76&#160;m²</span><span style="font-size:11.5em;line-height:1.3;opacity:.8">Floor plan</span></span>
+                  </div>
+                </div>
+              </div>
+              <div class="pv-a pv-cursor" style="position:absolute;left:622em;top:477em;width:22em;height:22em;z-index:7">
+                <svg viewBox="0 0 24 24" style="width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(0 2px 3px rgba(10,43,34,.3))"><path d="M4 3l7 17 2.4-7.1L20.5 10.5z" fill="#0a2b22" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"></path></svg>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- PHONE STAGE, 350 design px wide, stacked, no tilt -->
+          <div class="pv-sm" role="img" aria-label="Five documents go into the Immvela helix. An Exposé comes out. The Wohnfläche reads 78 m² in the Energieausweis and 76 m² in the floor plan, so Immvela asks which is right. The agent picks 76 m², it is confirmed from the floor plan, and the Instagram post is ready to publish." style="container-type:inline-size;width:100%">
+            <div style="position:relative;font-size:calc(100cqw / 350);height:716em">
+
+              <div class="pv-a pv-doc" style="position:absolute;left:0;top:0;width:118em;z-index:5;--dx:116em;--dy:67em;--d:.15s">
+                <div class="gl-sheen" style="padding:9em 10em;border-radius:9em"><span style="display:block;font-size:11.5em;line-height:1.3;font-weight:600;white-space:nowrap">Energieausweis</span></div>
+              </div>
+              <div class="pv-a pv-doc" style="position:absolute;left:124em;top:0;width:92em;z-index:5;--dx:5em;--dy:67em;--d:.35s">
+                <div class="gl-sheen" style="padding:9em 10em;border-radius:9em"><span style="display:block;font-size:11.5em;line-height:1.3;font-weight:600;white-space:nowrap">Grundriss</span></div>
+              </div>
+              <div class="pv-a pv-doc" style="position:absolute;left:222em;top:4em;width:40em;z-index:5;--dx:-67em;--dy:67em;--d:.55s"><img class="hl-d1" src="/_blob/b4dd5eae354b5250c168b8ed89537a28" alt="" style="display:block;width:40em;height:30em;object-fit:cover;border-radius:4em"></div>
+              <div class="pv-a pv-doc" style="position:absolute;left:264em;top:4em;width:40em;z-index:5;--dx:-109em;--dy:67em;--d:.7s"><img class="hl-d1" src="/_blob/b65e1092c2fc4f4d44ea8d3aa50f42b7" alt="" style="display:block;width:40em;height:30em;object-fit:cover;border-radius:4em"></div>
+              <div class="pv-a pv-doc" style="position:absolute;left:306em;top:4em;width:40em;z-index:5;--dx:-151em;--dy:67em;--d:.85s"><img class="hl-d1" src="/_blob/4ced161614b4c37b6a2daca57a98edf1" alt="" style="display:block;width:40em;height:30em;object-fit:cover;border-radius:4em"></div>
+
+              <div style="position:absolute;left:145em;top:56em;width:60em;height:60em;z-index:4">
+                <div class="gl-glass" style="width:100%;height:100%;border-radius:50%;box-sizing:border-box;display:flex;align-items:center;justify-content:center">
+                  <div class="pv-a pv-ack" style="width:48em;height:48em"><div class="pv-a pv-spin" style="width:100%;height:100%"><div class="pv-turn" style="width:100%;height:100%"><img src="/_blob/56a98e7e934950f3a0e9e16206cf637e" alt="" style="width:100%;height:100%;display:block"></div></div></div>
+                </div>
+              </div>
+              <div style="position:absolute;left:0;right:0;top:126em;display:grid;justify-items:center;z-index:4">
+                <div class="pv-a pv-win" style="grid-area:1/1;--d:.3s;--len:2.2s;display:flex;align-items:center;gap:7em;white-space:nowrap"><span style="width:8em;height:8em;border-radius:50%;background:#1f7a5a;flex:none"></span><span style="font-size:13em;line-height:1.3;font-weight:600">Reading 5 documents</span></div>
+                <div class="pv-a pv-win" style="grid-area:1/1;--d:2.5s;--len:1.1s;display:flex;align-items:center;gap:7em;white-space:nowrap"><span style="width:8em;height:8em;border-radius:50%;background:#1f7a5a;flex:none"></span><span style="font-size:13em;line-height:1.3;font-weight:600">Drafting the Exposé</span></div>
+                <div class="pv-a pv-win" style="grid-area:1/1;--d:3.6s;--len:3s;display:flex;align-items:center;gap:7em;white-space:nowrap"><span style="width:8em;height:8em;border-radius:50%;background:#f4b860;flex:none"></span><span style="font-size:13em;line-height:1.3;font-weight:600">1 question for you</span></div>
+                <div class="pv-a pv-in" style="grid-area:1/1;--d:6.6s;display:flex;align-items:center;gap:7em;white-space:nowrap"><span style="width:8em;height:8em;border-radius:50%;background:#1f7a5a;flex:none"></span><span style="font-size:13em;line-height:1.3;font-weight:600">Ready to advertise</span></div>
+              </div>
+
+              <!-- the Exposé, full width -->
+              <div class="pv-a pv-arrive" style="position:absolute;left:0;top:168em;width:350em;z-index:3;--r:0deg;--r0:0deg;--fx:0em;--fy:24em;--d:2.3s">
+                <div class="hl-d3" style="background:#fbfaf5;color:#1c2a25;border-radius:8em;overflow:hidden">
+                  <img src="/_blob/9fc80a4b6bfd62ebb10883374144ccfb" alt="" style="width:100%;height:130em;object-fit:cover;display:block">
+                  <div style="padding:14em">
+                    <div style="display:flex;flex-direction:column;gap:4em">
+                      <span style="font-size:12em;line-height:1.5;color:#5b6862">Exposé, Gentzgasse 14, 1180 Wien</span>
+                      <span style="font-size:19em;line-height:1.2;font-weight:600;letter-spacing:-0.02em;text-wrap:balance">Helle 3-Zimmer-Wohnung mit Balkon in Währing</span>
+                    </div>
+                    <div style="margin-top:12em;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-radius:5em;overflow:hidden;background:#1f3a31;color:#eef3ef;font-variant-numeric:tabular-nums">
+                      <div class="pv-a pv-flash" style="position:relative;padding:7em 5em 8em;background:#1f7a5a;color:#ffffff;box-shadow:inset 0 0 0 1em rgba(166,232,204,0.45)">
+                        <div style="white-space:nowrap;line-height:1.2"><span style="font-size:9em;opacity:.9">Wohnfläche</span></div>
+                        <div style="margin-top:2em;white-space:nowrap"><span class="pv-kf" style="font-size:13.5em;line-height:1.3;font-weight:600">76 m²</span></div>
+                        <div class="pv-a pv-amber" style="position:absolute;inset:0;padding:7em 5em 8em;color:#0a2b22">
+                          <div style="white-space:nowrap;line-height:1.2"><span style="font-size:9em">Wohnfläche</span></div>
+                          <div style="margin-top:2em;white-space:nowrap"><span class="pv-kf" style="font-size:12.5em;line-height:1.3;font-weight:600">2 values</span></div>
+                        </div>
+                      </div>
+                      <div style="padding:7em 5em 8em;border-left:1px solid rgba(255,255,255,0.14)"><div style="white-space:nowrap;line-height:1.2"><span style="font-size:9em;opacity:.85">Zimmer</span></div><div style="margin-top:2em;white-space:nowrap"><span class="pv-kf" style="font-size:13.5em;line-height:1.3;font-weight:600">3</span></div></div>
+                      <div style="padding:7em 5em 8em;border-left:1px solid rgba(255,255,255,0.14)"><div style="white-space:nowrap;line-height:1.2"><span style="font-size:9em;opacity:.85">Baujahr</span></div><div style="margin-top:2em;white-space:nowrap"><span class="pv-kf" style="font-size:13.5em;line-height:1.3;font-weight:600">1908</span></div></div>
+                      <div style="padding:7em 5em 8em;border-left:1px solid rgba(255,255,255,0.14)"><div style="white-space:nowrap;line-height:1.2"><span style="font-size:9em;opacity:.85">HWB</span></div><div style="margin-top:2em;white-space:nowrap"><span class="pv-kf" style="font-size:13.5em;line-height:1.3;font-weight:600">48</span></div></div>
+                      <div style="padding:7em 5em 8em;border-left:1px solid rgba(255,255,255,0.14)"><div style="white-space:nowrap;line-height:1.2"><span style="font-size:9em;opacity:.85">fGEE</span></div><div style="margin-top:2em;white-space:nowrap"><span class="pv-kf" style="font-size:13.5em;line-height:1.3;font-weight:600">0,92</span></div></div>
+                    </div>
+                    <div class="pv-a pv-grow">
+                      <div style="min-height:0;overflow:hidden">
+                        <div style="padding-top:10em">
+                          <div style="display:flex;align-items:center;gap:10em;padding:10em 11em;border-radius:6em;background:#ecf4ef">
+                            <span style="width:22em;height:22em;border-radius:50%;background:#1f7a5a;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" style="width:13em;height:13em" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"></path></svg></span>
+                            <div style="display:flex;flex-direction:column;gap:2em;min-width:0">
+                              <span style="font-size:13.5em;line-height:1.3;font-weight:600;color:#0a2b22">Wohnfläche set to 76&#160;m²</span>
+                              <span style="font-size:12em;line-height:1.35;color:#4f5c57">From the floor plan. Confirmed by you.</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- the catch, phone -->
+              <div class="pv-a pv-q" style="position:absolute;left:12em;top:448em;width:326em;z-index:6">
+                <div class="hl-d3" style="position:relative;background:#ffffff;border-radius:14em;padding:14em">
+                  <span style="position:absolute;left:30em;top:-6em;width:12em;height:12em;background:#ffffff;transform:rotate(45deg);border-radius:2em"></span>
+                  <div style="display:flex;align-items:center;gap:7em"><span style="width:8em;height:8em;border-radius:50%;background:#f4b860;flex:none"></span><span style="font-size:12em;line-height:1.5;color:#4f5c57">Before this goes out</span></div>
+                  <div style="margin-top:6em"><span style="display:block;font-size:13.5em;line-height:1.45;font-weight:500;color:#0a2b22">Wohnfläche: 78&#160;m² in the Energieausweis, 76&#160;m² in the floor plan. Which is right?</span></div>
+                  <div style="margin-top:12em;display:grid;grid-template-columns:1fr 1fr;gap:8em">
+                    <span style="display:flex;flex-direction:column;gap:1em;padding:8em 12em;border-radius:10em;border:1px solid rgba(10,43,34,.16);background:#ffffff;color:#0a2b22"><span style="font-size:14em;line-height:1.3;font-weight:600">78&#160;m²</span><span style="font-size:11.5em;line-height:1.3;opacity:.75">Energieausweis</span></span>
+                    <span class="pv-a pv-press" style="display:flex;flex-direction:column;gap:1em;padding:8em 12em;border-radius:10em;border:1px solid rgba(10,43,34,.16);background:#ffffff;color:#0a2b22"><span style="font-size:14em;line-height:1.3;font-weight:600">76&#160;m²</span><span style="font-size:11.5em;line-height:1.3;opacity:.8">Floor plan</span></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- below: the staged print and the post, side by side -->
+              <div class="pv-a pv-arrive" style="position:absolute;left:0;top:524em;width:166em;z-index:1;--r:0deg;--r0:0deg;--fx:0em;--fy:20em;--d:2.6s">
+                <div class="hl-d1" style="position:relative;background:#ffffff;padding:5em;border-radius:4em">
+                  <img src="/_blob/b4dd5eae354b5250c168b8ed89537a28" alt="" style="display:block;width:156em;height:118em;object-fit:cover;border-radius:2em">
+                  <div style="position:absolute;left:12em;bottom:12em;padding:4em 8em;border-radius:999em;background:rgba(255,255,255,0.92)"><span style="display:block;font-size:11em;line-height:1.3;font-weight:600;white-space:nowrap">Virtually staged</span></div>
+                </div>
+              </div>
+              <div class="pv-a pv-arrive" style="position:absolute;left:184em;top:524em;width:166em;z-index:2;--r:0deg;--r0:0deg;--fx:0em;--fy:20em;--d:2.8s">
+                <div class="gl-sheen hl-d2" style="border-radius:12em;overflow:hidden">
+                  <div style="display:flex;align-items:center;gap:6em;padding:8em 10em">
+                    <span style="width:16em;height:16em;border-radius:5em;background:linear-gradient(45deg,#f9a52b,#e1306c,#833ab4);display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" style="width:10em;height:10em" fill="none" stroke="#ffffff" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle></svg></span>
+                    <span style="font-size:11.5em;line-height:1.4;color:#4f5c57">Instagram</span>
+                  </div>
+                  <img src="/_blob/b65e1092c2fc4f4d44ea8d3aa50f42b7" alt="" style="width:100%;height:112em;object-fit:cover;display:block">
+                  <div style="display:grid;justify-items:start;padding:9em 8em 10em">
+                    <span class="pv-a pv-win" style="grid-area:1/1;--d:3.2s;--len:3.5s;display:inline-flex;align-items:center;gap:.5em;white-space:nowrap;font-size:11em;line-height:1.3;font-weight:600;padding:.45em .8em;border-radius:999em;background:#f1efe8;color:#0a2b22"><span style="width:.5em;height:.5em;border-radius:50%;background:#f4b860;flex:none"></span>Held until you confirm</span>
+                    <span class="pv-a pv-in" style="grid-area:1/1;--d:6.7s;display:inline-flex;align-items:center;gap:.5em;white-space:nowrap;font-size:11em;line-height:1.3;font-weight:600;padding:.45em .8em;border-radius:999em;background:#f1efe8;color:#0a2b22"><span style="width:.5em;height:.5em;border-radius:50%;background:#1f7a5a;flex:none"></span>Ready. Publish?</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;margin-top:16px">
+          <button type="button" class="pv-replay" onClick="{{pvReplay}}">
+            <svg viewBox="0 0 24 24" style="width:16px;height:16px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>
+            Watch it again
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- the record: every value traced to its document, by tap -->
+  <div style="width:100%;background:transparent;color:#0a2b22;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden">
+    <section class="tr-sec" style="padding:96px 24px">
+      <div class="tr-head">
+        <h2 class="tr-h2" style="margin:0;color:#14473a;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 72;font-weight:650;letter-spacing:-0.035em;line-height:1.02;max-width:720px;text-align:left;font-size:52px;text-wrap:balance">Every number in your Exposé, traced to its document</h2>
+        <p style="margin:20px 0 0;max-width:560px;text-align:left;font-size:19px;line-height:1.55;color:#3f574f;text-wrap:pretty">Immvela keeps the page and the exact line each value was read from, so any number can be checked in one tap.</p>
+      </div>
+
+      <div class="{{trStageClass}}" style="margin:48px auto 0;max-width:1160px">
+        <!-- DESKTOP STAGE, drawn at 1200 x 640: the Exposé left, the source page slides out to its right -->
+        <div class="tr-sd" style="container-type:inline-size;width:100%">
+          <div style="position:relative;font-size:calc(100cqw / 1200);height:640em">
+
+            <div class="tr-paper" style="position:absolute;left:70em;top:20em;width:500em;height:590em;z-index:3;border-radius:8em;overflow:hidden;background:#fbfaf5;color:#1c2a25;box-shadow:0 0 0 1px rgba(10,43,34,0.08),0 1px 2px rgba(0,0,0,0.05),0 18em 40em rgba(10,43,34,0.09)">
+              <img src="/_blob/9fc80a4b6bfd62ebb10883374144ccfb" alt="" style="position:absolute;left:0;top:0;width:100%;height:250em;object-fit:cover;display:block">
+              <div style="position:absolute;left:22em;top:268em;white-space:nowrap"><span style="font-size:13em;line-height:1.5;color:#4f5c57">Exposé, Gentzgasse 14, 1180 Wien</span></div>
+              <div style="position:absolute;left:22em;right:22em;top:292em"><span style="display:block;font-size:26em;line-height:1.15;font-weight:600;letter-spacing:-0.02em">Helle 3-Zimmer-Wohnung mit Balkon in Währing</span></div>
+              <div role="group" aria-label="Key facts. Choose a value to see the line it was read from." style="position:absolute;left:22em;top:376em;width:456em;height:64em;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-radius:6em;overflow:hidden;background:#1f3a31">
+                <button type="button" class="{{cWf}}" aria-pressed="{{pWf}}" onClick="{{tWf}}" style="padding:10em 9em 11em;display:flex;flex-direction:column;gap:4em"><span style="display:block;font-size:11em;line-height:1.2;opacity:.85;white-space:nowrap">Wohnfläche</span><span class="rc-kf" style="display:block;font-size:17em;line-height:1.25;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">76 m²</span></button><button type="button" class="{{cZi}}" aria-pressed="{{pZi}}" onClick="{{tZi}}" style="padding:10em 9em 11em;display:flex;flex-direction:column;gap:4em"><span style="display:block;font-size:11em;line-height:1.2;opacity:.85;white-space:nowrap">Zimmer</span><span class="rc-kf" style="display:block;font-size:17em;line-height:1.25;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">3</span></button><button type="button" class="{{cBj}}" aria-pressed="{{pBj}}" onClick="{{tBj}}" style="padding:10em 9em 11em;display:flex;flex-direction:column;gap:4em"><span style="display:block;font-size:11em;line-height:1.2;opacity:.85;white-space:nowrap">Baujahr</span><span class="rc-kf" style="display:block;font-size:17em;line-height:1.25;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">1908</span></button><button type="button" class="{{cHwb}}" aria-pressed="{{pHwb}}" onClick="{{tHwb}}" style="padding:10em 9em 11em;display:flex;flex-direction:column;gap:4em"><span style="display:block;font-size:11em;line-height:1.2;opacity:.85;white-space:nowrap">HWB</span><span class="rc-kf" style="display:block;font-size:17em;line-height:1.25;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">48</span></button><button type="button" class="{{cFg}}" aria-pressed="{{pFg}}" onClick="{{tFg}}" style="padding:10em 9em 11em;display:flex;flex-direction:column;gap:4em"><span style="display:block;font-size:11em;line-height:1.2;opacity:.85;white-space:nowrap">fGEE</span><span class="rc-kf" style="display:block;font-size:17em;line-height:1.25;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">0,92</span></button>
+              </div>
+              <div style="position:absolute;left:22em;right:22em;top:478em;display:flex;flex-direction:column;gap:7em">
+                <span style="font-size:14em;line-height:1.3;font-weight:600">Objektbeschreibung</span>
+                <span style="font-size:12em;line-height:1.55;color:#3d4a45">Die Wohnung liegt im zweiten Obergeschoss eines gepflegten Altbaus. Wohnzimmer und Küche öffnen sich zum ruhigen Innenhof, der Balkon bekommt Nachmittagssonne.</span>
+              </div>
+            </div>
+
+            <div style="position:absolute;left:640em;top:36em;width:470em;height:580em;z-index:2">
+              <div class="{{dGr}}" style="position:absolute;inset:0"><div style="position:absolute;inset:0;border-radius:6em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 18em 40em rgba(10,43,34,0.10)"><div style="position:absolute;left:24em;right:24em;top:22em;display:flex;justify-content:space-between;align-items:baseline;white-space:nowrap"><span style="font-size:17em;line-height:1.3;font-weight:600;color:#0a2b22">Grundriss</span><span style="font-size:12.5em;line-height:1.3;color:#4f5c57">Seite 1</span></div><div style="position:absolute;left:24em;top:48em;white-space:nowrap"><span style="font-size:12.0em;line-height:1.4;color:#4f5c57">Top 7, 2. Obergeschoss, Gentzgasse 14</span></div><div style="position:absolute;left:24em;right:24em;top:80em;height:200em;font-size:2em"><svg viewBox="0 0 211 100" style="width:100%;height:100%;display:block;font-family:inherit" fill="none" stroke-linecap="square" aria-hidden="true"><rect x="2" y="2" width="207" height="96" stroke="#1f3a31" stroke-width="2.4"></rect><path d="M80 2V24M80 36V60M140 2V24M140 36V60M2 60H40M52 60H120M132 60H170M182 60H209M110 60V98M160 60V98" stroke="#1f3a31" stroke-width="1.6"></path><path d="M80 24A12 12 0 0 1 92 36M140 24A12 12 0 0 1 152 36M40 60A12 12 0 0 0 52 72M120 60A12 12 0 0 0 132 72M170 60A12 12 0 0 0 182 72" stroke="#7d8a84" stroke-width="1"></path><path d="M18 2H60M96 2H124M158 2H192M209 70V90" stroke="#9fb7ad" stroke-width="3.5"></path><g fill="#4f5c57" stroke="none" font-size="6.5"><text x="12" y="34">Wohnzimmer</text><text x="88" y="50">Schlafzimmer</text><text x="160" y="50">Zimmer</text><text x="12" y="84">Vorraum</text><text x="120" y="84">Küche</text><text x="170" y="84">Bad</text></g></svg></div><div style="position:absolute;left:24em;top:296em;white-space:nowrap"><span style="font-size:13.0em;line-height:1.3;font-weight:600;color:#0a2b22">Flächenaufstellung</span></div><div style="position:absolute;left:24em;right:24em;top:320em;height:24em;display:flex;align-items:center;justify-content:space-between;white-space:nowrap"><span style="font-size:12.0em;line-height:1.3;color:#4f5c57">Wohnzimmer</span><span style="font-size:12.0em;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums">24,6 m²</span></div><div style="position:absolute;left:24em;right:24em;top:344em;height:24em;display:flex;align-items:center;justify-content:space-between;white-space:nowrap"><span style="font-size:12.0em;line-height:1.3;color:#4f5c57">Schlafzimmer</span><span style="font-size:12.0em;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums">14,2 m²</span></div><div style="position:absolute;left:24em;right:24em;top:368em;height:24em;display:flex;align-items:center;justify-content:space-between;white-space:nowrap"><span style="font-size:12.0em;line-height:1.3;color:#4f5c57">Zimmer</span><span style="font-size:12.0em;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums">11,8 m²</span></div><div style="position:absolute;left:24em;right:24em;top:392em;height:24em;display:flex;align-items:center;justify-content:space-between;white-space:nowrap"><span style="font-size:12.0em;line-height:1.3;color:#4f5c57">Küche</span><span style="font-size:12.0em;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums">9,1 m²</span></div><div style="position:absolute;left:24em;right:24em;top:416em;height:24em;display:flex;align-items:center;justify-content:space-between;white-space:nowrap"><span style="font-size:12.0em;line-height:1.3;color:#4f5c57">Bad und WC</span><span style="font-size:12.0em;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums">5,4 m²</span></div><div style="position:absolute;left:24em;right:24em;top:440em;height:24em;display:flex;align-items:center;justify-content:space-between;white-space:nowrap"><span style="font-size:12.0em;line-height:1.3;color:#4f5c57">Vorraum</span><span style="font-size:12.0em;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums">10,9 m²</span></div><div style="position:absolute;left:24em;right:24em;top:470em;height:34em;border-top:1px solid rgba(10,43,34,0.10);display:flex;align-items:center;gap:.35em;white-space:nowrap"><span style="font-size:13.5em;line-height:1.3;color:#4f5c57">Zimmer:</span><span style="font-size:13.5em;line-height:1.3;font-weight:600;color:#0a2b22">3</span></div><div style="position:absolute;left:24em;right:24em;top:504em;height:34em;border-top:1px solid rgba(10,43,34,0.10);display:flex;align-items:center;gap:.35em;white-space:nowrap"><span style="font-size:13.5em;line-height:1.3;color:#4f5c57">Wohnfläche gesamt:</span><span style="font-size:13.5em;line-height:1.3;font-weight:600;color:#0a2b22">76,0 m²</span></div></div><div class="{{hZi}}" style="position:absolute;left:12em;right:12em;top:465em;z-index:3"><div style="border-radius:8em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 14em 32em rgba(10,43,34,0.16);padding:5em"><div style="display:flex;align-items:center;min-height:34em;box-sizing:border-box;padding:0 12em;border-radius:5em;background:#e3efe8"><span style="font-size:14.5em;line-height:1.35;font-weight:600;color:#0a2b22">&#8220;Zimmer: 3&#8221;</span></div><div style="display:flex;align-items:flex-start;gap:6em;padding:9em 12em 4em"><svg viewBox="0 0 16 16" style="width:14em;height:14em;flex:none;margin-top:1em" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1f7a5a"></circle><path d="M4.6 8.2l2.2 2.2 4.6-4.7" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:12.5em;line-height:1.35;color:#4f5c57">Grundriss, page 1. Confirmed by you on 2 October.</span></div></div></div><div class="{{hWf}}" style="position:absolute;left:12em;right:12em;top:499em;z-index:3"><div style="border-radius:8em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 14em 32em rgba(10,43,34,0.16);padding:5em"><div style="display:flex;align-items:center;min-height:34em;box-sizing:border-box;padding:0 12em;border-radius:5em;background:#e3efe8"><span style="font-size:14.5em;line-height:1.35;font-weight:600;color:#0a2b22">&#8220;Wohnfläche gesamt: 76,0 m²&#8221;</span></div><div style="display:flex;align-items:flex-start;gap:6em;padding:9em 12em 4em"><svg viewBox="0 0 16 16" style="width:14em;height:14em;flex:none;margin-top:1em" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1f7a5a"></circle><path d="M4.6 8.2l2.2 2.2 4.6-4.7" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:12.5em;line-height:1.35;color:#4f5c57">Grundriss, page 1. Confirmed by you on 2 October.</span></div></div></div></div>
+              <div class="{{dEa}}" style="position:absolute;inset:0"><div style="position:absolute;inset:0;border-radius:6em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 18em 40em rgba(10,43,34,0.10)"><div style="position:absolute;left:24em;right:24em;top:22em;display:flex;justify-content:space-between;align-items:baseline;white-space:nowrap"><span style="font-size:17em;line-height:1.3;font-weight:600;color:#0a2b22">Energieausweis</span><span style="font-size:12.5em;line-height:1.3;color:#4f5c57">Seite 1</span></div><div style="position:absolute;left:24em;top:48em;white-space:nowrap"><span style="font-size:12.0em;line-height:1.4;color:#4f5c57">für Wohngebäude, Gentzgasse 14, 1180 Wien</span></div><div aria-hidden="true" style="position:absolute;left:24em;top:84em;display:flex;flex-direction:column;gap:5em"><span style="display:block;position:relative;height:14em;width:52em;background:#3f8f5f"></span><span style="display:block;position:relative;height:14em;width:74em;background:#6aa457"><span style="position:absolute;left:80em;top:0;width:0;height:0;border-top:7.0em solid transparent;border-bottom:7.0em solid transparent;border-right:8.4em solid #0a2b22"></span></span><span style="display:block;position:relative;height:14em;width:96em;background:#a5bd4f"></span><span style="display:block;position:relative;height:14em;width:118em;background:#dcc24f"></span><span style="display:block;position:relative;height:14em;width:140em;background:#e0a24c"></span><span style="display:block;position:relative;height:14em;width:162em;background:#d9773f"></span><span style="display:block;position:relative;height:14em;width:184em;background:#c4523f"></span></div><div style="position:absolute;left:24em;right:24em;top:240em;height:44em;border-top:1px solid rgba(10,43,34,0.10);display:flex;align-items:center;gap:.35em;white-space:nowrap"><span style="font-size:13.5em;line-height:1.3;color:#4f5c57">Baujahr:</span><span style="font-size:13.5em;line-height:1.3;font-weight:600;color:#0a2b22">1908</span></div><div style="position:absolute;left:24em;right:24em;top:284em;height:44em;border-top:1px solid rgba(10,43,34,0.10);display:flex;align-items:center;gap:.35em;white-space:nowrap"><span style="font-size:13.5em;line-height:1.3;color:#4f5c57">Heizwärmebedarf HWB:</span><span style="font-size:13.5em;line-height:1.3;font-weight:600;color:#0a2b22">48 kWh/m²a</span></div><div style="position:absolute;left:24em;right:24em;top:328em;height:44em;border-top:1px solid rgba(10,43,34,0.10);display:flex;align-items:center;gap:.35em;white-space:nowrap"><span style="font-size:13.5em;line-height:1.3;color:#4f5c57">Gesamtenergieeffizienz-Faktor fGEE:</span><span style="font-size:13.5em;line-height:1.3;font-weight:600;color:#0a2b22">0,92</span></div><div aria-hidden="true" style="position:absolute;left:24em;right:24em;top:400em;border-top:1px solid rgba(10,43,34,0.10);padding-top:18em;display:flex;flex-direction:column;gap:9em"><span style="display:block;height:4em;width:92%;border-radius:1em;background:#dcd9cf"></span><span style="display:block;height:4em;width:84%;border-radius:1em;background:#dcd9cf"></span><span style="display:block;height:4em;width:88%;border-radius:1em;background:#dcd9cf"></span><span style="display:block;height:4em;width:60%;border-radius:1em;background:#dcd9cf"></span></div></div><div class="{{hBj}}" style="position:absolute;left:12em;right:12em;top:235em;z-index:3"><div style="border-radius:8em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 14em 32em rgba(10,43,34,0.16);padding:5em"><div style="display:flex;align-items:center;min-height:44em;box-sizing:border-box;padding:0 12em;border-radius:5em;background:#e3efe8"><span style="font-size:14.5em;line-height:1.35;font-weight:600;color:#0a2b22">&#8220;Baujahr: 1908&#8221;</span></div><div style="display:flex;align-items:flex-start;gap:6em;padding:9em 12em 4em"><svg viewBox="0 0 16 16" style="width:14em;height:14em;flex:none;margin-top:1em" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1f7a5a"></circle><path d="M4.6 8.2l2.2 2.2 4.6-4.7" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:12.5em;line-height:1.35;color:#4f5c57">Energieausweis, page 1. Confirmed by you on 2 October.</span></div></div></div><div class="{{hHwb}}" style="position:absolute;left:12em;right:12em;top:279em;z-index:3"><div style="border-radius:8em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 14em 32em rgba(10,43,34,0.16);padding:5em"><div style="display:flex;align-items:center;min-height:44em;box-sizing:border-box;padding:0 12em;border-radius:5em;background:#e3efe8"><span style="font-size:14.5em;line-height:1.35;font-weight:600;color:#0a2b22">&#8220;Heizwärmebedarf HWB: 48 kWh/m²a&#8221;</span></div><div style="display:flex;align-items:flex-start;gap:6em;padding:9em 12em 4em"><svg viewBox="0 0 16 16" style="width:14em;height:14em;flex:none;margin-top:1em" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1f7a5a"></circle><path d="M4.6 8.2l2.2 2.2 4.6-4.7" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:12.5em;line-height:1.35;color:#4f5c57">Energieausweis, page 1. Confirmed by you on 2 October.</span></div></div></div><div class="{{hFg}}" style="position:absolute;left:12em;right:12em;top:323em;z-index:3"><div style="border-radius:8em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 14em 32em rgba(10,43,34,0.16);padding:5em"><div style="display:flex;align-items:center;min-height:44em;box-sizing:border-box;padding:0 12em;border-radius:5em;background:#e3efe8"><span style="font-size:14.5em;line-height:1.35;font-weight:600;color:#0a2b22">&#8220;Gesamtenergieeffizienz-Faktor fGEE: 0,92&#8221;</span></div><div style="display:flex;align-items:flex-start;gap:6em;padding:9em 12em 4em"><svg viewBox="0 0 16 16" style="width:14em;height:14em;flex:none;margin-top:1em" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1f7a5a"></circle><path d="M4.6 8.2l2.2 2.2 4.6-4.7" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:12.5em;line-height:1.35;color:#4f5c57">Energieausweis, page 1. Confirmed by you on 2 October.</span></div></div></div></div>
+            </div>
+
+            <svg class="tr-wire" viewBox="0 0 1200 640" aria-hidden="true" style="position:absolute;left:0;top:0;width:1200em;height:640em;z-index:5;overflow:visible;pointer-events:none" fill="none"><g class="{{kWf}}"><path class="tr-kp" pathLength="1" d="M137.6 460V470Q137.6 478 145.6 478H600C626 478 626 557.0 652 557.0"></path><circle class="tr-k0" cx="137.6" cy="460" r="3.5"></circle><circle class="tr-k1" cx="652" cy="557.0" r="3.5"></circle></g><g class="{{kZi}}"><path class="tr-kp" pathLength="1" d="M228.8 460V470Q228.8 478 236.8 478H600C626 478 626 523.0 652 523.0"></path><circle class="tr-k0" cx="228.8" cy="460" r="3.5"></circle><circle class="tr-k1" cx="652" cy="523.0" r="3.5"></circle></g><g class="{{kBj}}"><path class="tr-kp" pathLength="1" d="M320.0 460V470Q320.0 478 328.0 478H600C626 478 626 298.0 652 298.0"></path><circle class="tr-k0" cx="320.0" cy="460" r="3.5"></circle><circle class="tr-k1" cx="652" cy="298.0" r="3.5"></circle></g><g class="{{kHwb}}"><path class="tr-kp" pathLength="1" d="M411.2 460V470Q411.2 478 419.2 478H600C626 478 626 342.0 652 342.0"></path><circle class="tr-k0" cx="411.2" cy="460" r="3.5"></circle><circle class="tr-k1" cx="652" cy="342.0" r="3.5"></circle></g><g class="{{kFg}}"><path class="tr-kp" pathLength="1" d="M502.4 460V470Q502.4 478 510.4 478H600C626 478 626 386.0 652 386.0"></path><circle class="tr-k0" cx="502.4" cy="460" r="3.5"></circle><circle class="tr-k1" cx="652" cy="386.0" r="3.5"></circle></g></svg>
+          </div>
+        </div>
+
+        <!-- PHONE STAGE, drawn at 358 x 800: the Exposé above, the source page below it -->
+        <div class="tr-sm" style="container-type:inline-size;width:100%;max-width:440px;margin:0 auto">
+          <div style="position:relative;font-size:calc(100cqw / 358);height:800em">
+
+            <div style="position:absolute;left:0;top:0;width:358em;height:318em;z-index:3;border-radius:6em;overflow:hidden;background:#fbfaf5;color:#1c2a25;box-shadow:0 0 0 1px rgba(10,43,34,0.08),0 1px 2px rgba(0,0,0,0.05),0 12em 28em rgba(10,43,34,0.09)">
+              <img src="/_blob/9fc80a4b6bfd62ebb10883374144ccfb" alt="" style="position:absolute;left:0;top:0;width:100%;height:160em;object-fit:cover;display:block">
+              <div style="position:absolute;left:12em;top:172em;white-space:nowrap"><span style="font-size:11.5em;line-height:1.5;color:#4f5c57">Exposé, Gentzgasse 14, 1180 Wien</span></div>
+              <div style="position:absolute;left:12em;right:12em;top:192em"><span style="display:block;font-size:17em;line-height:1.2;font-weight:600;letter-spacing:-0.02em">Helle 3-Zimmer-Wohnung mit Balkon in Währing</span></div>
+              <div role="group" aria-label="Key facts. Choose a value to see the line it was read from." style="position:absolute;left:12em;top:248em;width:334em;height:56em;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-radius:5em;overflow:hidden;background:#1f3a31">
+                <button type="button" class="{{cWf}}" aria-pressed="{{pWf}}" onClick="{{tWf}}" style="padding:7em 5em 8em;display:flex;flex-direction:column;gap:3em"><span style="display:block;font-size:8.5em;line-height:1.2;opacity:.85;white-space:nowrap">Wohnfläche</span><span class="rc-kf" style="display:block;font-size:13em;line-height:1.25;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">76 m²</span></button><button type="button" class="{{cZi}}" aria-pressed="{{pZi}}" onClick="{{tZi}}" style="padding:7em 5em 8em;display:flex;flex-direction:column;gap:3em"><span style="display:block;font-size:8.5em;line-height:1.2;opacity:.85;white-space:nowrap">Zimmer</span><span class="rc-kf" style="display:block;font-size:13em;line-height:1.25;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">3</span></button><button type="button" class="{{cBj}}" aria-pressed="{{pBj}}" onClick="{{tBj}}" style="padding:7em 5em 8em;display:flex;flex-direction:column;gap:3em"><span style="display:block;font-size:8.5em;line-height:1.2;opacity:.85;white-space:nowrap">Baujahr</span><span class="rc-kf" style="display:block;font-size:13em;line-height:1.25;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">1908</span></button><button type="button" class="{{cHwb}}" aria-pressed="{{pHwb}}" onClick="{{tHwb}}" style="padding:7em 5em 8em;display:flex;flex-direction:column;gap:3em"><span style="display:block;font-size:8.5em;line-height:1.2;opacity:.85;white-space:nowrap">HWB</span><span class="rc-kf" style="display:block;font-size:13em;line-height:1.25;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">48</span></button><button type="button" class="{{cFg}}" aria-pressed="{{pFg}}" onClick="{{tFg}}" style="padding:7em 5em 8em;display:flex;flex-direction:column;gap:3em"><span style="display:block;font-size:8.5em;line-height:1.2;opacity:.85;white-space:nowrap">fGEE</span><span class="rc-kf" style="display:block;font-size:13em;line-height:1.25;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums">0,92</span></button>
+              </div>
+            </div>
+
+            <div style="position:absolute;left:20em;top:342em;width:338em;height:440em;z-index:2">
+              <div class="{{dGr}}" style="position:absolute;inset:0"><div style="position:absolute;inset:0;border-radius:5em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 18em 40em rgba(10,43,34,0.10)"><div style="position:absolute;left:16em;right:16em;top:16em;display:flex;justify-content:space-between;align-items:baseline;white-space:nowrap"><span style="font-size:14em;line-height:1.3;font-weight:600;color:#0a2b22">Grundriss</span><span style="font-size:10.5em;line-height:1.3;color:#4f5c57">Seite 1</span></div><div style="position:absolute;left:16em;top:37em;white-space:nowrap"><span style="font-size:10.0em;line-height:1.4;color:#4f5c57">Top 7, 2. Obergeschoss, Gentzgasse 14</span></div><div style="position:absolute;left:16em;right:16em;top:58em;height:120em;font-size:1.45em"><svg viewBox="0 0 211 100" style="width:100%;height:100%;display:block;font-family:inherit" fill="none" stroke-linecap="square" aria-hidden="true"><rect x="2" y="2" width="207" height="96" stroke="#1f3a31" stroke-width="2.4"></rect><path d="M80 2V24M80 36V60M140 2V24M140 36V60M2 60H40M52 60H120M132 60H170M182 60H209M110 60V98M160 60V98" stroke="#1f3a31" stroke-width="1.6"></path><path d="M80 24A12 12 0 0 1 92 36M140 24A12 12 0 0 1 152 36M40 60A12 12 0 0 0 52 72M120 60A12 12 0 0 0 132 72M170 60A12 12 0 0 0 182 72" stroke="#7d8a84" stroke-width="1"></path><path d="M18 2H60M96 2H124M158 2H192M209 70V90" stroke="#9fb7ad" stroke-width="3.5"></path><g fill="#4f5c57" stroke="none" font-size="6.5"><text x="12" y="34">Wohnzimmer</text><text x="88" y="50">Schlafzimmer</text><text x="160" y="50">Zimmer</text><text x="12" y="84">Vorraum</text><text x="120" y="84">Küche</text><text x="170" y="84">Bad</text></g></svg></div><div style="position:absolute;left:16em;top:188em;white-space:nowrap"><span style="font-size:11.5em;line-height:1.3;font-weight:600;color:#0a2b22">Flächenaufstellung</span></div><div style="position:absolute;left:16em;right:16em;top:206em;height:20em;display:flex;align-items:center;justify-content:space-between;white-space:nowrap"><span style="font-size:10.5em;line-height:1.3;color:#4f5c57">Wohnzimmer</span><span style="font-size:10.5em;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums">24,6 m²</span></div><div style="position:absolute;left:16em;right:16em;top:226em;height:20em;display:flex;align-items:center;justify-content:space-between;white-space:nowrap"><span style="font-size:10.5em;line-height:1.3;color:#4f5c57">Schlafzimmer</span><span style="font-size:10.5em;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums">14,2 m²</span></div><div style="position:absolute;left:16em;right:16em;top:246em;height:20em;display:flex;align-items:center;justify-content:space-between;white-space:nowrap"><span style="font-size:10.5em;line-height:1.3;color:#4f5c57">Zimmer</span><span style="font-size:10.5em;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums">11,8 m²</span></div><div style="position:absolute;left:16em;right:16em;top:266em;height:20em;display:flex;align-items:center;justify-content:space-between;white-space:nowrap"><span style="font-size:10.5em;line-height:1.3;color:#4f5c57">Küche</span><span style="font-size:10.5em;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums">9,1 m²</span></div><div style="position:absolute;left:16em;right:16em;top:286em;height:20em;display:flex;align-items:center;justify-content:space-between;white-space:nowrap"><span style="font-size:10.5em;line-height:1.3;color:#4f5c57">Bad und WC</span><span style="font-size:10.5em;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums">5,4 m²</span></div><div style="position:absolute;left:16em;right:16em;top:306em;height:20em;display:flex;align-items:center;justify-content:space-between;white-space:nowrap"><span style="font-size:10.5em;line-height:1.3;color:#4f5c57">Vorraum</span><span style="font-size:10.5em;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums">10,9 m²</span></div><div style="position:absolute;left:16em;right:16em;top:330em;height:30em;border-top:1px solid rgba(10,43,34,0.10);display:flex;align-items:center;gap:.35em;white-space:nowrap"><span style="font-size:12em;line-height:1.3;color:#4f5c57">Zimmer:</span><span style="font-size:12em;line-height:1.3;font-weight:600;color:#0a2b22">3</span></div><div style="position:absolute;left:16em;right:16em;top:360em;height:30em;border-top:1px solid rgba(10,43,34,0.10);display:flex;align-items:center;gap:.35em;white-space:nowrap"><span style="font-size:12em;line-height:1.3;color:#4f5c57">Wohnfläche gesamt:</span><span style="font-size:12em;line-height:1.3;font-weight:600;color:#0a2b22">76,0 m²</span></div></div><div class="{{hZi}}" style="position:absolute;left:6em;right:6em;top:325em;z-index:3"><div style="border-radius:8em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 14em 32em rgba(10,43,34,0.16);padding:5em"><div style="display:flex;align-items:center;min-height:30em;box-sizing:border-box;padding:0 8em;border-radius:5em;background:#e3efe8"><span style="font-size:13em;line-height:1.35;font-weight:600;color:#0a2b22">&#8220;Zimmer: 3&#8221;</span></div><div style="display:flex;align-items:flex-start;gap:6em;padding:7em 8em 3em"><svg viewBox="0 0 16 16" style="width:13em;height:13em;flex:none;margin-top:1em" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1f7a5a"></circle><path d="M4.6 8.2l2.2 2.2 4.6-4.7" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:11.5em;line-height:1.35;color:#4f5c57">Grundriss, page 1. Confirmed by you on 2 October.</span></div></div></div><div class="{{hWf}}" style="position:absolute;left:6em;right:6em;top:355em;z-index:3"><div style="border-radius:8em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 14em 32em rgba(10,43,34,0.16);padding:5em"><div style="display:flex;align-items:center;min-height:30em;box-sizing:border-box;padding:0 8em;border-radius:5em;background:#e3efe8"><span style="font-size:13em;line-height:1.35;font-weight:600;color:#0a2b22">&#8220;Wohnfläche gesamt: 76,0 m²&#8221;</span></div><div style="display:flex;align-items:flex-start;gap:6em;padding:7em 8em 3em"><svg viewBox="0 0 16 16" style="width:13em;height:13em;flex:none;margin-top:1em" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1f7a5a"></circle><path d="M4.6 8.2l2.2 2.2 4.6-4.7" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:11.5em;line-height:1.35;color:#4f5c57">Grundriss, page 1. Confirmed by you on 2 October.</span></div></div></div></div>
+              <div class="{{dEa}}" style="position:absolute;inset:0"><div style="position:absolute;inset:0;border-radius:5em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 18em 40em rgba(10,43,34,0.10)"><div style="position:absolute;left:16em;right:16em;top:16em;display:flex;justify-content:space-between;align-items:baseline;white-space:nowrap"><span style="font-size:14em;line-height:1.3;font-weight:600;color:#0a2b22">Energieausweis</span><span style="font-size:10.5em;line-height:1.3;color:#4f5c57">Seite 1</span></div><div style="position:absolute;left:16em;top:37em;white-space:nowrap"><span style="font-size:10.0em;line-height:1.4;color:#4f5c57">für Wohngebäude, Gentzgasse 14, 1180 Wien</span></div><div aria-hidden="true" style="position:absolute;left:16em;top:62em;display:flex;flex-direction:column;gap:3em"><span style="display:block;position:relative;height:10em;width:34em;background:#3f8f5f"></span><span style="display:block;position:relative;height:10em;width:49em;background:#6aa457"><span style="position:absolute;left:55em;top:0;width:0;height:0;border-top:5.0em solid transparent;border-bottom:5.0em solid transparent;border-right:6.0em solid #0a2b22"></span></span><span style="display:block;position:relative;height:10em;width:64em;background:#a5bd4f"></span><span style="display:block;position:relative;height:10em;width:79em;background:#dcc24f"></span><span style="display:block;position:relative;height:10em;width:94em;background:#e0a24c"></span><span style="display:block;position:relative;height:10em;width:109em;background:#d9773f"></span><span style="display:block;position:relative;height:10em;width:124em;background:#c4523f"></span></div><div style="position:absolute;left:16em;right:16em;top:168em;height:38em;border-top:1px solid rgba(10,43,34,0.10);display:flex;align-items:center;gap:.35em;white-space:nowrap"><span style="font-size:12em;line-height:1.3;color:#4f5c57">Baujahr:</span><span style="font-size:12em;line-height:1.3;font-weight:600;color:#0a2b22">1908</span></div><div style="position:absolute;left:16em;right:16em;top:206em;height:38em;border-top:1px solid rgba(10,43,34,0.10);display:flex;align-items:center;gap:.35em;white-space:nowrap"><span style="font-size:12em;line-height:1.3;color:#4f5c57">Heizwärmebedarf HWB:</span><span style="font-size:12em;line-height:1.3;font-weight:600;color:#0a2b22">48 kWh/m²a</span></div><div style="position:absolute;left:16em;right:16em;top:244em;height:38em;border-top:1px solid rgba(10,43,34,0.10);display:flex;align-items:center;gap:.35em;white-space:nowrap"><span style="font-size:12em;line-height:1.3;color:#4f5c57">Gesamtenergieeffizienz-Faktor fGEE:</span><span style="font-size:12em;line-height:1.3;font-weight:600;color:#0a2b22">0,92</span></div><div aria-hidden="true" style="position:absolute;left:16em;right:16em;top:300em;border-top:1px solid rgba(10,43,34,0.10);padding-top:12em;display:flex;flex-direction:column;gap:7em"><span style="display:block;height:3em;width:92%;border-radius:1em;background:#dcd9cf"></span><span style="display:block;height:3em;width:84%;border-radius:1em;background:#dcd9cf"></span><span style="display:block;height:3em;width:88%;border-radius:1em;background:#dcd9cf"></span><span style="display:block;height:3em;width:60%;border-radius:1em;background:#dcd9cf"></span></div></div><div class="{{hBj}}" style="position:absolute;left:6em;right:6em;top:163em;z-index:3"><div style="border-radius:8em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 14em 32em rgba(10,43,34,0.16);padding:5em"><div style="display:flex;align-items:center;min-height:38em;box-sizing:border-box;padding:0 8em;border-radius:5em;background:#e3efe8"><span style="font-size:13em;line-height:1.35;font-weight:600;color:#0a2b22">&#8220;Baujahr: 1908&#8221;</span></div><div style="display:flex;align-items:flex-start;gap:6em;padding:7em 8em 3em"><svg viewBox="0 0 16 16" style="width:13em;height:13em;flex:none;margin-top:1em" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1f7a5a"></circle><path d="M4.6 8.2l2.2 2.2 4.6-4.7" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:11.5em;line-height:1.35;color:#4f5c57">Energieausweis, page 1. Confirmed by you on 2 October.</span></div></div></div><div class="{{hHwb}}" style="position:absolute;left:6em;right:6em;top:201em;z-index:3"><div style="border-radius:8em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 14em 32em rgba(10,43,34,0.16);padding:5em"><div style="display:flex;align-items:center;min-height:38em;box-sizing:border-box;padding:0 8em;border-radius:5em;background:#e3efe8"><span style="font-size:13em;line-height:1.35;font-weight:600;color:#0a2b22">&#8220;Heizwärmebedarf HWB: 48 kWh/m²a&#8221;</span></div><div style="display:flex;align-items:flex-start;gap:6em;padding:7em 8em 3em"><svg viewBox="0 0 16 16" style="width:13em;height:13em;flex:none;margin-top:1em" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1f7a5a"></circle><path d="M4.6 8.2l2.2 2.2 4.6-4.7" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:11.5em;line-height:1.35;color:#4f5c57">Energieausweis, page 1. Confirmed by you on 2 October.</span></div></div></div><div class="{{hFg}}" style="position:absolute;left:6em;right:6em;top:239em;z-index:3"><div style="border-radius:8em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(0,0,0,0.05),0 14em 32em rgba(10,43,34,0.16);padding:5em"><div style="display:flex;align-items:center;min-height:38em;box-sizing:border-box;padding:0 8em;border-radius:5em;background:#e3efe8"><span style="font-size:13em;line-height:1.35;font-weight:600;color:#0a2b22">&#8220;Gesamtenergieeffizienz-Faktor fGEE: 0,92&#8221;</span></div><div style="display:flex;align-items:flex-start;gap:6em;padding:7em 8em 3em"><svg viewBox="0 0 16 16" style="width:13em;height:13em;flex:none;margin-top:1em" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#1f7a5a"></circle><path d="M4.6 8.2l2.2 2.2 4.6-4.7" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:11.5em;line-height:1.35;color:#4f5c57">Energieausweis, page 1. Confirmed by you on 2 October.</span></div></div></div></div>
+            </div>
+
+            <svg class="tr-wire" viewBox="0 0 358 800" aria-hidden="true" style="position:absolute;left:0;top:0;width:358em;height:800em;z-index:5;overflow:visible;pointer-events:none" fill="none"><g class="{{kWf}}"><path class="tr-kp" pathLength="1" d="M45.4 304V318Q45.4 326 37.4 326H16Q8 326 8 334V709.0Q8 717.0 16 717.0H26"></path><circle class="tr-k0" cx="45.4" cy="304" r="3"></circle><circle class="tr-k1" cx="26" cy="717.0" r="3"></circle></g><g class="{{kZi}}"><path class="tr-kp" pathLength="1" d="M112.2 304V318Q112.2 326 104.2 326H16Q8 326 8 334V679.0Q8 687.0 16 687.0H26"></path><circle class="tr-k0" cx="112.2" cy="304" r="3"></circle><circle class="tr-k1" cx="26" cy="687.0" r="3"></circle></g><g class="{{kBj}}"><path class="tr-kp" pathLength="1" d="M179.0 304V318Q179.0 326 171.0 326H16Q8 326 8 334V521.0Q8 529.0 16 529.0H26"></path><circle class="tr-k0" cx="179.0" cy="304" r="3"></circle><circle class="tr-k1" cx="26" cy="529.0" r="3"></circle></g><g class="{{kHwb}}"><path class="tr-kp" pathLength="1" d="M245.8 304V318Q245.8 326 237.8 326H16Q8 326 8 334V559.0Q8 567.0 16 567.0H26"></path><circle class="tr-k0" cx="245.8" cy="304" r="3"></circle><circle class="tr-k1" cx="26" cy="567.0" r="3"></circle></g><g class="{{kFg}}"><path class="tr-kp" pathLength="1" d="M312.6 304V318Q312.6 326 304.6 326H16Q8 326 8 334V597.0Q8 605.0 16 605.0H26"></path><circle class="tr-k0" cx="312.6" cy="304" r="3"></circle><circle class="tr-k1" cx="26" cy="605.0" r="3"></circle></g></svg>
+          </div>
+        </div>
+      </div>
+      <p class="tr-sr" aria-live="polite">{{live}}</p>
+
+      <div class="tr-note" style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
+        <p style="margin:0;font-size:14px;line-height:1.4;color:#4e635b;text-wrap:pretty">Each value keeps the document and the line it was read from, and who confirmed it.</p>
+        <span style="font-size:14px;line-height:1.4;color:#4e635b">Tap any value in the strip to trace it.</span>
+      </div>
+    </section>
+  </div>
+
+  <!-- the office: one standard for every listing -->
+  <div style="width:100%;background:transparent;color:#0a2b22;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden">
+    <section class="of-sec" style="padding:96px 24px">
+      <div class="of-grid">
+
+        <div class="of-text">
+          <h2 class="of-h2" style="margin:0;color:#14473a;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 72;font-weight:650;letter-spacing:-0.035em;line-height:1.02;max-width:720px;font-size:52px;text-wrap:balance">One standard for every listing in your office</h2>
+          <p style="margin:20px 0 0;max-width:560px;font-size:19px;line-height:1.55;color:#3f574f;text-wrap:pretty">Every agent works from confirmed documents. No ad goes out with missing energy values, and you can see who confirmed what, from which document.</p>
+        </div>
+
+        <div class="of-vis">
+          <div class="of-app" role="img" aria-label="Example office: five listings in Vienna, one per agent. Four have documents, confirmed values and are ready. The listing at Praterstraße 31 is held. Its side panel reads: Held, Energieausweis values not confirmed. Agent M. Huber. Last change today 10:42.">
+            <div class="of-list" aria-hidden="true">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px">
+                <span style="font-size:16px;line-height:1.3;font-weight:600;color:#0a2b22">Example office</span>
+                <span style="font-size:14px;line-height:1.3;color:#4f5c57">5 listings</span>
+              </div>
+              <div class="of-cols"><span>Agent, listing</span><span>Documents</span><span>Values confirmed</span><span>Ready</span></div>
+              <ul class="of-rows">
+            <li class="of-row">
+              <span class="of-who"><span style="font-size:14px;line-height:1.3;font-weight:600;color:#0a2b22">A. Berger</span><span class="of-addr">Kettenbrückengasse 7</span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+            </li>
+            <li class="of-row">
+              <span class="of-who"><span style="font-size:14px;line-height:1.3;font-weight:600;color:#0a2b22">K. Wagner</span><span class="of-addr">Gentzgasse 14</span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+            </li>
+            <li class="of-row of-row-held">
+              <span class="of-who"><span style="font-size:14px;line-height:1.3;font-weight:600;color:#0a2b22">M. Huber</span><span class="of-addr">Praterstraße 31</span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+              <span class="of-c"><span class="of-held" aria-hidden="true"></span></span>
+              <span class="of-c"><span class="of-tag">Held</span></span>
+            </li>
+            <li class="of-row">
+              <span class="of-who"><span style="font-size:14px;line-height:1.3;font-weight:600;color:#0a2b22">L. Gruber</span><span class="of-addr">Josefstädter Straße 52</span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+            </li>
+            <li class="of-row">
+              <span class="of-who"><span style="font-size:14px;line-height:1.3;font-weight:600;color:#0a2b22">S. Pichler</span><span class="of-addr">Hietzinger Hauptstraße 18</span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+              <span class="of-c"><span class="of-ok" aria-hidden="true"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span></span>
+            </li>
+              </ul>
+            </div>
+
+            <div class="of-side" aria-hidden="true">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-size:16px;line-height:1.3;font-weight:600;color:#0a2b22">Praterstraße 31</span>
+                <span style="font-size:14px;line-height:1.35;color:#4f5c57">1020 Wien</span>
+              </div>
+              <div style="padding:12px 14px;border-radius:12px;background:#fbeacb;color:#6b4a12;font-size:14px;line-height:1.4;font-weight:600;text-wrap:pretty">Held: Energieausweis values not confirmed.</div>
+              <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.4;color:#33413b">
+                <span>Agent: M. Huber</span>
+                <span style="font-variant-numeric:tabular-nums">Last change: today 10:42</span>
+              </div>
+            </div>
+          </div>
+
+          <p style="margin:20px 0 0;font-size:14px;line-height:1.45;color:#4e635b;text-wrap:pretty"><span style="font-weight:600;color:#3f574f">Next:</span> set your office&#8217;s own rules, required documents, templates and approval before publishing.</p>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- auto mode: say get it ready -->
+  <div style="width:100%;background:transparent;color:#0a2b22;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden">
+    <section class="ml-sec" style="padding:64px 24px">
+      <div class="ml-grid">
+
+        <div class="ml-text">
+          <h2 class="ml-h2" style="margin:0;color:#14473a;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 72;font-weight:650;letter-spacing:-0.035em;line-height:1.02;font-size:52px;text-wrap:balance">Say &#8220;get it ready&#8221;</h2>
+          <p style="margin:20px 0 0;font-size:19px;line-height:1.55;color:#3f574f;text-wrap:pretty">Immvela makes the plan, does the work and shows you each result in the thread.</p>
+        </div>
+
+        <div class="ml-vis" role="img" aria-label="A phone with a thin graphite edge, slightly turned, stands on a forest green stage. It shows Immvela in Auto mode for Gentzgasse 14. The agent wrote: Get it ready. Immvela answers with a plan of three checked steps: read the documents, write the Exposé, check every value. The finished Exposé card lifts out of the phone past its right edge. A glass chip reading Immvela, Exposé ready sits over the stage's left edge.">
+          <div class="ml-stage" aria-hidden="true">
+            <div class="ml-glow"></div>
+            <div class="ml-contact"></div>
+          </div>
+
+          <!-- nearest layer: the status chip -->
+          <div class="ml-chip ml-glass" aria-hidden="true" style="display:flex;align-items:center;gap:12px;padding:8px 20px 8px 8px;border-radius:999px;white-space:nowrap">
+            <span class="ml-chip-mark" style="width:40px;height:40px;border-radius:50%;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.08);display:flex;align-items:center;justify-content:center;flex:none">
+              <img src="/_blob/56a98e7e934950f3a0e9e16206cf637e" alt="" style="width:33px;height:33px;display:block">
+            </span>
+            <span class="ml-chip-label" style="font-size:16px;line-height:1.3;font-weight:600;color:#0a2b22">Immvela, Exposé ready</span>
+          </div>
+
+          <div class="ml-pos" aria-hidden="true">
+            <div class="ml-persp">
+              <div class="ml-tilt">
+
+                <!-- side buttons -->
+                <span class="ml-nub ml-nub-l" style="top:116px;height:26px"></span>
+                <span class="ml-nub ml-nub-l" style="top:164px;height:50px"></span>
+                <span class="ml-nub ml-nub-l" style="top:224px;height:50px"></span>
+                <span class="ml-nub ml-nub-r" style="top:184px;height:84px"></span>
+
+                <!-- the device: graphite edge, glass screen, island, home indicator -->
+                <div class="ml-device">
+                <div class="ml-screen">
+                  <span class="ml-island"></span>
+                  <div style="height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 32px;box-sizing:border-box">
+                    <span style="font-size:14px;font-weight:600;color:#0a2b22;font-variant-numeric:tabular-nums">9:41</span>
+                    <span style="display:block;width:22px;height:11px;border-radius:3px;box-shadow:inset 0 0 0 1.2px rgba(10,43,34,0.5);padding:2px;box-sizing:border-box"><span style="display:block;width:70%;height:100%;border-radius:1.5px;background:#0a2b22"></span></span>
+                  </div>
+
+                  <div style="display:flex;align-items:center;gap:10px;padding:8px 16px 14px;border-bottom:1px solid rgba(10,43,34,0.07)">
+                    <img src="/_blob/9fc80a4b6bfd62ebb10883374144ccfb" alt="" style="width:34px;height:34px;border-radius:9px;object-fit:cover;display:block;flex:none">
+                    <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px">
+                      <span style="font-size:15px;line-height:1.25;font-weight:600;color:#0a2b22">Gentzgasse 14</span>
+                      <span style="font-size:12px;line-height:1.3;color:#4f5c57">1180 Wien</span>
+                    </div>
+                    <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;line-height:1;font-weight:600;padding:6px 10px;border-radius:999px;background:#e9f2ed;color:#0a2b22"><span style="width:6px;height:6px;border-radius:50%;background:#1f7a5a"></span>Auto</span>
+                  </div>
+
+                  <div style="padding:22px 16px 0;display:flex;flex-direction:column;gap:20px">
+                    <div style="align-self:flex-end;max-width:78%;padding:9px 14px;border-radius:18px 18px 5px 18px;background:#1f7a5a;color:#ffffff;font-size:15px;line-height:1.4">Get it ready</div>
+
+                    <div style="display:flex;gap:10px;align-items:flex-start">
+                      <span style="width:28px;height:28px;border-radius:50%;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10);display:flex;align-items:center;justify-content:center;flex:none">
+                        <img src="/_blob/56a98e7e934950f3a0e9e16206cf637e" alt="" style="width:23px;height:23px;display:block">
+                      </span>
+                      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:12px;padding-top:4px">
+                        <span style="font-size:15px;line-height:1.4;color:#0a2b22">Here is the plan.</span>
+                        <div style="display:flex;flex-direction:column;gap:11px">
+                          <div style="display:flex;align-items:center;gap:9px"><span style="width:18px;height:18px;border-radius:50%;background:#1f7a5a;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" style="width:11px;height:11px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span><span style="font-size:14px;line-height:1.4;color:#33413b">Read the documents</span></div>
+                          <div style="display:flex;align-items:center;gap:9px"><span style="width:18px;height:18px;border-radius:50%;background:#1f7a5a;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" style="width:11px;height:11px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span><span style="font-size:14px;line-height:1.4;color:#33413b">Write the Exposé</span></div>
+                          <div style="display:flex;align-items:center;gap:9px"><span style="width:18px;height:18px;border-radius:50%;background:#1f7a5a;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" style="width:11px;height:11px" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.8 3.8L17.5 8.6"></path></svg></span><span style="font-size:14px;line-height:1.4;color:#33413b">Check every value</span></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- the card's slot: a soft impression where the Exposé lifted from -->
+                    <div style="margin-left:38px;height:210px;border-radius:16px;background:rgba(10,43,34,0.04);box-shadow:inset 0 0 0 1px rgba(10,43,34,0.05)"></div>
+                  </div>
+
+                  <div class="ml-bar ml-glass" style="display:flex;align-items:center;gap:8px;padding:6px 6px 6px 16px;border-radius:999px">
+                    <span style="flex:1;min-width:0;font-size:14px;line-height:1.3;color:#5f6a65;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Message Immvela</span>
+                    <span style="width:36px;height:36px;border-radius:50%;background:#e7e4db;color:#5f6a65;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" style="width:16px;height:16px" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"></path><path d="M6 11l6-6 6 6"></path></svg></span>
+                  </div>
+                  <span class="ml-home"></span>
+                </div>
+                </div>
+
+                <div class="ml-rim"></div>
+
+                <!-- middle layer: the Exposé, lifted out past the phone's right edge -->
+                <div class="ml-out">
+                  <img src="/_blob/9fc80a4b6bfd62ebb10883374144ccfb" alt="" style="width:100%;height:84px;object-fit:cover;display:block">
+                  <div style="padding:11px 16px 13px;display:flex;flex-direction:column;gap:3px">
+                    <span style="font-size:13px;line-height:1.35;color:#4f5c57">Exposé, Gentzgasse 14</span>
+                    <span style="font-size:17px;line-height:1.22;font-weight:600;letter-spacing:-0.015em;color:#0a2b22;text-wrap:balance">Helle 3-Zimmer-Wohnung mit Balkon in Währing</span>
+                    <div style="margin-top:7px;display:flex;align-items:center;justify-content:space-between;gap:8px">
+                      <span style="font-size:13px;line-height:1.3;color:#4f5c57;font-variant-numeric:tabular-nums;white-space:nowrap">76 m², HWB 48</span>
+                      <span style="font-size:14px;line-height:1;font-weight:600;padding:9px 18px;border-radius:999px;background:#1f7a5a;color:#ffffff">Open</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- staging: drag the seam -->
+  <div style="width:100%;background:transparent;color:#0a2b22;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden">
+    <section class="sw-sec" style="padding:96px 24px">
+      <div style="max-width:1160px;margin:0 auto">
+        <h2 class="sw-h2" style="margin:0;color:#14473a;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 72;font-weight:650;letter-spacing:-0.035em;line-height:1.02;max-width:720px;text-align:left;font-size:52px;text-wrap:balance">Furnished before the first viewing</h2>
+        <p style="margin:20px 0 0;max-width:560px;text-align:left;font-size:19px;line-height:1.55;color:#3f574f;text-wrap:pretty">Upload a photo of an empty room. Immvela furnishes it and marks the result as virtually staged.</p>
+      </div>
+
+      <div class="{{swStageClass}}" style="margin:48px auto 0;max-width:1160px">
+
+        <div style="position:relative">
+
+          <!-- the photograph: empty room underneath, furnished room uncovered by the seam -->
+          <div class="sw-photo" role="img" aria-label="A living room at Gentzgasse 14 in Vienna, split down the middle: empty on the right, furnished by Immvela on the left and marked virtually staged. The Immvela helix sits on the seam as a handle." style="position:relative;width:100%;aspect-ratio:2/1;border-radius:20px;overflow:hidden;background:#e6e1d4;box-shadow:0 0 0 1px rgba(10,43,34,0.08),0 24px 60px rgba(10,43,34,0.10)">
+
+            <!-- the empty room: an Altbau wall, two tall windows, oak floor, the light they throw -->
+            <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,#e9e5da 0%,#efebe1 30%,#e8e3d6 72%)">
+              <div style="position:absolute;left:0;right:0;top:0;height:9%;background:linear-gradient(180deg,rgba(10,43,34,0.06),rgba(10,43,34,0))"></div>
+              <div style="position:absolute;left:0;right:0;top:7%;height:1.2%;background:#f6f4ee;box-shadow:0 1px 0 rgba(10,43,34,0.05)"></div>
+
+              <div style="position:absolute;left:21%;top:16%;width:14%;height:52%;box-sizing:border-box;border:max(5px,0.6vw) solid #f8f7f2;background:linear-gradient(180deg,#fcfbf7,#f3f1ea);box-shadow:0 0 0 1px rgba(10,43,34,0.07),inset 0 0 0 1px rgba(10,43,34,0.05)">
+                <span style="position:absolute;left:50%;top:0;bottom:0;width:3px;margin-left:-1.5px;background:#f8f7f2;box-shadow:0 0 0 .5px rgba(10,43,34,0.06)"></span>
+                <span style="position:absolute;left:0;right:0;top:34%;height:3px;background:#f8f7f2;box-shadow:0 0 0 .5px rgba(10,43,34,0.06)"></span>
+              </div>
+              <div style="position:absolute;left:62%;top:16%;width:14%;height:52%;box-sizing:border-box;border:max(5px,0.6vw) solid #f8f7f2;background:linear-gradient(180deg,#fcfbf7,#f3f1ea);box-shadow:0 0 0 1px rgba(10,43,34,0.07),inset 0 0 0 1px rgba(10,43,34,0.05)">
+                <span style="position:absolute;left:50%;top:0;bottom:0;width:3px;margin-left:-1.5px;background:#f8f7f2;box-shadow:0 0 0 .5px rgba(10,43,34,0.06)"></span>
+                <span style="position:absolute;left:0;right:0;top:34%;height:3px;background:#f8f7f2;box-shadow:0 0 0 .5px rgba(10,43,34,0.06)"></span>
+              </div>
+
+              <div style="position:absolute;left:0;right:0;bottom:26%;height:1.6%;background:#f7f5ef;box-shadow:0 1px 0 rgba(10,43,34,0.07)"></div>
+              <div style="position:absolute;left:0;right:0;bottom:0;height:26%;background:repeating-linear-gradient(90deg,rgba(110,80,40,0.07) 0 1px,rgba(0,0,0,0) 1px 7.5%),linear-gradient(180deg,#d6c4a2,#c8b28b)"></div>
+              <div style="position:absolute;left:8%;bottom:0;width:30%;height:26%;background:rgba(255,251,240,0.42);clip-path:polygon(38% 0,82% 0,64% 100%,0 100%)"></div>
+              <div style="position:absolute;left:49%;bottom:0;width:30%;height:26%;background:rgba(255,251,240,0.42);clip-path:polygon(38% 0,82% 0,64% 100%,0 100%)"></div>
+
+              <span class="sw-chip-row" style="position:absolute;right:16px;bottom:16px;font-size:13px;line-height:1.3;font-weight:600;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,0.9);color:#0a2b22;box-shadow:0 0 0 1px rgba(10,43,34,0.08)">Empty room</span>
+            </div>
+
+            <!-- the furnished room, behind the seam -->
+            <div class="sw-staged" aria-hidden="true" style="position:absolute;inset:0;clip-path:{{clip}}">
+              <img class="sw-settle" src="/_blob/b4dd5eae354b5250c168b8ed89537a28" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+              <span class="sw-chip sw-chip-row" style="position:absolute;left:16px;bottom:16px;display:inline-flex;align-items:center;gap:8px;font-size:13px;line-height:1.3;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.92);color:#0a2b22;box-shadow:0 0 0 1px rgba(10,43,34,0.08),0 4px 14px rgba(10,43,34,0.12)">
+                Virtually staged
+              </span>
+            </div>
+
+            <!-- the seam inside the photo: a white line and a soft sheen on what was just furnished -->
+            <div class="sw-mover" aria-hidden="true" style="position:absolute;top:0;bottom:0;left:{{moverLeft}};width:0;z-index:2;pointer-events:none">
+              <div class="sw-line" style="position:absolute;top:0;bottom:0;left:-1px;width:2px;background:#ffffff;box-shadow:0 0 0 .5px rgba(10,43,34,0.14)"></div>
+            </div>
+          </div>
+
+          <input class="sw-range" id="sw-compare" type="range" min="0" max="100" step="0.5" value="{{pos}}" aria-label="Compare the empty room with the staged room" aria-valuetext="{{valueText}}" onInput="{{scrub}}" onChange="{{scrub}}">
+
+          <!-- the helix rides the seam; it may overhang the photo's edge, so it lives outside the clip -->
+          <div class="sw-seam" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;z-index:4">
+            <div class="sw-mover" style="position:absolute;top:0;bottom:0;left:{{moverLeft}};width:0">
+              <div class="sw-lens" style="position:absolute;left:0;top:50%;width:var(--lens);height:var(--lens)">
+                <svg class="sw-grip" viewBox="0 0 14 14" style="left:-22px" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2.5L4.5 7L9 11.5"></path></svg>
+                <svg class="sw-grip" viewBox="0 0 14 14" style="right:-22px" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2.5L9.5 7L5 11.5"></path></svg>
+                <div class="sw-breath" style="width:100%;height:100%">
+                  <div class="sw-face" style="width:100%;height:100%;border-radius:50%;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.08),0 12px 32px rgba(10,43,34,0.2);display:flex;align-items:center;justify-content:center">
+                    <svg class="sw-helix" viewBox="0 0 200 200" style="width:86%;height:86%;display:block;overflow:visible" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <g class="sw-roll sw-t-back"><g class="sw-in"><g class="sw-wave"><path stroke="#1f7a5a" stroke-opacity=".35" stroke-width=".9" d="M54.3 55.2C55.9 54.4 60.4 51.7 63.8 50.3C67.2 48.9 70.9 47.6 74.7 46.6C78.6 45.6 82.6 44.7 86.9 44.1C91.1 43.5 95.5 43 100 42.8C104.5 42.6 109.2 42.7 113.8 42.9C118.5 43.2 123.3 43.7 127.9 44.5C132.5 45.3 137.2 46.3 141.6 47.6C146 48.9 150.3 50.5 154.3 52.3C158.3 54 162 56.1 165.3 58.3C168.6 60.6 172.5 64.4 174 65.6M30.4 69.7C31.7 67.4 37.1 58.3 38.4 56.1M66.6 53C68.3 52.5 73.2 51 76.7 50.3C80.3 49.6 84 49 87.9 48.6C91.8 48.2 95.9 48 100 48C104.1 47.9 108.4 48.1 112.7 48.4C117 48.8 121.4 49.3 125.7 50.1C130 50.9 134.4 51.9 138.5 53.1C142.7 54.3 146.8 55.7 150.5 57.4C154.3 59 157.9 60.9 161.1 63C164.3 65 167.2 67.3 169.6 69.7C172 72.1 174.6 76 175.6 77.3M30.2 87.2C31 85 32.8 78.2 34.7 73.8C36.7 69.4 39.1 64.9 41.8 60.7C44.6 56.6 49.7 50.9 51.2 48.9M69.3 55.6C70.9 55.4 75.5 54.4 78.7 54C82 53.6 85.4 53.3 89 53.1C92.5 53 96.2 53 100 53.1C103.8 53.2 107.7 53.5 111.6 53.9C115.6 54.4 119.6 54.9 123.6 55.7C127.5 56.5 131.6 57.4 135.5 58.5C139.3 59.6 143.2 61 146.8 62.5C150.3 64 153.8 65.7 156.9 67.6C160 69.5 162.9 71.6 165.3 73.8C167.7 76 170.3 79.6 171.3 80.8M34.1 102.4C34.3 100.4 34.5 94.5 35.4 90.4C36.2 86.3 37.4 82 39.1 77.8C40.7 73.7 42.8 69.4 45.3 65.4C47.7 61.4 50.6 57.5 53.7 53.9C56.8 50.3 62.3 45.6 64 44M80.7 57.7C82.3 57.7 86.8 57.6 90 57.7C93.3 57.8 96.6 58 100 58.2C103.4 58.5 106.9 58.9 110.5 59.4C114.1 59.9 117.8 60.5 121.4 61.3C125.1 62 128.8 62.9 132.4 64C136 65 139.6 66.2 143 67.6C146.4 69 149.7 70.5 152.7 72.2C155.7 73.9 158.5 75.8 160.9 77.8C163.3 79.8 166.1 83.2 167.1 84.3M39.9 104.4C40 102.6 39.9 97.3 40.5 93.6C41.1 89.8 42.1 85.8 43.4 81.9C44.8 78 46.6 73.9 48.7 70.1C50.8 66.3 53.4 62.4 56.2 58.9C59 55.4 62.2 52 65.6 49C69 46.1 74.6 42.4 76.4 41.1M82.7 61.3C84.1 61.5 88.2 61.8 91.1 62.2C94 62.5 96.9 62.9 100 63.4C103.1 63.8 106.2 64.3 109.4 64.9C112.6 65.5 116 66.1 119.3 66.9C122.6 67.6 126 68.5 129.3 69.4C132.7 70.4 136 71.5 139.2 72.7C142.4 73.9 145.6 75.3 148.5 76.8C151.4 78.4 154.2 80.1 156.6 81.9C159 83.7 161.9 86.8 162.9 87.8M45.7 106.5C45.7 104.9 45.3 100.2 45.7 96.7C46 93.3 46.7 89.6 47.8 86C48.9 82.3 50.3 78.5 52.1 74.8C53.9 71.1 56.2 67.4 58.7 63.9C61.2 60.5 64.1 57.1 67.2 54.1C70.3 51.1 73.7 48.3 77.3 45.9C80.8 43.5 86.5 40.9 88.4 39.9M92.2 66.7C93.5 67 97.3 67.9 100 68.5C102.7 69.1 105.5 69.8 108.3 70.4C111.2 71.1 114.1 71.7 117.1 72.5C120.1 73.2 123.2 74 126.3 74.9C129.3 75.8 132.5 76.7 135.5 77.8C138.5 78.9 141.5 80.1 144.3 81.5C147.1 82.8 149.8 84.3 152.2 86C154.6 87.6 156.9 89.4 158.7 91.3C160.6 93.2 162.6 96.3 163.3 97.4M53.6 115.6C53.2 114.4 51.9 111.2 51.4 108.6C51 105.9 50.7 103 50.8 99.9C50.9 96.8 51.3 93.4 52.1 90C52.9 86.6 54.1 83 55.6 79.5C57.1 76 58.9 72.3 61.1 68.9C63.3 65.5 65.9 62.2 68.8 59.1C71.6 56.1 74.8 53.2 78.1 50.7C81.4 48.2 85 46 88.7 44.2C92.3 42.5 98.1 40.8 100 40.2M100 73.7C101.2 74 104.7 75.2 107.2 75.9C109.7 76.7 112.3 77.3 115 78.1C117.6 78.8 120.4 79.5 123.2 80.3C126 81.1 128.9 82 131.7 82.9C134.5 83.9 137.4 84.9 140.1 86.1C142.8 87.3 145.5 88.6 147.9 90C150.3 91.5 152.6 93.1 154.5 94.8C156.5 96.5 158.7 99.4 159.5 100.4M59.7 116.4C59.3 115.4 57.8 112.9 57.2 110.6C56.6 108.4 56.1 105.8 56 103.1C55.9 100.3 56 97.2 56.5 94.1C57 90.9 57.8 87.5 59 84.2C60.2 80.8 61.7 77.3 63.6 73.9C65.5 70.6 67.8 67.2 70.3 64.2C72.9 61.1 75.8 58.1 78.9 55.5C82 52.9 85.5 50.5 89 48.6C92.5 46.7 96.2 45 100 43.9C103.8 42.8 107.7 42 111.5 41.7C115.3 41.4 121 42.1 122.9 42.2M100 78.8C101 79.2 104 80.6 106.1 81.4C108.2 82.2 110.5 82.9 112.8 83.7C115.2 84.4 117.6 85.1 120.1 85.8C122.7 86.5 125.3 87.2 127.9 88C130.6 88.9 133.3 89.7 135.9 90.7C138.5 91.7 141.1 92.8 143.5 94.1C145.9 95.3 148.3 96.7 150.3 98.3C152.4 99.8 154.8 102.5 155.7 103.4"></path></g></g></g>
+                      <g class="sw-roll sw-t-mid"><g class="sw-in"><g class="sw-wave"><path stroke="#16463a" stroke-opacity=".7" stroke-width="1.15" d="M159.3 109.2C159.5 110.3 160.6 113.5 160.7 115.7C160.8 117.9 160.4 120.3 159.7 122.6C159 124.8 157.8 127.2 156.3 129.5C154.8 131.7 151.6 135 150.6 136.2M63.8 160.3C61.9 159.8 56.1 158.6 52.5 157.3C48.8 155.9 45.3 154.3 42 152.3C38.7 150.2 35.5 147.8 32.7 145.1C29.9 142.3 27.3 139.1 25.2 135.7C23 132.2 21.1 128.3 19.7 124.2C18.3 120 17.3 115.5 16.8 110.8C16.3 106.2 16.3 101.2 16.8 96.2C17.3 91.2 18.3 85.9 19.9 80.8C21.4 75.8 23.5 70.5 26 65.6C28.5 60.7 31.6 55.8 35 51.4C38.4 46.9 42.2 42.6 46.3 38.9C50.3 35.1 54.8 31.7 59.3 28.9C63.8 26 68.5 23.7 73.1 21.9C77.8 20.1 82.5 18.8 87 18.2C91.5 17.5 95.9 17.4 100 17.8C104.1 18.2 108 19.2 111.5 20.5C114.9 21.9 118.1 23.8 120.9 26C123.6 28.2 126 30.8 128 33.6C129.9 36.4 131.9 41.3 132.7 42.8M136.2 74.1C136 75.9 135.6 81.1 135.2 84.6C134.8 88 134.3 91.4 133.8 94.7C133.3 98 132.8 101.3 132.3 104.5C131.8 107.7 131.3 110.8 130.8 113.9C130.2 117 129.7 120 129.1 123C128.4 126 127.8 128.9 127 131.7C126.1 134.5 125.2 137.2 124.1 139.8C122.9 142.3 121.7 144.8 120.1 147C118.6 149.2 116.9 151.3 114.9 153.1C112.9 154.9 110.6 156.4 108.1 157.6C105.7 158.8 102.9 159.7 100 160.2C97.1 160.7 93.9 160.9 90.7 160.6C87.5 160.4 84 159.7 80.6 158.7C77.2 157.6 73.7 156.1 70.3 154.3C67 152.5 63.6 150.3 60.4 147.8C57.2 145.3 54.1 142.4 51.3 139.3C48.6 136.3 46 132.9 43.7 129.5C41.5 126 39.5 122.4 37.9 118.7C36.3 115.1 35 111.3 34.1 107.6C33.2 103.9 32.6 100.2 32.5 96.7C32.3 93.1 32.5 89.6 33 86.3C33.5 83 34.4 79.8 35.6 76.8C36.7 73.9 38.3 71 40.1 68.4C41.9 65.8 44 63.4 46.4 61.2C48.8 59 53 56.2 54.3 55.2M174 65.6C174.9 67 178.4 71 179.8 73.8C181.1 76.6 182 79.5 182.3 82.3C182.6 85.2 181.6 89.4 181.4 90.8M162.5 106.6C162.6 107.7 163.3 111 163.1 113.3C162.9 115.5 162.2 117.8 161.2 120.1C160.2 122.4 158.8 124.6 157 126.8C155.2 129 151.7 132.1 150.6 133.1M66.6 154.6C64.9 154.2 59.6 153.3 56.3 152.2C52.9 151.1 49.7 149.7 46.7 148C43.7 146.3 40.8 144.3 38.2 141.9C35.6 139.5 33.2 136.8 31.1 133.8C29.1 130.7 27.3 127.3 25.9 123.6C24.6 119.9 23.5 115.8 23 111.6C22.4 107.4 22.2 102.8 22.6 98.2C22.9 93.6 23.7 88.8 25 84C26.3 79.3 29.5 72.1 30.4 69.7M38.4 56.1C40.1 54 45 47.6 48.8 43.9C52.5 40.2 56.7 36.8 60.9 33.9C65.1 31 69.6 28.6 74 26.7C78.4 24.8 82.9 23.4 87.3 22.5C91.6 21.6 96 21.3 100 21.5C104 21.7 107.9 22.4 111.5 23.6C115 24.7 118.3 26.3 121.2 28.3C124 30.3 126.6 32.7 128.8 35.3C131 37.9 132.8 40.9 134.3 43.9C135.8 47 137 50.4 137.9 53.7C138.8 57.1 139.3 60.7 139.8 64.2C140.2 67.7 140.3 71.3 140.4 74.9C140.5 78.5 140.3 82.1 140.1 85.6C140 89.2 139.7 92.7 139.3 96.2C139 99.7 138.6 103.1 138.1 106.5C137.7 109.9 137.2 113.3 136.6 116.5C136 119.8 135.3 123 134.5 126.2C133.7 129.3 132.9 132.3 131.8 135.2C130.7 138.1 129.6 141 128.1 143.6C126.7 146.2 125.1 148.7 123.2 150.9C121.3 153.1 119.2 155.1 116.9 156.8C114.5 158.4 111.9 159.8 109.1 160.8C106.3 161.8 103.2 162.5 100 162.8C96.8 163 93.4 162.9 89.9 162.3C86.5 161.8 82.9 160.8 79.3 159.4C75.8 158 72.2 156.2 68.8 154.1C65.3 151.9 61.9 149.4 58.8 146.6C55.7 143.8 52.7 140.6 50.1 137.3C47.5 134 45 130.4 43 126.8C41 123.2 39.2 119.4 37.9 115.7C36.5 111.9 35.6 108.1 34.9 104.5C34.3 100.8 34 97.2 34.1 93.7C34.2 90.3 34.6 87 35.4 83.9C36.1 80.8 37.2 77.9 38.6 75.2C39.9 72.5 41.6 70 43.4 67.7C45.3 65.5 47.5 63.4 49.8 61.6C52.2 59.8 54.8 58.2 57.6 56.7C60.4 55.3 65.1 53.6 66.6 53M175.6 77.3C176 78.6 178 82.6 178.5 85.3C178.9 88 178.3 92.1 178.3 93.4M165.6 104C165.6 105.1 165.9 108.5 165.4 110.8C165 113.1 164 115.4 162.7 117.6C161.5 119.9 158.5 123.1 157.7 124.1M69.3 148.9C67.8 148.6 63 147.9 60 147.1C57 146.2 54.1 145.2 51.4 143.8C48.7 142.4 46 140.7 43.7 138.8C41.3 136.8 39 134.5 37.1 131.9C35.2 129.2 33.5 126.3 32.1 123C30.8 119.8 29.7 116.2 29.1 112.4C28.5 108.6 28.2 104.5 28.4 100.3C28.5 96.1 29.9 89.4 30.2 87.2M51.2 48.9C53.1 47.2 58.5 41.9 62.4 39C66.4 36.1 70.6 33.5 74.8 31.5C79 29.5 83.4 27.9 87.6 26.9C91.8 25.8 96 25.3 100 25.2C104 25.2 107.9 25.7 111.5 26.6C115 27.5 118.4 28.9 121.4 30.6C124.5 32.4 127.2 34.5 129.6 37C132 39.4 134.1 42.2 135.9 45.1C137.7 48 139.1 51.3 140.3 54.6C141.5 57.9 142.4 61.4 143.1 64.9C143.8 68.4 144.3 72.1 144.6 75.7C145 79.4 145.1 83.1 145.1 86.7C145.1 90.4 145 94.1 144.8 97.7C144.6 101.4 144.3 105 143.9 108.6C143.5 112.2 143 115.7 142.3 119.2C141.7 122.6 140.9 126 140 129.3C139 132.6 138 135.8 136.7 138.8C135.4 141.8 133.9 144.8 132.2 147.4C130.4 150.1 128.5 152.6 126.3 154.7C124.1 156.9 121.6 158.9 118.9 160.4C116.2 162 113.2 163.2 110 164.1C106.9 164.9 103.5 165.3 100 165.3C96.5 165.3 92.8 164.9 89.1 164.1C85.5 163.2 81.7 161.9 78 160.2C74.3 158.5 70.6 156.3 67.2 153.8C63.7 151.4 58.9 146.8 57.3 145.4M35.8 101.3C35.8 99.6 35.4 94.1 35.8 90.8C36.1 87.5 36.8 84.3 37.8 81.4C38.8 78.6 40.1 75.9 41.6 73.5C43.1 71.1 44.8 68.9 46.8 67C48.7 65.1 50.9 63.5 53.3 62C55.6 60.5 58.1 59.3 60.8 58.3C63.5 57.2 67.9 56.1 69.3 55.6M171.3 80.8C171.9 82 174.1 85.8 174.7 88.3C175.3 90.9 175 94.8 175.1 96M168.8 101.3C168.6 102.5 168.6 106.1 167.8 108.4C167.1 110.7 165.8 113 164.3 115.2C162.7 117.4 159.4 120.4 158.4 121.5M63.8 142C62.5 141.6 58.5 140.6 56.1 139.5C53.6 138.5 51.3 137.2 49.1 135.6C46.9 134 44.9 132.2 43.1 130C41.3 127.8 39.6 125.3 38.3 122.5C37 119.7 35.9 116.6 35.2 113.2C34.5 109.9 34.3 104.2 34.1 102.4M64 44C66 42.7 71.7 38.4 75.6 36.3C79.6 34.2 83.8 32.4 87.8 31.2C91.9 30 96.1 29.2 100 29C103.9 28.7 107.8 29 111.5 29.6C115.1 30.3 118.6 31.4 121.7 32.9C124.9 34.4 127.8 36.4 130.4 38.6C133.1 40.9 135.4 43.5 137.5 46.3C139.5 49.1 141.2 52.2 142.8 55.4C144.3 58.6 145.5 62.1 146.5 65.6C147.5 69.1 148.3 72.8 148.9 76.5C149.5 80.2 149.8 84 150.1 87.8C150.3 91.6 150.4 95.4 150.3 99.2C150.3 103 150.1 106.9 149.7 110.6C149.3 114.4 148.8 118.1 148.1 121.8C147.4 125.4 146.5 129 145.4 132.5C144.3 135.9 143.1 139.3 141.5 142.4C140 145.5 138.3 148.5 136.2 151.2C134.2 153.9 131.9 156.5 129.3 158.6C126.8 160.7 123.9 162.6 120.9 164.1C117.8 165.5 114.5 166.6 111 167.3C107.5 167.9 103.8 168.1 100 167.9C96.2 167.6 92.3 166.9 88.4 165.8C84.5 164.6 78.6 161.7 76.7 160.9M40.2 79C40.9 77.8 42.9 73.9 44.6 71.8C46.2 69.7 48.1 67.9 50.2 66.3C52.2 64.8 54.4 63.5 56.7 62.4C59 61.3 61.5 60.5 64.1 59.8C66.6 59.1 69.3 58.7 72.1 58.3C74.9 58 79.3 57.8 80.7 57.7M167.1 84.3C167.8 85.5 170.1 88.9 170.9 91.3C171.7 93.7 171.8 97.5 171.9 98.7M171.9 98.7C171.7 99.9 171.2 103.6 170.2 105.9C169.2 108.3 166.5 111.6 165.8 112.7M67.6 136.9C66.4 136.6 63 136 60.8 135.3C58.6 134.6 56.5 133.7 54.6 132.5C52.6 131.3 50.7 129.8 49 128.1C47.4 126.3 45.8 124.3 44.5 121.9C43.2 119.6 42.1 116.9 41.3 114C40.6 111.1 40.1 106 39.9 104.4M76.4 41.1C78.4 40.2 84.2 36.9 88.1 35.6C92 34.2 96.1 33.2 100 32.7C103.9 32.2 107.8 32.2 111.5 32.6C115.1 33.1 118.7 34 122 35.3C125.3 36.5 128.4 38.3 131.3 40.3C134.1 42.3 136.7 44.8 139 47.4C141.3 50.1 143.4 53.1 145.2 56.2C147 59.4 148.5 62.8 149.8 66.3C151.2 69.8 152.2 73.5 153.1 77.3C154 81.1 154.6 85 155.1 88.9C155.5 92.8 155.8 96.8 155.8 100.8C155.9 104.7 155.8 108.7 155.5 112.7C155.1 116.6 154.6 120.6 153.9 124.4C153.1 128.2 152.1 132 150.9 135.6C149.7 139.2 148.2 142.7 146.4 146C144.6 149.2 142.6 152.3 140.3 155.1C137.9 157.8 135.3 160.3 132.4 162.5C129.5 164.6 126.3 166.4 122.9 167.7C119.5 169.1 115.8 170 111.9 170.5C108.1 170.9 104.1 170.9 100 170.4C95.9 169.9 89.7 168 87.6 167.5M47.6 70.1C48.5 69.4 51.4 66.8 53.5 65.6C55.6 64.4 57.9 63.5 60.2 62.8C62.5 62.1 64.9 61.7 67.3 61.4C69.8 61.1 72.3 61 74.8 61C77.4 61 81.4 61.3 82.7 61.3M162.9 87.8C163.6 88.9 166.1 92.1 167.1 94.3C168.1 96.6 168.5 100.2 168.8 101.3M175.1 96C174.7 97.3 173.9 101.1 172.6 103.5C171.3 105.9 168.2 109.2 167.3 110.3M71.3 131.8C70.4 131.6 67.4 131.5 65.5 131C63.6 130.6 61.8 130.1 60 129.3C58.3 128.5 56.6 127.5 55 126.2C53.5 124.9 52 123.3 50.7 121.4C49.5 119.5 48.3 117.3 47.5 114.8C46.6 112.3 46 107.9 45.7 106.5M88.4 39.9C90.3 39.3 96.2 37.1 100 36.4C103.8 35.7 107.8 35.5 111.5 35.7C115.2 35.9 118.9 36.5 122.3 37.6C125.8 38.6 129.1 40.1 132.1 42C135.2 43.8 138 46.1 140.6 48.6C143.2 51.1 145.5 54 147.6 57.1C149.7 60.1 151.6 63.5 153.2 67C154.8 70.5 156.2 74.3 157.3 78.1C158.5 81.9 159.4 85.9 160 90C160.7 94 161.1 98.1 161.3 102.3C161.6 106.4 161.5 110.6 161.2 114.7C161 118.9 160.4 123 159.6 127C158.8 131 157.7 135 156.3 138.8C155 142.5 153.3 146.2 151.3 149.5C149.3 152.9 146.9 156.1 144.3 158.9C141.7 161.7 138.7 164.2 135.5 166.3C132.2 168.4 128.6 170.2 124.9 171.4C121.1 172.6 117 173.4 112.9 173.7C108.8 174 102.1 173.1 100 173M50.6 68.5C51.6 67.9 54.7 65.8 56.9 64.9C59.1 64 61.3 63.5 63.6 63.2C65.9 62.9 68.2 62.8 70.6 62.9C72.9 63 75.2 63.3 77.6 63.7C80 64 82.3 64.5 84.8 65C87.2 65.5 90.9 66.4 92.2 66.7M163.3 97.4C163.7 98.5 165.2 102.9 165.6 104M178.3 93.4C177.7 94.7 175.5 99.8 175 101M75.1 126.6C74.3 126.7 71.8 126.9 70.2 126.8C68.6 126.7 67 126.6 65.5 126.2C63.9 125.7 62.4 125.2 61 124.3C59.5 123.4 58.1 122.3 56.9 120.8C55.7 119.4 54.1 116.5 53.6 115.6M100 40.2C101.9 39.9 107.7 38.7 111.5 38.7C115.2 38.7 119 39.1 122.6 39.9C126.2 40.7 129.7 42 132.9 43.7C136.2 45.3 139.3 47.4 142.2 49.8C145 52.1 147.7 54.9 150.1 57.9C152.5 60.9 154.7 64.2 156.6 67.7C158.5 71.2 160.1 75 161.5 78.9C163 82.8 164.1 86.9 165 91C165.9 95.2 166.5 99.5 166.9 103.8C167.2 108.1 167.3 112.5 167 116.8C166.8 121.1 166.3 125.5 165.4 129.6C164.5 133.8 163.3 138 161.8 141.9C160.3 145.8 158.4 149.6 156.1 153.1C153.9 156.6 151.3 159.9 148.4 162.7C145.4 165.6 142.1 168.1 138.5 170.2C134.9 172.2 131 173.9 126.9 175C122.8 176.2 116 176.6 113.9 176.9M60.2 64.2C61.4 64.1 64.8 63.5 67.1 63.6C69.3 63.6 71.6 64 73.8 64.5C76 64.9 78.2 65.6 80.3 66.3C82.5 67 84.6 67.9 86.8 68.7C88.9 69.5 91 70.4 93.2 71.2C95.5 72.1 98.9 73.3 100 73.7M159.5 100.4C160 101.4 162 105.6 162.5 106.6M181.4 90.8C180.7 92.1 178 97.3 177.3 98.6M78.9 121.5C78.2 121.7 76.2 122.3 74.9 122.6C73.6 122.8 72.2 123 70.9 123C69.6 123 68.2 122.8 66.9 122.4C65.6 121.9 64.3 121.3 63.1 120.3C61.9 119.3 60.3 117 59.7 116.4M122.9 42.2C124.7 42.7 130.3 43.9 133.8 45.3C137.2 46.8 140.6 48.7 143.7 50.9C146.9 53.2 149.8 55.8 152.5 58.7C155.2 61.7 157.7 65 159.9 68.4C162.1 71.9 164.1 75.8 165.8 79.7C167.5 83.6 168.9 87.8 170 92.1C171.1 96.4 171.9 100.8 172.4 105.3C172.8 109.8 173 114.3 172.8 118.8C172.6 123.3 172.1 127.9 171.2 132.3C170.2 136.6 168.9 141 167.3 145.1C165.6 149.1 163.5 153.1 161 156.7C158.5 160.3 155.6 163.6 152.4 166.5C149.2 169.4 145.5 172 141.6 174C137.7 176.1 133.4 177.7 128.9 178.7C124.4 179.7 117.2 179.9 114.8 180.1M70.5 64C71.6 64.3 74.9 65.2 77 66C79.1 66.8 81.1 67.9 83.1 69C85 70.1 86.9 71.3 88.8 72.4C90.6 73.5 92.4 74.7 94.3 75.8C96.2 76.8 99.1 78.3 100 78.8M155.7 103.4C156.3 104.3 158.7 108.3 159.3 109.2"></path></g></g></g>
+                      <g class="sw-roll sw-t-front"><g class="sw-in"><g class="sw-wave"><path stroke="#0f3a2f" stroke-width="1.5" d="M150.6 136.2C149.4 137.2 145.8 140.4 143 142.4C140.2 144.4 137.1 146.3 133.8 148C130.5 149.7 126.9 151.4 123.3 152.8C119.6 154.3 115.8 155.6 111.9 156.7C108 157.8 104 158.8 100 159.5C96 160.3 91.9 160.9 87.8 161.2C83.8 161.5 79.7 161.7 75.7 161.5C71.7 161.4 65.8 160.5 63.8 160.3M132.7 42.8C133.2 44.5 134.8 49.5 135.4 52.9C136 56.4 136.3 60 136.4 63.5C136.5 67 136.2 72.4 136.2 74.1M150.6 133.1C149.3 134.1 145.4 137 142.5 138.8C139.5 140.6 136.3 142.3 132.9 143.8C129.6 145.3 126 146.7 122.4 148C118.8 149.2 115.1 150.3 111.4 151.3C107.6 152.3 103.8 153.1 100 153.7C96.2 154.4 92.4 154.9 88.6 155.2C84.9 155.5 81.1 155.6 77.4 155.5C73.8 155.4 68.4 154.8 66.6 154.6M157.7 124.1C156.5 125.1 153.2 128.2 150.6 130C148 131.9 145 133.6 141.9 135.2C138.8 136.8 135.5 138.3 132.1 139.6C128.7 140.9 125.2 142.1 121.6 143.2C118.1 144.2 114.4 145.1 110.8 145.9C107.2 146.7 103.6 147.4 100 147.9C96.4 148.4 92.9 148.9 89.4 149.1C85.9 149.4 82.5 149.6 79.2 149.5C75.8 149.5 71 149 69.3 148.9M57.3 145.4C55.9 143.7 51.3 138.8 48.8 135.3C46.4 131.7 44.1 127.9 42.3 124.1C40.5 120.4 39 116.4 37.9 112.6C36.8 108.8 36.1 103.2 35.8 101.3M158.4 121.5C157.1 122.4 153.4 125.3 150.6 127C147.8 128.7 144.6 130.2 141.4 131.6C138.2 133 134.7 134.3 131.3 135.4C127.8 136.5 124.3 137.5 120.8 138.3C117.3 139.2 113.7 139.9 110.2 140.5C106.8 141.1 103.3 141.7 100 142.1C96.7 142.5 93.4 142.9 90.2 143.1C87 143.3 83.9 143.5 80.9 143.5C77.9 143.5 74.9 143.5 72.1 143.2C69.2 142.9 65.2 142.2 63.8 142M76.7 160.9C74.8 159.7 69.1 156.4 65.6 153.6C62.1 150.8 58.7 147.6 55.7 144.2C52.7 140.8 50 137 47.6 133.2C45.2 129.5 43.2 125.4 41.6 121.5C40 117.5 38.8 113.4 37.9 109.6C37.1 105.7 36.7 101.8 36.6 98.2C36.5 94.6 36.8 91.1 37.4 87.9C38 84.7 39.7 80.5 40.2 79M165.8 112.7C164.7 113.8 161.6 116.9 159.1 118.8C156.6 120.7 153.6 122.4 150.6 123.9C147.5 125.5 144.2 126.8 140.8 128.1C137.5 129.3 133.9 130.3 130.4 131.2C127 132.1 123.4 132.8 119.9 133.5C116.5 134.2 113 134.7 109.7 135.1C106.4 135.6 103.1 136 100 136.3C96.9 136.6 93.9 136.9 91 137.1C88.1 137.3 85.3 137.4 82.6 137.5C79.9 137.6 77.3 137.6 74.8 137.5C72.3 137.4 68.8 137 67.6 136.9M87.6 167.5C85.6 166.5 79.3 164 75.4 161.7C71.4 159.3 67.6 156.5 64 153.4C60.5 150.2 57.1 146.7 54.2 143C51.2 139.3 48.6 135.3 46.4 131.2C44.1 127.2 42.3 122.9 40.9 118.8C39.5 114.7 38.5 110.5 37.9 106.5C37.4 102.5 37.2 98.6 37.4 95C37.6 91.4 38.2 88 39.1 84.9C40 81.8 41.2 79 42.6 76.6C44 74.1 46.7 71.2 47.6 70.1M167.3 110.3C166.1 111.3 162.6 114.4 159.8 116.1C157 117.9 153.8 119.5 150.6 120.9C147.3 122.3 143.8 123.5 140.3 124.5C136.8 125.5 133.2 126.3 129.6 127C126.1 127.7 122.5 128.2 119.1 128.7C115.7 129.1 112.3 129.4 109.1 129.7C106 130 102.9 130.2 100 130.5C97.1 130.7 94.4 130.8 91.8 131C89.1 131.2 86.7 131.4 84.3 131.5C82 131.6 79.8 131.8 77.6 131.8C75.4 131.8 72.4 131.8 71.3 131.8M100 173C97.8 172.4 91.1 170.9 86.8 169.2C82.5 167.4 78.1 165.1 74.1 162.4C70 159.8 66 156.6 62.4 153.1C58.9 149.7 55.5 145.8 52.6 141.8C49.7 137.8 47.2 133.5 45.1 129.2C43 124.9 41.4 120.4 40.2 116.1C39 111.9 38.3 107.5 38 103.5C37.6 99.4 37.8 95.5 38.3 91.9C38.7 88.3 39.6 84.9 40.8 82C41.9 79 43.4 76.4 45 74.1C46.7 71.9 49.6 69.4 50.6 68.5M175 101C173.9 102.2 171.3 105.8 168.9 107.8C166.5 109.9 163.6 111.8 160.5 113.5C157.5 115.2 154 116.6 150.6 117.8C147.1 119.1 143.4 120.1 139.8 120.9C136.1 121.7 132.4 122.3 128.8 122.8C125.2 123.3 121.6 123.6 118.3 123.8C114.9 124.1 111.6 124.2 108.6 124.4C105.5 124.5 102.7 124.5 100 124.6C97.3 124.8 94.9 124.8 92.5 125C90.2 125.1 88.1 125.3 86.1 125.5C84 125.7 82.2 125.9 80.3 126.1C78.5 126.3 76 126.6 75.1 126.6M113.9 176.9C111.5 176.7 104.6 176.5 100 175.5C95.4 174.5 90.6 173 86 170.9C81.5 168.8 76.9 166.2 72.7 163.2C68.5 160.2 64.5 156.6 60.9 152.9C57.3 149.1 53.9 144.9 51.1 140.6C48.2 136.3 45.8 131.7 43.9 127.2C41.9 122.7 40.5 117.9 39.5 113.5C38.5 109 38 104.5 38 100.4C37.9 96.3 38.3 92.3 39.1 88.7C39.8 85.2 41 81.9 42.4 79C43.8 76.2 45.6 73.7 47.4 71.7C49.3 69.7 51.4 68 53.5 66.8C55.7 65.5 59.1 64.6 60.2 64.2M177.3 98.6C176.2 99.7 173.1 103.3 170.4 105.4C167.7 107.4 164.5 109.3 161.2 110.8C157.9 112.4 154.2 113.7 150.5 114.8C146.9 115.9 143 116.7 139.2 117.3C135.4 117.9 131.6 118.3 128 118.6C124.3 118.9 120.7 119 117.4 119C114.1 119.1 110.9 119 108 119C105.1 118.9 102.5 118.8 100 118.8C97.5 118.8 95.4 118.8 93.3 118.9C91.3 119 89.5 119.2 87.8 119.5C86.1 119.7 84.6 120 83.1 120.4C81.6 120.7 79.6 121.4 78.9 121.5M114.8 180.1C112.3 179.8 104.9 179.3 100 178.1C95.1 176.8 90 175 85.3 172.6C80.5 170.3 75.8 167.3 71.4 164C67.1 160.6 62.9 156.7 59.3 152.6C55.6 148.6 52.3 144 49.5 139.4C46.7 134.8 44.4 129.9 42.6 125.1C40.8 120.4 39.6 115.5 38.8 110.8C38 106.2 37.8 101.6 38 97.4C38.2 93.2 38.9 89.1 39.9 85.6C40.9 82 42.4 78.8 44.1 76.1C45.7 73.4 47.8 71.1 49.8 69.3C51.9 67.4 54.3 66.1 56.5 65.1C58.8 64.2 61.3 63.7 63.6 63.5C65.9 63.3 69.4 63.9 70.5 64"></path></g></g></g>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sw-bar" style="margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+          <span style="font-size:14px;line-height:1.4;color:#4e635b">Wohnzimmer, Gentzgasse 14, 1180 Wien</span>
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:12px">
+            <div class="sw-segs" role="group" aria-label="Show the room">
+              <button type="button" class="{{emptyClass}}" aria-pressed="{{emptyPressed}}" onClick="{{showEmpty}}">Empty room</button>
+              <button type="button" class="{{stagedClass}}" aria-pressed="{{stagedPressed}}" onClick="{{showStaged}}">Staged</button>
+            </div>
+            <span style="font-size:14px;color:#4e635b">or drag the handle</span>
+          </div>
+        </div>
+        <p style="margin:12px 0 0;font-size:14px;line-height:1.4;color:#4e635b;text-wrap:pretty">Every staged photo is labelled as virtually staged.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- everything Immvela does -->
+  <div style="width:100%;background:transparent;color:#0a2b22;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden">
+    <section class="sp-sec" style="padding:96px 24px">
+      <div class="sp-wrap">
+        <h2 class="sp-h2" style="margin:0;color:#14473a;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 72;font-weight:650;letter-spacing:-0.035em;line-height:1.02;max-width:720px;font-size:52px;text-wrap:balance">Everything Immvela does</h2>
+        <dl class="sp-grid">
+          <div class="sp-cell">
+            <dt class="sp-name"><span>Documents</span><span class="sp-live">Live</span></dt>
+            <dd class="sp-line">Reads the Energieausweis and the Grundbuchauszug, flags contradictions and expiring certificates. Nothing is used until you confirm it.</dd>
+          </div>
+          <div class="sp-cell">
+            <dt class="sp-name"><span>Exposé, brochure and posts</span><span class="sp-live">Live</span></dt>
+            <dd class="sp-line">Drafted from your confirmed values, in the German of the listing&#8217;s country, with your office brand.</dd>
+          </div>
+          <div class="sp-cell">
+            <dt class="sp-name"><span>Staging</span><span class="sp-live">Live</span></dt>
+            <dd class="sp-line">Furnishes photos of empty rooms. Every staged photo is labelled as virtually staged.</dd>
+          </div>
+          <div class="sp-cell">
+            <dt class="sp-name"><span>Publishing</span><span class="sp-live">Live</span></dt>
+            <dd class="sp-line">Instagram, Facebook, LinkedIn, TikTok and YouTube from one place, always after your approval.</dd>
+          </div>
+          <div class="sp-cell">
+            <dt class="sp-name"><span>CRM import</span><span class="sp-live">Live</span></dt>
+            <dd class="sp-line">Bring listings in with an OpenImmo export from onOffice, Justimmo, Propstack or FLOWFACT.</dd>
+          </div>
+          <div class="sp-cell">
+            <dt class="sp-name"><span>Your office</span><span class="sp-live">Live</span></dt>
+            <dd class="sp-line">Listings, documents and confirmed values belong to the office. Every agent has their own login.</dd>
+          </div>
+          <div class="sp-cell">
+            <dt class="sp-name"><span>Language</span><span class="sp-live">Live</span></dt>
+            <dd class="sp-line">German first, English available. Written for Austria, Germany and Switzerland.</dd>
+          </div>
+          <div class="sp-cell">
+            <dt class="sp-name"><span>Enquiries</span><span class="sp-next">Next</span></dt>
+            <dd class="sp-line">Answers and qualifies enquiries. Never books viewings or quotes prices.</dd>
+          </div>
+          <div class="sp-cell">
+            <dt class="sp-name"><span>Data and privacy</span></dt>
+            <dd class="sp-line"><a class="sp-link" href="Trust.dc.html">How we handle documents and data</a></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </div>
+
+  <!-- who builds it -->
+  <div style="width:100%;background:transparent;color:#0a2b22;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden">
+    <section class="pp-sec" style="padding:96px 24px">
+      <div style="max-width:1160px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px 72px">
+        <div style="flex:1 1 520px;min-width:0">
+          <h2 class="pp-h2" style="margin:0;color:#14473a;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 72;font-weight:650;letter-spacing:-0.035em;line-height:1.02;max-width:720px;font-size:52px;text-wrap:balance">Built in Vienna by SNS Solutions</h2>
+          <p style="margin:20px 0 0;max-width:560px;font-size:19px;line-height:1.55;color:#3f574f;text-wrap:pretty">Today a listing lives in a folder, a phone and five tools. We built Immvela so every property has one record you can trust.</p>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px 28px;font-size:16px">
+          <a class="pp-link" href="WhyLight.dc.html">Read our story</a>
+          <a class="pp-link" href="https://sns-austria.com/team">Meet the team</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- apply for the closed beta -->
+  <div id="apply" style="width:100%;background:transparent;color:#0a2b22;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;scroll-margin-top:24px">
+    <section class="ap-sec" style="padding:96px 24px">
+      <div class="ap-grid">
+
+        <div class="ap-head">
+          <h2 class="ap-h2" style="margin:0;color:#14473a;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 72;font-weight:650;letter-spacing:-0.035em;line-height:1.02;max-width:720px;font-size:52px;text-wrap:balance">Apply for the closed beta</h2>
+        </div>
+
+        <form class="ap-form" aria-label="Apply for the closed beta">
+          <div class="ap-field">
+            <label class="ap-label" for="ap-name">Name</label>
+            <input class="ap-input" id="ap-name" name="name" type="text" autocomplete="name">
+          </div>
+          <div class="ap-field">
+            <label class="ap-label" for="ap-email">Email</label>
+            <input class="ap-input" id="ap-email" name="email" type="email" autocomplete="email">
+          </div>
+          <fieldset class="ap-set">
+            <legend class="ap-label">Office size</legend>
+            <div class="ap-opts">
+              <label class="ap-opt" for="ap-size-solo"><input id="ap-size-solo" type="radio" name="size" value="solo">Solo agent</label>
+              <label class="ap-opt" for="ap-size-team"><input id="ap-size-team" type="radio" name="size" value="team">Team</label>
+              <label class="ap-opt" for="ap-size-franchise"><input id="ap-size-franchise" type="radio" name="size" value="franchise">Franchise</label>
+            </div>
+          </fieldset>
+          <label class="ap-consent" for="ap-consent"><input id="ap-consent" name="consent" type="checkbox"><span>I agree that SNS Software Solutions GmbH may contact me about this application. <a class="ap-plink" href="#">Privacy policy</a></span></label>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <button class="ap-btn" type="button">Apply</button>
+            <p style="margin:0;font-size:14px;line-height:1.45;color:#4e635b;text-wrap:pretty">We reply within a week and set up your first listing with you.</p>
+            <p style="margin:0;font-size:14px;line-height:1.45;color:#4e635b">Not ready to apply? <a class="ap-plink" href="Shape.dc.html">Help us build it</a>.</p>
+          </div>
+        </form>
+
+        <dl class="ap-answers">
+          <div class="ap-q">
+            <dt style="font-size:16px;line-height:1.4;font-weight:600;color:#14473a">Is it in German?</dt>
+            <dd style="margin:0;font-size:16px;line-height:1.55;color:#3f574f;text-wrap:pretty">Yes. German first, English available. The Exposé is always written in the German of the listing&#8217;s country.</dd>
+          </div>
+          <div class="ap-q">
+            <dt style="font-size:16px;line-height:1.4;font-weight:600;color:#14473a">Does it work with my CRM?</dt>
+            <dd style="margin:0;font-size:16px;line-height:1.55;color:#3f574f;text-wrap:pretty">Bring listings in with an OpenImmo export from onOffice, Justimmo, Propstack or FLOWFACT.</dd>
+          </div>
+          <div class="ap-q">
+            <dt style="font-size:16px;line-height:1.4;font-weight:600;color:#14473a">Where is my data?</dt>
+            <dd style="margin:0;font-size:16px;line-height:1.55"><span class="ap-todo">[Hosting answer to confirm with SNS]</span></dd>
+          </div>
+        </dl>
+
+      </div>
+    </section>
+  </div>
+
+  <footer class="site-foot" style="max-width:1100px;margin:0 auto;padding:32px 24px 48px;box-sizing:border-box;border-top:1px solid rgba(10,43,34,0.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:#4e635b">
+    <span>Immvela is made by SNS Software Solutions GmbH, Vienna.</span>
+    <span style="display:flex;gap:16px;flex-wrap:wrap"><a href="ModulesLight.dc.html">Modules</a><a href="WhyLight.dc.html">Why Immvela</a><a href="Trust.dc.html">Trust</a><a href="#">Imprint</a><a href="#">Privacy</a><a href="#">Terms</a></span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":7520}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = Object.assign({
+      navMark: false,
+      pvRun: 0, pvPhase: 'idle',
+      trSel: 'hwb', trStill: true,
+      swEase: false, swPos: 50,
+    }, this.state || {});
+    this.io = null;
+    this.watched = [];
+    this.markEl = null;
+    this.stageEl = null;
+    this.pvSeen = false;
+    this.pvTimer = null;
+    this.pvFallback = null;
+    this.pvFrameA = null;
+    this.pvFrameB = null;
+    this.trSources = {
+      wf: ['Wohnfläche 76 m²', 'Grundriss', 'Wohnfläche gesamt: 76,0 m²'],
+      zi: ['Zimmer 3', 'Grundriss', 'Zimmer: 3'],
+      bj: ['Baujahr 1908', 'Energieausweis', 'Baujahr: 1908'],
+      hwb: ['HWB 48', 'Energieausweis', 'Heizwärmebedarf HWB: 48 kWh/m²a'],
+      fg: ['fGEE 0,92', 'Energieausweis', 'Gesamtenergieeffizienz-Faktor fGEE: 0,92'],
+    };
+    this.setMark = this.setMark.bind(this);
+    this.pvSetStage = this.pvSetStage.bind(this);
+    this.pvReplay = this.pvReplay.bind(this);
+    this.swScrub = this.swScrub.bind(this);
+  }
+
+  // One observer for the page: the hero mark (the nav helix appears once it scrolls under the bar)
+  // and the product stage (plays once at a third in view). Every other section moves only on input.
+  componentDidMount() {
+    const mq = typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    this.reduced = !!(mq && mq.matches);
+    if (this.reduced) this.setState({ pvPhase: 'done' });
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      this.setState({ navMark: true });
+      this.pvPlay();
+      return;
+    }
+    this.io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.target === this.markEl) this.setState({ navMark: !e.isIntersecting });
+        else if (e.target === this.stageEl && e.isIntersecting && e.intersectionRatio >= 0.34) this.pvPlay();
+      });
+    }, { rootMargin: '-84px 0px 0px 0px', threshold: [0, 0.35] });
+    this.observeAll();
+  }
+  componentWillUnmount() {
+    clearTimeout(this.pvTimer);
+    clearTimeout(this.pvFallback);
+    cancelAnimationFrame(this.pvFrameA);
+    cancelAnimationFrame(this.pvFrameB);
+    if (this.io) this.io.disconnect();
+  }
+  find(sel) {
+    try { return document.querySelector(sel); } catch (e) { return null; }
+  }
+  observe(el) {
+    if (!this.io || !el || this.watched.indexOf(el) !== -1) return;
+    this.watched.push(el);
+    this.io.observe(el);
+  }
+  observeAll() {
+    if (!this.io) return;
+    if (!this.markEl) this.markEl = this.find('[data-hero-mark]');
+    if (!this.stageEl) this.stageEl = this.find('[data-pv-stage]');
+    if (this.markEl) this.observe(this.markEl);
+    else this.setState({ navMark: true });
+    if (this.stageEl && !this.pvSeen) this.observe(this.stageEl);
+    if (!this.stageEl && !this.pvSeen && !this.pvFallback) this.pvFallback = setTimeout(() => this.pvPlay(), 1500);
+  }
+  setMark(el) {
+    if (!el || el === this.markEl) return;
+    this.markEl = el;
+    this.observe(el);
+  }
+  pvSetStage(el) {
+    if (!el || el === this.stageEl) return;
+    this.stageEl = el;
+    if (!this.pvSeen) this.observe(el);
+  }
+
+  // product: plays once, replays on request
+  pvPlay() {
+    if (this.pvSeen) return;
+    this.pvSeen = true;
+    clearTimeout(this.pvFallback);
+    if (this.io && this.stageEl) this.io.unobserve(this.stageEl);
+    if (!this.reduced) this.setState({ pvPhase: 'play' });
+  }
+  pvReplay() {
+    this.pvSeen = true;
+    if (this.io && this.stageEl) this.io.unobserve(this.stageEl);
+    clearTimeout(this.pvTimer);
+    cancelAnimationFrame(this.pvFrameA);
+    cancelAnimationFrame(this.pvFrameB);
+    this.setState({ pvPhase: 'out' });
+    this.pvTimer = setTimeout(() => {
+      this.setState((s) => ({ pvRun: s.pvRun + 1, pvPhase: 'reset' }), () => {
+        this.pvFrameA = requestAnimationFrame(() => {
+          this.pvFrameB = requestAnimationFrame(() => this.setState({ pvPhase: 'play' }));
+        });
+      });
+    }, 300);
+  }
+
+  // record: rests on HWB already traced; nothing moves until the visitor picks a value
+  trPick(key) {
+    this.setState({ trSel: key, trStill: false });
+  }
+
+  // staging: rests half and half; the seam moves only when the visitor drags it or picks a side
+  swScrub(e) {
+    const v = Number(e && e.target ? e.target.value : 50);
+    if (Number.isNaN(v)) return;
+    this.setState({ swEase: false, swPos: Math.max(0, Math.min(100, v)) });
+  }
+  swShow(pos) {
+    this.setState({ swEase: true, swPos: pos });
+  }
+
+  renderVals() {
+    const st = this.state;
+    const sel = st.trSel;
+    const doc = sel ? this.trSources[sel][1] : null;
+    const pos = st.swPos;
+    const vals = {
+      navMarkClass: st.navMark ? 'nv-mark is-on' : 'nv-mark',
+      setMark: this.setMark,
+
+      pvRun: st.pvRun,
+      pvStageClass: 'pv-stage is-' + st.pvPhase,
+      pvReplay: this.pvReplay,
+      pvSetStage: this.pvSetStage,
+
+      trStageClass: 'tr-stage' + (st.trStill ? ' is-still' : ''),
+      dGr: 'tr-doc' + (doc === 'Grundriss' ? ' is-on' : ''),
+      dEa: 'tr-doc' + (doc === 'Energieausweis' ? ' is-on' : ''),
+      live: sel ? this.trSources[sel][0] + ', read from the ' + doc + ', page 1: ' + this.trSources[sel][2] + '. Confirmed by you on 2 October.' : '',
+
+      swStageClass: 'sw-stage' + (st.swEase ? ' sw-ease' : ''),
+      clip: 'inset(0 ' + (100 - pos) + '% 0 0)',
+      moverLeft: pos + '%',
+      pos,
+      valueText: Math.round(pos) + ' percent staged',
+      emptyClass: 'sw-seg' + (pos === 0 ? ' is-on' : ''),
+      stagedClass: 'sw-seg' + (pos === 100 ? ' is-on' : ''),
+      emptyPressed: pos === 0 ? 'true' : 'false',
+      stagedPressed: pos === 100 ? 'true' : 'false',
+      scrub: this.swScrub,
+      showEmpty: () => this.swShow(0),
+      showStaged: () => this.swShow(100),
+    };
+    Object.keys(this.trSources).forEach((key) => {
+      const K = key.charAt(0).toUpperCase() + key.slice(1);
+      const on = sel === key;
+      vals['c' + K] = 'tr-v' + (on ? ' is-on' : '');
+      vals['p' + K] = on ? 'true' : 'false';
+      vals['h' + K] = 'tr-hl' + (on ? ' is-on' : '');
+      vals['k' + K] = 'tr-k' + (on ? ' is-on' : '');
+      vals['t' + K] = () => this.trPick(key);
+    });
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

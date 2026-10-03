@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Immvela trust</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;family=Geist:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid #1f7a5a;outline-offset:3px}
+.site-navlink{text-decoration:none;font-size:14px;color:#4f5c57}
+.site-navlink:hover{color:#0a2b22}
+.site-foot a{text-decoration:none}
+.site-foot a:hover{color:#0a2b22}
+
+/* A still page. Each topic is one row: the plain question left, the true answer right, in one white sheet. */
+.tr-wrap{max-width:1160px;margin:0 auto}
+.tr-sec{padding:112px 24px}
+.tr-sheet{border-radius:20px;background-color:rgb(255 255 255 / .8);border:1px solid rgb(255 255 255 / .85);background-image:linear-gradient(180deg,rgb(255 255 255 / .5),transparent 70px);box-shadow:inset 0 1px 0 #fff,0 1px 2px rgb(40 40 20 / .05),0 14px 30px -18px rgb(40 40 20 / .16);margin:0;padding:0 48px;list-style:none}
+.tr-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:48px;padding:40px 0;border-top:1px solid rgba(10,43,34,0.10)}
+.tr-row:first-child{border-top:0}
+.tr-body{min-width:0;display:flex;flex-direction:column;gap:12px;max-width:620px}
+.tr-p{margin:0;font-size:16px;line-height:1.6;color:#4f5c57;text-wrap:pretty}
+.tr-held{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;padding:6px 12px;border-radius:999px;background:#fdf1dc;color:#6b4a12;font-size:14px;line-height:1.3;font-weight:600}
+.tr-held i{width:8px;height:8px;border-radius:50%;background:#f4b860;flex:none}
+.tr-todo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:0;padding:0;list-style:none}
+.tr-box{min-width:0;box-sizing:border-box;min-height:128px;padding:24px;border-radius:16px;border:1.5px dashed rgba(10,43,34,0.35);display:flex;flex-direction:column;justify-content:space-between;gap:16px}
+.tr-mail{color:#1a6b4f;font-weight:600;text-decoration:none;word-break:break-word}
+.tr-mail:hover{text-decoration:underline}
+
+@media (max-width:959px){
+  .tr-h1{font-size:40px !important}
+  .tr-h2{font-size:34px !important}
+  .tr-row{grid-template-columns:minmax(0,1fr);gap:12px}
+  .tr-todo{grid-template-columns:minmax(0,1fr);gap:16px}
+}
+@media (max-width:860px){
+  .site-side{visibility:hidden !important}
+  .site-mods{display:none !important}
+}
+@media (max-width:640px){
+  .site-navwrap{padding:8px 12px !important}
+  .site-head{padding:7px 8px 7px 16px !important}
+  .tr-sec{padding:72px 20px !important}
+  .tr-h1{font-size:34px !important}
+  .tr-h2{font-size:28px !important}
+  .tr-sheet{padding:0 20px}
+  .tr-row{padding:28px 0}
+  .tr-box{min-height:0}
+}
+/* the ground, fixed behind everything: light from above, three calm pools, the vignette, then the grain */
+.gl-ground,.gl-grain{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.gl-ground{background:radial-gradient(ellipse 75% 50% at 50% -14%,color-mix(in srgb,#fff 16%,transparent),transparent 70%),radial-gradient(42% 48% at 12% 30%,rgb(22 70 58 / .12),transparent 72%),radial-gradient(40% 46% at 92% 62%,rgb(62 108 140 / .11),transparent 72%),radial-gradient(36% 40% at 30% 100%,rgb(115 92 110 / .09),transparent 72%),radial-gradient(ellipse 120% 90% at 50% 40%,transparent 60%,color-mix(in srgb,#6b6a55 18%,transparent) 100%)}
+.gl-grain{background-image:url(/_blob/75f99c1e1542e7819fc1196d8df8f89b);background-size:180px;opacity:.08;mix-blend-mode:multiply}
+.gl-glass{background-color:rgb(255 255 255 / .72);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%);border:1px solid rgb(255 255 255 / .85);background-image:linear-gradient(180deg,rgb(255 255 255 / .5),transparent 42%);box-shadow:inset 0 1px 0 #fff,0 16px 36px -20px rgb(40 40 20 / .2)}
+@media (prefers-reduced-transparency:reduce){.gl-sheen,.gl-glass{background-color:#ffffff !important;background-image:none !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important}}
+@media (prefers-reduced-transparency:reduce){.tr-sheet{background-color:#ffffff !important;background-image:none !important}}
+</style>
+</helmet>
+<div style="position:relative;isolation:isolate;width:100%;background:#f2f1e8;color:#0a2b22;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip">
+  <div class="gl-ground" aria-hidden="true"></div><div class="gl-grain" aria-hidden="true"></div>
+
+
+  <!-- the nav floats: a sticky glass bar, the only surface on this page that blurs -->
+  <div class="site-navwrap" style="position:sticky;top:0;z-index:50;padding:12px 24px 10px">
+  <header class="site-head gl-glass" style="max-width:1200px;margin:0 auto;padding:9px 12px 9px 24px;border-radius:999px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;box-sizing:border-box">
+    <span class="site-side" style="font-size:14px;color:#4f5c57">by SNS Solutions</span>
+    <a href="Site.dc.html" aria-label="Immvela home" style="justify-self:center;display:flex">
+      <img src="/_blob/56a98e7e934950f3a0e9e16206cf637e" alt="Immvela" style="width:40px;height:40px;display:block">
+    </a>
+    <nav aria-label="Main" style="justify-self:end;display:flex;align-items:center;gap:24px">
+      <a class="site-navlink site-mods" href="ModulesLight.dc.html">Modules</a>
+      <a class="site-navlink site-mods" href="WhyLight.dc.html">Why Immvela</a>
+      <a href="#" style="text-decoration:none;font-size:14px;font-weight:600;padding:9px 18px;border-radius:999px;background:#1f7a5a;color:#ffffff">Sign in</a>
+    </nav>
+  </header>
+  </div>
+
+  <!-- title band: no animation, the claim is the page itself -->
+  <section class="tr-sec" style="padding:96px 24px 88px">
+    <div class="tr-wrap">
+      <h1 class="tr-h1" style="margin:0;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 72;font-weight:650;letter-spacing:-0.035em;line-height:1.02;max-width:760px;font-size:52px;text-wrap:balance">How Immvela handles your documents and data</h1>
+      <p style="margin:24px 0 0;max-width:560px;font-size:19px;line-height:1.55;color:#4f5c57;text-wrap:pretty">What happens to a document after you add it, who can see it, and what we have not settled yet.</p>
+    </div>
+  </section>
+
+  <section class="tr-sec">
+    <div class="tr-wrap">
+      <ul class="tr-sheet" aria-label="How your data is handled">
+
+        <li class="tr-row">
+          <h2 style="margin:0;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-weight:650;letter-spacing:-0.025em;font-size:24px;line-height:1.25">Who owns the data</h2>
+          <div class="tr-body">
+            <p class="tr-p">Listings, values and documents belong to the office, not to the individual agent. Each person has their own login. Offices are kept separate in the database, so one office cannot read another office&#8217;s data.</p>
+          </div>
+        </li>
+
+        <li class="tr-row">
+          <h2 style="margin:0;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-weight:650;letter-spacing:-0.025em;font-size:24px;line-height:1.25">What the AI providers see</h2>
+          <div class="tr-body">
+            <p class="tr-p">Documents and text are processed by AI providers based in the USA. Staging photos are processed by a separate AI image provider.</p>
+            <p class="tr-p">We are working towards EU-only processing. It is not in place today.</p>
+          </div>
+        </li>
+
+        <li class="tr-row">
+          <h2 style="margin:0;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-weight:650;letter-spacing:-0.025em;font-size:24px;line-height:1.25">What you confirm</h2>
+          <div class="tr-body">
+            <p class="tr-p">Nothing read from a document is used until a person confirms it. Every value keeps the document it came from and the name of the person who confirmed it.</p>
+          </div>
+        </li>
+
+        <li class="tr-row">
+          <h2 style="margin:0;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-weight:650;letter-spacing:-0.025em;font-size:24px;line-height:1.25">Publishing</h2>
+          <div class="tr-body">
+            <p class="tr-p">Immvela always asks before anything is published. An ad missing required energy values is held, for every agent in the office.</p>
+            <span class="tr-held"><i aria-hidden="true"></i>Held: energy values missing</span>
+          </div>
+        </li>
+
+        <li class="tr-row">
+          <h2 style="margin:0;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-weight:650;letter-spacing:-0.025em;font-size:24px;line-height:1.25">Deleting</h2>
+          <div class="tr-body">
+            <p class="tr-p">We delete your account on request. Documents are kept as evidence and are not deleted on the photo schedule.</p>
+            <p class="tr-p">Immvela does not state legal retention periods. Ask your counsel.</p>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+  <!-- the open questions, shown as open: dashed outlines, never filled with a guess -->
+  <section class="tr-sec">
+    <div class="tr-wrap" style="display:flex;flex-direction:column;gap:40px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <h2 class="tr-h2" style="margin:0;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 72;font-weight:650;letter-spacing:-0.035em;line-height:1.02;font-size:40px">To be confirmed</h2>
+        <p style="margin:0;max-width:560px;font-size:16px;line-height:1.6;color:#4f5c57;text-wrap:pretty">These answers are not settled yet. They will appear here once they are.</p>
+      </div>
+      <ul class="tr-todo" aria-label="Answers to be confirmed">
+        <li class="tr-box"><span style="font-size:16px;line-height:1.4;font-weight:600">[Hosting region]</span><span style="font-size:14px;line-height:1.45;color:#4f5c57">Where the database and files are stored.</span></li>
+        <li class="tr-box"><span style="font-size:16px;line-height:1.4;font-weight:600">[List of service providers]</span><span style="font-size:14px;line-height:1.45;color:#4f5c57">Every company that processes data for Immvela.</span></li>
+        <li class="tr-box"><span style="font-size:16px;line-height:1.4;font-weight:600">[Data processing agreement (AVV)]</span><span style="font-size:14px;line-height:1.45;color:#4f5c57">Whether and how your office can sign one.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="tr-sec">
+    <div class="tr-wrap" style="display:flex;flex-direction:column;gap:16px">
+      <h2 class="tr-h2" style="margin:0;font-family:'Bricolage Grotesque','Geist',system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 72;font-weight:650;letter-spacing:-0.035em;line-height:1.02;font-size:40px">Questions about your data</h2>
+      <p style="margin:0;max-width:560px;font-size:19px;line-height:1.55;color:#4f5c57;text-wrap:pretty">Write to <a class="tr-mail" href="mailto:office@sns-austria.com">office@sns-austria.com</a>. Immvela is made by SNS Software Solutions GmbH, Vienna.</p>
+    </div>
+  </section>
+
+  <footer class="site-foot" style="max-width:1100px;margin:0 auto;padding:32px 24px 48px;box-sizing:border-box;border-top:1px solid rgba(10,43,34,0.08);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:#4f5c57">
+    <span>Immvela is made by SNS Software Solutions GmbH, Vienna.</span>
+    <span style="display:flex;gap:16px;flex-wrap:wrap"><a href="ModulesLight.dc.html">Modules</a><a href="WhyLight.dc.html">Why Immvela</a><a href="Trust.dc.html" aria-current="page">Trust</a><a href="#">Imprint</a><a href="#">Privacy</a><a href="#">Terms</a></span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2300}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
