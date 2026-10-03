@@ -471,7 +471,7 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                   style={
                     {
                       position: 'absolute',
-                      left: '150em',
+                      left: '140em',
                       top: '250em',
                       width: '220em',
                       zIndex: '1',
@@ -536,7 +536,7 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                   style={
                     {
                       position: 'absolute',
-                      left: '750em',
+                      left: '730em',
                       top: '80em',
                       width: '300em',
                       zIndex: '2',
