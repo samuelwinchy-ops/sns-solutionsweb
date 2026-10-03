@@ -38,6 +38,9 @@ export function useHomeVals(
   const [trStill, setTrStill] = useState(true)
   const [swEase, setSwEase] = useState(false)
   const [swPos, setSwPos] = useState(50)
+  // The product helix's speed follows the stage: fast while the documents go in, slower while it
+  // drafts, nearly still while it waits on the agent's answer, back to rest once confirmed.
+  const [pvHelixRate, setPvHelixRate] = useState(1)
 
   const stageEl = useRef<HTMLDivElement | null>(null)
   const seen = useRef(false)
@@ -81,6 +84,21 @@ export function useHomeVals(
     }
   }, [pvPlay])
 
+  useEffect(() => {
+    if (pvPhase !== 'play') {
+      if (pvPhase === 'idle' || pvPhase === 'done') setPvHelixRate(1)
+      return
+    }
+    setPvHelixRate(3)
+    const steps: [number, number][] = [
+      [2300, 1.6],
+      [3600, 0.12],
+      [6200, 1],
+    ]
+    const ids = steps.map(([ms, r]) => window.setTimeout(() => setPvHelixRate(r), ms))
+    return () => ids.forEach(clearTimeout)
+  }, [pvPhase, pvRun])
+
   const pvReplay = useCallback(() => {
     seen.current = true
     const tm = timers.current
@@ -116,6 +134,7 @@ export function useHomeVals(
     onHeroCta: () => track('immvela_hero_cta'),
 
     pvRun,
+    pvHelixRate,
     pvStageClass: 'pv-stage is-' + pvPhase,
     pvReplay,
     pvSetStage: (el: HTMLDivElement | null) => {

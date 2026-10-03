@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import type { CSSProperties } from 'react'
+import HelixCanvas from '../HelixCanvas'
 import type { HomeVals } from './vals'
 import type { T } from '@/i18n/immvela'
 
@@ -58,11 +59,11 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                     {
                       position: 'absolute',
                       left: '0',
-                      top: '20em',
+                      top: '196em',
                       width: '150em',
                       zIndex: '5',
-                      '--dx': '100em',
-                      '--dy': '211em',
+                      '--dx': '505em',
+                      '--dy': '35em',
                       '--d': '.15s',
                     } as CSSProperties
                   }
@@ -144,11 +145,11 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                     {
                       position: 'absolute',
                       left: '162em',
-                      top: '20em',
+                      top: '196em',
                       width: '128em',
                       zIndex: '5',
-                      '--dx': '-51em',
-                      '--dy': '211em',
+                      '--dx': '354em',
+                      '--dy': '35em',
                       '--d': '.35s',
                     } as CSSProperties
                   }
@@ -197,11 +198,11 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                     {
                       position: 'absolute',
                       left: '22em',
-                      top: '92em',
+                      top: '268em',
                       width: '64em',
                       zIndex: '5',
-                      '--dx': '121em',
-                      '--dy': '139em',
+                      '--dx': '526em',
+                      '--dy': '-38em',
                       '--d': '.55s',
                     } as CSSProperties
                   }
@@ -232,11 +233,11 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                     {
                       position: 'absolute',
                       left: '108em',
-                      top: '92em',
+                      top: '268em',
                       width: '64em',
                       zIndex: '5',
-                      '--dx': '35em',
-                      '--dy': '139em',
+                      '--dx': '440em',
+                      '--dy': '-38em',
                       '--d': '.7s',
                     } as CSSProperties
                   }
@@ -267,11 +268,11 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                     {
                       position: 'absolute',
                       left: '194em',
-                      top: '92em',
+                      top: '268em',
                       width: '64em',
                       zIndex: '5',
-                      '--dx': '-51em',
-                      '--dy': '139em',
+                      '--dx': '354em',
+                      '--dy': '-38em',
                       '--d': '.85s',
                     } as CSSProperties
                   }
@@ -297,10 +298,11 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                   </div>
                 </div>
                 <div
+                  className="pv-a pv-dock"
                   style={{
                     position: 'absolute',
-                    left: '90em',
-                    top: '170em',
+                    left: '267em',
+                    top: '-35em',
                     width: '170em',
                     height: '170em',
                     zIndex: '4',
@@ -321,25 +323,14 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                     }}
                   >
                     <div className="pv-a pv-ack" style={{ width: '136em', height: '136em' }}>
-                      <div className="pv-a pv-spin" style={{ width: '100%', height: '100%' }}>
-                        <div className="pv-turn" style={{ width: '100%', height: '100%' }}>
-                          <Image
-                            src="/immvela/redesign/helix-light.svg"
-                            alt=""
-                            style={{ width: '100%', height: '100%', display: 'block' }}
-                            width={200}
-                            height={200}
-                            unoptimized
-                          />
-                        </div>
-                      </div>
+                      <HelixCanvas rate={v.pvHelixRate} style={{ width: '100%', height: '100%' }} />
                     </div>
                   </div>
                 </div>
                 <div
                   style={{
                     position: 'absolute',
-                    left: '55em',
+                    left: '460em',
                     top: '356em',
                     width: '240em',
                     display: 'grid',
@@ -376,6 +367,18 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                       {t('Reading 5 documents')}
                     </span>
                   </div>
+                </div>
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: '20em',
+                    top: '33em',
+                    width: '260em',
+                    display: 'grid',
+                    justifyItems: 'end',
+                    zIndex: '4',
+                  }}
+                >
                   <div
                     className="gl-glass pv-a pv-win"
                     style={
@@ -468,7 +471,7 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                   style={
                     {
                       position: 'absolute',
-                      left: '290em',
+                      left: '150em',
                       top: '250em',
                       width: '220em',
                       zIndex: '1',
@@ -533,7 +536,7 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                   style={
                     {
                       position: 'absolute',
-                      left: '830em',
+                      left: '750em',
                       top: '80em',
                       width: '300em',
                       zIndex: '2',
@@ -685,7 +688,7 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                   style={
                     {
                       position: 'absolute',
-                      left: '440em',
+                      left: '350em',
                       top: '30em',
                       width: '460em',
                       zIndex: '3',
@@ -964,7 +967,7 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                   className="pv-a pv-q"
                   style={{
                     position: 'absolute',
-                    left: '384em',
+                    left: '294em',
                     top: '364em',
                     width: '330em',
                     zIndex: '6',
@@ -1074,7 +1077,7 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                   className="pv-a pv-cursor"
                   style={{
                     position: 'absolute',
-                    left: '622em',
+                    left: '532em',
                     top: '477em',
                     width: '22em',
                     height: '22em',
@@ -1287,18 +1290,7 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                     }}
                   >
                     <div className="pv-a pv-ack" style={{ width: '48em', height: '48em' }}>
-                      <div className="pv-a pv-spin" style={{ width: '100%', height: '100%' }}>
-                        <div className="pv-turn" style={{ width: '100%', height: '100%' }}>
-                          <Image
-                            src="/immvela/redesign/helix-light.svg"
-                            alt=""
-                            style={{ width: '100%', height: '100%', display: 'block' }}
-                            width={200}
-                            height={200}
-                            unoptimized
-                          />
-                        </div>
-                      </div>
+                      <HelixCanvas rate={v.pvHelixRate} style={{ width: '100%', height: '100%' }} />
                     </div>
                   </div>
                 </div>

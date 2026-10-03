@@ -1,0 +1,163 @@
+'use client'
+
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import Image from 'next/image'
+import { breathWidth, easeRate, renderHelix, type HelixTheme } from '@/lib/helix-contour'
+
+const REDUCED = '(prefers-reduced-motion: reduce)'
+const FALLBACK = '/immvela/redesign/helix-light.svg'
+
+/**
+ * Immvela's helix, drawn live as the app draws it (lib/helix-contour.ts): the band turns in 3D, so the
+ * hairlines move with depth instead of a picture being rotated. It fills its box, which must be square.
+ *
+ * `rate` is turns per 24 s and is eased, never jumped. `intro` draws the lines in once, turning fast,
+ * then settles to `rate`. Reduced motion gets one still frame and no loop. The loop sleeps while the
+ * canvas is off screen or the tab is hidden. Before the client takes over (and with no JavaScript) the
+ * static SVG stands in; a helix with an intro keeps that fallback for no-JavaScript visitors only.
+ */
+export default function HelixCanvas({
+  rate = 1,
+  breathe = true,
+  intro,
+  theme = 'light',
+  className,
+  style,
+}: {
+  rate?: number
+  breathe?: boolean
+  intro?: { delay: number; duration: number }
+  theme?: HelixTheme
+  className?: string
+  style?: CSSProperties
+}) {
+  const box = useRef<HTMLSpanElement | null>(null)
+  const canvas = useRef<HTMLCanvasElement | null>(null)
+  const [mode, setMode] = useState<'server' | 'still' | 'live'>('server')
+  const rateRef = useRef(rate)
+  const breatheRef = useRef(breathe)
+  rateRef.current = rate
+  breatheRef.current = breathe
+  const introRef = useRef(intro)
+
+  useEffect(() => {
+    const q = window.matchMedia?.(REDUCED)
+    const sync = () => setMode(q?.matches ? 'still' : 'live')
+    sync()
+    q?.addEventListener('change', sync)
+    return () => q?.removeEventListener('change', sync)
+  }, [])
+
+  useEffect(() => {
+    const el = box.current
+    const c = canvas.current
+    const ctx = c?.getContext('2d')
+    if (mode === 'server' || !el || !c || !ctx) return
+
+    let size = 0
+    let dpr = 1
+    let t = 0
+    let current = introRef.current ? 3 : rateRef.current
+    let breath = 0
+    let elapsed = 0
+    let reveal = mode === 'live' && introRef.current ? 0 : 1
+
+    const draw = () => {
+      if (!size) return
+      renderHelix(ctx, size, theme, t, dpr, breath ? breathWidth(breath) : undefined, reveal)
+    }
+    const measure = () => {
+      const w = Math.min(el.clientWidth, el.clientHeight || el.clientWidth)
+      if (!w) return
+      // CSS zoom (the phone mockup) makes the drawn box smaller or larger than its layout box.
+      const zoom = el.getBoundingClientRect().width / (el.clientWidth || 1) || 1
+      size = w
+      dpr = Math.min(3, (window.devicePixelRatio || 1) * zoom)
+      c.width = Math.round(size * dpr)
+      c.height = c.width
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      draw()
+    }
+    measure()
+    const resized = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure)
+    resized?.observe(el)
+    if (mode === 'still') return () => resized?.disconnect()
+
+    let id = 0
+    let last = 0
+    let inView = true
+    let visible = document.visibilityState !== 'hidden'
+    let on = false
+    const tick = (now: number) => {
+      const dt = last ? Math.min(0.1, (now - last) / 1000) : 0
+      last = now
+      elapsed += dt
+      const io = introRef.current
+      let target = rateRef.current
+      if (io && reveal < 1) {
+        const p = Math.min(1, Math.max(0, (elapsed - io.delay) / io.duration))
+        reveal = 1 - Math.pow(1 - p, 3)
+        target = 3
+      }
+      current = easeRate(current, target, dt)
+      t += dt * current
+      breath = breatheRef.current && reveal >= 1 ? breath + dt : 0
+      draw()
+      id = requestAnimationFrame(tick)
+    }
+    const sync = () => {
+      const want = inView && visible
+      if (want && !on) {
+        on = true
+        last = 0
+        id = requestAnimationFrame(tick)
+      } else if (!want && on) {
+        on = false
+        cancelAnimationFrame(id)
+      }
+    }
+    const seen =
+      typeof IntersectionObserver === 'undefined'
+        ? null
+        : new IntersectionObserver((entries) => {
+            inView = entries.some((e) => e.isIntersecting)
+            sync()
+          })
+    seen?.observe(c)
+    const onVisibility = () => {
+      visible = document.visibilityState !== 'hidden'
+      sync()
+    }
+    document.addEventListener('visibilitychange', onVisibility)
+    sync()
+    return () => {
+      on = false
+      cancelAnimationFrame(id)
+      seen?.disconnect()
+      resized?.disconnect()
+      document.removeEventListener('visibilitychange', onVisibility)
+    }
+  }, [mode, theme])
+
+  const fallback = (
+    <Image
+      src={FALLBACK}
+      alt=""
+      width={200}
+      height={200}
+      unoptimized
+      style={{ width: '100%', height: '100%', display: 'block' }}
+    />
+  )
+
+  return (
+    <span ref={box} className={className} style={{ display: 'block', ...style }} data-helix={mode}>
+      {mode === 'server' && (intro ? <noscript>{fallback}</noscript> : fallback)}
+      <canvas
+        ref={canvas}
+        aria-hidden="true"
+        style={{ display: mode === 'server' ? 'none' : 'block', width: '100%', height: '100%' }}
+      />
+    </span>
+  )
+}

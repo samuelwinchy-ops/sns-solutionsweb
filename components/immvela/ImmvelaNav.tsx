@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
+import HelixCanvas from './HelixCanvas'
 import { track } from '@vercel/analytics'
 import { type Locale, localePath } from '@/i18n/config'
 import { immvelaT } from '@/i18n/immvela'
@@ -74,15 +74,7 @@ export default function ImmvelaNav({
           aria-label={t('Immvela home')}
           className={markOn ? 'nv-mark is-on' : 'nv-mark'}
         >
-          <Image
-            src="/immvela/redesign/helix-light.svg"
-            alt=""
-            width={40}
-            height={40}
-            unoptimized
-            priority
-            style={{ width: '40px', height: '40px', display: 'block' }}
-          />
+          <HelixCanvas style={{ width: '40px', height: '40px' }} />
         </a>
         <nav
           aria-label={t('Main')}

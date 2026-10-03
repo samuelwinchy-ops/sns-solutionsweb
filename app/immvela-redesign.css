@@ -125,6 +125,10 @@
 @keyframes pvAck{0%{transform:none}40%{transform:scale(1.08)}100%{transform:none}}
 .pv-ack{animation:pvAck .9s cubic-bezier(.4,0,.2,1) 6.2s both}
 
+/* the helix works on the stage's centre line, then docks small on the Exposé's top-left corner as the
+   Exposé lands (website recomposition: the design had the helix and the cards left of centre) */
+@keyframes pvDock{0%{transform:translate(228em,205em) scale(1)}100%{transform:scale(.6)}}
+.pv-dock{transform:scale(.6);animation:pvDock .9s cubic-bezier(.5,0,.2,1) 2s both}
 @keyframes pvFly{0%{opacity:1;transform:none}20%{opacity:1;transform:translateY(-6em)}78%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.12)}}
 .pv-doc{opacity:0;animation:pvFly .9s cubic-bezier(.55,0,.7,.45) var(--d) both}
 
@@ -357,7 +361,7 @@
   .ml-out{left:30px}
   .ml-chip{left:0;right:0;top:12px;width:max-content;margin:0 auto;padding:6px 16px 6px 6px !important;gap:10px !important}
   .ml-chip-mark{width:32px !important;height:32px !important}
-  .ml-chip-mark img{width:26px !important;height:26px !important}
+  .ml-chip-mark > span{width:26px !important;height:26px !important}
   .ml-chip-label{font-size:15px !important}
   .ml-glow{left:calc(50% - 220px);top:130px;width:440px;height:440px}
   .ml-contact{left:calc(50% - 125px);top:610px;width:250px;height:36px}

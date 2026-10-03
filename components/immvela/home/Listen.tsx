@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import type { T } from '@/i18n/immvela'
+import HelixCanvas from '../HelixCanvas'
 
 export default function Listen({ t }: { t: T }) {
   return (
@@ -72,14 +73,7 @@ export default function Listen({ t }: { t: T }) {
                 flex: 'none',
               }}
             >
-              <Image
-                src="/immvela/redesign/helix-light.svg"
-                alt=""
-                style={{ width: '33px', height: '33px', display: 'block' }}
-                width={200}
-                height={200}
-                unoptimized
-              />
+              <HelixCanvas style={{ width: '33px', height: '33px' }} />
             </span>
             <span
               className="ml-chip-label"
@@ -248,14 +242,7 @@ export default function Listen({ t }: { t: T }) {
                             flex: 'none',
                           }}
                         >
-                          <Image
-                            src="/immvela/redesign/helix-light.svg"
-                            alt=""
-                            style={{ width: '23px', height: '23px', display: 'block' }}
-                            width={200}
-                            height={200}
-                            unoptimized
-                          />
+                          <HelixCanvas style={{ width: '23px', height: '23px' }} />
                         </span>
                         <div
                           style={{
