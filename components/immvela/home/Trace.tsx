@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { PHOTOS } from '@/lib/immvela-photos'
 import type { CSSProperties, ReactNode } from 'react'
 import type { HomeVals, TraceKey } from './vals'
 import type { T } from '@/i18n/immvela'
@@ -113,7 +114,6 @@ const DESK: Layout = {
   hl: { side: 12, pad: '9em 12em 4em', quote: 14.5, label: 12.5, rowGr: 34, rowEa: 44, gap: 5 },
   wires: {
     wf: ['M137.6 460V470Q137.6 478 145.6 478H600C626 478 626 557 652 557', 137.6, 460, 652, 557],
-    wf78: ['M137.6 460V470Q137.6 478 145.6 478H600C626 478 626 430 652 430', 137.6, 460, 652, 430],
     zi: ['M228.8 460V470Q228.8 478 236.8 478H600C626 478 626 523 652 523', 228.8, 460, 652, 523],
     bj: ['M320 460V470Q320 478 328 478H600C626 478 626 298 652 298', 320, 460, 652, 298],
     hwb: ['M411.2 460V470Q411.2 478 419.2 478H600C626 478 626 342 652 342', 411.2, 460, 652, 342],
@@ -152,13 +152,6 @@ const PHONE: Layout = {
   hl: { side: 6, pad: '7em 8em 3em', quote: 13, label: 11.5, rowGr: 30, rowEa: 38, gap: 5 },
   wires: {
     wf: ['M45.4 304V318Q45.4 326 37.4 326H16Q8 326 8 334V709Q8 717 16 717H26', 45.4, 304, 26, 717],
-    wf78: [
-      'M45.4 304V318Q45.4 326 37.4 326H16Q8 326 8 334V635Q8 643 16 643H26',
-      45.4,
-      304,
-      26,
-      643,
-    ],
     zi: [
       'M112.2 304V318Q112.2 326 104.2 326H16Q8 326 8 334V679Q8 687 16 687H26',
       112.2,
@@ -197,8 +190,19 @@ const EA_ROWS: [TraceKey, string, string][] = [
   ['bj', 'Baujahr:', '1898'],
   ['hwb', 'Heizwärmebedarf HWB:', '61 kWh/m²a'],
   ['fg', 'Gesamtenergieeffizienz-Faktor fGEE:', '1,02'],
-  ['wf78', 'Wohnfläche:', '78 m²'],
 ]
+
+/** The Wohnfläche cell while the two documents disagree: the two values, then 78 struck for 76. */
+function WfConflict({ step, t }: { step: number; t: T }) {
+  if (step < 1) return <>{t('2 values')}</>
+  return (
+    <span className="tr-wf-fix">
+      <s style={{ opacity: 0.7, textDecorationThickness: '.1em' }}>78</s>
+      <span aria-hidden="true">{' → '}</span>
+      <span>76 m²</span>
+    </span>
+  )
+}
 
 function Row({
   top,
@@ -281,7 +285,10 @@ function Evidence({
             style={{ fontSize: e(L.hl.quote), lineHeight: '1.35', fontWeight: '600', color: ink }}
           >{`“${quote}”`}</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '6em', padding: L.hl.pad }}>
+        <div
+          className="tr-hl-note"
+          style={{ display: 'flex', alignItems: 'flex-start', gap: '6em', padding: L.hl.pad }}
+        >
           <svg
             viewBox="0 0 16 16"
             style={{ width: '14em', height: '14em', flex: 'none', marginTop: '1em' }}
@@ -356,7 +363,7 @@ function Stage({ L, t, v, cls }: { L: Layout; t: T; v: HomeVals; cls: string }) 
   const { paper: P, strip: S, panel: D } = L
   const confirmed = (doc: string) => `${doc}${t(', page 1. Confirmed by you.')}`
   const cells: [TraceKey, string, string][] = [
-    ['wf', 'Wohnfläche', v.trWfValue],
+    ['wf', 'Wohnfläche', '76 m²'],
     ['zi', 'Zimmer', '3'],
     ['bj', 'Baujahr', '1898'],
     ['hwb', 'HWB', '61'],
@@ -390,10 +397,10 @@ function Stage({ L, t, v, cls }: { L: Layout; t: T; v: HomeVals; cls: string }) 
           })}
         >
           <Image
-            src="/immvela/redesign/sample-study.jpg"
+            src={PHOTOS.interior3.src}
             alt=""
-            width={1600}
-            height={1068}
+            width={PHOTOS.interior3.width}
+            height={PHOTOS.interior3.height}
             sizes="(max-width: 959px) 100vw, 500px"
             style={abs({
               left: '0',
@@ -443,7 +450,7 @@ function Stage({ L, t, v, cls }: { L: Layout; t: T; v: HomeVals; cls: string }) 
                 type="button"
                 className={v.trCell(k)}
                 aria-pressed={v.trPressed(k)}
-                disabled={v.trAsking}
+                disabled={!v.trDone}
                 onClick={v.trPick(k)}
                 style={{ padding: S.pad, display: 'flex', flexDirection: 'column', gap: e(S.gap) }}
               >
@@ -469,7 +476,7 @@ function Stage({ L, t, v, cls }: { L: Layout; t: T; v: HomeVals; cls: string }) 
                     fontVariantNumeric: 'tabular-nums',
                   }}
                 >
-                  {k === 'wf' && v.trAsking ? t('2 values') : value}
+                  {k === 'wf' && !v.trDone ? <WfConflict step={v.trStep} t={t} /> : value}
                 </span>
               </button>
             ))}
@@ -495,86 +502,6 @@ function Stage({ L, t, v, cls }: { L: Layout; t: T; v: HomeVals; cls: string }) 
             </div>
           )}
         </div>
-
-        {/* the question, under the amber cell, until a value is chosen */}
-        {v.trAsking && (
-          <div style={abs({ left: e(P.l + L.q.l), top: e(L.q.t), width: e(L.q.w), zIndex: 6 })}>
-            <div
-              className="hl-d3"
-              style={{
-                position: 'relative',
-                background: '#ffffff',
-                borderRadius: '14em',
-                padding: '14em',
-              }}
-            >
-              <span
-                style={abs({
-                  left: e(L.q.arrow),
-                  top: '-6em',
-                  width: '12em',
-                  height: '12em',
-                  background: '#ffffff',
-                  transform: 'rotate(45deg)',
-                  borderRadius: '2em',
-                })}
-              />
-              <div style={{ display: 'flex', alignItems: 'center', gap: '7em' }}>
-                <span
-                  style={{
-                    width: '8em',
-                    height: '8em',
-                    borderRadius: '50%',
-                    background: '#f4b860',
-                    flex: 'none',
-                  }}
-                />
-                <span style={{ fontSize: '12em', lineHeight: '1.5', color: muted }}>
-                  {t('Before this goes out')}
-                </span>
-              </div>
-              <div style={{ marginTop: '6em' }}>
-                <span
-                  style={{
-                    display: 'block',
-                    fontSize: '14em',
-                    lineHeight: '1.45',
-                    fontWeight: '500',
-                    color: ink,
-                  }}
-                >
-                  {t(
-                    'Wohnfläche: 78 m² in the Energieausweis, 76 m² in the floor plan. Which is right?'
-                  )}
-                </span>
-              </div>
-              <div
-                style={{
-                  marginTop: '12em',
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '8em',
-                }}
-              >
-                {(
-                  [
-                    ['wf78', '78 m²', 'Energieausweis'],
-                    ['wf', '76 m²', t('Floor plan')],
-                  ] as [TraceKey, string, string][]
-                ).map(([k, val, src]) => (
-                  <button key={k} type="button" className="tr-opt" onClick={v.trAnswer(k)}>
-                    <span style={{ fontSize: '14em', lineHeight: '1.3', fontWeight: '600' }}>
-                      {val}
-                    </span>
-                    <span style={{ fontSize: '11.5em', lineHeight: '1.3', opacity: '.8' }}>
-                      {src}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* the source pages */}
         <div style={abs({ left: e(D.l), top: e(D.t), width: e(D.w), height: e(D.h), zIndex: 2 })}>
@@ -845,7 +772,7 @@ export default function Trace({ t, v }: { t: T; v: HomeVals }) {
           }}
         >
           {t(
-            'When two documents disagree, Immvela asks you. Every value keeps the page and the exact line it was read from, and who confirmed it.'
+            'When two documents disagree, Immvela flags it before anything goes out. Every value keeps the page and the exact line it was read from, and who confirmed it.'
           )}
         </p>
       </div>
@@ -870,9 +797,9 @@ export default function Trace({ t, v }: { t: T; v: HomeVals }) {
             textWrap: 'pretty',
           }}
         >
-          {v.trAsking
-            ? t('Choose the value that is right to confirm it.')
-            : t('Tap any value in the strip to trace it.')}
+          <span style={{ visibility: v.trDone ? 'visible' : 'hidden' }}>
+            {t('Tap any value in the strip to trace it.')}
+          </span>
         </p>
       </div>
     </section>

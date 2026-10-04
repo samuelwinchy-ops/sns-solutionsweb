@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { PHOTOS } from '@/lib/immvela-photos'
 import type { T } from '@/i18n/immvela'
 import HelixCanvas from '../HelixCanvas'
 
@@ -144,7 +145,7 @@ export default function Listen({ t }: { t: T }) {
                       }}
                     >
                       <Image
-                        src="/immvela/redesign/sample-cover.jpg"
+                        src={PHOTOS.coverMain.src}
                         alt=""
                         style={{
                           width: '34px',
@@ -154,8 +155,8 @@ export default function Listen({ t }: { t: T }) {
                           display: 'block',
                           flex: 'none',
                         }}
-                        width={1300}
-                        height={1107}
+                        width={PHOTOS.coverMain.width}
+                        height={PHOTOS.coverMain.height}
                         sizes="300px"
                       />
                       <div
@@ -443,13 +444,19 @@ export default function Listen({ t }: { t: T }) {
                       {(
                         [
                           [
-                            '/immvela/redesign/sample-lounge.jpg',
-                            960,
-                            637,
+                            PHOTOS.interior2.src,
+                            PHOTOS.interior2.width,
+                            PHOTOS.interior2.height,
                             'Instagram',
                             'linear-gradient(45deg,#f9a52b,#e1306c,#833ab4)',
                           ],
-                          ['/immvela/redesign/sample-cover.jpg', 1300, 1107, 'LinkedIn', '#0a66c2'],
+                          [
+                            PHOTOS.coverMain.src,
+                            PHOTOS.coverMain.width,
+                            PHOTOS.coverMain.height,
+                            'LinkedIn',
+                            '#0a66c2',
+                          ],
                         ] as [string, number, number, string, string][]
                       ).map(([src, w, h, name, bg]) => (
                         <div

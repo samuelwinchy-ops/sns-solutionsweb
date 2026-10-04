@@ -17,14 +17,12 @@ import type { T } from '@/i18n/immvela'
 /** The trace section's example listing (Praterstraße 31): each value, its document, and the line. */
 const SOURCES = {
   wf: ['Wohnfläche 76 m²', 'Grundriss', 'Wohnfläche gesamt: 76,0 m²'],
-  wf78: ['Wohnfläche 78 m²', 'Energieausweis', 'Wohnfläche: 78 m²'],
   zi: ['Zimmer 3', 'Grundriss', 'Zimmer: 3'],
   bj: ['Baujahr 1898', 'Energieausweis', 'Baujahr: 1898'],
   hwb: ['HWB 61', 'Energieausweis', 'Heizwärmebedarf HWB: 61 kWh/m²a'],
   fg: ['fGEE 1,02', 'Energieausweis', 'Gesamtenergieeffizienz-Faktor fGEE: 1,02'],
 } as const
 export type TraceKey = keyof typeof SOURCES
-type WfAnswer = 'wf' | 'wf78'
 type Phase = 'idle' | 'play' | 'out' | 'reset' | 'done'
 
 export function useHomeVals(
@@ -38,8 +36,9 @@ export function useHomeVals(
 ) {
   const [pvRun, setPvRun] = useState(0)
   const [pvPhase, setPvPhase] = useState<Phase>('idle')
-  // trace: opens on the question; the answer picks the Wohnfläche and its source
-  const [trAnswerKey, setTrAnswerKey] = useState<WfAnswer | null>(null)
+  // trace: plays once in view, a step about every second and a half (0 waiting, 1 the two values,
+  // 2 the source slides out as the line draws, 3 the line lifts, 4 confirmed); then every value traces
+  const [trStep, setTrStep] = useState(0)
   const [trSel, setTrSel] = useState<TraceKey | null>(null)
   const [trStill, setTrStill] = useState(true)
   const trStageEl = useRef<HTMLDivElement | null>(null)
@@ -105,35 +104,41 @@ export function useHomeVals(
     return () => ids.forEach(clearTimeout)
   }, [pvPhase, pvRun])
 
-  const trAnswer = useCallback((k: WfAnswer, still = false) => {
-    setTrAnswerKey((cur) => cur ?? k)
-    setTrSel((cur) => cur ?? k)
-    setTrStill(still)
-  }, [])
-
   useEffect(() => {
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
-      trAnswer('wf', true)
+      setTrStep(4)
+      setTrSel('wf')
       return
     }
     const el = trStageEl.current
-    if (!el || !('IntersectionObserver' in window)) return
-    let timer = 0
+    if (!el || !('IntersectionObserver' in window)) {
+      setTrStep(4)
+      setTrSel('wf')
+      return
+    }
+    const timers: number[] = []
+    const at = (ms: number, f: () => void) => timers.push(window.setTimeout(f, ms))
     const io = new IntersectionObserver(
       (entries) => {
-        if (entries.some((e) => e.isIntersecting && e.intersectionRatio >= 0.5) && !timer) {
-          timer = window.setTimeout(() => trAnswer('wf'), 1600)
-          io.disconnect()
-        }
+        if (!entries.some((e) => e.isIntersecting && e.intersectionRatio >= 0.5)) return
+        io.disconnect()
+        at(700, () => setTrStep(1))
+        at(2300, () => {
+          setTrStill(false)
+          setTrSel('wf')
+          setTrStep(2)
+        })
+        at(5200, () => setTrStep(3))
+        at(6900, () => setTrStep(4))
       },
       { rootMargin: '-84px 0px 0px 0px', threshold: [0, 0.5] }
     )
     io.observe(el)
     return () => {
       io.disconnect()
-      clearTimeout(timer)
+      timers.forEach(clearTimeout)
     }
-  }, [trAnswer])
+  }, [])
 
   const pvReplay = useCallback(() => {
     seen.current = true
@@ -159,7 +164,8 @@ export function useHomeVals(
   }, [])
 
   const src = trSel ? SOURCES[trSel] : null
-  const isOn = (k: TraceKey) => trSel === k || (k === 'wf' && trSel === 'wf78')
+  const done = trStep >= 4
+  const isOn = (k: TraceKey) => done && trSel === k
   return {
     ...links,
     setMark: undefined as undefined | ((el: HTMLDivElement | null) => void),
@@ -176,23 +182,25 @@ export function useHomeVals(
     trSetStage: (el: HTMLDivElement | null) => {
       trStageEl.current = el
     },
-    trStageClass: 'tr-stage' + (trStill ? ' is-still' : ''),
-    trAsking: trAnswerKey === null,
-    trWfValue: trAnswerKey === 'wf78' ? '78 m²' : '76 m²',
-    trCell: (k: TraceKey) =>
-      'tr-v' + (k === 'wf' && !trAnswerKey ? ' is-ask' : isOn(k) ? ' is-on' : ''),
+    trStageClass: 'tr-stage' + (trStill ? ' is-still' : '') + (done ? '' : ' tr-slow'),
+    trStep,
+    trDone: done,
+    trCell: (k: TraceKey) => 'tr-v' + (k === 'wf' && !done ? ' is-ask' : isOn(k) ? ' is-on' : ''),
     trPressed: (k: TraceKey) => isOn(k),
     trPick: (k: TraceKey) => () => {
-      setTrSel(k === 'wf' ? (trAnswerKey ?? 'wf') : k)
+      setTrSel(k)
       setTrStill(false)
     },
-    trAnswer: (k: TraceKey) => () => trAnswer(k === 'wf78' ? 'wf78' : 'wf'),
     trDoc: (doc: string) => 'tr-doc' + (src && src[1] === doc ? ' is-on' : ''),
-    trHl: (k: TraceKey) => 'tr-hl' + (trSel === k ? ' is-on' : ''),
+    trHl: (k: TraceKey) =>
+      'tr-hl' +
+      (trSel === k && (done || trStep >= 3) ? ' is-on' : '') +
+      (done ? ' is-confirmed' : ''),
     trWire: (k: TraceKey) => 'tr-k' + (trSel === k ? ' is-on' : ''),
-    live: src
-      ? `${src[0]}${t(', read from the ')}${src[1]}${t(', page 1: ')}${src[2]}${t('. Confirmed by you.')}`
-      : '',
+    live:
+      done && src
+        ? `${src[0]}${t(', read from the ')}${src[1]}${t(', page 1: ')}${src[2]}${t('. Confirmed by you.')}`
+        : '',
 
     swStageClass: 'sw-stage' + (swEase ? ' sw-ease' : ''),
     clip: `inset(0 ${100 - swPos}% 0 0)`,

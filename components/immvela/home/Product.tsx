@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import type { CSSProperties, ReactNode } from 'react'
 import HelixCanvas from '../HelixCanvas'
+import { PHOTOS } from '@/lib/immvela-photos'
+import type { Photo } from '@/lib/immvela-photos'
 import type { HomeVals } from './vals'
 import type { T } from '@/i18n/immvela'
 
@@ -140,7 +142,7 @@ function Docs({
   at,
 }: {
   t: T
-  at: { tiles: [Box, string, string][]; photos: [Box, string, string, string][] }
+  at: { tiles: [Box, string, string][]; photos: [Box, string, string, Photo][] }
 }) {
   const tile = (label: string, icon: ReactNode) => (
     <div
@@ -235,9 +237,9 @@ function Docs({
           {i === 0 ? tile(t('Energieausweis'), eaIcon) : tile(t('Grundriss'), planIcon)}
         </At>
       ))}
-      {at.photos.map(([box, dx, dy, src], i) => (
+      {at.photos.map(([box, dx, dy, ph], i) => (
         <At
-          key={src}
+          key={i}
           box={{ ...box, z: 5 }}
           className="pv-a pv-doc"
           vars={{ '--dx': dx, '--dy': dy, '--d': `${0.55 + i * 0.15}s` }}
@@ -247,10 +249,10 @@ function Docs({
             style={{ background: '#ffffff', padding: '3em', borderRadius: '5em' }}
           >
             <Image
-              src={src}
+              src={ph.src}
               alt=""
-              width={1600}
-              height={1068}
+              width={ph.width}
+              height={ph.height}
               sizes="80px"
               style={{
                 display: 'block',
@@ -282,10 +284,10 @@ function Expose({ t, photoH }: { t: T; photoH: number }) {
       style={{ background: '#fbfaf5', color: '#1c2a25', borderRadius: '8em', overflow: 'hidden' }}
     >
       <Image
-        src="/immvela/redesign/sample-cover.jpg"
+        src={PHOTOS.coverMain.src}
         alt=""
-        width={1300}
-        height={1107}
+        width={PHOTOS.coverMain.width}
+        height={PHOTOS.coverMain.height}
         sizes="(max-width: 760px) 90vw, 420px"
         style={{ width: '100%', height: px(photoH), objectFit: 'cover', display: 'block' }}
       />
@@ -395,21 +397,19 @@ function Brochure({ t, h }: { t: T; h: number }) {
       }}
     >
       <Image
-        src="/immvela/redesign/sample-cover.jpg"
+        src={(PHOTOS.exterior ?? PHOTOS.coverMain).src}
         alt=""
-        width={1300}
-        height={1107}
+        width={(PHOTOS.exterior ?? PHOTOS.coverMain).width}
+        height={(PHOTOS.exterior ?? PHOTOS.coverMain).height}
         sizes="240px"
         style={{ width: '100%', height: '46%', objectFit: 'cover', display: 'block' }}
       />
       <div style={{ padding: '11em 12em', display: 'flex', flexDirection: 'column', gap: '6em' }}>
         <span
           style={{
-            fontSize: '9.5em',
+            fontSize: '11em',
             lineHeight: '1.3',
-            letterSpacing: '.08em',
-            textTransform: 'uppercase',
-            color: '#1f7a5a',
+            color: '#1a6b4f',
             fontWeight: '600',
           }}
         >
@@ -480,10 +480,10 @@ function Post({ t, photoH }: { t: T; photoH: number }) {
         </span>
       </div>
       <Image
-        src="/immvela/redesign/sample-lounge.jpg"
+        src={PHOTOS.interior2.src}
         alt=""
-        width={960}
-        height={637}
+        width={PHOTOS.interior2.width}
+        height={PHOTOS.interior2.height}
         sizes="260px"
         style={{ width: '100%', height: px(photoH), objectFit: 'cover', display: 'block' }}
       />
@@ -537,10 +537,10 @@ function Staged({ t, w, h }: { t: T; w: number; h: number }) {
       style={{ position: 'relative', background: '#ffffff', padding: '6em', borderRadius: '4em' }}
     >
       <Image
-        src="/immvela/redesign/sample-living.jpg"
+        src={PHOTOS.stagedRoom.src}
         alt=""
-        width={1600}
-        height={1142}
+        width={PHOTOS.stagedRoom.width}
+        height={PHOTOS.stagedRoom.height}
         sizes="240px"
         style={{
           display: 'block',
@@ -578,11 +578,8 @@ function Helix({ v, box, dock, inner }: { v: HomeVals; box: Box; dock: boolean; 
   )
 }
 
-const PHOTOS = [
-  '/immvela/redesign/sample-living.jpg',
-  '/immvela/redesign/sample-lounge.jpg',
-  '/immvela/redesign/sample-study.jpg',
-]
+// the three photos that go in: rooms of the listing, one of them empty (staged later)
+const INPUTS = [PHOTOS.interior2, PHOTOS.coverMain, PHOTOS.emptyRoom ?? PHOTOS.interior2]
 
 export default function Product({ t, v }: { t: T; v: HomeVals }) {
   // desktop helix centre while working: the stage's centre line
@@ -631,9 +628,9 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                       [{ left: 162, top: 196, width: 128 }, '354em', '35em'],
                     ],
                     photos: [
-                      [{ left: 22, top: 268, width: 64 }, '526em', '-38em', PHOTOS[0]],
-                      [{ left: 108, top: 268, width: 64 }, '440em', '-38em', PHOTOS[1]],
-                      [{ left: 194, top: 268, width: 64 }, '354em', '-38em', PHOTOS[2]],
+                      [{ left: 22, top: 268, width: 64 }, '526em', '-38em', INPUTS[0]],
+                      [{ left: 108, top: 268, width: 64 }, '440em', '-38em', INPUTS[1]],
+                      [{ left: 194, top: 268, width: 64 }, '354em', '-38em', INPUTS[2]],
                     ],
                   }}
                 />
@@ -674,16 +671,16 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                 </div>
 
                 {/* the four outputs, balanced on the centre axis */}
-                <Arrive box={{ left: 180, top: 120, width: 236, z: 2 }} from={C} r={-6} d={2.55}>
+                <Arrive box={{ left: 128, top: 120, width: 236, z: 2 }} from={C} r={-6} d={2.55}>
                   <Brochure t={t} h={330} />
                 </Arrive>
-                <Arrive box={{ left: 744, top: 64, width: 246, z: 2 }} from={C} r={5} d={2.8}>
+                <Arrive box={{ left: 800, top: 64, width: 246, z: 2 }} from={C} r={5} d={2.8}>
                   <Post t={t} photoH={140} />
                 </Arrive>
                 <Arrive box={{ left: 380, top: 40, width: 400, z: 3 }} from={C} r={-1.5} d={2.3}>
                   <Expose t={t} photoH={150} />
                 </Arrive>
-                <Arrive box={{ left: 700, top: 382, width: 232, z: 4 }} from={C} r={3} d={3.05}>
+                <Arrive box={{ left: 736, top: 360, width: 232, z: 4 }} from={C} r={3} d={3.05}>
                   <Staged t={t} w={220} h={150} />
                 </Arrive>
               </div>
@@ -709,9 +706,9 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                       [{ left: 140, top: 0, width: 118 }, '-24em', '66em'],
                     ],
                     photos: [
-                      [{ left: 266, top: -2, width: 40 }, '-111em', '64em', PHOTOS[0]],
-                      [{ left: 266, top: 44, width: 40 }, '-111em', '18em', PHOTOS[1]],
-                      [{ left: 310, top: 22, width: 40 }, '-155em', '41em', PHOTOS[2]],
+                      [{ left: 266, top: -2, width: 40 }, '-111em', '64em', INPUTS[0]],
+                      [{ left: 266, top: 44, width: 40 }, '-111em', '18em', INPUTS[1]],
+                      [{ left: 310, top: 22, width: 40 }, '-155em', '41em', INPUTS[2]],
                     ],
                   }}
                 />
@@ -815,10 +812,10 @@ function PhonePost({ t }: { t: T }) {
         </span>
       </div>
       <Image
-        src="/immvela/redesign/sample-lounge.jpg"
+        src={PHOTOS.interior2.src}
         alt=""
-        width={960}
-        height={637}
+        width={PHOTOS.interior2.width}
+        height={PHOTOS.interior2.height}
         sizes="120px"
         style={{ width: '100%', height: '96em', objectFit: 'cover', display: 'block' }}
       />

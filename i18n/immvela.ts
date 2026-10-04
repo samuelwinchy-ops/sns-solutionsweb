@@ -275,6 +275,13 @@ const DE: Record<string, string> = {
   'Every staged photo is labelled as virtually staged.':
     'Jedes eingerichtete Foto ist als virtuell eingerichtet gekennzeichnet.',
   ' percent staged': ' Prozent eingerichtet',
+  // pass 4: slower trace, tile field, shorter details
+  'When two documents disagree, Immvela flags it before anything goes out. Every value keeps the page and the exact line it was read from, and who confirmed it.':
+    'Wenn sich zwei Unterlagen widersprechen, markiert Immvela das, bevor etwas hinausgeht. Jeder Wert behält die Seite und die genaue Zeile, aus der er gelesen wurde, und wer ihn bestätigt hat.',
+  'In, via OpenImmo export': 'Rein, per OpenImmo-Export',
+  'Out, always after your approval': 'Raus, immer erst nach Ihrer Freigabe',
+  'Sharp: works today. Faded: planned.': 'Scharf: funktioniert heute. Verblasst: geplant.',
+  'Good to know': 'Gut zu wissen',
 }
 
 export type T = (english: string) => string

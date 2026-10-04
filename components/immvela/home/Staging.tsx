@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { PHOTOS } from '@/lib/immvela-photos'
 import HelixCanvas from '../HelixCanvas'
 import type { HomeVals } from './vals'
 import type { T } from '@/i18n/immvela'
@@ -233,7 +234,7 @@ export default function Staging({ t, v }: { t: T; v: HomeVals }) {
             >
               <Image
                 className="sw-settle"
-                src="/immvela/redesign/sample-living.jpg"
+                src={PHOTOS.stagedRoom.src}
                 alt=""
                 style={{
                   position: 'absolute',
@@ -243,8 +244,8 @@ export default function Staging({ t, v }: { t: T; v: HomeVals }) {
                   objectFit: 'cover',
                   display: 'block',
                 }}
-                width={1600}
-                height={1142}
+                width={PHOTOS.stagedRoom.width}
+                height={PHOTOS.stagedRoom.height}
                 sizes="(max-width: 1208px) 100vw, 1160px"
               />
               <span
