@@ -397,10 +397,10 @@ function Stage({ L, t, v, cls }: { L: Layout; t: T; v: HomeVals; cls: string }) 
           })}
         >
           <Image
-            src={PHOTOS.interior3.src}
+            src={PHOTOS.secondListing.living.src}
             alt=""
-            width={PHOTOS.interior3.width}
-            height={PHOTOS.interior3.height}
+            width={PHOTOS.secondListing.living.width}
+            height={PHOTOS.secondListing.living.height}
             sizes="(max-width: 959px) 100vw, 500px"
             style={abs({
               left: '0',

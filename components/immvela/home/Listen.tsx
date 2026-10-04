@@ -157,7 +157,7 @@ export default function Listen({ t }: { t: T }) {
                         }}
                         width={PHOTOS.coverMain.width}
                         height={PHOTOS.coverMain.height}
-                        sizes="300px"
+                        sizes="40px"
                       />
                       <div
                         style={{
@@ -451,9 +451,9 @@ export default function Listen({ t }: { t: T }) {
                             'linear-gradient(45deg,#f9a52b,#e1306c,#833ab4)',
                           ],
                           [
-                            PHOTOS.coverMain.src,
-                            PHOTOS.coverMain.width,
-                            PHOTOS.coverMain.height,
+                            PHOTOS.interior3.src,
+                            PHOTOS.interior3.width,
+                            PHOTOS.interior3.height,
                             'LinkedIn',
                             '#0a66c2',
                           ],

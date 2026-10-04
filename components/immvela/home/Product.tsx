@@ -579,7 +579,7 @@ function Helix({ v, box, dock, inner }: { v: HomeVals; box: Box; dock: boolean; 
 }
 
 // the three photos that go in: rooms of the listing, one of them empty (staged later)
-const INPUTS = [PHOTOS.interior2, PHOTOS.coverMain, PHOTOS.emptyRoom ?? PHOTOS.interior2]
+const INPUTS = [PHOTOS.interior2, PHOTOS.interior3, PHOTOS.emptyRoom ?? PHOTOS.interior2]
 
 export default function Product({ t, v }: { t: T; v: HomeVals }) {
   // desktop helix centre while working: the stage's centre line

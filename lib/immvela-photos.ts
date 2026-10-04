@@ -2,33 +2,42 @@
  * Every sample photo on the immvela.com pages, by role. Swapping a photo is one line here: replace
  * `src` and its pixel size. Sections read only from this file, never a path of their own.
  *
- * A role with no photo yet is `null`; the sections fall back as noted, so a new file can arrive
- * later without touching them.
+ * Photos: Unsplash License, credited in public/immvela/redesign/photos/CREDITS.md.
  */
 export type Photo = { src: string; width: number; height: number }
 
-const P = (src: string, width: number, height: number): Photo => ({ src: `/immvela/redesign/${src}`, width, height })
+const P = (src: string, width: number, height: number): Photo => ({
+  src: `/immvela/redesign/${src}`,
+  width,
+  height,
+})
 
 export const PHOTOS: {
   /** The main listing's cover: the Exposé in "Documents in", the listing avatar in the phone. */
   coverMain: Photo
-  /** A second room of the main listing: the Instagram post, the first input thumbnail. */
+  /** The main listing's kitchen: the Instagram post, an input thumbnail. */
   interior2: Photo
-  /** The second example listing (Praterstraße 31) in the trace section. */
+  /** The main listing's bedroom: an input thumbnail, the LinkedIn post in the phone. */
   interior3: Photo
-  /** An empty room before staging. None yet: the inputs fall back to `interior2`, the staging section draws its room. */
+  /** An empty room before staging: the third input thumbnail. */
   emptyRoom: Photo | null
   /** The virtually staged result, always shown with its "Virtually staged" label. */
   stagedRoom: Photo
-  /** The building from outside: the brochure page. None yet: falls back to `coverMain`. */
+  /** The building from outside (Vienna, Gründerzeit): the brochure page. */
   exterior: Photo | null
+  /** The second example listing (Praterstraße 31) in the trace section. */
+  secondListing: { living: Photo; dining: Photo }
 } = {
-  coverMain: P('sample-cover.jpg', 1300, 1107),
-  interior2: P('sample-lounge.jpg', 960, 637),
-  interior3: P('sample-study.jpg', 1600, 1068),
-  emptyRoom: null,
+  coverMain: P('photos/coverMain.jpg', 2400, 1600),
+  interior2: P('photos/interior2.jpg', 2400, 1600),
+  interior3: P('photos/interior3.jpg', 2400, 1600),
+  emptyRoom: P('photos/emptyRoom.jpg', 2400, 1600),
   stagedRoom: P('sample-living.jpg', 1600, 1142),
-  exterior: null,
+  exterior: P('photos/exterior.jpg', 2400, 1600),
+  secondListing: {
+    living: P('photos/second-living.jpg', 2400, 1600),
+    dining: P('photos/second-dining.jpg', 2400, 1600),
+  },
 }
 
 /** The image props for next/image. */
