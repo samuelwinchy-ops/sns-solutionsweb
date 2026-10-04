@@ -584,7 +584,6 @@ function Stage({ L, t, v, cls }: { L: Layout; t: T; v: HomeVals; cls: string }) 
                   right: 'var(--x)',
                   top: e(L.gr.plan[0]),
                   height: e(L.gr.plan[1]),
-                  fontSize: e(L.gr.plan[2]),
                 })}
               >
                 <svg

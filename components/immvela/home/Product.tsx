@@ -678,12 +678,12 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                   <Brochure t={t} h={330} />
                 </Arrive>
                 <Arrive box={{ left: 744, top: 64, width: 246, z: 2 }} from={C} r={5} d={2.8}>
-                  <Post t={t} photoH={168} />
+                  <Post t={t} photoH={140} />
                 </Arrive>
                 <Arrive box={{ left: 380, top: 40, width: 400, z: 3 }} from={C} r={-1.5} d={2.3}>
                   <Expose t={t} photoH={150} />
                 </Arrive>
-                <Arrive box={{ left: 712, top: 336, width: 232, z: 4 }} from={C} r={3} d={3.05}>
+                <Arrive box={{ left: 700, top: 382, width: 232, z: 4 }} from={C} r={3} d={3.05}>
                   <Staged t={t} w={220} h={150} />
                 </Arrive>
               </div>

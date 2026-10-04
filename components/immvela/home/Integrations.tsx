@@ -8,7 +8,7 @@ import type { T } from '@/i18n/immvela'
  * (text wordmarks, never their logos, no partnership implied) and the five social channels. The
  * portals are planned and sit below, lighter and unconnected. A still: only the helix turns.
  *
- * Desktop stage: 1160 x 380 design px, 1em = one design px. Phones get a stacked flow.
+ * Desktop stage: 1160 x 345 design px, 1em = one design px. Phones get a stacked flow.
  */
 
 const H2: CSSProperties = {
@@ -79,9 +79,9 @@ const CHANNELS = ['Instagram', 'Facebook', 'LinkedIn', 'TikTok', 'YouTube']
 // desktop geometry (design px)
 const IN_X = [60, 300]
 const OUT_X = [860, 1100]
-const C = { x: 580, y: 190, r: 74 }
-const inY = (i: number) => 98 + i * 64
-const outY = (i: number) => 74 + i * 58
+const C = { x: 580, y: 172, r: 70 }
+const inY = (i: number) => 84 + i * 60
+const outY = (i: number) => 64 + i * 52
 
 export default function Integrations({ t }: { t: T }) {
   return (
@@ -118,9 +118,9 @@ export default function Integrations({ t }: { t: T }) {
             aria-hidden="true"
             style={{ containerType: 'inline-size', width: '100%' }}
           >
-            <div style={{ position: 'relative', fontSize: 'calc(100cqw / 1160)', height: '380em' }}>
+            <div style={{ position: 'relative', fontSize: 'calc(100cqw / 1160)', height: '345em' }}>
               <svg
-                viewBox="0 0 1160 380"
+                viewBox="0 0 1160 345"
                 style={{
                   position: 'absolute',
                   inset: '0',
@@ -150,7 +150,7 @@ export default function Integrations({ t }: { t: T }) {
                 ))}
               </svg>
 
-              <span className="in-label" style={{ left: `${IN_X[0]}em`, top: '30em' }}>
+              <span className="in-label" style={{ left: `${IN_X[0]}em`, top: '22em' }}>
                 <span>{t('In, from your CRM')}</span>
               </span>
               {CRMS.map((name, i) => (
@@ -166,7 +166,7 @@ export default function Integrations({ t }: { t: T }) {
                   <span style={{ fontSize: '17em' }}>{name}</span>
                 </span>
               ))}
-              <span className="in-cap" style={{ left: `${IN_X[0]}em`, top: `${inY(3) + 40}em` }}>
+              <span className="in-cap" style={{ left: `${IN_X[0]}em`, top: `${inY(3) + 36}em` }}>
                 <span>{t('via OpenImmo export')}</span>
               </span>
 
@@ -191,11 +191,11 @@ export default function Integrations({ t }: { t: T }) {
                     boxSizing: 'border-box',
                   }}
                 >
-                  <HelixCanvas style={{ width: '112em', height: '112em' }} />
+                  <HelixCanvas style={{ width: '106em', height: '106em' }} />
                 </span>
               </span>
 
-              <span className="in-label" style={{ left: `${OUT_X[0]}em`, top: '30em' }}>
+              <span className="in-label" style={{ left: `${OUT_X[0]}em`, top: '22em' }}>
                 <span>{t('Out, to your channels')}</span>
               </span>
               {CHANNELS.map((name, i) => (
@@ -212,7 +212,7 @@ export default function Integrations({ t }: { t: T }) {
                   <span style={{ fontSize: '15em' }}>{name}</span>
                 </span>
               ))}
-              <span className="in-cap" style={{ left: `${OUT_X[0]}em`, top: `${outY(4) + 34}em` }}>
+              <span className="in-cap" style={{ left: `${OUT_X[0]}em`, top: `${outY(4) + 30}em` }}>
                 <span>{t('always after your approval')}</span>
               </span>
             </div>
@@ -245,15 +245,15 @@ export default function Integrations({ t }: { t: T }) {
             </div>
             <span className="in-pcap">{t('always after your approval')}</span>
           </div>
-        </div>
 
-        <div className="in-planned">
-          <span className="sp-next">{t('Planned')}</span>
-          {PLANNED.map((name) => (
-            <span key={name} className="in-soon">
-              {name}
-            </span>
-          ))}
+          <div className="in-planned">
+            <span className="sp-next">{t('Planned')}</span>
+            {PLANNED.map((name) => (
+              <span key={name} className="in-soon">
+                {name}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
