@@ -395,10 +395,10 @@ function Brochure({ t, h }: { t: T; h: number }) {
       }}
     >
       <Image
-        src="/immvela/redesign/sample-study.jpg"
+        src="/immvela/redesign/sample-cover.jpg"
         alt=""
-        width={1600}
-        height={1068}
+        width={1300}
+        height={1107}
         sizes="240px"
         style={{ width: '100%', height: '46%', objectFit: 'cover', display: 'block' }}
       />
