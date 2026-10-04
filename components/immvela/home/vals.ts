@@ -10,17 +10,21 @@ import type { T } from '@/i18n/immvela'
  * design/immvela-redesign/project/Immvela.dc.html. The sections read everything they bind
  * from the object this returns, under the names the design used.
  *
- * Motion budget: the product stage plays once, when a third of it is on screen; the trace and
- * the staging move only when the visitor acts. Reduced motion shows every final frame.
+ * Motion budget: the product stage plays once, when a third of it is on screen; the trace answers
+ * its question once in view if the visitor has not; everything else moves only when the visitor
+ * acts. Reduced motion shows every final frame.
  */
+/** The trace section's example listing (Praterstraße 31): each value, its document, and the line. */
 const SOURCES = {
   wf: ['Wohnfläche 76 m²', 'Grundriss', 'Wohnfläche gesamt: 76,0 m²'],
+  wf78: ['Wohnfläche 78 m²', 'Energieausweis', 'Wohnfläche: 78 m²'],
   zi: ['Zimmer 3', 'Grundriss', 'Zimmer: 3'],
-  bj: ['Baujahr 1908', 'Energieausweis', 'Baujahr: 1908'],
-  hwb: ['HWB 48', 'Energieausweis', 'Heizwärmebedarf HWB: 48 kWh/m²a'],
-  fg: ['fGEE 0,92', 'Energieausweis', 'Gesamtenergieeffizienz-Faktor fGEE: 0,92'],
+  bj: ['Baujahr 1898', 'Energieausweis', 'Baujahr: 1898'],
+  hwb: ['HWB 61', 'Energieausweis', 'Heizwärmebedarf HWB: 61 kWh/m²a'],
+  fg: ['fGEE 1,02', 'Energieausweis', 'Gesamtenergieeffizienz-Faktor fGEE: 1,02'],
 } as const
-type Key = keyof typeof SOURCES
+export type TraceKey = keyof typeof SOURCES
+type WfAnswer = 'wf' | 'wf78'
 type Phase = 'idle' | 'play' | 'out' | 'reset' | 'done'
 
 export function useHomeVals(
@@ -34,12 +38,15 @@ export function useHomeVals(
 ) {
   const [pvRun, setPvRun] = useState(0)
   const [pvPhase, setPvPhase] = useState<Phase>('idle')
-  const [trSel, setTrSel] = useState<Key>('hwb')
+  // trace: opens on the question; the answer picks the Wohnfläche and its source
+  const [trAnswerKey, setTrAnswerKey] = useState<WfAnswer | null>(null)
+  const [trSel, setTrSel] = useState<TraceKey | null>(null)
   const [trStill, setTrStill] = useState(true)
+  const trStageEl = useRef<HTMLDivElement | null>(null)
   const [swEase, setSwEase] = useState(false)
   const [swPos, setSwPos] = useState(50)
   // The product helix's speed follows the stage: fast while the documents go in, slower while it
-  // drafts, nearly still while it waits on the agent's answer, back to rest once confirmed.
+  // drafts, back to rest once the drafts are out. HelixCanvas eases every change.
   const [pvHelixRate, setPvHelixRate] = useState(1)
 
   const stageEl = useRef<HTMLDivElement | null>(null)
@@ -92,12 +99,41 @@ export function useHomeVals(
     setPvHelixRate(3)
     const steps: [number, number][] = [
       [2300, 1.6],
-      [3600, 0.12],
-      [6200, 1],
+      [4100, 1],
     ]
     const ids = steps.map(([ms, r]) => window.setTimeout(() => setPvHelixRate(r), ms))
     return () => ids.forEach(clearTimeout)
   }, [pvPhase, pvRun])
+
+  const trAnswer = useCallback((k: WfAnswer, still = false) => {
+    setTrAnswerKey((cur) => cur ?? k)
+    setTrSel((cur) => cur ?? k)
+    setTrStill(still)
+  }, [])
+
+  useEffect(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      trAnswer('wf', true)
+      return
+    }
+    const el = trStageEl.current
+    if (!el || !('IntersectionObserver' in window)) return
+    let timer = 0
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting && e.intersectionRatio >= 0.5) && !timer) {
+          timer = window.setTimeout(() => trAnswer('wf'), 1600)
+          io.disconnect()
+        }
+      },
+      { rootMargin: '-84px 0px 0px 0px', threshold: [0, 0.5] }
+    )
+    io.observe(el)
+    return () => {
+      io.disconnect()
+      clearTimeout(timer)
+    }
+  }, [trAnswer])
 
   const pvReplay = useCallback(() => {
     seen.current = true
@@ -122,12 +158,8 @@ export function useHomeVals(
     setSwPos(Math.max(0, Math.min(100, n)))
   }, [])
 
-  const src = SOURCES[trSel]
-  const pick = (k: Key) => () => {
-    setTrSel(k)
-    setTrStill(false)
-  }
-  const cls = (k: Key, base: string) => base + (trSel === k ? ' is-on' : '')
+  const src = trSel ? SOURCES[trSel] : null
+  const isOn = (k: TraceKey) => trSel === k || (k === 'wf' && trSel === 'wf78')
   return {
     ...links,
     setMark: undefined as undefined | ((el: HTMLDivElement | null) => void),
@@ -141,37 +173,26 @@ export function useHomeVals(
       stageEl.current = el
     },
 
+    trSetStage: (el: HTMLDivElement | null) => {
+      trStageEl.current = el
+    },
     trStageClass: 'tr-stage' + (trStill ? ' is-still' : ''),
-    dGr: 'tr-doc' + (src[1] === 'Grundriss' ? ' is-on' : ''),
-    dEa: 'tr-doc' + (src[1] === 'Energieausweis' ? ' is-on' : ''),
-    live: trStill
-      ? ''
-      : `${src[0]}${t(', read from the ')}${src[1]}${t(', page 1: ')}${src[2]}${t('. Confirmed by you on 2 October.')}`,
-    cWf: cls('wf', 'tr-v'),
-    pWf: trSel === 'wf',
-    hWf: cls('wf', 'tr-hl'),
-    kWf: cls('wf', 'tr-k'),
-    tWf: pick('wf'),
-    cZi: cls('zi', 'tr-v'),
-    pZi: trSel === 'zi',
-    hZi: cls('zi', 'tr-hl'),
-    kZi: cls('zi', 'tr-k'),
-    tZi: pick('zi'),
-    cBj: cls('bj', 'tr-v'),
-    pBj: trSel === 'bj',
-    hBj: cls('bj', 'tr-hl'),
-    kBj: cls('bj', 'tr-k'),
-    tBj: pick('bj'),
-    cHwb: cls('hwb', 'tr-v'),
-    pHwb: trSel === 'hwb',
-    hHwb: cls('hwb', 'tr-hl'),
-    kHwb: cls('hwb', 'tr-k'),
-    tHwb: pick('hwb'),
-    cFg: cls('fg', 'tr-v'),
-    pFg: trSel === 'fg',
-    hFg: cls('fg', 'tr-hl'),
-    kFg: cls('fg', 'tr-k'),
-    tFg: pick('fg'),
+    trAsking: trAnswerKey === null,
+    trWfValue: trAnswerKey === 'wf78' ? '78 m²' : '76 m²',
+    trCell: (k: TraceKey) =>
+      'tr-v' + (k === 'wf' && !trAnswerKey ? ' is-ask' : isOn(k) ? ' is-on' : ''),
+    trPressed: (k: TraceKey) => isOn(k),
+    trPick: (k: TraceKey) => () => {
+      setTrSel(k === 'wf' ? (trAnswerKey ?? 'wf') : k)
+      setTrStill(false)
+    },
+    trAnswer: (k: TraceKey) => () => trAnswer(k === 'wf78' ? 'wf78' : 'wf'),
+    trDoc: (doc: string) => 'tr-doc' + (src && src[1] === doc ? ' is-on' : ''),
+    trHl: (k: TraceKey) => 'tr-hl' + (trSel === k ? ' is-on' : ''),
+    trWire: (k: TraceKey) => 'tr-k' + (trSel === k ? ' is-on' : ''),
+    live: src
+      ? `${src[0]}${t(', read from the ')}${src[1]}${t(', page 1: ')}${src[2]}${t('. Confirmed by you.')}`
+      : '',
 
     swStageClass: 'sw-stage' + (swEase ? ' sw-ease' : ''),
     clip: `inset(0 ${100 - swPos}% 0 0)`,

@@ -40,7 +40,7 @@ export default function Listen({ t }: { t: T }) {
           className="ml-vis"
           role="img"
           aria-label={t(
-            "A phone with a thin graphite edge, slightly turned, stands on a forest green stage. It shows Immvela in Auto mode for Gentzgasse 14. The agent wrote: Get it ready. Immvela answers with a plan of three checked steps: read the documents, write the Exposé, check every value. The finished Exposé card lifts out of the phone past its right edge. A glass chip reading Immvela, Exposé ready sits over the stage's left edge."
+            "A phone with a thin graphite edge, slightly turned, stands on a forest green stage. It shows Immvela in Auto mode for Gentzgasse 14. The agent wrote: Get it ready. Immvela answers with a plan of three checked steps: read the documents, check every value, draft the posts. A card lifts out of the phone: posts ready for Instagram and LinkedIn, waiting for approval, with a Publish button. A glass chip reading Immvela, posts ready sits over the stage's left edge."
           )}
         >
           <div className="ml-stage" aria-hidden="true">
@@ -79,7 +79,7 @@ export default function Listen({ t }: { t: T }) {
               className="ml-chip-label"
               style={{ fontSize: '16px', lineHeight: '1.3', fontWeight: '600', color: '#0a2b22' }}
             >
-              {t('Immvela, Exposé ready')}
+              {t('Immvela, posts ready')}
             </span>
           </div>
           <div className="ml-pos" aria-hidden="true">
@@ -317,7 +317,7 @@ export default function Listen({ t }: { t: T }) {
                               <span
                                 style={{ fontSize: '14px', lineHeight: '1.4', color: '#33413b' }}
                               >
-                                {t('Write the Exposé')}
+                                {t('Check every value')}
                               </span>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
@@ -348,7 +348,7 @@ export default function Listen({ t }: { t: T }) {
                               <span
                                 style={{ fontSize: '14px', lineHeight: '1.4', color: '#33413b' }}
                               >
-                                {t('Check every value')}
+                                {t('Draft the posts')}
                               </span>
                             </div>
                           </div>
@@ -420,56 +420,94 @@ export default function Listen({ t }: { t: T }) {
                 </div>
                 <div className="ml-rim" />
                 <div className="ml-out">
-                  <Image
-                    src="/immvela/redesign/sample-cover.jpg"
-                    alt=""
-                    style={{ width: '100%', height: '84px', objectFit: 'cover', display: 'block' }}
-                    width={1300}
-                    height={1107}
-                    sizes="300px"
-                  />
                   <div
                     style={{
-                      padding: '11px 16px 13px',
+                      padding: '13px 14px 14px',
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '3px',
+                      gap: '10px',
                     }}
                   >
-                    <span style={{ fontSize: '13px', lineHeight: '1.35', color: '#4f5c57' }}>
-                      {t('Exposé, Gentzgasse 14')}
-                    </span>
                     <span
                       style={{
-                        fontSize: '17px',
-                        lineHeight: '1.22',
+                        fontSize: '15px',
+                        lineHeight: '1.3',
                         fontWeight: '600',
-                        letterSpacing: '-0.015em',
                         color: '#0a2b22',
                         textWrap: 'balance',
                       }}
                     >
-                      {t('Helle 3-Zimmer-Wohnung mit Balkon in Währing')}
+                      {t('Posts ready for Instagram and LinkedIn.')}
                     </span>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                      {(
+                        [
+                          [
+                            '/immvela/redesign/sample-lounge.jpg',
+                            960,
+                            637,
+                            'Instagram',
+                            'linear-gradient(45deg,#f9a52b,#e1306c,#833ab4)',
+                          ],
+                          ['/immvela/redesign/sample-cover.jpg', 1300, 1107, 'LinkedIn', '#0a66c2'],
+                        ] as [string, number, number, string, string][]
+                      ).map(([src, w, h, name, bg]) => (
+                        <div
+                          key={name}
+                          style={{
+                            borderRadius: '10px',
+                            overflow: 'hidden',
+                            boxShadow: '0 0 0 1px rgba(10,43,34,0.10)',
+                            background: '#ffffff',
+                          }}
+                        >
+                          <Image
+                            src={src}
+                            alt=""
+                            width={w}
+                            height={h}
+                            sizes="140px"
+                            style={{
+                              width: '100%',
+                              height: '70px',
+                              objectFit: 'cover',
+                              display: 'block',
+                            }}
+                          />
+                          <div
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              padding: '6px 8px',
+                            }}
+                          >
+                            <span
+                              style={{
+                                width: '12px',
+                                height: '12px',
+                                borderRadius: '3px',
+                                background: bg,
+                                flex: 'none',
+                              }}
+                            />
+                            <span style={{ fontSize: '12px', lineHeight: '1.2', color: '#4f5c57' }}>
+                              {name}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                     <div
                       style={{
-                        marginTop: '7px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         gap: '8px',
                       }}
                     >
-                      <span
-                        style={{
-                          fontSize: '13px',
-                          lineHeight: '1.3',
-                          color: '#4f5c57',
-                          fontVariantNumeric: 'tabular-nums',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        {t('76 m², HWB 48')}
+                      <span style={{ fontSize: '13px', lineHeight: '1.3', color: '#4f5c57' }}>
+                        {t('Waiting for your approval')}
                       </span>
                       <span
                         style={{
@@ -482,7 +520,7 @@ export default function Listen({ t }: { t: T }) {
                           color: '#ffffff',
                         }}
                       >
-                        {t('Open')}
+                        {t('Publish?')}
                       </span>
                     </div>
                   </div>
