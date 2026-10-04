@@ -18,7 +18,7 @@ const H2: CSSProperties = {
   fontWeight: '650',
   letterSpacing: '-0.035em',
   lineHeight: '1.02',
-  maxWidth: '760px',
+  maxWidth: '820px',
   fontSize: '52px',
   textWrap: 'balance',
 }

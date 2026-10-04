@@ -242,7 +242,7 @@ const DE: Record<string, string> = {
   'Publish?': 'Veröffentlichen?',
   "A phone with a thin graphite edge, slightly turned, stands on a forest green stage. It shows Immvela in Auto mode for Gentzgasse 14. The agent wrote: Get it ready. Immvela answers with a plan of three checked steps: read the documents, check every value, draft the posts. A card lifts out of the phone: posts ready for Instagram and LinkedIn, waiting for approval, with a Publish button. A glass chip reading Immvela, posts ready sits over the stage's left edge.":
     'Ein Handy mit schmalem Graphitrahmen, leicht gedreht, steht auf einer waldgrünen Bühne. Es zeigt Immvela im Modus Auto für die Gentzgasse 14. Der Makler hat geschrieben: Fertig machen. Immvela antwortet mit einem Plan aus drei erledigten Schritten: Unterlagen lesen, jeden Wert prüfen, Posts entwerfen. Aus dem Handy ragt eine Karte: Posts für Instagram und LinkedIn sind fertig und warten auf Freigabe, mit einem Knopf zum Veröffentlichen. Ein gläserner Hinweis mit dem Text Immvela, Posts fertig liegt über dem linken Rand der Bühne.',
-  'Works with the tools you already use': 'Funktioniert mit den Programmen, die Sie schon nutzen',
+  'Works with the tools you already use': 'Funktioniert mit Ihren bestehenden Programmen',
   'Bring your listings in from your CRM, then send them out to your channels, with one approval.':
     'Holen Sie Ihre Inserate aus Ihrem CRM und spielen Sie sie mit einer einzigen Freigabe auf Ihre Kanäle aus.',
   'Listings come in from onOffice, Justimmo, Propstack or FLOWFACT by OpenImmo export, pass through Immvela, and go out to Instagram, Facebook, LinkedIn, TikTok and YouTube after your approval. Portal publishing to willhaben, ImmoScout24 and immowelt is planned.':
