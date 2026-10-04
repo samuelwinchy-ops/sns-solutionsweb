@@ -7,7 +7,7 @@ import { PHOTOS } from '@/lib/immvela-photos'
 import { ApplyBand, Arrow, Channels, Check, Section, Tag } from './parts'
 
 /*
- * Modules (replaces /demo). One claim and one proof per screen, text and product alternating.
+ * Modules. One claim and one proof per screen, text and product alternating.
  * Live is what works in the closed beta today; Next is direction, never dated (TRUTH.md).
  */
 export default function ModulesSections({ locale }: { locale: Locale }) {

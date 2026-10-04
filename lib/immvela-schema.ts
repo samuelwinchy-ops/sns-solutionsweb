@@ -1,4 +1,3 @@
-import { getDict } from '@/i18n'
 import { immvelaT } from '@/i18n/immvela'
 import type { Locale } from '@/i18n/config'
 import { IMMVELA_URL, SITE_URL } from '@/lib/site'
@@ -152,53 +151,6 @@ export function immvelaJsonLd(locale: Locale) {
           '@type': 'Question',
           name: t(q),
           acceptedAnswer: { '@type': 'Answer', text: t(a) },
-        })),
-      },
-    ],
-  }
-}
-
-/**
- * Structured data for the module walkthrough (/demo on immvela.com).
- *
- * The page shipped with none at all, so the one page that demonstrates each
- * module working was invisible as an entity — it read as an orphan URL under a
- * brand-new domain. This ties it to the product and spells out, per module,
- * what the clip shows.
- */
-export function immvelaDemoJsonLd(locale: Locale) {
-  const t = getDict(locale).waitlistPage
-  const url = pageUrl(locale, '/demo')
-
-  return {
-    '@context': 'https://schema.org',
-    '@graph': [
-      ...coreNodes(locale),
-      {
-        '@type': 'WebPage',
-        '@id': `${url}#webpage`,
-        url,
-        name: `${t.brand} · ${t.demo.heading}`,
-        description: t.demo.intro,
-        inLanguage: langTag(locale),
-        isPartOf: { '@id': WEBSITE_ID },
-        about: { '@id': SOFTWARE_ID },
-        breadcrumb: { '@id': `${url}#breadcrumb` },
-      },
-      breadcrumb(locale, '/demo', [{ name: t.demo.eyebrow, path: '/demo' }]),
-      {
-        '@type': 'ItemList',
-        '@id': `${url}#modules`,
-        name: t.demo.heading,
-        description: t.demo.intro,
-        itemListElement: t.modules.map((m, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          name: `${m.name} (${m.code})`,
-          // The walkthrough bullets are this page's own description of the
-          // module — what it does, the constraint it works under, and what it
-          // leaves behind — which is more specific than the platform blurb.
-          description: m.demo.join(' '),
         })),
       },
     ],

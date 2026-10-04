@@ -4,7 +4,7 @@ import { IMMVELA_URL } from '@/lib/site'
 // rewrite. The root app/sitemap.ts covers only the SNS domain's own paths, so
 // immvela.com's pages need their own entry point.
 //
-// Paths are the public ones (`/`, `/de`, `/demo`, …), i.e. the values in
+// Paths are the public ones (`/`, `/de`, `/modules`, …), i.e. the values in
 // middleware.ts's IMMVELA_PAGES — a new page added there belongs here too.
 export function GET() {
   const now = new Date().toISOString()

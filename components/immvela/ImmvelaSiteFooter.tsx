@@ -5,7 +5,7 @@ import { type Locale, localePath } from '@/i18n/config'
 import { immvelaT } from '@/i18n/immvela'
 import { useImmvelaPath } from '@/lib/immvela-nav'
 
-/** The quiet footer from the design. Modules replaces the old module walkthrough at /demo. */
+/** The quiet footer from the design. */
 export default function ImmvelaSiteFooter({ locale }: { locale: Locale }) {
   const t = immvelaT(locale)
   const path = useImmvelaPath(locale)
