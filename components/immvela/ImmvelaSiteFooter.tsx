@@ -5,18 +5,17 @@ import { type Locale, localePath } from '@/i18n/config'
 import { immvelaT } from '@/i18n/immvela'
 import { useImmvelaPath } from '@/lib/immvela-nav'
 
-/** The quiet footer from the design. Modules and Why Immvela return when those pages are rebuilt. */
+/** The quiet footer from the design. Modules replaces the old module walkthrough at /demo. */
 export default function ImmvelaSiteFooter({ locale }: { locale: Locale }) {
   const t = immvelaT(locale)
   const path = useImmvelaPath(locale)
   const links = [
+    { href: path('/modules'), label: t('Modules'), onClick: () => track('immvela_see_modules') },
+    { href: path('/why'), label: t('Why Immvela') },
     { href: path('/trust'), label: t('How we handle data') },
     { href: path('/partner'), label: t('Help us build Immvela') },
-    {
-      href: path('/demo'),
-      label: t('Module walkthrough'),
-      onClick: () => track('immvela_see_demo'),
-    },
+    { href: path('/new'), label: t('What’s new') },
+    { href: path('/eavg'), label: t('The EAVG, quoted') },
     { href: localePath(locale, '/legal/imprint'), label: t('Imprint') },
     { href: localePath(locale, '/legal/privacy'), label: t('Privacy') },
     { href: localePath(locale, '/legal/terms'), label: t('Terms') },

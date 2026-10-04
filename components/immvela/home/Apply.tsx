@@ -36,7 +36,10 @@ export default function Apply({ t, v }: { t: T; v: HomeVals }) {
               textWrap: 'pretty',
             }}
           >
-            {t('We reply within a week and set up your first listing with you.')}
+            {t('We reply within a week and set up your first listing with you.')}{' '}
+            <a className="ap-plink" href={v.path('/beta')}>
+              {t('What the beta involves')}
+            </a>
           </p>
           <p style={{ margin: '0', fontSize: '14px', lineHeight: '1.45', color: '#4e635b' }}>
             {t('Not ready to apply?')}{' '}

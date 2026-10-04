@@ -74,9 +74,9 @@
 .dr-cta{animation:drIn .6s cubic-bezier(.2,.8,.2,1) 3.95s both}
 .dr-proof{animation:drIn .6s cubic-bezier(.2,.8,.2,1) 4.2s both}
 /* sized by width AND height, so the whole reveal sits in one laptop screen (1440x900 and 1366x768) */
-.dr-helix{width:min(25vw,36svh,330px)}
+.dr-helix{width:min(28vw,38svh,420px)}
 .dr-word{font-size:min(10vw,16svh,140px)}
-.hv-hero{min-height:max(600px,min(760px,calc(100svh - 84px)))}
+.hv-hero{min-height:max(560px,calc(100svh - 84px))}
 @media (max-width:600px){
   .dr-helix{width:min(58vw,240px)}
   .dr-word{font-size:min(18vw,76px)}
@@ -652,3 +652,79 @@
   .sh-info{gap:48px}
 }
 @media (prefers-reduced-transparency:reduce){.sh-form{background-color:#ffffff !important;background-image:none !important}}
+
+.site-navlink[aria-current='page']{color:#14473a;font-weight:600}
+/* nav: Apply is the one filled action; under 860px the rest folds into a sheet */
+.nv-logo{justify-self:start;display:flex;align-items:center;gap:8px;text-decoration:none}
+.nv-word{font-family:var(--font-bricolage),var(--font-geist-sans),system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 32;font-weight:700;font-size:21px;letter-spacing:-.035em;line-height:1;color:#14473a}
+.nv-mid{justify-self:center;display:flex;align-items:center;gap:28px}
+.nv-right{justify-self:end;display:flex;align-items:center;gap:18px}
+.nv-lang{display:flex}
+.nv-apply{text-decoration:none;font-size:14px;font-weight:600;padding:9px 18px;border-radius:999px;background:#1f7a5a;color:#fff;white-space:nowrap}
+.nv-apply:hover{background:#196a4e}
+.nv-menu{display:none;width:40px;height:40px;border:0;border-radius:999px;background:transparent;cursor:pointer;align-items:center;justify-content:center;color:#14473a}
+.nv-menu:hover{background:rgba(10,43,34,.06)}
+.nv-menu:focus-visible,.nv-apply:focus-visible{outline:2px solid #1f7a5a;outline-offset:2px}
+.nv-burger{position:relative;display:block;width:18px;height:12px}
+.nv-burger i{position:absolute;left:0;right:0;height:1.5px;border-radius:2px;background:currentColor;transition:transform .25s ease,top .25s ease}
+.nv-burger i:first-child{top:2px}
+.nv-burger i:last-child{top:9px}
+.nv-burger.is-open i:first-child{top:5.5px;transform:rotate(45deg)}
+.nv-burger.is-open i:last-child{top:5.5px;transform:rotate(-45deg)}
+.nv-sheet{display:none}
+@media (max-width:860px){
+  .nv-right{gap:4px}
+  .nv-menu{display:inline-flex}
+  .nv-sheet.is-open{display:block;max-width:1200px;margin:8px auto 0;border-radius:24px;padding:8px 8px 16px}
+  .nv-sheet ul{list-style:none;margin:0;padding:0}
+  .nv-sheet li a{display:block;padding:14px 16px;border-radius:14px;font-size:17px;color:#14473a;text-decoration:none}
+  .nv-sheet li a:hover{background:rgba(10,43,34,.05)}
+  .nv-sheet li a[aria-current='page']{font-weight:600}
+  .nv-sheet-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 16px 0;padding-top:16px;border-top:1px solid rgba(10,43,34,.1)}
+  .nv-sheet-sns{font-size:14px;color:#4e635b;text-decoration:none}
+}
+@media (prefers-reduced-motion:reduce){.nv-burger i{transition:none}}
+@media (max-width:860px){.nv-mid{display:none}}
+@media (max-width:1000px){.nv-mid{gap:20px}.nv-right{gap:14px}}
+@media (max-width:860px){.site-head{grid-template-columns:1fr auto !important}.nv-right{gap:4px}}
+@media (max-width:360px){.nv-word{display:none}}
+/* the nav as real glass: thin enough to see the page pass under it, a lit rim on top, a faint shade below */
+.site-head.nv-glass{position:relative;isolation:isolate;background-color:rgb(255 255 255 / .38);background-image:linear-gradient(180deg,rgb(255 255 255 / .55) 0%,rgb(255 255 255 / .12) 55%,rgb(255 255 255 / .22) 100%);-webkit-backdrop-filter:blur(22px) saturate(180%) brightness(1.04);backdrop-filter:blur(22px) saturate(180%) brightness(1.04);border:0;box-shadow:inset 0 1px 0 rgb(255 255 255 / .95),inset 0 -1px 0 rgb(10 43 34 / .06),inset 0 0 0 .5px rgb(255 255 255 / .4),0 1px 2px rgb(40 40 20 / .06),0 18px 40px -22px rgb(40 40 20 / .28)}
+.site-head.nv-glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(180deg,rgb(255 255 255 / .95),rgb(255 255 255 / .25) 45%,rgb(10 43 34 / .10));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:-1}
+.site-head.nv-glass::after{content:"";position:absolute;left:6%;right:6%;top:1px;height:45%;border-radius:999px 999px 40% 40%;background:linear-gradient(180deg,rgb(255 255 255 / .55),rgb(255 255 255 / 0));pointer-events:none;z-index:-1}
+.nv-sheet.gl-glass{background-color:rgb(255 255 255 / .55);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%)}
+/* a touch of the brand green in the glass, so it reads as glass even over plain paper */
+.site-head.nv-glass{background-color:rgb(226 238 230 / .5);background-image:linear-gradient(180deg,rgb(255 255 255 / .5) 0%,rgb(214 232 222 / .18) 55%,rgb(31 122 90 / .07) 100%)}
+.nv-sheet.gl-glass{background-color:rgb(232 242 236 / .7)}
+/* the page links as pills: a quiet pill on hover, a tinted one for the page you are on */
+.nv-mid{gap:4px}
+.nv-mid .site-navlink{font-size:15px;font-weight:500;color:#14473a;padding:9px 16px;border-radius:999px;transition:background-color .2s ease,box-shadow .2s ease}
+.nv-mid .site-navlink:hover{background:rgb(255 255 255 / .55);box-shadow:inset 0 0 0 1px rgb(255 255 255 / .8),0 1px 2px rgb(10 43 34 / .06)}
+.nv-mid .site-navlink[aria-current='page']{font-weight:600;background:rgb(31 122 90 / .12);box-shadow:inset 0 0 0 1px rgb(31 122 90 / .18)}
+.nv-mid .site-navlink:focus-visible{outline:2px solid #1f7a5a;outline-offset:2px}
+.nv-right > .site-navlink{font-size:15px;font-weight:500;color:#14473a}
+@media (max-width:1000px){.nv-mid .site-navlink{padding:8px 11px;font-size:14px}}
+/* dialled back: mostly solid paper-white, a faint green, no sheen */
+.site-head.nv-glass{background-color:rgb(250 251 247 / .82);background-image:linear-gradient(180deg,rgb(255 255 255 / .35),rgb(31 122 90 / .03));-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);box-shadow:inset 0 1px 0 rgb(255 255 255 / .9),0 1px 2px rgb(40 40 20 / .05),0 14px 32px -22px rgb(40 40 20 / .22)}
+.site-head.nv-glass::after{display:none}
+.site-head.nv-glass::before{background:linear-gradient(180deg,rgb(255 255 255 / .9),rgb(10 43 34 / .07))}
+.nv-sheet.gl-glass{background-color:rgb(250 251 247 / .9)}
+/* Muse-style links: plain text, no pill; the current page gets a small green dot under it */
+.nv-mid{gap:32px}
+.nv-mid .site-navlink{position:relative;padding:8px 0;border-radius:0;background:none !important;box-shadow:none !important;font-size:15px;font-weight:500;color:#3f574f;transition:color .2s ease}
+.nv-mid .site-navlink:hover{color:#14473a}
+.nv-mid .site-navlink[aria-current='page']{color:#14473a;font-weight:600}
+.nv-mid .site-navlink[aria-current='page']::after{content:"";position:absolute;left:50%;bottom:-2px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:#1f7a5a}
+@media (max-width:1000px){.nv-mid{gap:20px}.nv-mid .site-navlink{padding:8px 0;font-size:14px}}
+
+/* the privacy notice: small, bottom left, one line, closes for good */
+.pn-note{position:fixed;left:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:12px;max-width:min(420px,calc(100vw - 40px));box-sizing:border-box;padding:10px 10px 10px 16px;border-radius:14px;font-size:13px;line-height:1.45;color:#3f574f;animation:pnIn .4s ease both}
+.pn-note p{margin:0}
+.pn-note a{color:#1f7a5a;font-weight:600;text-decoration:none;white-space:nowrap}
+.pn-note a:hover{text-decoration:underline}
+.pn-note button{flex:none;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:0;border-radius:999px;background:transparent;color:#3f574f;cursor:pointer}
+.pn-note button:hover{background:rgba(10,43,34,.07);color:#14473a}
+.pn-note button:focus-visible,.pn-note a:focus-visible{outline:2px solid #1f7a5a;outline-offset:2px}
+@keyframes pnIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.pn-note{animation:none}}
+@media (max-width:640px){.pn-note{left:12px;right:12px;bottom:12px;max-width:none}}

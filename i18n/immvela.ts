@@ -19,6 +19,11 @@ const DE: Record<string, string> = {
   'Immvela home': 'Immvela Startseite',
   Main: 'Hauptnavigation',
   'Sign in': 'Anmelden',
+  'No cookies. We count page views anonymously.': 'Keine Cookies. Wir zählen Seitenaufrufe anonym.',
+  Close: 'Schließen',
+  'Your data': 'Ihre Daten',
+  'Menu': 'Menü',
+  'Close menu': 'Menü schließen',
   'The Immvela helix': 'Die Immvela Helix',
   'Immvela is made by SNS Software Solutions GmbH, Vienna.':
     'Immvela wird von der SNS Software Solutions GmbH in Wien entwickelt.',
@@ -184,6 +189,11 @@ const DE: Record<string, string> = {
   '. Immvela is made by SNS Software Solutions GmbH, Vienna.':
     '. Immvela wird von der SNS Software Solutions GmbH in Wien entwickelt.',
 
+  'What we believe': 'Woran wir glauben',
+  'An agent’s best hours belong to people, not paperwork.':
+    'Die besten Stunden eines Maklers gehören den Menschen, nicht dem Papierkram.',
+  'We want the documents, the checking and the drafting to take care of themselves, so you can spend your time on the part only you can do: the viewing, the buyer, and the owner who trusts you with their home.':
+    'Wir wollen, dass sich Unterlagen, Prüfung und Entwürfe von selbst erledigen, damit Sie Ihre Zeit dem widmen können, was nur Sie können: der Besichtigung, den Käufern und den Eigentümern, die Ihnen ihr Zuhause anvertrauen.',
   // partner page
   'We are building Immvela with estate agents. Give us 30 minutes and tell us what slows your listings down.':
     'Wir entwickeln Immvela gemeinsam mit Maklerinnen und Maklern. Schenken Sie uns 30 Minuten und erzählen Sie uns, was Ihre Inserate aufhält.',
@@ -284,6 +294,127 @@ const DE: Record<string, string> = {
   'Out, always after your approval': 'Raus, immer erst nach Ihrer Freigabe',
   'Sharp: works today. Faded: planned.': 'Scharf: funktioniert heute. Verblasst: geplant.',
   'Good to know': 'Gut zu wissen',
+
+  // modules and why pages (mockup, 2026-10-04)
+  'What’s new': 'Neuigkeiten',
+  'The EAVG, quoted': 'Das EAVG im Wortlaut',
+  'What the beta involves': 'Was die Beta umfasst',
+  Modules: 'Module',
+  'Why Immvela': 'Warum Immvela',
+  'What Immvela does today, and what comes next': 'Was Immvela heute kann und was als Nächstes kommt',
+  'Every part works from the same confirmed values of a property. Live means it works today in the closed beta. Next means we are building it.':
+    'Jeder Teil arbeitet mit denselben bestätigten Werten eines Objekts. Live heißt: funktioniert heute in der geschlossenen Beta. Geplant heißt: daran bauen wir.',
+  'in the closed beta': 'in der geschlossenen Beta',
+  'what we are building': 'woran wir bauen',
+  Staging: 'Staging',
+  'CRM import': 'CRM-Import',
+  'Office rules': 'Büroregeln',
+  'Owner overview': 'Übersicht für die Inhaberin oder den Inhaber',
+  'Portal publishing': 'Veröffentlichung auf Portalen',
+  'Walkthrough video': 'Rundgangsvideo',
+  'It reads the documents. You confirm what counts.': 'Immvela liest die Unterlagen. Sie bestätigen, was zählt.',
+  'Immvela reads the Energieausweis and the Grundbuchauszug and keeps your other documents on file. What it reads is a draft until a person confirms it.':
+    'Immvela liest den Energieausweis und den Grundbuchauszug und legt Ihre übrigen Unterlagen ab. Was Immvela liest, bleibt ein Entwurf, bis eine Person es bestätigt.',
+  'Values read from the Energieausweis for Praterstraße 31. One is confirmed, two wait for confirmation, and the Wohnfläche differs from the floor plan, so Immvela asks which is right.':
+    'Aus dem Energieausweis der Praterstraße 31 gelesene Werte. Einer ist bestätigt, zwei warten auf Bestätigung, und die Wohnfläche weicht vom Grundriss ab, deshalb fragt Immvela, welcher Wert stimmt.',
+  'Energieausweis, read from page 1': 'Energieausweis, gelesen von Seite 1',
+  'Confirmed by you': 'Von Ihnen bestätigt',
+  'Read, not confirmed': 'Gelesen, nicht bestätigt',
+  'The floor plan says 76,0 m². Which is right?': 'Im Grundriss stehen 76,0 m². Welcher Wert stimmt?',
+  'Valid until': 'Gültig bis',
+  'Every listing shows which documents are still missing': 'Jedes Inserat zeigt, welche Unterlagen noch fehlen',
+  'Each listing gets a checklist from SNS’s standard lists for a flat or a house in Austria and a flat in Germany. A certificate that is about to expire is flagged.':
+    'Jedes Inserat bekommt eine Checkliste nach den Standardlisten von SNS für Wohnungen und Häuser in Österreich und Wohnungen in Deutschland. Ein Ausweis, der bald abläuft, wird markiert.',
+  'Document checklist for Gentzgasse 14, a flat in Austria. Four of seven documents are on file; the Energieausweis expires in six weeks; three are not on file yet.':
+    'Unterlagen-Checkliste für die Gentzgasse 14, eine Wohnung in Österreich. Vier von sieben Unterlagen liegen vor, der Energieausweis läuft in sechs Wochen ab, drei fehlen noch.',
+  'Flat, Austria': 'Wohnung, Österreich',
+  'On file': 'Liegt vor',
+  'Expires in 6 weeks': 'Läuft in 6 Wochen ab',
+  'Not on file yet': 'Fehlt noch',
+  'SNS standard list: flat, Austria. 4 of 7 on file.': 'SNS-Standardliste: Wohnung, Österreich. 4 von 7 liegen vor.',
+  'The Exposé, the brochure and the posts, drafted from what you confirmed': 'Exposé, Broschüre und Posts, entworfen aus dem, was Sie bestätigt haben',
+  'Written in the German of the listing’s country, Austria, Germany or Switzerland, and set in your office’s brand. Each one is a draft for you to check.':
+    'Geschrieben im Deutsch des Landes, in dem das Objekt liegt, Österreich, Deutschland oder Schweiz, und im Auftritt Ihres Büros gesetzt. Jeder Text ist ein Entwurf, den Sie prüfen.',
+  'Three drafts for Gentzgasse 14: an Exposé, a brochure page in the office brand, and an Instagram post.':
+    'Drei Entwürfe für die Gentzgasse 14: ein Exposé, eine Broschürenseite im Auftritt des Büros und ein Instagram-Post.',
+  '[Your logo]': '[Ihr Logo]',
+  'Instagram post': 'Instagram-Post',
+  'Empty rooms, furnished. Every photo labelled.': 'Leere Räume, eingerichtet. Jedes Foto gekennzeichnet.',
+  'Upload a photo of an empty room. Immvela furnishes it and marks every result as virtually staged.':
+    'Laden Sie ein Foto eines leeren Raums hoch. Immvela richtet ihn ein und kennzeichnet jedes Ergebnis als virtuell eingerichtet.',
+  'A living room furnished by Immvela, marked as virtually staged.': 'Ein von Immvela eingerichtetes Wohnzimmer, als virtuell eingerichtet gekennzeichnet.',
+  'Five channels from one place, and nothing goes out without your yes': 'Fünf Kanäle an einem Ort, und nichts geht ohne Ihr Ja hinaus',
+  'Instagram, Facebook, LinkedIn, TikTok and YouTube. Publishing always asks for your approval, and an ad missing required energy values is held, for every agent in the office.':
+    'Instagram, Facebook, LinkedIn, TikTok und YouTube. Vor jeder Veröffentlichung fragt Immvela nach Ihrer Freigabe, und ein Inserat, dem erforderliche Energiekennwerte fehlen, wird angehalten, für alle im Büro.',
+  'Three posts waiting for approval. Two can be approved. The post for Praterstraße 31 is held because its energy values are missing.':
+    'Drei Posts warten auf Freigabe. Zwei können freigegeben werden. Der Post für die Praterstraße 31 ist angehalten, weil die Energiekennwerte fehlen.',
+  '3 posts': '3 Posts',
+  'Approve and publish': 'Freigeben und veröffentlichen',
+  'Bring your listings in from your CRM': 'Holen Sie Ihre Inserate aus Ihrem CRM',
+  'Export your listings as OpenImmo from onOffice, Justimmo, Propstack or FLOWFACT, and Immvela brings them in.':
+    'Exportieren Sie Ihre Inserate als OpenImmo aus onOffice, Justimmo, Propstack oder FLOWFACT, und Immvela übernimmt sie.',
+  'An OpenImmo export brought five listings into Immvela.': 'Ein OpenImmo-Export hat fünf Inserate in Immvela übernommen.',
+  'OpenImmo export': 'OpenImmo-Export',
+  'Brought in': 'Übernommen',
+  '5 listings brought in': '5 Inserate übernommen',
+  'What we are building next': 'Woran wir als Nächstes bauen',
+  'None of this is in Immvela yet. We show it so you know where it is going.':
+    'Nichts davon ist schon in Immvela. Wir zeigen es, damit Sie wissen, wohin es geht.',
+  'Your office sets the required documents, the templates, and manager approval before publishing.':
+    'Ihr Büro legt Pflichtunterlagen, Vorlagen und die Freigabe durch die Leitung vor dem Veröffentlichen fest.',
+  'What every agent confirmed and published, in one view for the owner.':
+    'Was jede Person bestätigt und veröffentlicht hat, in einer Ansicht für die Inhaberin oder den Inhaber.',
+  'Listings out to willhaben and ImmoScout24.': 'Inserate auf willhaben und ImmoScout24.',
+  'A walkthrough video from one sweep with a phone.': 'Ein Rundgangsvideo aus einem Durchgang mit dem Handy.',
+  'See it with one of your own listings': 'Sehen Sie es an einem Ihrer eigenen Inserate',
+  'One record you can trust, for every property': 'Ein Datenbestand, dem Sie vertrauen können, für jedes Objekt',
+  'Five scattered pieces of one listing, an Energieausweis scan, a floor plan from an email, photos on a phone, a spreadsheet and a CRM entry, come together in one record for Praterstraße 31 with confirmed values.':
+    'Fünf verstreute Teile eines Inserats, ein gescannter Energieausweis, ein Grundriss aus einer E-Mail, Fotos auf einem Handy, eine Tabelle und ein CRM-Eintrag, kommen in einem Datenbestand für die Praterstraße 31 mit bestätigten Werten zusammen.',
+  'from the owner, by email': 'vom Eigentümer, per E-Mail',
+  Photos: 'Fotos',
+  'on a phone': 'auf dem Handy',
+  'Price and rooms': 'Preis und Zimmer',
+  'in a spreadsheet': 'in einer Tabelle',
+  Listing: 'Inserat',
+  'in the CRM': 'im CRM',
+  'One record': 'Ein Datenbestand',
+  'An Exposé is only as right as the documents behind it': 'Ein Exposé ist nur so richtig wie die Unterlagen dahinter',
+  'The Energieausweis says 78 m². The floor plan says 76 m². When two documents disagree, Immvela flags it and asks you, before anything goes out.':
+    'Im Energieausweis stehen 78 m², im Grundriss 76 m². Wenn sich zwei Unterlagen widersprechen, markiert Immvela das und fragt Sie, bevor etwas hinausgeht.',
+  'Two documents for Praterstraße 31 disagree: the Energieausweis gives a Wohnfläche of 78,0 m², the floor plan 76,0 m².':
+    'Zwei Unterlagen der Praterstraße 31 widersprechen sich: Der Energieausweis nennt eine Wohnfläche von 78,0 m², der Grundriss 76,0 m².',
+  'page 1': 'Seite 1',
+  'Every number traced to its document': 'Jede Zahl, belegt durch ihr Dokument',
+  'Each value keeps the document, the page and the line it was read from, and the name of the person who confirmed it.':
+    'Jeder Wert behält das Dokument, die Seite und die Zeile, aus der er gelesen wurde, und den Namen der Person, die ihn bestätigt hat.',
+  'The Wohnfläche of Praterstraße 31, 76 m², read from the floor plan, page 1, checked against the Energieausweis, and confirmed by A. Berger.':
+    'Die Wohnfläche der Praterstraße 31, 76 m², gelesen aus dem Grundriss, Seite 1, mit dem Energieausweis abgeglichen und von A. Berger bestätigt.',
+  'Read from': 'Gelesen aus',
+  'Grundriss, page 1: “Wohnfläche gesamt 76,0 m²”': 'Grundriss, Seite 1: „Wohnfläche gesamt 76,0 m²“',
+  'Checked against': 'Abgeglichen mit',
+  'Energieausweis, page 1: 78,0 m². The difference was flagged.': 'Energieausweis, Seite 1: 78,0 m². Der Unterschied wurde markiert.',
+  'Confirmed by': 'Bestätigt von',
+  'A. Berger, who chose 76 m²': 'A. Berger, die 76 m² gewählt hat',
+  'Immvela reads. A person decides.': 'Immvela liest. Ein Mensch entscheidet.',
+  'Immvela shows what is on file, what was read and what is still unconfirmed. Nothing it reads is used until someone in your office confirms it.':
+    'Immvela zeigt, was vorliegt, was gelesen wurde und was noch nicht bestätigt ist. Nichts Gelesenes wird verwendet, bevor jemand in Ihrem Büro es bestätigt.',
+  'The words Immvela uses about a value': 'Die Wörter, die Immvela für einen Wert verwendet',
+  'The document is there.': 'Das Dokument ist da.',
+  Read: 'Gelesen',
+  'A draft. Not used yet.': 'Ein Entwurf. Noch nicht verwendet.',
+  Confirmed: 'Bestätigt',
+  'A person said yes. Now it is used.': 'Eine Person hat Ja gesagt. Jetzt wird er verwendet.',
+  'Legally safe': 'Rechtssicher',
+  'Immvela never says this.': 'Das sagt Immvela nie.',
+  'The record belongs to your office': 'Der Datenbestand gehört Ihrem Büro',
+  'Listings, documents and confirmed values belong to the office, not to one agent. Everyone has their own login, and every value shows who confirmed it.':
+    'Inserate, Unterlagen und bestätigte Werte gehören dem Büro, nicht einer einzelnen Person. Alle haben einen eigenen Zugang, und jeder Wert zeigt, wer ihn bestätigt hat.',
+  'Example office: three listings, each value confirmed by a named agent. Three agents, each with their own login.':
+    'Beispielbüro: drei Inserate, jeder Wert von einer namentlich genannten Person bestätigt. Drei Personen, jede mit eigenem Zugang.',
+  'Listings, documents, confirmed values': 'Inserate, Unterlagen, bestätigte Werte',
+  'own login': 'eigener Zugang',
+  'Immvela is made by SNS Software Solutions GmbH in Vienna. German first, written for Austria, Germany and Switzerland.':
+    'Immvela wird von der SNS Software Solutions GmbH in Wien entwickelt. Deutsch zuerst, geschrieben für Österreich, Deutschland und die Schweiz.',
 }
 
 export type T = (english: string) => string
