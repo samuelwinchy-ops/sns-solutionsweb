@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { SITE_URL } from '@/lib/site'
+import { BLOG_POSTS } from '@/lib/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
@@ -30,6 +31,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   )
 
+  // English only, no `de` alternate — the blog doesn't have a German
+  // translation yet (see lib/blog.ts), so there's no second language to point
+  // at. `lastModified` uses each post's own date rather than `now`, the same
+  // way a real blog's sitemap would.
+  const blog: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.7 },
+    ...BLOG_POSTS.map((post) => ({
+      url: `${SITE_URL}/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
+  ]
+
   const legal: MetadataRoute.Sitemap = [
     '/legal/imprint',
     '/legal/privacy',
@@ -44,5 +59,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ]
   })
 
-  return [...marketing, ...legal]
+  return [...marketing, ...blog, ...legal]
 }

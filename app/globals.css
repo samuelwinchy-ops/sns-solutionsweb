@@ -181,6 +181,45 @@ body {
   letter-spacing: 0.2em;
 }
 
+/* Body copy for Immvela's legal pages — the daylight counterpart to
+   .legal-prose, which is coloured for the dark SNS site and would put indigo
+   links and slate text on cream. Same rhythm and sizes, Immvela's tokens. */
+.im-legal-prose {
+  color: var(--im-muted);
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+.im-legal-prose p {
+  margin-bottom: 1rem;
+}
+.im-legal-prose p:last-child {
+  margin-bottom: 0;
+}
+.im-legal-prose ul {
+  margin: 0 0 1rem 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.im-legal-prose li {
+  margin-bottom: 0.4rem;
+}
+.im-legal-prose strong {
+  color: var(--im-ink);
+  font-weight: 600;
+}
+.im-legal-prose em {
+  font-style: italic;
+}
+.im-legal-prose a {
+  color: var(--im-green);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+.im-legal-prose a:hover {
+  color: var(--im-green-bright);
+}
+
 .im-card {
   background: var(--im-paper);
   border: 1px solid var(--im-line);
@@ -579,4 +618,65 @@ body {
   color: #b45309;
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.85em;
+}
+
+/* ── Blog / article typography ──────────────────────────────────────────
+   Same idea as .legal-prose (one class, generated content reads through it),
+   sized up for a piece meant to be read start to finish rather than scanned
+   for a clause: bigger type, roomier line-height, and a lead paragraph that
+   reads as an opening rather than the first item in a list. */
+.article-prose {
+  color: #3f4658;
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+.article-prose > .lede {
+  margin-bottom: 1.75rem;
+  color: #14192b;
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+.article-prose h2 {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  color: #0b0f22;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.article-prose h2:first-child {
+  margin-top: 0;
+}
+.article-prose p {
+  margin-bottom: 1.15rem;
+}
+.article-prose ul,
+.article-prose ol {
+  margin: 0 0 1.15rem 0;
+  padding-left: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.article-prose ul {
+  list-style: disc;
+}
+.article-prose ol {
+  list-style: decimal;
+}
+.article-prose li {
+  line-height: 1.65;
+}
+.article-prose strong {
+  color: #0b0f22;
+  font-weight: 600;
+}
+.article-prose a {
+  color: #4f46e5;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+.article-prose a:hover {
+  color: #0891b2;
 }

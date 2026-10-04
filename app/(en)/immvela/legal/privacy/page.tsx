@@ -1,0 +1,932 @@
+import type { Metadata } from 'next'
+import { IMMVELA_URL } from '@/lib/site'
+
+/**
+ * Immvela's own privacy policy, served at www.immvela.com/legal/privacy.
+ *
+ * ── Why this exists as a separate document ──────────────────────────────────
+ *
+ * app.immvela.com/privacy 307s to this exact URL, and every platform review
+ * form (Meta, TikTok, LinkedIn, Google/YouTube) fetches it and checks that it
+ * describes the app in front of the reviewer. Until this page existed,
+ * immvela.com/legal/privacy fell through middleware to the SNS policy — a
+ * byte-identical copy titled "Privacy Policy | SNS Solutions" that declared
+ * `canonical: https://www.sns-austria.com/legal/privacy`. It covered Immvela
+ * well (its section 4 still does, for the SNS-domain audience), but it told
+ * every crawler the real document lived on another company-branded domain,
+ * which is the "why is a different company's policy covering this app?"
+ * question a submission does not want to invite.
+ *
+ * The accepted cost is drift: two documents now describe overlapping
+ * processing and can disagree. That was traded deliberately against the
+ * reviewer question above. Anything changed here about tokens, engagement,
+ * retention or deletion must be checked against section 4 of the SNS policy
+ * (app/(en)/legal/privacy) and against /legal/data-deletion next door.
+ *
+ * ── Why BOTH languages are on one page, German first ────────────────────────
+ *
+ * Same reasoning as the app's /data-deletion page, and deliberately the same
+ * shape. The two readers are a DACH agent and an English-speaking platform
+ * reviewer; both arrive signed out at the one URL the app hard-codes, so
+ * neither can be served by a locale preference. German leads because the
+ * market is AT/DE/CH. Bilingual legal pages are ordinary here. This is not a
+ * precedent for the rest of the site, which keeps using the locale layer —
+ * /de/legal/privacy on this host renders this same page (middleware.ts) and
+ * canonicalises here.
+ *
+ * ── What this deliberately does NOT say ─────────────────────────────────────
+ *
+ * Each omission is on purpose; adding one would describe a product that does
+ * not exist, which is the expensive kind of wrong in this document.
+ *
+ *   • No claim about which legal basis applies, and no citation of any
+ *     statute. That is counsel's to add.
+ *   • No retention period for publication records. They are kept indefinitely
+ *     (`event` rows, kept permanently by decision — a stated period is a
+ *     product change first, wording second).
+ *   • No monthly media wipe as a live feature. The job exists but is DRY-RUN
+ *     by default and unarmed in production (IMMVELA_MEDIA_WIPE_ARMED absent is
+ *     the intended state), so the text says retention is until you delete.
+ *   • No automated account-deletion flow. Deletion is a hand-run script, so
+ *     the text says "by hand".
+ *   • No Data Deletion Callback. Meta accepts an instructions URL instead, and
+ *     that is what SNS provides; a callback needs an erasure job behind it
+ *     that does not exist, and one that silently does nothing is worse than
+ *     none.
+ *
+ * ── The Google/YouTube round, 2026-09-10 ───────────────────────────────────
+ *
+ * Google OAuth verification bounced with: "Your privacy policy does not specify
+ * any data protection mechanisms for sensitive data." Two sections answer it:
+ *
+ *   • "Schutz Ihrer Daten / How we protect your data" — the finding itself.
+ *   • "Nutzung der YouTube API Services / Use of YouTube API Services" — NOT in
+ *     the finding list, but a standing YouTube API Services Developer Policies
+ *     §III.A.2 requirement the reviewer checks: the YouTube ToS link, the
+ *     Google Privacy Policy link, what API data is used, and revocation via the
+ *     Google security settings page. Publishing without it invites a second
+ *     round.
+ *
+ * ⚠️ **The two scope names are load-bearing and must match three places on the
+ * day the reviewer looks**: this page, the Cloud Console, and `YOUTUBE_SCOPES`.
+ * The bounce included "scopes shown … different from the scopes configured", so
+ * a drift here is the defect under review. Verified 2026-09-11 against the app
+ * repo's `origin/main`: exactly `youtube.upload` + `youtube.readonly`. The
+ * broad `auth/youtube` scope this page would have mis-stated was removed in
+ * their PR #1260 — the handoff was written while it was still live and warned
+ * the claim was false; it is true now, which is why it was re-checked rather
+ * than trusted either way.
+ *
+ * ⚠️ **This policy must also be LINKED from the OAuth consent screen** in Google
+ * Cloud Console. Google checks the link, not just the text, and nothing in this
+ * repo can do that.
+ *
+ * ⚠️ **One bullet from the source draft is deliberately NOT published**: "Our
+ * own access" (named staff, individual accounts, two-factor). It arrived marked
+ * `‹confirm›`, nobody here can verify who holds the Supabase and Vercel
+ * credentials or whether 2FA is enforced, and the draft's own instruction was
+ * to make it true and publish it or cut it — never publish it unverified,
+ * because Google reads a security section as a set of commitments. Cut. It goes
+ * back in when a human confirms it.
+ *
+ * ── Every factual claim, verified against the app repo's main ───────────────
+ *
+ * Verified 2026-09-05. If one becomes false, this text becomes false.
+ *
+ *   • Tokens encrypted at rest — crypto/token-encryption.ts (AES-256-GCM).
+ *   • Disconnecting hard-deletes the row and its tokens — connection.ts
+ *     `deleteConnection`, a real DELETE, not a soft delete.
+ *   • Insights scopes ARE requested — `read_insights` and
+ *     `instagram_manage_insights` in modules/publishing/platforms/meta.ts.
+ *     This is why the purpose sentence below says "and to read aggregate
+ *     engagement figures" rather than the older "solely to publish": a
+ *     reviewer reads the requested permission list beside this text, and
+ *     "asks to read insights, says it only writes" reads as either an
+ *     over-broad request or an inaccurate disclosure.
+ *   • Engagement ingestion is live — worker/engagement-sweep.ts, armed in
+ *     production since 2026-08-28. It emits aggregate per-post metrics only.
+ *   • Listing text and the ADDRESS go to Anthropic — modules/quill/prompt.ts;
+ *     the address is the listing's identity and is in the prompt.
+ *   • Media in a private Supabase bucket, reached by short-lived signed URLs —
+ *     modules/publishing/storage.ts.
+ *   • Deleting a media asset cascades its `scheduled_post` rows
+ *     (0011_publishing.sql) but NOT its `event` rows — retention.ts is
+ *     explicit that `content.published` history survives a wipe "which is the
+ *     point". Hence the split wording under Aufzeichnungen / Records.
+ *   • Full account deletion is manual, within 30 days — no erasure job exists;
+ *     docs/gdpr-erasure.md is a design document.
+ *
+ * For the sections added in the Google round, verified 2026-09-11 against
+ * `origin/main`:
+ *
+ *   • exactly two YouTube scopes — `platforms/youtube.ts` `YOUTUBE_SCOPES`.
+ *   • channel name and id read via `channels?part=snippet&mine=true` —
+ *     `platforms/accounts.ts:318`.
+ *   • view/like/comment totals and NOTHING else — `posting/insights/youtube.ts`
+ *     `YOUTUBE_VIDEO_STATISTICS` is exactly those three. ⚠️ If that constant
+ *     grows, this page is stale.
+ *   • AES-256-GCM before storage — `crypto/token-encryption.ts`,
+ *     `createCipheriv("aes-256-gcm", …)`.
+ *   • key in the runtime environment, never in Postgres — same file, read from
+ *     `process.env.TOKEN_ENCRYPTION_KEY`.
+ *   • refuses to store rather than write plaintext — same file, throws when
+ *     `NODE_ENV === "production"` and the key is unset. ⚠️ Development warns
+ *     and writes plaintext, which is why the sentence is scoped to production.
+ *   • ~~row-level security enforces tenant separation — `supabase/migrations/`,
+ *     RLS policies across ten migration files.~~ **CORRECTED 2026-09-13 — see
+ *     the round below. RLS alone was an over-claim.**
+ *   • ⚠️ "encrypted at rest by Supabase" is the ONE claim here not verifiable
+ *     from either repo — it is a property of their platform and plan. It is
+ *     published because it is the substance of Google's finding, and flagged
+ *     for a human to confirm.
+ *
+ * ── The app repo's own review round, 2026-09-13 ─────────────────────────────
+ *
+ * The 2026-09-10 draft that produced this page was itself reviewed in the app
+ * repo (`docs/legal-immvela-privacy-policy.md`, commit 3582744b) and several of
+ * its claims were corrected there AFTER this page had been published from the
+ * pre-review version. This page was behind by four paragraphs. Each correction
+ * is re-verified here against the app repo's `origin/main`, not copied across:
+ *
+ *   • **Whole uploaded DOCUMENTS go to Anthropic, not only property details.**
+ *     `lib/extraction/actions.ts:324` sends `documents: [{ mediaType,
+ *     dataBase64 }]` — the file is downloaded, base64'd and sent entire. A
+ *     `grundbuchauszug` (`lib/documents/kinds.ts`) routinely names owners and
+ *     other parties, so third-party personal data leaves the platform. That was
+ *     disclosed nowhere. It is the most material of the set.
+ *   • **The agent's own kept texts are sent as style samples.**
+ *     `modules/quill/voice.ts:72` reads `quill_edit` rows with `kind = 'kept'`,
+ *     pinned to the agent's own org and user, and `modules/quill/actions.ts:721`
+ *     passes them into the generation. ⚠️ The source draft called this a
+ *     "stored style profile"; there is no such setting, and the wording here
+ *     says what the code does instead.
+ *   • **Anthropic's processor entry had to widen** to name document extraction,
+ *     which follows from the first bullet: an entry naming only "text
+ *     generation" understates what that processor processes.
+ *   • **Tenant separation is checked in the application AND at row level.** The
+ *     old sentence said RLS did it "rather than by the application, so an
+ *     application fault cannot lift it" — refuted three ways by the app repo's
+ *     own files: `docs/tenancy-enforcement.md` requires both and says not to
+ *     treat RLS as sufficient on its own; `modules/publishing/CLAUDE.md` records
+ *     that `storage.objects` has NO policies, so media tenancy is the
+ *     application's; and the service role bypasses RLS on the paths that write
+ *     this data. Google reads a security section as a set of commitments, and
+ *     this was a commitment the code does not keep.
+ *   • **The YouTube stored-data list gained two items** — the token's expiry and
+ *     the granted-permission list, both columns on `platform_connection`
+ *     (`0011_publishing.sql`: `token_expires_at`, `scopes`). That list is
+ *     exhaustive by its own wording ("Nothing further"), so an omission makes
+ *     the sentence false rather than merely short.
+ *
+ * ⚠️ **Deliberately NOT taken from that round: the Deletion and Records
+ * wording.** The app repo's draft is BEHIND this page on both — it still points
+ * at `app.immvela.com/data-deletion`, which the 2026-09-05 split retired, and it
+ * files the scheduled-posts sentence under Retention where this page has it
+ * under Records. A wholesale paste from that draft would regress both sections,
+ * which is why the changes above are surgical.
+ *
+ * ⚠️ **"Our own access" is STILL cut.** That round did not change its
+ * `‹confirm›` standing and nobody has confirmed it. See the note above.
+ *
+ * ── The parity round, 2026-09-15 ────────────────────────────────────────────
+ *
+ * The SNS policy at sns-austria.com/legal/privacy — the URL the OAuth consent
+ * screen actually points at — gained its own 4.8/4.9 this day. Comparing the
+ * two live documents surfaced two gaps on THIS page, neither of them a
+ * contradiction, both of them this page being the weaker of the pair:
+ *
+ *   • **Google's Limited Use affirmation was absent entirely.** Not weak —
+ *     absent: zero occurrences of "Limited Use", "User Data Policy" or "Google
+ *     API Services" in the body. The substance was already here (the YouTube
+ *     section promises no ads, no sale, nothing to the AI provider, no model
+ *     training), but the sentence a reviewer string-matches was not, and the
+ *     canonical form is "use **and transfer to any other app** ... **will
+ *     adhere**", which is wider than a use-only claim. Added to both halves.
+ *   • **The Disclosure bullet said "to no one beyond the processors named
+ *     above"** while the whole product transmits posts to the platform the
+ *     customer selects. A platform is a recipient, not a processor, so the
+ *     bullet was false on its face and the saving context sat in a different
+ *     section. Both halves now name the platforms.
+ *
+ * ── The Google email of 2026-09-08, read on 2026-09-15 ─────────────────────
+ *
+ * ⚠️ **THIS is the page Google reviews.** The Cloud Console registers home page
+ * `https://immvela.com`, privacy `https://www.immvela.com/legal/privacy`, terms
+ * `https://www.immvela.com/legal/terms`. A handoff that sent this round at the
+ * SNS policy was working from the wrong premise; the SNS page was fixed anyway
+ * (it was independently wrong) but it is NOT what the reviewer opens.
+ *
+ * The email's finding 1 is the SAME privacy-policy wording finding, and it
+ * arrived **three days after** "Schutz Ihrer Daten" went live here on 09-05. So
+ * a security section existing is demonstrably not sufficient on its own. What
+ * this round adds is what the section did not have:
+ *
+ *   • **The Limited Use affirmation**, absent entirely (above).
+ *   • **Cookies and device storage** — YouTube API Services Developer Policies
+ *     §III.A.2(g) wants device storage disclosed and this page said nothing at
+ *     all. The app sets a Supabase auth cookie (`lib/supabase/server.ts`).
+ *   • **An organisational measure.** The section opened by promising technical
+ *     AND organisational controls and listed six technical ones, because "Our
+ *     own access" was cut on 09-05 as unverifiable. ⚠️ **It returns here in a
+ *     NARROWED form**: the restriction only. The 2FA, named-accounts and
+ *     individual-logins claims stay cut, and the logging claim stays cut, since
+ *     no audit table exists. What remains is a commitment the company chooses to
+ *     keep, not a mechanism this repo can verify — **if it is not true, cut it.**
+ *   • **The tenant-separation bullet**, now corrected (see below).
+ *
+ * ── The wording-parity round, 2026-09-15 ───────────────────────────────────
+ *
+ * The SNS policy took a set of corrections this page did not, so for a few
+ * hours the BETTER text was on the page nobody reviews. Ported here:
+ *
+ *   • `das schutzbedürftigste Datum, das wir halten` → `die
+ *     sicherheitskritischsten Daten, die wir speichern`. Two anglicisms in six
+ *     words: `Datum` as the singular of `Daten` reads to an Austrian reader as a
+ *     CALENDAR DATE, and `Daten halten` is a calque — German *speichert* data.
+ *     The superlative also narrows: "most sensitive" is contradicted by this
+ *     page's own account of buyer and seller data; what was meant is
+ *     security-criticality.
+ *   • `im Ruhezustand verschlüsselt` → `verschlüsselt gespeichert`. *Ruhezustand*
+ *     is a machine's HIBERNATION. There is no settled German calque for "at
+ *     rest", and `verschlüsselt gespeichert` is the term this page itself used
+ *     before the 09-05 round replaced it with an invention.
+ *   • `Berechtigungen anfragen` → `anfordern`. `anfragen` means to ENQUIRE.
+ *
+ * ⚠️ **NOT ported: `Auftragsverarbeiter` → `Unterauftragsverarbeiter`.** The SNS
+ * policy took that one because ITS §4.1 calls SNS the processor, so using the
+ * same noun for Supabase two sections later read as "we may disclose data to
+ * ourselves". This page never applies the noun to SNS and its section is titled
+ * `Auftragsverarbeiter`, so the bullet's "oben genannten Auftragsverarbeiter" is
+ * internally consistent. Strictly they ARE sub-processors — this page's last
+ * section has SNS processing `in Ihrem Auftrag` — so the accurate fix renames
+ * the SECTION too. That is a bigger call than a wording port and is left alone.
+ *
+ * ⚠️ The email's finding 2 (scope mismatch) is NOT a policy matter and is
+ * already fixed in the app repo: the broad `auth/youtube` was removed 09-10, two
+ * days after the email, and `main` carries exactly `youtube.upload` +
+ * `youtube.readonly`. What is owed there is a DEPLOY check and a new demo video.
+ *
+ * **The tenant-separation bullet is now corrected here too.** "Checked in two
+ * places" over-claims: the service role bypasses RLS on every token WRITE
+ * (`platform_connection` carries a SELECT-only policy), so the application is
+ * the only boundary on that path. Both live policies now say so.
+ */
+
+export const metadata: Metadata = {
+  // Absolute: the root layout's "%s | SNS Solutions" template would put the
+  // wrong company in the title of the one document a reviewer reads to decide
+  // whose app this is.
+  title: { absolute: 'Datenschutzerklärung / Privacy Policy — Immvela' },
+  description:
+    'Wie Immvela verbundene Social-Media-Konten, Inhalte und Reichweitendaten verarbeitet. How Immvela processes connected social accounts, content and engagement data.',
+  // Absolute to the Immvela origin: this document's home is immvela.com, not
+  // the SNS domain. Both public paths on this host render it, so they share
+  // one canonical rather than competing as duplicates.
+  alternates: {
+    canonical: `${IMMVELA_URL}/legal/privacy`,
+    languages: {
+      de: `${IMMVELA_URL}/legal/privacy`,
+      en: `${IMMVELA_URL}/legal/privacy`,
+      'x-default': `${IMMVELA_URL}/legal/privacy`,
+    },
+  },
+}
+
+const UPDATED_DE = '15. September 2026'
+const UPDATED_EN = 'September 15, 2026'
+
+// Same host now. The app served this page until the 2026-09-05 split put
+// every legal document on the landing page and left the product with
+// outward links only, so this is a relative path and costs no hop.
+const DATA_DELETION_URL = '/legal/data-deletion'
+const CONTACT = 'office@sns-austria.com'
+// The exact revocation URL YouTube API Services Developer Policies §III.A.2
+// names. Google checks that the policy carries it, so it is a constant rather
+// than three hand-typed copies that can drift apart.
+const GOOGLE_PERMISSIONS_URL = 'https://security.google.com/settings/security/permissions'
+// Google's canonical Limited Use affirmation is string-matched by reviewers, so
+// the policy it names is a link and a constant for the same reason as the URL
+// above: two hand-typed copies, one per language half, are two things that drift.
+const GOOGLE_USER_DATA_POLICY_URL =
+  'https://developers.google.com/terms/api-services-user-data-policy'
+
+function Section({
+  lang,
+  title,
+  children,
+}: {
+  lang: string
+  title: string
+  children: React.ReactNode
+}) {
+  return (
+    <section lang={lang} className="mt-9 first:mt-0">
+      <h2 className="mb-2.5 text-[1.05rem] font-semibold tracking-[-0.01em] text-[color:var(--im-ink)]">
+        {title}
+      </h2>
+      <div className="im-legal-prose">{children}</div>
+    </section>
+  )
+}
+
+export default function ImmvelaPrivacyPage() {
+  return (
+    <div className="immvela-theme relative min-h-dvh">
+      {/* Cream as a FIXED layer rather than a background on the scrolling
+          wrapper — the same shape the Immvela landing uses, and for a reason
+          a selector-level check cannot see.
+
+          <body> carries `bg-sns-bg`, the SNS site's cool porcelain (#eef0f7).
+          A background on this wrapper stops where the wrapper stops, so an
+          overscroll bounce shows a band of porcelain against Immvela's warm
+          cream — two near-whites that disagree, which reads as a rendering
+          fault rather than a colour choice. Fixed + inset-0 covers the whole
+          viewport including the bounce, and covers SiteShell's SNS particle
+          field (also fixed, z-0) consistently at every scroll position.
+
+          No <ImmvelaField /> here, unlike the landing: drifting particles
+          behind a legal document are a distraction and a canvas this page has
+          no use for. The ground is the part that has to be right. */}
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[#f2f1e8]" aria-hidden="true" />
+
+      <div className="relative z-10">
+        <header className="border-b border-[color:var(--im-line)] px-5 md:px-10">
+          <div className="mx-auto flex h-14 max-w-3xl items-center justify-between">
+            <a href="/" className="im-wordmark text-lg" aria-label="Immvela">
+              Immvela<span className="dot">.</span>
+            </a>
+            <a
+              href="/"
+              className="font-mono text-xs uppercase tracking-widest text-[color:var(--im-muted)] transition-colors duration-300 hover:text-[color:var(--im-green)]"
+            >
+              ← Zur Website
+            </a>
+          </div>
+        </header>
+
+        <main className="mx-auto w-full max-w-3xl px-5 pb-24 pt-12 md:pt-16">
+          <div className="mb-10 border-b border-[color:var(--im-line)] pb-8">
+            <p className="im-eyebrow mb-3 font-mono text-xs uppercase tracking-[0.2em]">Immvela</p>
+            <h1 className="text-3xl font-bold tracking-[-0.02em] text-[color:var(--im-ink)] md:text-4xl">
+              Datenschutzerklärung <span className="text-[color:var(--im-faint)]">/</span> Privacy
+              Policy
+            </h1>
+            <p className="mt-3 font-mono text-sm text-[color:var(--im-muted)]">
+              Immvela — SNS Software Solutions GmbH, Wien
+            </p>
+            <p className="mt-1 font-mono text-xs text-[color:var(--im-faint)]">
+              Stand / Last updated: {UPDATED_DE} · {UPDATED_EN}
+            </p>
+          </div>
+
+          {/* ── German, first: the market's default language ─────────────── */}
+          <div lang="de">
+            <Section lang="de" title="Verantwortlicher">
+              <p>
+                <strong>SNS Software Solutions GmbH</strong>
+                <br />
+                Schrötlgasse 8a, 1220 Wien, Österreich
+                <br />
+                E-Mail: <a href={`mailto:${CONTACT}`}>{CONTACT}</a>
+              </p>
+              <p>
+                Immvela ist die Software-Plattform der SNS Software Solutions GmbH für
+                Immobilienmaklerinnen und -makler und keine eigene Rechtsperson. Diese Erklärung
+                beschreibt, welche Daten wir in Immvela verarbeiten. Vollständige Angaben zum
+                Unternehmen finden Sie im <a href="/legal/imprint">Impressum</a>.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Verbundene Social-Media-Konten und Veröffentlichung">
+              <p>
+                Wenn Sie ein Konto bei Instagram, Facebook, LinkedIn, TikTok oder YouTube mit
+                Immvela verbinden, speichern wir den von der Plattform ausgestellten Zugriffs-Token,
+                gegebenenfalls einen Erneuerungs-Token, die Kontokennung der Plattform sowie den
+                angezeigten Kontonamen. Die Token werden vor dem Speichern verschlüsselt.
+              </p>
+              <p>
+                Wir verwenden sie <strong>ausschließlich für drei Zwecke</strong>: um in Ihrem
+                Auftrag Beiträge zu veröffentlichen, um zu diesen Beiträgen aggregierte Kennzahlen
+                der Plattform abzurufen, und um die Gültigkeit der Verbindung aufrechtzuerhalten.
+              </p>
+              <p>
+                Die Kennzahlen sind <strong>Gesamtwerte je Beitrag und Plattform</strong> — etwa
+                Aufrufe, Reichweite, Reaktionen, Kommentare, geteilte Inhalte und Klicks, jeweils
+                als Anzahl — und werden unter der Bezeichnung gespeichert, die die jeweilige
+                Plattform dafür verwendet. Wir rufen dazu{' '}
+                <strong>keine Angaben zu einzelnen Personen</strong> ab: keine Namen von
+                Kommentierenden, keine Kommentartexte und keine Auswertungen zur Zusammensetzung
+                Ihres Publikums. Wir lesen keine privaten Nachrichten und keine Kontaktlisten.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Nutzung der YouTube API Services">
+              <p>
+                Für die Veröffentlichung auf YouTube nutzt Immvela die{' '}
+                <strong>YouTube API Services</strong>. Mit der Nutzung dieser Funktionen stimmen Sie
+                den{' '}
+                <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">
+                  YouTube Terms of Service
+                </a>{' '}
+                zu. Ergänzend gilt die{' '}
+                <a
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Google-Datenschutzerklärung
+                </a>
+                .
+              </p>
+              <p>
+                <strong>Welche Berechtigungen wir anfordern.</strong> Wenn Sie ein YouTube-Konto
+                verbinden, fordern wir bei Google genau zwei Berechtigungen an — nicht mehr, als die
+                Funktionen benötigen:
+              </p>
+              <ul>
+                <li>
+                  <strong>youtube.upload</strong> — um Videos, die Sie in Immvela dafür auswählen,
+                  in Ihren Kanal hochzuladen;
+                </li>
+                <li>
+                  <strong>youtube.readonly</strong> — um den Namen und die Kennung Ihres Kanals
+                  anzuzeigen und um zu den über Immvela veröffentlichten Videos die Gesamtzahlen für
+                  Aufrufe, „Gefällt mir“ und Kommentare abzurufen.
+                </li>
+              </ul>
+              <p>
+                <strong>Welche YouTube-Daten wir speichern.</strong> Das Zugriffs- und das
+                Erneuerungstoken (verschlüsselt), die Kennung und den Namen Ihres Kanals, die
+                Kennung der über Immvela hochgeladenen Videos sowie die genannten Gesamtzahlen mit
+                dem Zeitpunkt ihres Abrufs, dazu den Ablaufzeitpunkt des Tokens und die Liste der
+                von Ihnen erteilten Berechtigungen. Mehr nicht: keine Kommentartexte, keine Namen von
+                Kommentierenden, keine Angaben zur Zusammensetzung Ihres Publikums, keine
+                Wiedergabeverläufe, keine Abonnentenlisten.
+              </p>
+              <p>
+                <strong>Wofür wir sie nicht verwenden.</strong> YouTube-Daten werden nicht für
+                Werbung verwendet, nicht an Dritte verkauft oder weitergegeben, nicht an unseren
+                KI-Dienstleister übermittelt und nicht zum Training von KI-Modellen verwendet.
+              </p>
+              <p>
+                <strong>Zugriff widerrufen.</strong> Sie können den Zugriff von Immvela auf Ihr
+                Google-Konto jederzeit und unabhängig von Immvela entziehen — über die{' '}
+                <a href={GOOGLE_PERMISSIONS_URL} target="_blank" rel="noopener noreferrer">
+                  Google-Sicherheitseinstellungen
+                </a>
+                . Zusätzlich löschen Sie die bei uns gespeicherten Token, indem Sie die Verbindung
+                in Immvela unter <em>Verlag → Verbundene Konten</em> trennen (Abschnitt „Löschung“).
+              </p>
+              <p>
+                Die Nutzung der von Google-APIs erhaltenen Daten durch Immvela sowie deren
+                Weitergabe an andere Apps entsprechen der{' '}
+                <a href={GOOGLE_USER_DATA_POLICY_URL} target="_blank" rel="noopener noreferrer">
+                  Google API Services User Data Policy
+                </a>{' '}
+                einschließlich der Limited-Use-Anforderungen.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Inhalte, die Sie anlegen">
+              <p>
+                Objektdaten, Adressen, hochgeladene Fotos und Videos, Bildtexte und geplante
+                Beiträge. Mediendateien liegen in einem nicht öffentlichen Speicher; der Zugriff
+                erfolgt über kurzlebige signierte Links.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Texterstellung mit KI">
+              <p>
+                Wenn Sie einen Text erzeugen lassen, übermitteln wir die dafür nötigen Objektdaten —{' '}
+                <strong>einschließlich der Objektadresse</strong> und der von Ihnen bestätigten
+                Objektangaben — an unseren KI-Dienstleister Anthropic. Die erzeugten Texte und ein
+                Nutzungsnachweis werden bei uns gespeichert.
+              </p>
+              <p>
+                Wenn Sie ein Dokument zur Auswertung hochladen — etwa einen Energieausweis oder
+                einen Grundbuchauszug — übermitteln wir die <strong>vollständige Datei</strong> an
+                Anthropic, damit die darin enthaltenen Angaben ausgelesen werden können. Ein
+                Grundbuchauszug kann dabei Namen von Eigentümerinnen und Eigentümern sowie weiterer
+                Beteiligter enthalten. Ebenfalls übermittelt werden einige Ihrer zuvor in Immvela
+                behaltenen Texte, als Stilbeispiele, damit die Erzeugung Ihrem Schreibstil folgt.
+              </p>
+              <p>
+                Daten aus verbundenen Social-Media-Konten sind davon nicht betroffen; sie werden
+                nicht an Anthropic übermittelt.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Aufzeichnungen">
+              <p>
+                Wir speichern, <em>dass</em> ein Beitrag veröffentlicht wurde, mit Zeitpunkt und
+                Kanal, sowie die dazu abgerufenen aggregierten Kennzahlen. Diese Aufzeichnungen
+                enthalten keine Zugangsdaten und keine Angaben zu einzelnen Kommentierenden oder zu
+                Ihrem Publikum; sie sind Ihrem Konto zugeordnet.
+              </p>
+              <p>
+                Sie <strong>bleiben bestehen</strong>, wenn Sie eine Mediendatei löschen oder eine
+                Kontoverbindung trennen. Beim Löschen einer Mediendatei entfallen die zugehörigen
+                geplanten Beiträge in Immvela; die Aufzeichnung einer bereits erfolgten
+                Veröffentlichung bleibt erhalten.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Auftragsverarbeiter">
+              <p>
+                Supabase (Datenbank und Dateispeicher), Vercel (Hosting), Trigger.dev
+                (Hintergrundaufträge) und Anthropic (Texterstellung und Auswertung hochgeladener
+                Dokumente).
+              </p>
+              <p>
+                Beiträge, die Sie veröffentlichen, werden an die von Ihnen gewählte Plattform
+                übermittelt und unterliegen dort deren eigenen Bestimmungen.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Schutz Ihrer Daten">
+              <p>
+                Wir treffen technische und organisatorische Maßnahmen, um die von uns verarbeiteten
+                Daten zu schützen. Im Einzelnen:
+              </p>
+              <ul>
+                <li>
+                  <strong>Übertragung.</strong> Der gesamte Datenverkehr — zwischen Ihrem Browser
+                  und Immvela ebenso wie zwischen Immvela und den Schnittstellen der Plattformen —
+                  erfolgt ausschließlich verschlüsselt über TLS (HTTPS).
+                </li>
+                <li>
+                  <strong>Zugriffstoken der verbundenen Konten.</strong> Diese Token sind die
+                  sicherheitskritischsten Daten, die wir speichern, und werden vor dem Speichern
+                  mit{' '}
+                  <strong>AES-256-GCM</strong> verschlüsselt. Der Schlüssel liegt ausschließlich in
+                  der Laufzeitumgebung und niemals in der Datenbank: ein Datenbankauszug allein
+                  genügt nicht, um Zugriff auf Ihre Konten zu erlangen. Fehlt der Schlüssel, so
+                  verweigert das System im Produktivbetrieb das Speichern, statt Token im Klartext
+                  abzulegen.
+                </li>
+                <li>
+                  <strong>Speicherung.</strong> Datenbank und Dateispeicher werden von Supabase
+                  betrieben und dort verschlüsselt gespeichert.
+                </li>
+                <li>
+                  <strong>Trennung der Mandanten.</strong> Jeder Datensatz ist genau einer
+                  Organisation zugeordnet, und die Anwendung prüft diese Trennung bei jedem
+                  Zugriff. Läuft eine Anfrage unter Ihrer eigenen Anmeldung, setzt die Datenbank
+                  sie zusätzlich auf Zeilenebene durch (Row-Level-Security). Hintergrundaufgaben
+                  und serverseitige Vorgänge, die ein Plattform-Token speichern, nutzen erweiterte
+                  Datenbankrechte; dort ist die Prüfung der Anwendung die Grenze, ebenso wie bei
+                  Dateien im Medienspeicher.
+                </li>
+                <li>
+                  <strong>Mediendateien.</strong> Fotos und Videos liegen in nicht öffentlichem
+                  Speicher und sind ausschließlich über kurzlebige, signierte Links erreichbar; es
+                  gibt keine öffentlich abrufbare Adresse einer Ihrer Dateien.
+                </li>
+                <li>
+                  <strong>Weitergabe.</strong> Wir verkaufen keine Daten. Eine Weitergabe erfolgt
+                  ausschließlich an die oben genannten Auftragsverarbeiter und an die von Ihnen
+                  verbundenen Veröffentlichungsplattformen.
+                </li>
+                <li>
+                  <strong>Zugriff durch uns.</strong> Der Zugriff auf Produktivsysteme ist auf die
+                  Personen beschränkt, die ihn für Betrieb und Support benötigen.
+                </li>
+              </ul>
+            </Section>
+
+            <Section lang="de" title="Cookies und Speicherung auf Ihrem Gerät">
+              <p>
+                Immvela setzt ein Cookie ausschließlich dafür, Sie angemeldet zu halten. Es ist für
+                den von Ihnen angeforderten Dienst unbedingt erforderlich, daher ist dafür keine
+                Einwilligung erforderlich. Wir setzen keine Tracking-, Werbe- oder
+                Analyse-Cookies und lesen zu keinem anderen Zweck Daten von Ihrem Gerät.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Speicherdauer">
+              <p>
+                Ihre Inhalte bleiben gespeichert, bis Sie sie in Immvela löschen oder Ihr Konto
+                gelöscht wird.{' '}
+                <strong>
+                  Eine automatische Löschung von Mediendateien findet derzeit nicht statt.
+                </strong>{' '}
+                Ein bereits veröffentlichter Beitrag bleibt auf der jeweiligen Plattform bestehen
+                und ist dort von Ihnen zu entfernen.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Löschung">
+              <p>
+                Eine Verbindung trennen Sie jederzeit selbst unter{' '}
+                <em>Verlag → Verbundene Konten</em>; der gespeicherte Eintrag wird damit
+                einschließlich der Token endgültig gelöscht — nicht deaktiviert.
+              </p>
+              <p>
+                Unabhängig davon können Sie den Zugriff bei der jeweiligen Plattform selbst
+                widerrufen — bei Google unter{' '}
+                <a href={GOOGLE_PERMISSIONS_URL} target="_blank" rel="noopener noreferrer">
+                  security.google.com/settings/security/permissions
+                </a>
+                .
+              </p>
+              <p>
+                Für die Löschung Ihres gesamten Kontos schreiben Sie an{' '}
+                <a href={`mailto:${CONTACT}`}>{CONTACT}</a> von der E-Mail-Adresse Ihres Kontos. Wir
+                führen sie <strong>innerhalb von 30 Tagen manuell</strong> durch und bestätigen die
+                Löschung; eine Schaltfläche dafür gibt es in der Anwendung derzeit nicht.
+              </p>
+              <p>
+                Ausführliche Anleitung:{' '}
+                <a href={DATA_DELETION_URL}>immvela.com/legal/data-deletion</a>.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Daten Ihrer eigenen Kundinnen und Kunden">
+              <p>
+                Angaben, die Sie zu Interessentinnen und Interessenten in Immvela erfassen,
+                verarbeiten wir in Ihrem Auftrag. Für diese Daten bleiben Sie verantwortlich;
+                Anfragen dazu richten Sie bitte an uns über die oben genannte Adresse.
+              </p>
+            </Section>
+          </div>
+
+          <hr className="my-12 border-[color:var(--im-line)]" />
+
+          {/* ── English, for platform reviewers ──────────────────────────── */}
+          <div lang="en">
+            <Section lang="en" title="Controller">
+              <p>
+                <strong>SNS Software Solutions GmbH</strong>
+                <br />
+                Schrötlgasse 8a, 1220 Vienna, Austria
+                <br />
+                Email: <a href={`mailto:${CONTACT}`}>{CONTACT}</a>
+              </p>
+              <p>
+                Immvela is SNS Software Solutions GmbH&apos;s software platform for real-estate
+                agents and is not a separate legal entity. This policy describes the data we process
+                in Immvela. Full company details are in the <a href="/legal/imprint">imprint</a>.
+              </p>
+            </Section>
+
+            <Section lang="en" title="Connected social accounts and publishing">
+              <p>
+                When you connect an Instagram, Facebook, LinkedIn, TikTok or YouTube account to
+                Immvela, we store the access token issued by that platform, a refresh token where
+                one is issued, the platform&apos;s account identifier, and the account&apos;s
+                display name. Tokens are encrypted before they are stored.
+              </p>
+              <p>
+                We use them <strong>solely for three purposes</strong>: to publish posts on your
+                behalf, to retrieve aggregate engagement figures from the platform for those posts,
+                and to keep the connection valid.
+              </p>
+              <p>
+                Those figures are <strong>totals per post and per platform</strong> — such as views,
+                reach, reactions, comments, shares and clicks, each as a count — and are stored
+                under the name the platform itself gives each metric. We retrieve{' '}
+                <strong>nothing about individual people</strong> in the process: no commenter names,
+                no comment text, and no audience breakdowns. We do not read private messages or
+                contact lists.
+              </p>
+            </Section>
+
+            <Section lang="en" title="Use of YouTube API Services">
+              <p>
+                Immvela uses <strong>YouTube API Services</strong> to publish to YouTube. By using
+                those features you agree to be bound by the{' '}
+                <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">
+                  YouTube Terms of Service
+                </a>
+                . The{' '}
+                <a
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Google Privacy Policy
+                </a>{' '}
+                applies in addition to this policy.
+              </p>
+              <p>
+                <strong>The permissions we request.</strong> When you connect a YouTube account we
+                ask Google for exactly two permissions — no more than the features require:
+              </p>
+              <ul>
+                <li>
+                  <strong>youtube.upload</strong> — to upload videos you select in Immvela to your
+                  channel;
+                </li>
+                <li>
+                  <strong>youtube.readonly</strong> — to show your channel&apos;s name and
+                  identifier, and to retrieve the total view, like and comment counts for videos
+                  published through Immvela.
+                </li>
+              </ul>
+              <p>
+                <strong>What YouTube data we store.</strong> The access token and refresh token
+                (encrypted), your channel&apos;s identifier and name, the identifiers of videos
+                uploaded through Immvela, and the totals named above together with the time they
+                were retrieved, plus the token&apos;s expiry time and the list of permissions you
+                granted. Nothing further: no comment text, no commenter names, no audience
+                breakdowns, no watch history, no subscriber lists.
+              </p>
+              <p>
+                <strong>What we never do with it.</strong> YouTube data is not used for advertising,
+                is not sold or disclosed to third parties, is not sent to our AI provider, and is
+                not used to train AI models.
+              </p>
+              <p>
+                <strong>Revoking access.</strong> You can withdraw Immvela&apos;s access to your
+                Google account at any time, independently of Immvela, through the{' '}
+                <a href={GOOGLE_PERMISSIONS_URL} target="_blank" rel="noopener noreferrer">
+                  Google security settings page
+                </a>
+                . Separately, disconnecting the account in Immvela under{' '}
+                <em>Verlag → Connected accounts</em> deletes the tokens we hold (see “Deletion”).
+              </p>
+              <p>
+                Immvela&apos;s use and transfer to any other app of information received from Google
+                APIs will adhere to the{' '}
+                <a href={GOOGLE_USER_DATA_POLICY_URL} target="_blank" rel="noopener noreferrer">
+                  Google API Services User Data Policy
+                </a>
+                , including the Limited Use requirements.
+              </p>
+            </Section>
+
+            <Section lang="en" title="Content you create">
+              <p>
+                Property details, addresses, uploaded photos and videos, captions, and scheduled
+                posts. Media files are held in non-public storage and are reached through
+                short-lived signed links.
+              </p>
+            </Section>
+
+            <Section lang="en" title="AI text generation">
+              <p>
+                When you generate text, we send the property details needed for it —{' '}
+                <strong>including the property address</strong> and the property attributes you have
+                confirmed — to our AI provider, Anthropic. The generated text and a record of the
+                generation are stored by us.
+              </p>
+              <p>
+                When you upload a document for extraction — an energy certificate (Energieausweis)
+                or a land-register extract (Grundbuchauszug) — we send the{' '}
+                <strong>complete file</strong> to Anthropic so that the values in it can be read
+                out. A land-register extract may name owners and other parties. Some of your own
+                previously kept texts are sent as well, as style samples, so that generation follows
+                your writing style.
+              </p>
+              <p>
+                Data from connected social accounts is not part of this and is not sent to
+                Anthropic.
+              </p>
+            </Section>
+
+            <Section lang="en" title="Records">
+              <p>
+                We store the fact <em>that</em> a post was published, with its time and channel,
+                together with the aggregate figures retrieved for it. These records contain no
+                credentials and nothing about individual commenters or your audience; they are
+                attributed to your account.
+              </p>
+              <p>
+                They <strong>remain</strong> when you delete a media file or disconnect an account.
+                Deleting a media file removes the scheduled posts tied to it within Immvela; the
+                record of a publication that already happened is kept.
+              </p>
+            </Section>
+
+            <Section lang="en" title="Processors">
+              <p>
+                Supabase (database and file storage), Vercel (hosting), Trigger.dev (background
+                jobs) and Anthropic (text generation, and extraction from uploaded documents).
+              </p>
+              <p>
+                Posts you publish are transmitted to the platform you select and are then subject to
+                that platform&apos;s own terms.
+              </p>
+            </Section>
+
+            <Section lang="en" title="How we protect your data">
+              <p>
+                We maintain technical and organisational controls over the data we process.
+                Specifically:
+              </p>
+              <ul>
+                <li>
+                  <strong>In transit.</strong> All traffic — between your browser and Immvela, and
+                  between Immvela and the platforms&apos; APIs — is encrypted with TLS (HTTPS).
+                </li>
+                <li>
+                  <strong>Connected-account access tokens.</strong> These are the most
+                  security-sensitive data we hold, and they are encrypted with{' '}
+                  <strong>AES-256-GCM</strong> before they
+                  are stored. The key exists only in the runtime environment and never in the
+                  database, so a database dump on its own does not yield access to your accounts. If
+                  the key is absent, the system refuses to store tokens in production rather than
+                  falling back to plaintext.
+                </li>
+                <li>
+                  <strong>At rest.</strong> The database and file storage are operated by Supabase
+                  and are encrypted at rest there.
+                </li>
+                <li>
+                  <strong>Tenant separation.</strong> Every record belongs to exactly one
+                  organisation, and the application checks that separation on every access. Where
+                  a request runs under your own sign-in, the database enforces it a second time at
+                  row level (row-level security). Background jobs and the server-side paths that
+                  store a platform token run with elevated database rights, and there the
+                  application check is the boundary, as it is for files in media storage.
+                </li>
+                <li>
+                  <strong>Media files.</strong> Photos and videos are held in non-public storage and
+                  are reachable only through short-lived signed links; no file of yours has a
+                  publicly retrievable address.
+                </li>
+                <li>
+                  <strong>Disclosure.</strong> We do not sell data. We disclose it only to the
+                  processors named above and to the publishing platforms you connect.
+                </li>
+                <li>
+                  <strong>Our own access.</strong> Access to production systems is limited to the
+                  people who need it to operate and support the service.
+                </li>
+              </ul>
+            </Section>
+
+            <Section lang="en" title="Cookies and device storage">
+              <p>
+                Immvela sets a cookie only to keep you signed in. It is strictly necessary for the
+                service you asked for, so no consent is required for it. We set no tracking,
+                advertising or analytics cookies, and we read nothing else from your device.
+              </p>
+            </Section>
+
+            <Section lang="en" title="Retention">
+              <p>
+                Your content is retained until you delete it in Immvela or your account is deleted.{' '}
+                <strong>There is currently no automatic deletion of media files.</strong> A post
+                already published remains on the platform concerned and is removed by you there.
+              </p>
+            </Section>
+
+            <Section lang="en" title="Deletion">
+              <p>
+                You can disconnect an account yourself at any time under{' '}
+                <em>Verlag → Connected accounts</em>; this permanently deletes the stored record
+                including its tokens — it does not merely deactivate them.
+              </p>
+              <p>
+                Independently of that, you can revoke access at the platform itself — for Google at{' '}
+                <a href={GOOGLE_PERMISSIONS_URL} target="_blank" rel="noopener noreferrer">
+                  security.google.com/settings/security/permissions
+                </a>
+                .
+              </p>
+              <p>
+                To delete your entire account, email <a href={`mailto:${CONTACT}`}>{CONTACT}</a>{' '}
+                from your account&apos;s email address. We carry this out{' '}
+                <strong>by hand within 30 days</strong> and confirm once it is done; there is
+                currently no button for it in the application.
+              </p>
+              <p>
+                Full instructions: <a href={DATA_DELETION_URL}>immvela.com/legal/data-deletion</a>.
+              </p>
+            </Section>
+
+            <Section lang="en" title="Your own customers' data">
+              <p>
+                Details you record about prospective buyers or tenants in Immvela are processed on
+                your behalf. You remain responsible for that data; please direct requests about it
+                to us at the address above.
+              </p>
+            </Section>
+          </div>
+
+          <nav className="mt-14 flex flex-wrap gap-x-5 gap-y-2 border-t border-[color:var(--im-line)] pt-8">
+            <a
+              href="/legal/imprint"
+              className="font-mono text-xs text-[color:var(--im-muted)] transition-colors duration-300 hover:text-[color:var(--im-green)]"
+            >
+              Impressum / Imprint
+            </a>
+            <a
+              href="/legal/terms"
+              className="font-mono text-xs text-[color:var(--im-muted)] transition-colors duration-300 hover:text-[color:var(--im-green)]"
+            >
+              Nutzungsbedingungen / Terms
+            </a>
+            <a
+              href={DATA_DELETION_URL}
+              className="font-mono text-xs text-[color:var(--im-muted)] transition-colors duration-300 hover:text-[color:var(--im-green)]"
+            >
+              Datenlöschung / Data deletion
+            </a>
+          </nav>
+        </main>
+      </div>
+    </div>
+  )
+}

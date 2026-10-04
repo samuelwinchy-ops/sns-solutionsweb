@@ -1,6 +1,7 @@
 import { getDict } from '@/i18n'
 import { localePath, type Locale } from '@/i18n/config'
 import { IMMVELA_URL, SITE, SITE_URL } from '@/lib/site'
+import { sortedPosts, type BlogPost } from '@/lib/blog'
 
 /**
  * Structured data for the SNS pages.
@@ -121,12 +122,14 @@ const CRUMB_LABELS: Record<Locale, Record<string, string>> = {
     '/services': 'Services',
     '/team': 'Team',
     '/contact': 'Contact',
+    '/blog': 'Blog',
   },
   de: {
     '/': 'Start',
     '/services': 'Leistungen',
     '/team': 'Team',
     '/contact': 'Kontakt',
+    '/blog': 'Blog',
   },
 }
 
@@ -136,14 +139,21 @@ function ancestors(path: string): string[] {
   return ['/', ...parts.map((_, i) => `/${parts.slice(0, i + 1).join('/')}`)]
 }
 
-function breadcrumb(locale: Locale, path: string) {
+/**
+ * `currentName` labels the deepest crumb (the page itself) when its path isn't
+ * a static one in CRUMB_LABELS — which is every dynamic route, e.g. a blog
+ * post's /blog/<slug>. Static ancestors along the way (e.g. /blog itself)
+ * still resolve from CRUMB_LABELS as normal.
+ */
+function breadcrumb(locale: Locale, path: string, currentName?: string) {
+  const anc = ancestors(path)
   return {
     '@type': 'BreadcrumbList',
     '@id': `${pageUrl(locale, path)}#breadcrumb`,
-    itemListElement: ancestors(path).map((p, i) => ({
+    itemListElement: anc.map((p, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      name: CRUMB_LABELS[locale][p] ?? p,
+      name: CRUMB_LABELS[locale][p] ?? (i === anc.length - 1 ? currentName : undefined) ?? p,
       item: pageUrl(locale, p),
     })),
   }
@@ -210,7 +220,7 @@ function graph(locale: Locale, path: string, page: PageNode, ...entities: object
     '@context': 'https://schema.org',
     '@graph': [
       webPage(locale, path, page),
-      breadcrumb(locale, path),
+      breadcrumb(locale, path, page.name),
       snsWebSiteNode(),
       ...entities,
     ],
@@ -379,4 +389,98 @@ export function contactGraph(locale: Locale) {
       contactPoint: contactPoint(locale),
     }
   )
+}
+
+/** Absolute URL for a blog post, e.g. /blog/immvela-one-record-… */
+export function blogPostUrl(locale: Locale, slug: string): string {
+  return pageUrl(locale, `/blog/${slug}`)
+}
+
+/**
+ * A post's BlogPosting node, shared between the index (a summary of every
+ * post) and the post's own page (the same node, plus its full body). Kept as
+ * one function so the two can't describe a post differently by accident.
+ */
+function blogPostingNode(locale: Locale, post: BlogPost) {
+  const url = blogPostUrl(locale, post.slug)
+  return {
+    '@type': 'BlogPosting',
+    '@id': `${url}#article`,
+    url,
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    inLanguage: langTag(locale),
+    articleSection: post.eyebrow,
+    // Attributed to the studio rather than a named founder — nothing on the
+    // posts themselves claims individual authorship, so the byline shouldn't
+    // invent one.
+    author: { '@id': SNS_ORG_ID },
+    publisher: { '@id': SNS_ORG_ID },
+    image: `${SITE_URL}/og.png`,
+    mainEntityOfPage: { '@id': `${url}#webpage` },
+    isPartOf: { '@id': `${pageUrl(locale, '/blog')}#blog` },
+  }
+}
+
+/**
+ * /blog — the index, as a Blog node plus a BlogPosting summary of every post.
+ * Each post also gets its own richer graph on its own page (blogPostGraph);
+ * this is deliberately the lighter, list-shaped version of the same nodes.
+ */
+export function blogIndexGraph(locale: Locale) {
+  const posts = sortedPosts()
+  const url = pageUrl(locale, '/blog')
+  const postings = posts.map((p) => blogPostingNode(locale, p))
+
+  return graph(
+    locale,
+    '/blog',
+    {
+      type: 'CollectionPage',
+      name: 'Blog',
+      description:
+        "SNS Solutions on AI infrastructure for real estate and service businesses: Immvela, data fragmentation, and QFUtool.",
+    },
+    {
+      '@type': 'Blog',
+      '@id': `${url}#blog`,
+      name: 'SNS Solutions Blog',
+      url,
+      publisher: { '@id': SNS_ORG_ID },
+      blogPost: postings.map((p) => ({ '@id': p['@id'] })),
+    },
+    ...postings
+  )
+}
+
+/**
+ * /blog/<slug> — one post's BlogPosting (with its full text as `articleBody`,
+ * which is the one thing the index's lighter summary above leaves out) plus
+ * its FAQPage, when the post has one. FAQPage is what lets an answer engine
+ * quote a post's Q&A pairs directly rather than summarising the prose.
+ */
+export function blogPostGraph(locale: Locale, post: BlogPost) {
+  const url = blogPostUrl(locale, post.slug)
+  const posting = {
+    ...blogPostingNode(locale, post),
+    articleBody: [...post.intro, ...post.sections.flatMap((s) => s.paragraphs ?? [])].join('\n\n'),
+  }
+
+  const entities: object[] = [posting]
+
+  if (post.faq.length) {
+    entities.push({
+      '@type': 'FAQPage',
+      '@id': `${url}#faq`,
+      mainEntity: post.faq.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    })
+  }
+
+  return graph(locale, `/blog/${post.slug}`, { name: post.title, description: post.description }, ...entities)
 }

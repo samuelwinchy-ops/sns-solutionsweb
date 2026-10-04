@@ -59,6 +59,44 @@ const IMMVELA_PAGES: Record<string, string> = {
 const IMMVELA_ROUTE_FOR = new Map(Object.entries(IMMVELA_PAGES).map(([route, pub]) => [pub, route]))
 
 /**
+ * Immvela's own legal documents, a different shape from IMMVELA_PAGES above and
+ * so with their own rule. Two of them: the privacy policy, and — since the
+ * 2026-09-05 split, where `immvela.com` is the landing page and
+ * `app.immvela.com` is the product and nothing legal belongs on the product —
+ * the data-deletion instructions the app used to serve itself.
+ *
+ * `app.immvela.com/privacy` 307s to `www.immvela.com/legal/privacy`, and every
+ * platform review form (Meta, TikTok, LinkedIn, Google/YouTube) fetches that
+ * URL and checks it describes the app in front of the reviewer. Without this
+ * rewrite the path falls through to app/(en)/legal/privacy — the SNS policy,
+ * served byte-identically on both domains and canonicalising to
+ * sns-austria.com, i.e. telling every crawler the real document belongs to a
+ * differently-branded company. See the page's own header comment.
+ *
+ * Two public paths, one document: the page is bilingual (German first), so
+ * /de/legal/privacy renders the same file rather than a German translation of
+ * it, and both declare the same canonical. That is why this is a Set mapping
+ * onto a single route and not a two-way map like IMMVELA_PAGES.
+ *
+ * ⚠️ Only PRIVACY is Immvela's own. `/legal/imprint` and `/legal/terms` stay
+ * shared with the SNS site on purpose — the imprint names SNS Software
+ * Solutions GmbH as media owner of both domains (it says so in its own text),
+ * and the terms already govern both by name. Duplicating either would buy a
+ * second document to keep current and no reviewer-facing benefit; privacy is
+ * the only one whose subject is the app itself.
+ */
+const IMMVELA_LEGAL_ROUTE_FOR: Record<string, string> = {
+  '/legal/privacy': '/immvela/legal/privacy',
+  '/de/legal/privacy': '/immvela/legal/privacy',
+  '/legal/data-deletion': '/immvela/legal/data-deletion',
+  '/de/legal/data-deletion': '/immvela/legal/data-deletion',
+}
+const IMMVELA_LEGAL_CANONICAL: Record<string, string> = {
+  '/immvela/legal/privacy': '/legal/privacy',
+  '/immvela/legal/data-deletion': '/legal/data-deletion',
+}
+
+/**
  * The machine-readable files every domain serves at its own root: two for
  * crawlers, two for answer engines (llmstxt.org). On immvela.com each is
  * rewritten to its /immvela/… counterpart. Adding one means adding it here
@@ -119,6 +157,21 @@ export function middleware(req: NextRequest) {
       url.pathname = `/immvela${pathname}`
       return NextResponse.rewrite(url)
     }
+    // Ahead of the IMMVELA_PAGES rules: the legal documents, whose public
+    // paths (/legal/…, /de/legal/…) are not in that map.
+    const legalRoute = IMMVELA_LEGAL_ROUTE_FOR[pathname]
+    if (legalRoute) {
+      const url = req.nextUrl.clone()
+      url.pathname = legalRoute
+      return NextResponse.rewrite(url)
+    }
+    // The internal paths shouldn't be a second public URL on this domain.
+    const legalCanonical = IMMVELA_LEGAL_CANONICAL[pathname]
+    if (legalCanonical) {
+      const url = req.nextUrl.clone()
+      url.pathname = legalCanonical
+      return NextResponse.redirect(url, 308)
+    }
     const route = IMMVELA_ROUTE_FOR.get(pathname)
     if (route) {
       const url = req.nextUrl.clone()
@@ -139,6 +192,14 @@ export function middleware(req: NextRequest) {
   // ── On the SNS domain: hand the old Immvela URLs over to immvela.com ───────
   if (SNS_HOSTS.has(host) && IMMVELA_PAGES[pathname]) {
     return NextResponse.redirect(`${IMMVELA_URL}${IMMVELA_PAGES[pathname]}`, 301)
+  }
+
+  // Same handover for the Immvela privacy route: on the SNS domain it would
+  // otherwise render a second, Immvela-branded privacy policy alongside SNS's
+  // own at /legal/privacy. Note this is the INTERNAL path only — the SNS
+  // domain's own /legal/privacy is untouched and keeps serving SNS's policy.
+  if (SNS_HOSTS.has(host) && IMMVELA_LEGAL_CANONICAL[pathname]) {
+    return NextResponse.redirect(`${IMMVELA_URL}${IMMVELA_LEGAL_CANONICAL[pathname]}`, 301)
   }
 
   return NextResponse.next()

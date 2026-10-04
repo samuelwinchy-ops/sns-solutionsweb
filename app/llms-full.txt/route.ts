@@ -1,5 +1,6 @@
 import { getDict } from '@/i18n'
 import { IMMVELA_URL, SITE, SITE_URL } from '@/lib/site'
+import { sortedPosts } from '@/lib/blog'
 
 /**
  * /llms-full.txt — the whole site as one Markdown document.
@@ -93,6 +94,28 @@ ${t.waitlistPage.modules
       `- **${m.name} (${m.code})** — ${m.status === 'active' ? t.waitlistPage.statusActive : t.waitlistPage.statusProgress}: ${m.desc}`
   )
   .join('\n')}`)
+
+  // ── /blog ────────────────────────────────────────────────────────────────
+  // Every post's full text, so an answer engine can quote from a post — or
+  // answer a question its FAQ section covers — without a second fetch. English
+  // only, same reasoning as the rest of this file.
+  sections.push(
+    `## Blog — ${url('/blog')}
+
+AI infrastructure for real estate and service businesses: Immvela, data fragmentation, QFUtool, and where AI outbound is headed.
+
+${sortedPosts()
+  .map(
+    (post) => `### ${post.title} — ${url(`/blog/${post.slug}`)}
+
+*${post.eyebrow} · ${post.date}*
+
+${[...post.intro, ...post.sections.flatMap((s) => [`#### ${s.heading}`, ...(s.paragraphs ?? []), ...(s.bullets ?? []).map((b) => `- ${b}`)])].join('\n\n')}
+
+${post.faq.length ? `**FAQ**\n\n${post.faq.map((f) => `- **${f.q}** ${f.a}`).join('\n')}` : ''}`
+  )
+  .join('\n\n')}`
+  )
 
   // ── /team ────────────────────────────────────────────────────────────────
   sections.push(`## Team — ${url('/team')}

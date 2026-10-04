@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-const UPDATED = 'July 30, 2026'
+const UPDATED = 'September 5, 2026'
 
 export default function ImprintPage() {
   return (
@@ -75,7 +75,7 @@ export default function ImprintPage() {
           <br />
           Register court (Firmenbuchgericht): Handelsgericht Wien
           <br />
-          VAT identification number (UID): pending assignment
+          VAT identification number (UID): ATU83471949
         </p>
 
         <h2>Trade authority & applicable regulations</h2>

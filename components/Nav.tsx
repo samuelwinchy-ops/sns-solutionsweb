@@ -23,13 +23,18 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
   const links = [
     { href: immvelaHref(locale), id: 'immvela', label: t.realEstate },
     { href: localePath(locale, '/services'), id: 'services', label: t.services },
+    // English only, for now: the blog doesn't have a German translation yet
+    // (see lib/blog.ts), and a nav link into a 404 would be worse than no link.
+    ...(locale === 'en' ? [{ href: '/blog', id: 'blog', label: 'blog' }] : []),
     { href: localePath(locale, '/team'), id: 'team', label: t.team },
   ]
 
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
-  const isActive = (href: string) => pathname === href
+  // Exact match for every current link except Blog, which also has post pages
+  // under it (/blog/<slug>) that should still light up the same nav item.
+  const isActive = (href: string) => pathname === href || (href === '/blog' && pathname?.startsWith('/blog/'))
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
