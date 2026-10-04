@@ -344,7 +344,7 @@ export default function Product({ t, v }: { t: T; v: HomeVals }) {
                       {
                         gridArea: '1/1',
                         '--d': '.3s',
-                        '--len': '2.2s',
+                        '--len': '2s',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '7em',
