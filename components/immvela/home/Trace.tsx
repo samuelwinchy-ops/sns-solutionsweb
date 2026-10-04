@@ -533,19 +533,21 @@ function Stage({ L, t, v, cls }: { L: Layout; t: T; v: HomeVals; cls: string }) 
                   {t('Before this goes out')}
                 </span>
               </div>
-              <p
-                style={{
-                  margin: '6em 0 0',
-                  fontSize: '14em',
-                  lineHeight: '1.45',
-                  fontWeight: '500',
-                  color: ink,
-                }}
-              >
-                {t(
-                  'Wohnfläche: 78 m² in the Energieausweis, 76 m² in the floor plan. Which is right?'
-                )}
-              </p>
+              <div style={{ marginTop: '6em' }}>
+                <span
+                  style={{
+                    display: 'block',
+                    fontSize: '14em',
+                    lineHeight: '1.45',
+                    fontWeight: '500',
+                    color: ink,
+                  }}
+                >
+                  {t(
+                    'Wohnfläche: 78 m² in the Energieausweis, 76 m² in the floor plan. Which is right?'
+                  )}
+                </span>
+              </div>
               <div
                 style={{
                   marginTop: '12em',
