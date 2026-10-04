@@ -10,7 +10,7 @@ import Product from './home/Product'
 import Trace from './home/Trace'
 import Office from './home/Office'
 import Listen from './home/Listen'
-import Staging from './home/Staging'
+import Integrations from './home/Integrations'
 import Specs from './home/Specs'
 import People from './home/People'
 import Apply from './home/Apply'
@@ -43,7 +43,7 @@ export default function ImmvelaHome({ locale }: { locale: Locale }) {
         <Listen t={t} />
       </div>
       <div className="imv-band imv-band-h">
-        <Staging t={t} v={v} />
+        <Integrations t={t} />
       </div>
       <div className="imv-band imv-band-h">
         <Specs t={t} v={v} />

@@ -59,24 +59,20 @@ export default function Specs({ t, v }: { t: T; v: HomeVals }) {
           </div>
           <div className="sp-cell">
             <dt className="sp-name">
-              <span>{t('Publishing')}</span>
+              <span>{t('Integrations')}</span>
               <span className="sp-live">{t('Live')}</span>
             </dt>
             <dd className="sp-line">
-              {t(
-                'Instagram, Facebook, LinkedIn, TikTok and YouTube from one place, always after your approval.'
-              )}
+              {t('Listings in from your CRM by OpenImmo export, posts out to five social channels after your approval.')}
             </dd>
           </div>
           <div className="sp-cell">
             <dt className="sp-name">
-              <span>{t('CRM import')}</span>
+              <span>{t('Document checklist')}</span>
               <span className="sp-live">{t('Live')}</span>
             </dt>
             <dd className="sp-line">
-              {t(
-                'Bring listings in with an OpenImmo export from onOffice, Justimmo, Propstack or FLOWFACT.'
-              )}
+              {t('Every listing gets a checklist of the documents it needs, from SNS’s standard lists for flats and houses.')}
             </dd>
           </div>
           <div className="sp-cell">

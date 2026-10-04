@@ -23,7 +23,7 @@ for (const f of files) {
   for (const m of text.matchAll(/\bt\(\s*'((?:[^'\\]|\\.)*)'\s*\)/g)) {
     const s = m[1].replace(/\\'/g, "'").replace(/\\\\/g, '\\').replace(/\u00a0/g, ' ')
     used.add(s)
-    if (!(s in DE) && !KEEP.test(s)) missing.add(`${s}    (${f.replace(root, '')})`)
+    if (!(s in DE) && !(KEEP.test(s) && s.length < 60)) missing.add(`${s}    (${f.replace(root, '')})`)
   }
 }
 const unused = Object.keys(DE).filter((k) => !used.has(k))

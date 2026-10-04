@@ -104,7 +104,7 @@
 
 /* the helix works on the stage's centre line, then docks small on the Exposé's top-left corner as the
    Exposé lands (website recomposition: the design had the helix and the cards left of centre) */
-@keyframes pvDock{0%{transform:translate(228em,205em) scale(1)}100%{transform:scale(.6)}}
+@keyframes pvDock{0%{transform:translate(195em,205em) scale(1)}100%{transform:scale(.6)}}
 .pv-dock{transform:scale(.6);animation:pvDock .9s cubic-bezier(.5,0,.2,1) 2s both}
 @keyframes pvFly{0%{opacity:1;transform:none}20%{opacity:1;transform:translateY(-6em)}78%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.12)}}
 .pv-doc{opacity:0;animation:pvFly .9s cubic-bezier(.55,0,.7,.45) var(--d) both}
@@ -117,27 +117,7 @@
 @keyframes pvIn{0%{opacity:0}100%{opacity:1}}
 .pv-in{animation:pvIn .5s ease var(--d) both}
 
-@keyframes pvPulse{0%,100%{background-color:#f4b860}50%{background-color:#f9d49b}}
-.pv-amber{opacity:0;background:#f4b860;animation:pvWin 2.6s linear 3.6s both,pvPulse .8s ease-in-out 3.9s 3}
-@keyframes pvFlash{0%{box-shadow:inset 0 0 0 1em rgba(166,232,204,.45)}30%{box-shadow:inset 0 0 0 3em #a6e8cc}100%{box-shadow:inset 0 0 0 1em rgba(166,232,204,.45)}}
-.pv-flash{animation:pvFlash 1s ease 6.15s both}
 
-@keyframes pvQ{0%{opacity:0;transform:translateY(10em)}10%{opacity:1;transform:none}90%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-4em)}}
-.pv-q{opacity:0;animation:pvQ 2.2s cubic-bezier(.2,.8,.2,1) 4s both}
-@keyframes pvCursor{
-  0%{opacity:0;transform:translate(150em,90em)}
-  12%{opacity:1}
-  55%{transform:none;animation-timing-function:ease-in}
-  62%{transform:scale(.84)}
-  70%{transform:none}
-  86%{opacity:1}
-  100%{opacity:0;transform:none}
-}
-.pv-cursor{opacity:0;transform-origin:4em 3em;animation:pvCursor 1.9s cubic-bezier(.3,.7,.2,1) 4.5s both}
-@keyframes pvPress{0%{background:#ffffff;color:#0a2b22;border-color:rgba(10,43,34,.16)}100%{background:#1f7a5a;color:#ffffff;border-color:#1f7a5a}}
-.pv-press{animation:pvPress .3s ease 5.68s both}
-@keyframes pvGrow{0%{grid-template-rows:0fr;opacity:0}100%{grid-template-rows:1fr;opacity:1}}
-.pv-grow{display:grid;grid-template-rows:1fr;animation:pvGrow .55s cubic-bezier(.2,.8,.2,1) 6.3s both}
 
 .hl-d1{box-shadow:0 0 0 1px rgba(10,43,34,0.08),0 1px 2px rgba(10,43,34,0.06),0 10px 18px -12px rgba(10,43,34,0.22)}
 .hl-d2{box-shadow:inset 0 1px 0 #fff,0 0 0 1px rgba(10,43,34,0.06),0 2px 4px rgba(10,43,34,0.05),0 22px 40px -24px rgba(10,43,34,0.30)}
@@ -161,7 +141,8 @@
   .pv-h2{font-size:34px !important}
 }
 @media (prefers-reduced-motion:reduce){
-  .pv-stage .pv-a,  .pv-replay{display:none !important}
+  .pv-stage .pv-a{animation:none !important;transition:none !important}
+  .pv-replay{display:none !important}
 }
 
 /* ================= RECORD ================= */
@@ -184,6 +165,14 @@
 .tr-v.is-on{background-color:#e3efe8;color:#0a2b22}
 .tr-v:focus-visible{outline:2px solid #fbfaf5;outline-offset:-4px}
 .tr-v.is-on:focus-visible{outline-color:#1f7a5a}
+/* the open question: the Wohnfläche cell amber until a value is chosen; the strip waits meanwhile */
+.tr-v.is-ask{background-color:#f4b860;color:#0a2b22}
+.tr-v:disabled{cursor:default}
+.tr-v:disabled:hover{background-color:transparent}
+.tr-v.is-ask:disabled:hover{background-color:#f4b860}
+.tr-opt{appearance:none;font:inherit;text-align:left;display:flex;flex-direction:column;gap:1em;padding:8em 12em;border-radius:10em;border:1px solid rgba(10,43,34,.16);background:#ffffff;color:#0a2b22;cursor:pointer;transition:border-color .2s ease,background-color .2s ease}
+.tr-opt:hover{border-color:#1f7a5a;background:#f4faf6}
+.tr-opt:focus-visible{outline:2px solid #1f7a5a;outline-offset:2px}
 
 /* the source page slides out from behind the Exposé, opened to page 1; switching to a value on the same page keeps it still */
 .tr-doc{display:none}
@@ -249,6 +238,7 @@
 .of-held{width:20px;height:20px;border-radius:50%;box-sizing:border-box;border:2px solid #c98a1e;background:#fbeacb}
 .of-tag{font-size:12px;line-height:1;font-weight:600;padding:5px 9px;border-radius:999px;background:#fbeacb;color:#6b4a12}
 
+.of-big{font-family:var(--font-bricolage),var(--font-geist-sans),system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 72;font-weight:650;font-size:44px;line-height:1;letter-spacing:-.03em;color:#14473a}
 .of-side{min-width:0;padding:24px;background:rgb(251 250 245 / .55);border-left:1px solid rgba(10,43,34,0.08);display:flex;flex-direction:column;gap:16px}
 
 @media (max-width:959px){
@@ -387,6 +377,43 @@
 @media (max-width:640px){.sw-sec::before{left:20px;right:20px}}
 @media (max-width:640px){.sw-sec{padding:64px 20px !important}.sw-h2{font-size:34px !important}}
 
+/* ================= INTEGRATIONS ================= */
+/* In from the CRM, out to the channels, the helix between. Website addition (not in the design file),
+   set in the same system: one glass sheet, hairline connectors, text wordmarks for the CRMs. */
+.in-sec{padding:96px 24px;position:relative}
+.in-sec::before{content:"";position:absolute;top:0;left:max(24px,calc(50% - 580px));right:max(24px,calc(50% - 580px));height:1px;background:rgba(10,43,34,.06);pointer-events:none}
+.in-wrap{max-width:1160px;margin:0 auto}
+.in-sheet{margin-top:40px;border-radius:20px;background-color:rgb(255 255 255 / .8);border:1px solid rgb(255 255 255 / .85);background-image:linear-gradient(180deg,rgb(255 255 255 / .5),transparent 70px);box-shadow:inset 0 1px 0 #fff,0 1px 2px rgb(40 40 20 / .05),0 14px 30px -18px rgb(40 40 20 / .16)}
+.in-wire{stroke:#1f7a5a;stroke-opacity:.38;stroke-width:1.25}
+.in-node{fill:#1f7a5a}
+.in-label,.in-cap,.in-tile{position:absolute;box-sizing:border-box}
+.in-label{line-height:1.3;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4e635b}
+.in-cap{line-height:1.3;color:#4e635b;white-space:nowrap}
+.in-label > span{font-size:12.5em}
+.in-cap > span{font-size:13em}
+.in-tile{display:flex;align-items:center;gap:10em;height:48em;padding:0 16em;border-radius:12em;background:#ffffff;box-shadow:0 0 0 1px rgba(10,43,34,0.10),0 1px 2px rgba(10,43,34,0.05);color:#14473a;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+.in-out{height:42em;padding:0 12em}
+.in-glyph{width:24em;height:24em;border-radius:7em;flex:none;display:flex;align-items:center;justify-content:center}
+.in-glyph svg{width:16em;height:16em;display:block}
+.in-planned{margin-top:20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.in-soon{font-size:14px;line-height:1.3;font-weight:600;color:#4e635b;padding:6px 12px;border-radius:999px;border:1px dashed rgba(10,43,34,0.28)}
+.in-sm{display:none}
+@media (max-width:959px){.in-h2{font-size:40px !important}}
+@media (max-width:760px){
+  .in-sd{display:none}
+  .in-sm{display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px 16px}
+  .in-plabel{font-size:12px;line-height:1.3;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4e635b}
+  .in-pgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;font-size:1px}
+  .in-ptile{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:10px;background:#fff;box-shadow:0 0 0 1px rgba(10,43,34,0.10);color:#14473a;font-size:14px;font-weight:600;white-space:nowrap}
+  .in-ptile .in-glyph{width:20px;height:20px;border-radius:6px}
+  .in-ptile .in-glyph svg{width:14px;height:14px}
+  .in-pcap{font-size:13px;line-height:1.3;color:#4e635b}
+  .in-pline{width:1px;height:22px;background:rgba(31,122,90,.38)}
+  .in-phelix{display:flex;width:72px;height:72px;border-radius:50%;align-items:center;justify-content:center}
+}
+@media (max-width:640px){.in-sec{padding:64px 20px !important}.in-sec::before{left:20px;right:20px}.in-h2{font-size:34px !important}}
+@media (prefers-reduced-transparency:reduce){.in-sheet{background-color:#ffffff !important;background-image:none !important}}
+
 /* ================= SPECS ================= */
 /* A spec sheet, set like type: one glass sheet, hairlines inside, no icons. "Live" is green, "Next" is an outline. */
 .sp-wrap{max-width:1160px;margin:0 auto}
@@ -504,7 +531,8 @@
    the stages scale down with the viewport height instead of the width, and the section
    padding tightens. Nothing changes at taller screens or on phones. */
 @media (min-width:960px) and (max-height:960px){
-  .pv-sec,.tr-sec,.of-sec,.sw-sec{padding-top:64px !important;padding-bottom:72px !important}
+  .pv-sec,.tr-sec,.of-sec,.sw-sec,.in-sec{padding-top:64px !important;padding-bottom:72px !important}
+  .in-sheet{margin-top:32px}
   .pv-sec{--pvw:min(100%,1160px,max(820px,calc((100svh - 330px) * 2.0714)))}
   .pv-sec [data-pv-stage]{max-width:var(--pvw);margin:32px auto 0 !important}
   .tr-sec{--trw:min(100%,1160px,max(800px,calc((100svh - 300px) * 1.875)))}
