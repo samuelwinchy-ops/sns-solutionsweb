@@ -582,7 +582,7 @@
 .tp-held{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;padding:6px 12px;border-radius:999px;background:#fdf1dc;color:#6b4a12;font-size:14px;line-height:1.3;font-weight:600}
 .tp-held i{width:8px;height:8px;border-radius:50%;background:#f4b860;flex:none}
 .tp-todo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:0;padding:0;list-style:none}
-.tp-box{min-width:0;box-sizing:border-box;min-height:128px;padding:24px;border-radius:16px;border:1.5px dashed rgba(10,43,34,0.35);display:flex;flex-direction:column;justify-content:space-between;gap:16px}
+.tp-fact{min-width:0;box-sizing:border-box;padding-top:16px;border-top:1px solid rgba(10,43,34,0.18);display:flex;flex-direction:column;gap:8px;color:#14473a}
 .tp-mail{color:#1a6b4f;font-weight:600;text-decoration:none;word-break:break-word}
 .tp-mail:hover{text-decoration:underline}
 
@@ -598,7 +598,6 @@
   .tp-h2{font-size:28px !important}
   .tp-sheet{padding:0 20px}
   .tp-row{padding:28px 0}
-  .tp-box{min-height:0}
 }
 @media (prefers-reduced-transparency:reduce){.tp-sheet{background-color:#ffffff !important;background-image:none !important}}
 

@@ -180,7 +180,7 @@ export default function TrustSections({ t }: { t: T }) {
                 fontSize: '40px',
               }}
             >
-              {t('To be confirmed')}
+              {t('Where your data goes')}
             </h2>
             <p
               style={{
@@ -192,32 +192,32 @@ export default function TrustSections({ t }: { t: T }) {
                 textWrap: 'pretty',
               }}
             >
-              {t('These answers are not settled yet. They will appear here once they are.')}
+              {t('What is stored where, and which companies process it for Immvela.')}
             </p>
           </div>
-          <ul className="tp-todo" aria-label={t('Answers to be confirmed')}>
-            <li className="tp-box">
+          <ul className="tp-todo" aria-label={t('Where your data goes')}>
+            <li className="tp-fact">
               <span style={{ fontSize: '16px', lineHeight: '1.4', fontWeight: '600' }}>
-                {t('[Hosting region]')}
+                {t('Stored in Frankfurt')}
               </span>
               <span style={{ fontSize: '14px', lineHeight: '1.45', color: '#3f574f' }}>
-                {t('Where the database and files are stored.')}
+                {t('The database and the files you upload are stored with Supabase in Frankfurt, Germany.')}
               </span>
             </li>
-            <li className="tp-box">
+            <li className="tp-fact">
               <span style={{ fontSize: '16px', lineHeight: '1.4', fontWeight: '600' }}>
-                {t('[List of service providers]')}
+                {t('Service providers')}
               </span>
               <span style={{ fontSize: '14px', lineHeight: '1.45', color: '#3f574f' }}>
-                {t('Every company that processes data for Immvela.')}
+                {t('Supabase (database and files), Vercel (hosting), Trigger.dev (background jobs), Anthropic (documents and text) and fal.ai (staging photos).')}
               </span>
             </li>
-            <li className="tp-box">
+            <li className="tp-fact">
               <span style={{ fontSize: '16px', lineHeight: '1.4', fontWeight: '600' }}>
-                {t('[Data processing agreement (AVV)]')}
+                {t('Data processing agreement (AVV)')}
               </span>
               <span style={{ fontSize: '14px', lineHeight: '1.45', color: '#3f574f' }}>
-                {t('Whether and how your office can sign one.')}
+                {t('We do not offer a standard AVV yet. Write to us before your office uploads documents that name people.')}
               </span>
             </li>
           </ul>

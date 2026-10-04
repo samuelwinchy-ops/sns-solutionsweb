@@ -94,7 +94,7 @@ export default function Apply({ t, v }: { t: T; v: HomeVals }) {
               {t('Where is my data?')}
             </dt>
             <dd style={{ margin: '0', fontSize: '16px', lineHeight: '1.55' }}>
-              <span className="ap-todo">{t('[Hosting answer to confirm with SNS]')}</span>
+              {t('Your database and files are stored in Frankfurt. Documents and text are processed by AI providers in the USA.')}
             </dd>
           </div>
         </dl>

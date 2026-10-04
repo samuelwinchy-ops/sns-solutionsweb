@@ -125,7 +125,8 @@ const DE: Record<string, string> = {
     'Ja. Deutsch zuerst, Englisch verfügbar. Das Exposé wird immer im Deutsch des Landes geschrieben, in dem das Objekt liegt.',
   'Does it work with my CRM?': 'Funktioniert es mit meinem CRM?',
   'Where is my data?': 'Wo liegen meine Daten?',
-  '[Hosting answer to confirm with SNS]': '[Antwort zum Hosting, mit SNS zu bestätigen]',
+  'Your database and files are stored in Frankfurt. Documents and text are processed by AI providers in the USA.':
+    'Ihre Datenbank und Ihre Dateien liegen in Frankfurt. Unterlagen und Texte werden von KI-Anbietern in den USA verarbeitet.',
 
   // form states (both forms)
   'Please enter your name.': 'Bitte geben Sie Ihren Namen ein.',
@@ -166,17 +167,18 @@ const DE: Record<string, string> = {
   'Immvela does not state legal retention periods. Ask your counsel.':
     'Immvela nennt keine gesetzlichen Aufbewahrungsfristen. Fragen Sie dazu Ihre Rechtsberatung.',
   'How your data is handled': 'Wie Ihre Daten behandelt werden',
-  'To be confirmed': 'Noch zu bestätigen',
-  'These answers are not settled yet. They will appear here once they are.':
-    'Diese Antworten sind noch nicht geklärt. Sie erscheinen hier, sobald sie feststehen.',
-  '[Hosting region]': '[Hosting-Region]',
-  'Where the database and files are stored.': 'Wo die Datenbank und die Dateien gespeichert sind.',
-  '[List of service providers]': '[Liste der Dienstleister]',
-  'Every company that processes data for Immvela.':
-    'Alle Unternehmen, die für Immvela Daten verarbeiten.',
-  '[Data processing agreement (AVV)]': '[Auftragsverarbeitungsvertrag (AVV)]',
-  'Whether and how your office can sign one.': 'Ob und wie Ihr Büro einen abschließen kann.',
-  'Answers to be confirmed': 'Noch zu bestätigende Antworten',
+  'Where your data goes': 'Wohin Ihre Daten gehen',
+  'What is stored where, and which companies process it for Immvela.':
+    'Was wo gespeichert wird und welche Unternehmen die Daten für Immvela verarbeiten.',
+  'Stored in Frankfurt': 'Gespeichert in Frankfurt',
+  'The database and the files you upload are stored with Supabase in Frankfurt, Germany.':
+    'Die Datenbank und die hochgeladenen Dateien liegen bei Supabase in Frankfurt.',
+  'Service providers': 'Dienstleister',
+  'Supabase (database and files), Vercel (hosting), Trigger.dev (background jobs), Anthropic (documents and text) and fal.ai (staging photos).':
+    'Supabase (Datenbank und Dateien), Vercel (Hosting), Trigger.dev (Hintergrundaufgaben), Anthropic (Unterlagen und Texte) und fal.ai (Fotos für das Staging).',
+  'Data processing agreement (AVV)': 'Auftragsverarbeitungsvertrag (AVV)',
+  'We do not offer a standard AVV yet. Write to us before your office uploads documents that name people.':
+    'Einen standardisierten AVV bieten wir noch nicht an. Schreiben Sie uns, bevor Ihr Büro Unterlagen hochlädt, in denen Personen genannt werden.',
   'Questions about your data': 'Fragen zu Ihren Daten',
   'Write to': 'Schreiben Sie an',
   '. Immvela is made by SNS Software Solutions GmbH, Vienna.':
