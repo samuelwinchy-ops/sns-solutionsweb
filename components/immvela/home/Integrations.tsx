@@ -82,7 +82,7 @@ const LIVE: Cell[] = [
   { gx: 2, gy: 1.5, kind: 'social', name: 'YouTube' },
   { gx: 4, gy: -0.5, kind: 'planned', name: 'willhaben' },
   { gx: 4, gy: 0.5, kind: 'planned', name: 'ImmoScout24' },
-  { gx: -4, gy: -0.5, kind: 'planned', name: 'immowelt' },
+  { gx: 4, gy: 1.5, kind: 'planned', name: 'immowelt' },
 ]
 
 const CELL = 92
