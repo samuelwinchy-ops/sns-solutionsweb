@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import Image from 'next/image'
-import { breathWidth, easeRate, renderHelix, type HelixTheme } from '@/lib/helix-contour'
+import { easeRate, renderHelix, type HelixTheme } from '@/lib/helix-contour'
 
 const REDUCED = '(prefers-reduced-motion: reduce)'
 const FALLBACK = '/immvela/redesign/helix-light.svg'
@@ -11,21 +11,20 @@ const FALLBACK = '/immvela/redesign/helix-light.svg'
  * Immvela's helix, drawn live as the app draws it (lib/helix-contour.ts): the band turns in 3D, so the
  * hairlines move with depth instead of a picture being rotated. It fills its box, which must be square.
  *
- * `rate` is turns per 24 s and is eased, never jumped. `intro` draws the lines in once, turning fast,
+ * It only turns: a constant band width, no breathing or pulse. `rate` is turns per 24 s and is eased
+ * (about a second to settle), never jumped. `intro` draws the lines in once, turning fast,
  * then settles to `rate`. Reduced motion gets one still frame and no loop. The loop sleeps while the
  * canvas is off screen or the tab is hidden. Before the client takes over (and with no JavaScript) the
  * static SVG stands in; a helix with an intro keeps that fallback for no-JavaScript visitors only.
  */
 export default function HelixCanvas({
   rate = 1,
-  breathe = true,
   intro,
   theme = 'light',
   className,
   style,
 }: {
   rate?: number
-  breathe?: boolean
   intro?: { delay: number; duration: number }
   theme?: HelixTheme
   className?: string
@@ -35,9 +34,7 @@ export default function HelixCanvas({
   const canvas = useRef<HTMLCanvasElement | null>(null)
   const [mode, setMode] = useState<'server' | 'still' | 'live'>('server')
   const rateRef = useRef(rate)
-  const breatheRef = useRef(breathe)
   rateRef.current = rate
-  breatheRef.current = breathe
   const introRef = useRef(intro)
 
   useEffect(() => {
@@ -58,13 +55,12 @@ export default function HelixCanvas({
     let dpr = 1
     let t = 0
     let current = introRef.current ? 3 : rateRef.current
-    let breath = 0
     let elapsed = 0
     let reveal = mode === 'live' && introRef.current ? 0 : 1
 
     const draw = () => {
       if (!size) return
-      renderHelix(ctx, size, theme, t, dpr, breath ? breathWidth(breath) : undefined, reveal)
+      renderHelix(ctx, size, theme, t, dpr, undefined, reveal)
     }
     const measure = () => {
       const w = Math.min(el.clientWidth, el.clientHeight || el.clientWidth)
@@ -101,7 +97,6 @@ export default function HelixCanvas({
       }
       current = easeRate(current, target, dt)
       t += dt * current
-      breath = breatheRef.current && reveal >= 1 ? breath + dt : 0
       draw()
       id = requestAnimationFrame(tick)
     }

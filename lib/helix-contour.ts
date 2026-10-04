@@ -52,11 +52,6 @@ export function linesFor(devicePx: number): number {
   return devicePx >= 360 ? 12 : devicePx >= 300 ? 10 : devicePx >= 150 ? 8 : 5
 }
 
-/** The band's width while listening: it narrows and widens once every 1.8 s of wall time. */
-export function breathWidth(seconds: number): number {
-  return G.w - 0.09 * (0.5 - 0.5 * Math.cos((seconds * 2 * Math.PI) / 1.8))
-}
-
 /** Draws one frame at time `t` seconds of rate-1 motion. */
 export function renderHelix(
   ctx: CanvasRenderingContext2D,

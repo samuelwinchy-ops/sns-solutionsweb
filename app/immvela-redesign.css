@@ -51,30 +51,13 @@
 
 /* ---------- HERO: the mark arrives ----------
    0.15 back tier draws, 0.5 middle, 0.9 front, the coil-in settles by 2.7.
-   2.1 the wordmark rises, 2.95 the full stop drops, 3.22 the helix answers with one breath,
-   3.55 the line, 3.95 the button, 4.2 the proof line, 4.15 on the helix breathes for good. */
+   2.1 the wordmark rises, 2.95 the full stop drops, 3.55 the line, 3.95 the button, 4.2 the proof line.
+   The helix itself only turns (HelixCanvas): no pulse, no breathing. */
 @keyframes drDraw{0%{stroke-dashoffset:1;opacity:0}8%{opacity:1}100%{stroke-dashoffset:0;opacity:1}}
 .dr-seg{stroke-dasharray:1 2;stroke-dashoffset:0;animation:drDraw .8s cubic-bezier(.3,.1,.2,1) both;animation-delay:calc(var(--t0) + var(--a) * var(--sw))}
 .dr-back{--t0:.15s;--sw:.7s}
 .dr-mid{--t0:.5s;--sw:.8s}
 .dr-front{--t0:.9s;--sw:.8s}
-@keyframes drTurn{to{transform:rotate(360deg)}}
-@keyframes drCoil{0%{transform:rotate(-72deg) scale(.9)}100%{transform:none}}
-.dr-turn{animation:drTurn 24s linear infinite}
-.dr-coil{animation:drCoil 2.6s cubic-bezier(.16,1,.3,1) .1s both}
-@keyframes drAck{0%{transform:none}38%{transform:scale(1.045)}100%{transform:none}}
-.dr-ack{animation:drAck .95s cubic-bezier(.4,0,.2,1) 3.22s both}
-@keyframes drBreath{
-  0%{transform:none;opacity:1;animation-timing-function:cubic-bezier(.61,1,.88,1)}
-  25%{transform:scale(var(--hi));opacity:var(--lo);animation-timing-function:cubic-bezier(.12,0,.39,0)}
-  50%{transform:none;opacity:1;animation-timing-function:cubic-bezier(.61,1,.88,1)}
-  75%{transform:scale(var(--dn));opacity:1;animation-timing-function:cubic-bezier(.12,0,.39,0)}
-  100%{transform:none;opacity:1}
-}
-.dr-tier{transform-box:view-box;transform-origin:100px 100px;animation:drBreath 4.8s linear infinite}
-.dr-front{--hi:1.032;--dn:.97;--lo:.86;animation-delay:4.15s}
-.dr-mid{--hi:1.026;--dn:.975;--lo:.7;animation-delay:4.4s}
-.dr-back{--hi:1.02;--dn:.98;--lo:.55;animation-delay:4.65s}
 @keyframes drRise{0%{transform:translateY(108%)}100%{transform:none}}
 .dr-mask{display:inline-flex;overflow:hidden;padding:0 .06em .1em;margin:0 -.06em -.1em}
 .dr-l{display:inline-block;animation:drRise .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(2.1s + var(--i) * .05s)}
@@ -118,12 +101,6 @@
 .pv-stage.is-idle .pv-a{animation-play-state:paused !important}
 .pv-stage.is-done .pv-a{animation:none !important}
 
-@keyframes pvTurn{to{transform:rotate(360deg)}}
-.pv-turn{animation:pvTurn 40s linear infinite}
-@keyframes pvSpin{0%{transform:none}100%{transform:rotate(1080deg)}}
-.pv-spin{animation:pvSpin 3.4s cubic-bezier(.5,0,.25,1) .1s both}
-@keyframes pvAck{0%{transform:none}40%{transform:scale(1.08)}100%{transform:none}}
-.pv-ack{animation:pvAck .9s cubic-bezier(.4,0,.2,1) 6.2s both}
 
 /* the helix works on the stage's centre line, then docks small on the Exposé's top-left corner as the
    Exposé lands (website recomposition: the design had the helix and the cards left of centre) */
@@ -184,8 +161,7 @@
   .pv-h2{font-size:34px !important}
 }
 @media (prefers-reduced-motion:reduce){
-  .pv-stage .pv-a,.pv-turn{animation:none !important;transition:none !important}
-  .pv-replay{display:none !important}
+  .pv-stage .pv-a,  .pv-replay{display:none !important}
 }
 
 /* ================= RECORD ================= */
