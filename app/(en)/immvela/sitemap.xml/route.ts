@@ -12,8 +12,10 @@ export function GET() {
   const urls = [
     { path: '', alt: '/de', priority: '1.0' },
     { path: '/de', alt: '/de', priority: '0.9' },
-    { path: '/demo', alt: '/de/demo', priority: '0.8' },
-    { path: '/de/demo', alt: '/de/demo', priority: '0.7' },
+    { path: '/modules', alt: '/de/modules', priority: '0.8' },
+    { path: '/de/modules', alt: '/de/modules', priority: '0.7' },
+    { path: '/why', alt: '/de/why', priority: '0.7' },
+    { path: '/de/why', alt: '/de/why', priority: '0.6' },
     { path: '/trust', alt: '/de/trust', priority: '0.6' },
     { path: '/de/trust', alt: '/de/trust', priority: '0.5' },
     { path: '/partner', alt: '/de/partner', priority: '0.6' },

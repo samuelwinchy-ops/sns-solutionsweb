@@ -14,8 +14,6 @@ export default function ImmvelaSiteFooter({ locale }: { locale: Locale }) {
     { href: path('/why'), label: t('Why Immvela') },
     { href: path('/trust'), label: t('How we handle data') },
     { href: path('/partner'), label: t('Help us build Immvela') },
-    { href: path('/new'), label: t('What’s new') },
-    { href: path('/eavg'), label: t('The EAVG, quoted') },
     { href: localePath(locale, '/legal/imprint'), label: t('Imprint') },
     { href: localePath(locale, '/legal/privacy'), label: t('Privacy') },
     { href: localePath(locale, '/legal/terms'), label: t('Terms') },

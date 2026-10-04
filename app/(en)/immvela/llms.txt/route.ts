@@ -22,7 +22,8 @@ when two documents disagree. Nothing read from a document is used until a person
 - [Immvela (Deutsch)](${IMMVELA_URL}/de): deutsche Version.
 - [How Immvela handles documents and data](${IMMVELA_URL}/trust) ([Deutsch](${IMMVELA_URL}/de/trust)).
 - [Help us build Immvela](${IMMVELA_URL}/partner): book a 30 minute conversation ([Deutsch](${IMMVELA_URL}/de/partner)).
-- [Module walkthrough](${IMMVELA_URL}/demo) ([Deutsch](${IMMVELA_URL}/de/demo)).
+- [What Immvela does today, and what comes next](${IMMVELA_URL}/modules) ([Deutsch](${IMMVELA_URL}/de/modules)).
+- [Why Immvela](${IMMVELA_URL}/why) ([Deutsch](${IMMVELA_URL}/de/why)).
 - [Apply for the closed beta](${IMMVELA_URL}/#apply).
 - [SNS Solutions](${SITE_URL}/): the company behind Immvela.
 

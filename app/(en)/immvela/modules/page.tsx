@@ -1,8 +1,44 @@
+import type { Metadata, Viewport } from 'next'
 import ImmvelaFrame from '@/components/immvela/ImmvelaFrame'
 import ModulesSections from '@/components/immvela/rest/ModulesSections'
+import { IMMVELA_URL, SITE_URL } from '@/lib/site'
 import '@/app/immvela-rest.css'
 
-export const metadata = { title: { absolute: 'Immvela · modules' }, robots: { index: false } }
+// Served at immvela.com/modules (middleware.ts maps it onto this route), so the canonical and
+// alternates are absolute to that origin.
+const title = 'Immvela · what it does today, and what comes next'
+const description =
+  'What Immvela does today in the closed beta: reads documents, keeps a checklist per listing, drafts the Exposé, brochure and posts, stages photos and publishes after your approval. And what comes next.'
+
+export const metadata: Metadata = {
+  title: { absolute: title },
+  description,
+  applicationName: 'Immvela',
+  manifest: '/immvela.webmanifest',
+  alternates: {
+    canonical: `${IMMVELA_URL}/modules`,
+    languages: {
+      en: `${IMMVELA_URL}/modules`,
+      de: `${IMMVELA_URL}/de/modules`,
+      'x-default': `${IMMVELA_URL}/modules`,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'Immvela',
+    title,
+    description,
+    url: `${IMMVELA_URL}/modules`,
+    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: 'Immvela' }],
+  },
+  twitter: { card: 'summary_large_image', title, description, images: [`${SITE_URL}/og.png`] },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#f2f1e8',
+  colorScheme: 'light',
+}
 
 export default function Page() {
   return (

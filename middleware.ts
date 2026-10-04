@@ -8,8 +8,8 @@ import { IMMVELA_URL, SITE_URL } from '@/lib/site'
  *   • On immvela.com  → the /immvela pages are served at the domain root:
  *       immvela.com/         → renders /immvela
  *       immvela.com/de       → renders /de/immvela
- *       immvela.com/demo     → renders /immvela/demo
- *       immvela.com/de/demo  → renders /de/immvela/demo
+ *       immvela.com/modules  → renders /immvela/modules (/demo 301s here)
+ *       immvela.com/why      → renders /immvela/why
  *       immvela.com/trust, /partner (and /de/…) → the same pattern
  *     and the internal /immvela paths canonicalise back to the root so there's
  *     exactly one public URL per page.
@@ -49,8 +49,10 @@ const SNS_HOSTS = hostSet(SITE_URL)
 const IMMVELA_PAGES: Record<string, string> = {
   '/immvela': '/',
   '/de/immvela': '/de',
-  '/immvela/demo': '/demo',
-  '/de/immvela/demo': '/de/demo',
+  '/immvela/modules': '/modules',
+  '/de/immvela/modules': '/de/modules',
+  '/immvela/why': '/why',
+  '/de/immvela/why': '/de/why',
   '/immvela/trust': '/trust',
   '/de/immvela/trust': '/de/trust',
   '/immvela/partner': '/partner',
@@ -123,16 +125,18 @@ const IMMVELA_AGENT_FILES = new Set(['/robots.txt', '/sitemap.xml', '/llms.txt',
  * there is no expiry date on an old link.
  */
 const RETIRED_TO_IMMVELA: Record<string, string> = {
+  // The old module walkthrough, replaced by the Modules page.
+  '/immvela/demo': '/modules',
+  '/de/immvela/demo': '/de/modules',
   '/solutions': '/',
   '/solutions/hvac': '/',
   '/solutions/hvac/waitlist': '/',
-  // The nearest live equivalent of the old inbound-agent demo is the module
-  // walkthrough, not the Immvela home page.
-  '/solutions/demo': '/demo',
+  // The nearest live equivalent of the old inbound-agent demo is the Modules page.
+  '/solutions/demo': '/modules',
   '/de/solutions': '/de',
   '/de/solutions/hvac': '/de',
   '/de/solutions/hvac/waitlist': '/de',
-  '/de/solutions/demo': '/de/demo',
+  '/de/solutions/demo': '/de/modules',
 }
 
 export function middleware(req: NextRequest) {
@@ -171,6 +175,11 @@ export function middleware(req: NextRequest) {
       const url = req.nextUrl.clone()
       url.pathname = legalCanonical
       return NextResponse.redirect(url, 308)
+    }
+    if (pathname === '/demo' || pathname === '/de/demo') {
+      const url = req.nextUrl.clone()
+      url.pathname = pathname === '/demo' ? '/modules' : '/de/modules'
+      return NextResponse.redirect(url, 301)
     }
     const route = IMMVELA_ROUTE_FOR.get(pathname)
     if (route) {

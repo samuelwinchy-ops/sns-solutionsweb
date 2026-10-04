@@ -1,8 +1,44 @@
+import type { Metadata, Viewport } from 'next'
 import ImmvelaFrame from '@/components/immvela/ImmvelaFrame'
 import WhySections from '@/components/immvela/rest/WhySections'
+import { IMMVELA_URL, SITE_URL } from '@/lib/site'
 import '@/app/immvela-rest.css'
 
-export const metadata = { title: { absolute: 'Immvela · why Immvela' }, robots: { index: false } }
+// Served at immvela.com/why (middleware.ts maps it onto this route), so the canonical and
+// alternates are absolute to that origin.
+const title = 'Immvela · one record you can trust, for every property'
+const description =
+  'Why we built Immvela: every number in a listing traced to its document, confirmed by a person, and kept in your office’s record.'
+
+export const metadata: Metadata = {
+  title: { absolute: title },
+  description,
+  applicationName: 'Immvela',
+  manifest: '/immvela.webmanifest',
+  alternates: {
+    canonical: `${IMMVELA_URL}/why`,
+    languages: {
+      en: `${IMMVELA_URL}/why`,
+      de: `${IMMVELA_URL}/de/why`,
+      'x-default': `${IMMVELA_URL}/why`,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'Immvela',
+    title,
+    description,
+    url: `${IMMVELA_URL}/why`,
+    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: 'Immvela' }],
+  },
+  twitter: { card: 'summary_large_image', title, description, images: [`${SITE_URL}/og.png`] },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#f2f1e8',
+  colorScheme: 'light',
+}
 
 export default function Page() {
   return (
