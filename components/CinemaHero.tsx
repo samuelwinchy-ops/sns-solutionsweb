@@ -75,7 +75,7 @@ export default function CinemaHero({ locale = defaultLocale }: { locale?: Locale
         transition: `background-color .8s ${EASE}, color .8s ${EASE}`,
       }}
     >
-      <div className="relative min-h-[880px] lg:h-[860px] lg:min-h-0">
+      <div className="relative min-h-[720px] md:min-h-[880px] lg:h-[860px] lg:min-h-0">
         {/* The company line stays put while the products move beneath it */}
         <h1 className="relative z-10 max-w-3xl px-5 pt-12 font-display text-[2.5rem] font-normal leading-[1.02] tracking-[-0.02em] md:px-12 md:text-[3.5rem]">
           {h.h1a} <em className="opacity-60">{h.h1b}</em>
@@ -131,7 +131,7 @@ export default function CinemaHero({ locale = defaultLocale }: { locale?: Locale
               />
             </div>
           </div>
-          <div className="absolute bottom-24 right-5 w-[150px] rounded-[30px] bg-gradient-to-b from-[#c8c9cc] to-[#8e9094] p-[3px] shadow-[0_40px_70px_-24px_rgba(16,24,20,0.6)] md:w-[190px] lg:bottom-auto lg:left-[588px] lg:right-auto lg:top-[340px] lg:w-[184px] lg:rounded-[36px]">
+          <div className="absolute bottom-24 right-5 hidden w-[150px] rounded-[30px] bg-gradient-to-b from-[#c8c9cc] to-[#8e9094] p-[3px] shadow-[0_40px_70px_-24px_rgba(16,24,20,0.6)] md:block md:w-[190px] lg:bottom-auto lg:left-[588px] lg:right-auto lg:top-[340px] lg:w-[184px] lg:rounded-[36px]">
             <div className="rounded-[27px] bg-black p-[6px] lg:rounded-[33px] lg:p-[7px]">
               <div className="overflow-hidden rounded-[22px] bg-[#efeee7] lg:rounded-[27px]">
                 <div className="h-6" />
