@@ -24,28 +24,10 @@ export const en = {
     // customer's words; it does not mention software, AI or agents.
     h1a: 'What took hours yesterday',
     h1b: 'now handles itself.',
-    // Says what SNS is, not what the products share: Immvela and QFUtool are
-    // separate businesses for separate buyers, and each gets its own tile
-    // below rather than a combined pitch here.
-    subtitle: [
-      {
-        t: 'SNS Solutions is a software company in Vienna. We design, build and run our own products. When a business needs something no product covers, we build that too.',
-      },
-    ] as Segment[],
     ctaProducts: 'See our products',
-    ctaStart: 'Book a free consultation',
   },
-  // The product tiles (components/ProductTiles.tsx). Each product is shown in
-  // its OWN brand — Immvela's beige and green, QFUtool's slate and orange — the
-  // way a parent company presents the things it makes. Claims here must match
-  // each product's own site: Immvela's module status comes from the Immvela
-  // repo, QFUtool's audience, headline and trial from qfutool.com.
-  // The homepage slideshow (components/CinemaHero.tsx).
+  // The example follow-up email in QFUtool's box (components/ProductBoxes.tsx).
   cinema: {
-    upNext: 'Up next',
-    pause: 'Pause the product slideshow',
-    play: 'Play the product slideshow',
-    tabs: 'Products',
     email: {
       from: 'From',
       sent: 'Sent',
@@ -59,80 +41,13 @@ export const en = {
       replyNote: 'Reply received · follow-ups stopped',
     },
   },
-  // Homepage sections below the slideshow (components/HomeChapters.tsx).
-  // Every Immvela module is listed, in development or not.
-  chapters: {
-    immvela: {
-      eyebrow: 'Immvela · take a closer look',
-      heading: 'One property. Every job around it.',
-      sub: 'Each module sits on the property’s Wheel and works from the same confirmed facts.',
-      callouts: [
-        {
-          k: 'Dossier',
-          t: 'Reads the Energieausweis and the Grundbuchauszug and shows you what it read, for you to confirm.',
-        },
-        { k: 'Quill', t: 'Writes the captions, brochure and Exposé from the facts you confirmed.' },
-        { k: 'Vignette', t: 'Stages empty rooms from a single photo, and labels them as staged.' },
-        {
-          k: 'Immerse',
-          t: 'One walk through the property with a phone becomes a walkthrough video.',
-          soon: true,
-        },
-        { k: 'Verlag', t: 'Posts to your channels once you approve.' },
-      ],
-      manualLabel: 'Manual',
-      manualNote: 'Open the modules on the Wheel yourself.',
-      autoLabel: 'Auto',
-      autoNote: 'Tell Immvela what you need; it asks before every step.',
-      soon: 'In development',
-      film: 'Visit the Immvela website',
-      cta: 'Apply for the closed beta',
-    },
-    qfutool: {
-      eyebrow: 'QFUtool · anatomy of a follow-up',
-      heading: 'Every quote gets chased. Politely, and as you.',
-      callouts: [
-        { t: 'From your own address, signed by your domain. Replies land in your inbox.' },
-        { t: 'Each email carries its own customer, amount, quoted item and quote number.' },
-        { t: 'A reply, an unsubscribe or a bounce cancels everything still queued.' },
-        { t: 'One-click unsubscribe in every email, honoured instantly.' },
-      ],
-      rulesLabel: 'The rules it keeps',
-      rules: [
-        { k: '08:00–18:00', t: 'Sends only in working hours, weekdays if you like.' },
-        { k: '50 a day', t: 'To start. A new domain earns trust slowly.' },
-        { k: 'Value ceiling', t: 'Big quotes are listed for you to call, not emailed.' },
-        { k: 'Never twice', t: 'Upload next week’s export; quotes already chased are skipped.' },
-        { k: 'Off by default', t: 'Read exactly what would go out before you switch it on.' },
-      ],
-      price: '14 days free, then from €19 a month.',
-      cta: 'Start free trial',
-      example: 'Example',
-    },
-    news: {
-      eyebrow: 'Newsroom',
-      heading: 'What we’ve learned building them.',
-      all: 'All stories',
-    },
-    steps: 'How a custom build works',
-    closing: {
-      heading: 'Pick your tool,',
-      headingB: 'or tell us the\u00a0job.',
-      consult: 'Book a free consultation',
-    },
-  },
+  // The two product boxes (components/ProductBoxes.tsx). Each product is shown in
+  // its own brand. Claims here must match each product's own site.
   products: {
-    eyebrow: 'Products',
-    heading: 'Our products',
     learnMore: 'Learn more',
     immvela: {
       audience: 'For estate agents',
-      tagline: 'The listing, the Exposé and the posts, from one set of facts.',
-      desc: 'Enter a property once and confirm its facts. Immvela drafts the captions, the brochure and the Exposé from them and posts to your channels.',
-      status: 'Closed beta',
       cta: 'Apply for the closed beta',
-      webAlt:
-        "Immvela on a laptop: a property's Wheel, with Dossier, Quill, Vignette and Verlag around it",
       phoneAlt: "Immvela's sign-in screen on a phone",
     },
     qfutool: {
@@ -141,30 +56,38 @@ export const en = {
       desc: 'Upload the spreadsheet of quotes that went out. QFUtool follows up with each customer in your name, during business hours, and hands you the ones who reply.',
       status: 'Free for 14 days · no CRM to set up',
       cta: 'Start free trial',
-      // The illustration: what QFUtool's follow-up list looks like. Sample
-      // rows, labelled as an example on screen, never presented as customers.
-      example: 'Example',
-      exampleLabel: 'Example of a QFUtool follow-up list',
-      cols: ['Customer', 'Quote', 'Status'],
-      rows: [
-        {
-          who: 'Keller GmbH',
-          amount: '€ 4,800',
-          state: 'Replied, moved to your list',
-          tone: 'reply',
-        },
-        { who: 'M. Huber', amount: '€ 1,250', state: 'Follow-up 2 · Thu 10:00', tone: 'queued' },
-        {
-          who: 'Baumann & Söhne',
-          amount: '€ 9,300',
-          state: 'Follow-up 1 sent · Tue 09:14',
-          tone: 'sent',
-        },
-        { who: 'A. Novak', amount: '€ 2,100', state: 'Stopped after unsubscribe', tone: 'stopped' },
-      ],
     },
   },
-  // The consultation offer: secondary to the products, one band after them.
+  // The home page below the nav (components/home/*): the logo billboard, the
+  // integrations row, the news grid and the consulting panel.
+  home: {
+    slidesLabel: 'Our products',
+    immvelaAudience: 'For real estate agents',
+    qfutoolAudience: 'For salespeople',
+    pause: 'Pause the product slideshow',
+    play: 'Play the product slideshow',
+    integrations: 'Integrations',
+    soon: 'Soon',
+    comingSoon: 'coming soon',
+    latestEyebrow: 'Latest',
+    latestHeading: 'News and updates',
+    update: 'Update',
+    updateTitle: 'immvela.com is live, and applications for the closed beta are open.',
+    updateAlt: 'The immvela.com home page: the Immvela mark and Apply for the closed beta',
+    articlesInEnglish: '',
+  },
+  // The /products page: the two products side by side.
+  productsPage: {
+    title: 'Our products',
+    description:
+      'Immvela, the personal real estate AI assistant, and QFUtool, automated quote follow-up. Two products by SNS Solutions in Vienna.',
+    heading: 'Our products',
+    line: 'Two tools, each built for one job.',
+    immvelaTagline: 'Your personal real estate AI assistant.',
+    qfutoolPrice: '14 days free, then from €19 a month.',
+    exampleEmail: 'Example email',
+  },
+  // The consultation offer: secondary to the products.
   consult: {
     eyebrow: 'Consulting',
     heading: 'Need software built for your business?',

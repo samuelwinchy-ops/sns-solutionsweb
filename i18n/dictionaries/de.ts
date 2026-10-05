@@ -18,20 +18,10 @@ export const de: Dictionary = {
     // Technik dahinter.
     h1a: 'Was gestern Stunden gedauert hat,',
     h1b: 'erledigt sich heute von selbst.',
-    subtitle: [
-      {
-        t: 'SNS Solutions ist ein Softwareunternehmen aus Wien. Wir entwerfen, bauen und betreiben unsere eigenen Produkte. Braucht ein Unternehmen etwas, das kein Produkt abdeckt, bauen wir das auch.',
-      },
-    ],
     ctaProducts: 'Unsere Produkte',
-    ctaStart: 'Kostenlose Beratung buchen',
   },
   // Siehe en.ts. QFUtool-Texte entsprechen qfutool.com/de.
   cinema: {
-    upNext: 'Als Nächstes',
-    pause: 'Produkt-Diashow anhalten',
-    play: 'Produkt-Diashow abspielen',
-    tabs: 'Produkte',
     email: {
       from: 'Von',
       sent: 'Gesendet',
@@ -45,93 +35,11 @@ export const de: Dictionary = {
       replyNote: 'Antwort erhalten · Nachfassen gestoppt',
     },
   },
-  chapters: {
-    immvela: {
-      eyebrow: 'Immvela · genauer hingesehen',
-      heading: 'Ein Objekt. Jede Aufgabe rundherum.',
-      sub: 'Jedes Modul sitzt am Rad des Objekts und arbeitet mit denselben bestätigten Angaben.',
-      callouts: [
-        {
-          k: 'Dossier',
-          t: 'Liest den Energieausweis und den Grundbuchauszug und zeigt Ihnen, was es gelesen hat, zur Bestätigung.',
-        },
-        {
-          k: 'Quill',
-          t: 'Schreibt Captions, Broschüre und Exposé aus den Angaben, die Sie bestätigt haben.',
-        },
-        {
-          k: 'Vignette',
-          t: 'Möbliert leere Räume aus einem einzigen Foto und kennzeichnet sie als virtuell möbliert.',
-        },
-        {
-          k: 'Immerse',
-          t: 'Ein Gang mit dem Handy durch das Objekt wird zum Rundgangsvideo.',
-          soon: true,
-        },
-        { k: 'Verlag', t: 'Veröffentlicht auf Ihren Kanälen, sobald Sie freigeben.' },
-      ],
-      manualLabel: 'Manuell',
-      manualNote: 'Sie öffnen die Module am Rad selbst.',
-      autoLabel: 'Auto',
-      autoNote: 'Sagen Sie Immvela, was Sie brauchen; es fragt vor jedem Schritt.',
-      soon: 'In Entwicklung',
-      film: 'Zur Immvela-Website',
-      cta: 'Für die geschlossene Beta bewerben',
-    },
-    qfutool: {
-      eyebrow: 'QFUtool · Anatomie einer Nachfass-Mail',
-      heading: 'Jedes Angebot wird nachgefasst. Höflich, und in Ihrem Namen.',
-      callouts: [
-        {
-          t: 'Von Ihrer eigenen Adresse, signiert mit Ihrer Domain. Antworten landen in Ihrem Postfach.',
-        },
-        {
-          t: 'Jede Mail trägt ihren eigenen Kunden, Betrag, Angebotsgegenstand und ihre Angebotsnummer.',
-        },
-        { t: 'Eine Antwort, Abmeldung oder Rückläufer stoppt alles, was noch geplant ist.' },
-        { t: 'Abmelden mit einem Klick in jeder Mail, sofort wirksam.' },
-      ],
-      rulesLabel: 'Die Regeln, an die es sich hält',
-      rules: [
-        { k: '08:00–18:00', t: 'Sendet nur zu Geschäftszeiten, auf Wunsch nur werktags.' },
-        { k: '50 pro Tag', t: 'Zum Start. Eine neue Domain gewinnt Vertrauen langsam.' },
-        { k: 'Wertgrenze', t: 'Große Angebote werden zum Anrufen gelistet, nicht gemailt.' },
-        {
-          k: 'Nie doppelt',
-          t: 'Laden Sie den Export nächste Woche erneut hoch; Nachgefasstes wird übersprungen.',
-        },
-        {
-          k: 'Standardmäßig aus',
-          t: 'Lesen Sie genau, was rausgehen würde, bevor Sie es einschalten.',
-        },
-      ],
-      price: '14 Tage kostenlos, danach ab 19 € pro Monat.',
-      cta: 'Kostenlos testen',
-      example: 'Beispiel',
-    },
-    news: {
-      eyebrow: 'Newsroom',
-      heading: 'Was wir beim Bauen gelernt haben.',
-      all: 'Alle Beiträge',
-    },
-    steps: 'So läuft Maßarbeit ab',
-    closing: {
-      heading: 'Wählen Sie Ihr Werkzeug,',
-      headingB: 'oder erzählen Sie uns die\u00a0Aufgabe.',
-      consult: 'Kostenlose Beratung buchen',
-    },
-  },
   products: {
-    eyebrow: 'Produkte',
-    heading: 'Unsere Produkte',
     learnMore: 'Mehr erfahren',
     immvela: {
       audience: 'Für Makler',
-      tagline: 'Inserat, Exposé und Beiträge aus einem Satz geprüfter Angaben.',
-      desc: 'Sie erfassen ein Objekt einmal und bestätigen die Angaben. Immvela schreibt daraus Captions, Broschüre und Exposé und veröffentlicht auf Ihren Kanälen.',
-      status: 'Geschlossene Beta',
       cta: 'Für die geschlossene Beta bewerben',
-      webAlt: 'Immvela am Laptop: das Rad eines Objekts mit Dossier, Quill, Vignette und Verlag',
       phoneAlt: 'Der Anmeldebildschirm von Immvela am Handy',
     },
     qfutool: {
@@ -140,26 +48,35 @@ export const de: Dictionary = {
       desc: 'Laden Sie die Tabelle mit den Angeboten hoch, die rausgegangen sind. QFUtool fasst bei jedem Kunden in Ihrem Namen und zu Geschäftszeiten nach und gibt Ihnen die, die antworten.',
       status: '14 Tage kostenlos · kein CRM einzurichten',
       cta: 'Kostenlos testen',
-      example: 'Beispiel',
-      exampleLabel: 'Beispiel einer QFUtool-Nachfassliste',
-      cols: ['Kunde', 'Angebot', 'Status'],
-      rows: [
-        {
-          who: 'Keller GmbH',
-          amount: '4.800 €',
-          state: 'Geantwortet, auf Ihrer Liste',
-          tone: 'reply',
-        },
-        { who: 'M. Huber', amount: '1.250 €', state: 'Nachfassen 2 · Do 10:00', tone: 'queued' },
-        {
-          who: 'Baumann & Söhne',
-          amount: '9.300 €',
-          state: 'Nachfassen 1 gesendet · Di 09:14',
-          tone: 'sent',
-        },
-        { who: 'A. Novak', amount: '2.100 €', state: 'Gestoppt nach Abmeldung', tone: 'stopped' },
-      ],
     },
+  },
+  // Siehe en.ts.
+  home: {
+    slidesLabel: 'Unsere Produkte',
+    immvelaAudience: 'Für Immobilienmakler',
+    qfutoolAudience: 'Für den Vertrieb',
+    pause: 'Produkt-Diashow anhalten',
+    play: 'Produkt-Diashow abspielen',
+    integrations: 'Integrationen',
+    soon: 'Bald',
+    comingSoon: 'demnächst',
+    latestEyebrow: 'Aktuell',
+    latestHeading: 'Neuigkeiten',
+    update: 'Update',
+    updateTitle: 'immvela.com ist online, und die Bewerbung für die geschlossene Beta ist offen.',
+    updateAlt:
+      'Die Startseite von immvela.com: das Immvela-Zeichen und die Bewerbung für die geschlossene Beta',
+    articlesInEnglish: 'Die Artikel sind auf Englisch.',
+  },
+  productsPage: {
+    title: 'Unsere Produkte',
+    description:
+      'Immvela, der persönliche KI-Assistent für Immobilien, und QFUtool, automatisches Nachfassen von Angeboten. Zwei Produkte von SNS Solutions aus Wien.',
+    heading: 'Unsere Produkte',
+    line: 'Zwei Werkzeuge, jedes für eine Aufgabe.',
+    immvelaTagline: 'Ihr persönlicher KI-Assistent für Immobilien.',
+    qfutoolPrice: '14 Tage kostenlos, danach ab 19 € pro Monat.',
+    exampleEmail: 'Beispielmail',
   },
   consult: {
     eyebrow: 'Beratung',

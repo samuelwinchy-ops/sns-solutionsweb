@@ -1,9 +1,13 @@
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
-import CinemaHero from '@/components/CinemaHero'
-import HomeChapters from '@/components/HomeChapters'
 import Footer from '@/components/Footer'
 import SnsWebSiteSchema from '@/components/SnsWebSiteSchema'
+import LogoHero from '@/components/home/LogoHero'
+import LightGround from '@/components/home/LightGround'
+import Integrations from '@/components/home/Integrations'
+import LatestNews from '@/components/home/LatestNews'
+import ConsultPanel from '@/components/home/ConsultPanel'
+import '@/app/home.css'
 
 export const metadata: Metadata = {
   alternates: {
@@ -16,12 +20,17 @@ export default function Home() {
   return (
     <>
       <SnsWebSiteSchema />
-      <Nav />
-      <main>
-        <CinemaHero />
-        <HomeChapters />
+      <Nav tone="dark" />
+      <main className="hm">
+        <LogoHero />
+        <LightGround lift>
+          <Integrations />
+          <LatestNews />
+          <ConsultPanel />
+          <div className="hm-after" />
+          <Footer showCta={false} />
+        </LightGround>
       </main>
-      <Footer showCta={false} />
     </>
   )
 }
