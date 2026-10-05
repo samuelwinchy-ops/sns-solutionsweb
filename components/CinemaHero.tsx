@@ -92,11 +92,11 @@ export default function CinemaHero({ locale = defaultLocale }: { locale?: Locale
                 height={88}
                 className="h-16 w-16 md:h-[88px] md:w-[88px]"
               />
-              <span className="text-6xl font-extrabold leading-none tracking-[-0.045em] md:text-[88px]">
+              <span className="font-bricolage text-6xl font-bold leading-none tracking-[-0.045em] text-[#14473a] md:text-[88px]">
                 Immvela<span className="text-[#2e9e6a]">.</span>
               </span>
             </div>
-            <p className="mt-7 font-title text-[1.75rem] font-semibold leading-tight md:text-[2.125rem]">
+            <p className="mt-7 text-balance font-bricolage text-[1.75rem] font-semibold leading-tight tracking-[-0.025em] text-[#14473a] md:text-[2.125rem]">
               {p.immvela.tagline}
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-6">
@@ -133,10 +133,10 @@ export default function CinemaHero({ locale = defaultLocale }: { locale?: Locale
           </div>
           <div className="absolute bottom-24 right-5 w-[150px] rounded-[30px] bg-gradient-to-b from-[#c8c9cc] to-[#8e9094] p-[3px] shadow-[0_40px_70px_-24px_rgba(16,24,20,0.6)] md:w-[190px] lg:bottom-auto lg:left-[588px] lg:right-auto lg:top-[340px] lg:w-[184px] lg:rounded-[36px]">
             <div className="rounded-[27px] bg-black p-[6px] lg:rounded-[33px] lg:p-[7px]">
-              <div className="overflow-hidden rounded-[22px] bg-[#16201f] lg:rounded-[27px]">
+              <div className="overflow-hidden rounded-[22px] bg-[#efeee7] lg:rounded-[27px]">
                 <div className="h-6" />
                 <Image
-                  src={`/products/immvela/immvela-phone-login-${locale}.jpg`}
+                  src={`/products/immvela/immvela-phone-login-light-${locale}.jpg`}
                   alt={p.immvela.phoneAlt}
                   width={1206}
                   height={2460}
@@ -240,7 +240,7 @@ export default function CinemaHero({ locale = defaultLocale }: { locale?: Locale
                 {tab.n === 0 ? (
                   <>
                     <Image src="/products/immvela/helix.svg" alt="" width={28} height={28} />
-                    <span className="hidden font-inter text-[17px] font-extrabold tracking-[-0.03em] sm:inline">
+                    <span className="hidden font-bricolage text-[17px] font-bold tracking-[-0.03em] text-[#14473a] sm:inline">
                       Immvela<span className="text-[#2e9e6a]">.</span>
                     </span>
                   </>

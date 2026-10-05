@@ -54,7 +54,7 @@ export default function ProductTiles({ locale = defaultLocale }: { locale?: Loca
                 className="h-auto w-[240px] md:w-[320px]"
               />
             </h3>
-            <p className="mx-auto mt-4 max-w-2xl text-balance font-title text-2xl font-semibold leading-tight text-[#16352a] md:text-[2rem]">
+            <p className="mx-auto mt-4 max-w-2xl text-balance font-bricolage text-2xl font-semibold leading-tight tracking-[-0.025em] text-[#14473a] md:text-[2rem]">
               {t.immvela.tagline}
             </p>
             <p className="mx-auto mt-4 max-w-xl font-inter leading-relaxed text-[#5c6b61]">
@@ -97,11 +97,11 @@ export default function ProductTiles({ locale = defaultLocale }: { locale?: Loca
                 className="mx-auto w-[86%] md:w-[82%]"
               />
               <IPhone
-                src={`/products/immvela/immvela-phone-login-${locale}.jpg`}
+                src={`/products/immvela/immvela-phone-login-light-${locale}.jpg`}
                 alt={t.immvela.phoneAlt}
                 width={1206}
                 height={2460}
-                theme="dark"
+                theme="light"
                 className="absolute bottom-0 right-0 w-[26%] md:right-[3%] md:w-[19%]"
               />
             </div>

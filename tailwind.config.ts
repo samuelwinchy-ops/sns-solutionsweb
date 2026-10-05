@@ -50,6 +50,8 @@ const config: Config = {
         display: ['var(--font-newsreader)', 'Georgia', 'serif'],
         sans: ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
         inter: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        // Immvela's display face (wordmark and headings), loaded by components/immvela/fonts.ts.
+        bricolage: ['var(--font-bricolage)', 'var(--font-inter)', 'sans-serif'],
         title: ['var(--font-barlow)', 'var(--font-inter)', 'sans-serif'],
         // QFUtool's brand face, used only in its product tile.
         archivo: ['var(--font-archivo)', 'var(--font-jakarta)', 'sans-serif'],

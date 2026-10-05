@@ -41,112 +41,45 @@ export default function HomeChapters({ locale = defaultLocale }: { locale?: Loca
         <div className="mx-auto max-w-6xl">
           <p className="text-sm font-semibold text-[#2b7554]">{c.immvela.eyebrow}</p>
 
-          {/* Level 1 — the modes Immvela is sold by. Modes that are not open
-              yet are greyed, never hidden. The Listings card names its five
-              modules so the section below reads as "inside Listings". */}
-          <h2 className="mt-3 max-w-3xl text-balance font-title text-[2.5rem] font-semibold leading-[1.02] md:text-[4rem]">
-            {c.immvela.modesLabel}
+          <h2 className="mt-3 max-w-3xl text-balance font-bricolage text-[2.5rem] font-semibold leading-[1.02] tracking-[-0.035em] text-[#14473a] md:text-[3.25rem]">
+            {c.immvela.heading}
           </h2>
-          <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {c.immvela.modes.map((m, idx) => (
-              <li
-                key={m.k}
-                className={`flex flex-col gap-3 rounded-2xl p-6 ${
-                  m.ready
-                    ? 'ring-[#16352a]/12 bg-[#fcfbf6] ring-1'
-                    : 'bg-[#16352a]/[0.04] opacity-50'
-                } ${idx === 0 ? 'ring-2 ring-[#2b7554]' : ''}`}
-              >
-                <span
-                  className={`inline-flex items-center gap-2 self-start rounded-full px-3 py-1 text-xs font-semibold ${
-                    m.ready
-                      ? 'bg-[#2b7554]/10 text-[#1f5a40]'
-                      : 'border border-[#16352a]/25 text-[#5c6b61]'
-                  }`}
-                >
-                  <span
-                    aria-hidden="true"
-                    className={`h-1.5 w-1.5 rounded-full ${m.ready ? 'bg-current' : 'border border-current'}`}
-                  />
-                  {m.ready ? c.immvela.live : c.immvela.prep}
-                </span>
-                <p className="font-title text-2xl font-semibold leading-tight">{m.k}</p>
-                <p className="text-[15px] leading-relaxed text-[#5c6b61]">{m.t}</p>
-                {idx === 0 && (
-                  <>
-                    <ul className="mt-1 flex flex-wrap gap-1.5">
-                      {c.immvela.callouts.map((co) => (
-                        <li
-                          key={co.k}
-                          className={`rounded-full border border-[#16352a]/15 px-2.5 py-1 text-xs font-medium ${co.soon ? 'opacity-45' : ''}`}
-                        >
-                          {co.k}
-                        </li>
-                      ))}
-                    </ul>
-                    <a
-                      href="#inside-listings"
-                      className="mt-auto inline-flex min-h-11 items-center gap-1 pt-2 text-sm font-semibold text-[#2b7554] hover:underline"
-                    >
-                      {c.immvela.seeInside} ↓
-                    </a>
-                  </>
-                )}
-                {idx === 1 && (
-                  <ul className="mt-1 flex flex-wrap gap-1.5">
-                    <li className="rounded-full border border-[#16352a]/15 px-2.5 py-1 text-xs font-medium">
-                      Verlag
-                    </li>
-                  </ul>
-                )}
-              </li>
-            ))}
-          </ul>
+          <p className="mt-4 max-w-xl text-lg leading-relaxed text-[#5c6b61]">{c.immvela.sub}</p>
 
-          {/* Level 2 — inside the Listings mode: the property's Wheel and its
-              five modules, in Manual and in Auto. */}
-          <div id="inside-listings" className="mt-24 scroll-mt-24 border-t-2 border-[#2b7554] pt-8">
-            <p className="text-sm font-semibold text-[#2b7554]">{c.immvela.insideLabel}</p>
-            <h3 className="mt-3 max-w-3xl text-balance font-title text-3xl font-semibold leading-[1.05] md:text-[3rem]">
-              {c.immvela.heading}
-            </h3>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-[#5c6b61]">{c.immvela.sub}</p>
-
-            {/* Two displays: the same property in Manual (the Wheel) and in
+          {/* Two displays: the same property in Manual (the Wheel) and in
                 Auto (the conversation). Real captures, 2880×1800 = a 1440×900
                 app at 2×, so the whole UI fits the 16:10 screen edge to edge. */}
-            <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-8">
-              <Display
-                src={`/products/immvela/immvela-manual-${locale}.png`}
-                alt={dict.products.immvela.webAlt}
-                label={c.immvela.manualLabel}
-                note={c.immvela.manualNote}
-                marks={marks}
-              />
-              <Display
-                src={`/products/immvela/immvela-auto-${locale}.png`}
-                alt={c.immvela.autoNote}
-                label={c.immvela.autoLabel}
-                note={c.immvela.autoNote}
-              />
-            </div>
-
-            <ol className="mt-14 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-5">
-              {c.immvela.callouts.map((co, n) => (
-                <li
-                  key={co.k}
-                  className={`border-t border-[#16352a]/20 pt-4 ${co.soon ? 'opacity-45' : ''}`}
-                >
-                  <p className="flex items-center gap-2 font-title text-xl font-semibold">
-                    <span className="font-mono text-sm text-[#2b7554]">{n + 1}</span>
-                    {co.k}
-                    {co.soon && <span className="sr-only">— {c.immvela.soon}</span>}
-                  </p>
-                  <p className="mt-2 text-[15px] leading-relaxed text-[#5c6b61]">{co.t}</p>
-                </li>
-              ))}
-            </ol>
+          <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-8">
+            <Display
+              src={`/products/immvela/immvela-manual-${locale}.png`}
+              alt={dict.products.immvela.webAlt}
+              label={c.immvela.manualLabel}
+              note={c.immvela.manualNote}
+              marks={marks}
+            />
+            <Display
+              src={`/products/immvela/immvela-auto-${locale}.png`}
+              alt={c.immvela.autoNote}
+              label={c.immvela.autoLabel}
+              note={c.immvela.autoNote}
+            />
           </div>
+
+          <ol className="mt-14 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-5">
+            {c.immvela.callouts.map((co, n) => (
+              <li
+                key={co.k}
+                className={`border-t border-[#16352a]/20 pt-4 ${co.soon ? 'opacity-45' : ''}`}
+              >
+                <p className="flex items-center gap-2 font-bricolage text-xl font-semibold tracking-[-0.02em]">
+                  <span className="font-mono text-sm text-[#2b7554]">{n + 1}</span>
+                  {co.k}
+                  {co.soon && <span className="sr-only">— {c.immvela.soon}</span>}
+                </p>
+                <p className="mt-2 text-[15px] leading-relaxed text-[#5c6b61]">{co.t}</p>
+              </li>
+            ))}
+          </ol>
 
           <div className="mt-12 flex flex-wrap items-center gap-6">
             <a
@@ -314,13 +247,13 @@ export default function HomeChapters({ locale = defaultLocale }: { locale?: Loca
 
       {/* ── Closing ask ─────────────────────────────────────────────── */}
       <section className="px-5 py-28 text-center md:px-12 md:py-40">
-        <h2 className="mx-auto max-w-4xl font-display text-[2.75rem] font-normal leading-[1.02] tracking-[-0.03em] text-sns-text md:text-[5rem]">
+        <h2 className="mx-auto max-w-4xl text-balance font-display text-[2.75rem] font-normal leading-[1.02] tracking-[-0.03em] text-sns-text md:text-[5rem]">
           {c.closing.heading} <em className="text-sns-muted">{c.closing.headingB}</em>
         </h2>
         <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
           <a
             href={immvelaHref(locale)}
-            className="inline-flex min-h-14 items-center gap-3 rounded-full bg-[#f2f1e8] px-6 font-inter font-extrabold tracking-[-0.03em] text-[#16352a] ring-1 ring-[#16352a]/15 transition-transform duration-200 ease-out hover:-translate-y-0.5"
+            className="inline-flex min-h-14 min-w-[12rem] items-center justify-center gap-3 rounded-full bg-white/60 px-6 font-bricolage text-[19px] font-bold tracking-[-0.03em] text-[#14473a] ring-1 ring-[#0e1726]/15 transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:ring-[#0e1726]/30"
           >
             <Image src="/products/immvela/helix.svg" alt="" width={28} height={28} />
             <span>
@@ -331,9 +264,9 @@ export default function HomeChapters({ locale = defaultLocale }: { locale?: Loca
             href={locale === 'de' ? `${QFUTOOL_URL}/de` : QFUTOOL_URL}
             target="_blank"
             rel="noopener"
-            className="inline-flex min-h-14 items-center gap-3 rounded-full bg-[#3c6378] px-6 font-archivo font-extrabold text-white transition-transform duration-200 ease-out hover:-translate-y-0.5"
+            className="inline-flex min-h-14 min-w-[12rem] items-center justify-center gap-3 rounded-full bg-white/60 px-6 font-archivo text-[19px] font-bold tracking-[-0.02em] text-[#23384a] ring-1 ring-[#0e1726]/15 transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:ring-[#0e1726]/30"
           >
-            <Image src="/products/qfutool-icon.svg" alt="" width={26} height={26} />
+            <Image src="/products/qfutool-icon.svg" alt="" width={28} height={28} />
             QFUtool
           </a>
         </div>
@@ -403,7 +336,7 @@ function Display({
       />
       <div aria-hidden="true" className="mx-auto h-2 w-[30%] rounded-t-md bg-[#c9cbcf]" />
       <figcaption className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span className="font-title text-2xl font-semibold">{label}</span>
+        <span className="font-bricolage text-2xl font-semibold tracking-[-0.02em]">{label}</span>
         <span className="text-[15px] text-[#5c6b61]">{note}</span>
       </figcaption>
     </figure>
