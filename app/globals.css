@@ -567,17 +567,3 @@ select.im-field option {
   inset: -12px;
 }
 
-/* The homepage slideshow's progress line: fills over the 10 s a slide shows.
-   It remounts per slide (keyed in CinemaHero), so the animation restarts. */
-@keyframes hero-progress {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-.hero-progress {
-  transform-origin: left;
-  animation: hero-progress 10s linear forwards;
-}
