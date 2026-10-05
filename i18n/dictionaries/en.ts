@@ -40,6 +40,115 @@ export const en = {
   // way a parent company presents the things it makes. Claims here must match
   // each product's own site: Immvela's module status comes from the Immvela
   // repo, QFUtool's audience, headline and trial from qfutool.com.
+  // The homepage slideshow (components/CinemaHero.tsx).
+  cinema: {
+    upNext: 'Up next',
+    pause: 'Pause the product slideshow',
+    play: 'Play the product slideshow',
+    tabs: 'Products',
+    email: {
+      from: 'From',
+      sent: 'Sent',
+      sentValue: 'Thursday 10:00',
+      followUp: 'Follow-up 2',
+      greeting: 'Hello Mr Huber,',
+      body: 'just checking in on the €1,250 quote we sent on Monday. Happy to call if anything is unclear.',
+      sign: 'Lisa',
+      foot: 'Unsubscribe in one click · Example',
+      reply: 'Sounds good — can we talk Friday?',
+      replyNote: 'Reply received · follow-ups stopped',
+    },
+  },
+  // Homepage sections below the slideshow (components/HomeChapters.tsx).
+  // Every Immvela module is listed, in development or not.
+  chapters: {
+    immvela: {
+      eyebrow: 'Immvela · take a closer look',
+      heading: 'One property. Every job around it.',
+      sub: 'Each module sits on the property’s Wheel and works from the same confirmed facts.',
+      callouts: [
+        {
+          k: 'Dossier',
+          t: 'Reads the paperwork — the Energieausweis and the rest — and pulls out what you have to disclose.',
+        },
+        { k: 'Quill', t: 'Writes the captions, brochure and Exposé from the facts you confirmed.' },
+        { k: 'Vignette', t: 'Stages empty rooms from a single photo, and labels them as staged.' },
+        {
+          k: 'Immerse',
+          t: 'One walk through the property with a phone becomes a walkthrough video.',
+          soon: true,
+        },
+        { k: 'Verlag', t: 'Posts to every channel — only when you say so.' },
+      ],
+      // Immvela is sold by MODE, not module (Immvela repo, lib/auth/modes.ts,
+      // 2026-09-25). Listings and Marketing are open; the other two are "in
+      // preparation" in the product and greyed out here to match.
+      // The app's own mode-selector question, not a count — "four modes" read
+      // like a settings menu.
+      modesLabel: 'What would you like to work on?',
+      modes: [
+        {
+          k: 'Listings',
+          t: 'From property to published listing: documents, copy, images and publishing.',
+          ready: true,
+        },
+        {
+          k: 'Marketing',
+          t: 'Posts for your brand and your channels, kept apart from your listings.',
+          ready: true,
+        },
+        {
+          k: 'Customer relationships',
+          t: 'Enquiries about your listings, qualified and routed to you.',
+          ready: false,
+        },
+        { k: 'Onboarding', t: 'An assistant that guides you through Immvela.', ready: false },
+      ],
+      insideLabel: 'Inside Listings',
+      seeInside: 'See inside',
+      manualLabel: 'Manual',
+      manualNote: 'Open the modules on the Wheel yourself.',
+      autoLabel: 'Auto',
+      autoNote: 'Tell Immvela what you need; it asks before every step.',
+      live: 'Live',
+      soon: 'In development',
+      prep: 'In preparation',
+      film: 'Visit the Immvela website',
+      cta: 'Join the waitlist',
+    },
+    qfutool: {
+      eyebrow: 'QFUtool · anatomy of a follow-up',
+      heading: 'Every quote gets chased. Politely, and as you.',
+      callouts: [
+        { t: 'From your own address, signed by your domain. Replies land in your inbox.' },
+        { t: 'Customer, amount, what was quoted and the quote number — filled in for each one.' },
+        { t: 'A reply, an unsubscribe or a bounce cancels everything still queued.' },
+        { t: 'One-click unsubscribe in every email, honoured instantly.' },
+      ],
+      rulesLabel: 'The rules it keeps',
+      rules: [
+        { k: '08:00–18:00', t: 'Sends only in working hours, weekdays if you like.' },
+        { k: '50 a day', t: 'To start. A new domain earns trust slowly.' },
+        { k: 'Value ceiling', t: 'Big quotes are listed for you to call, not emailed.' },
+        { k: 'Never twice', t: 'Upload next week’s export; quotes already chased are skipped.' },
+        { k: 'Off by default', t: 'Read exactly what would go out before you switch it on.' },
+      ],
+      price: '14 days free, then from €19 a month.',
+      cta: 'Start free trial',
+      example: 'Example',
+    },
+    news: {
+      eyebrow: 'Newsroom',
+      heading: 'What we’ve learned building them.',
+      all: 'All stories',
+    },
+    steps: 'How a custom build works',
+    closing: {
+      heading: 'Pick your tool,',
+      headingB: 'or tell us the job.',
+      consult: 'Book a free consultation',
+    },
+  },
   products: {
     eyebrow: 'Products',
     heading: 'Our products',

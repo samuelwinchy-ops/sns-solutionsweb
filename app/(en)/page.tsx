@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
-import Hero from '@/components/Hero'
-import ProductTiles from '@/components/ProductTiles'
-import ConsultBand from '@/components/ConsultBand'
+import CinemaHero from '@/components/CinemaHero'
+import HomeChapters from '@/components/HomeChapters'
 import Footer from '@/components/Footer'
 import SnsWebSiteSchema from '@/components/SnsWebSiteSchema'
 
@@ -19,9 +18,8 @@ export default function Home() {
       <SnsWebSiteSchema />
       <Nav />
       <main>
-        <Hero />
-        <ProductTiles />
-        <ConsultBand />
+        <CinemaHero />
+        <HomeChapters />
       </main>
       <Footer showCta={false} />
     </>

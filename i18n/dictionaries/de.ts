@@ -27,6 +27,123 @@ export const de: Dictionary = {
     ctaStart: 'Kostenlose Beratung buchen',
   },
   // Siehe en.ts. QFUtool-Texte entsprechen qfutool.com/de.
+  cinema: {
+    upNext: 'Als Nächstes',
+    pause: 'Produkt-Diashow anhalten',
+    play: 'Produkt-Diashow abspielen',
+    tabs: 'Produkte',
+    email: {
+      from: 'Von',
+      sent: 'Gesendet',
+      sentValue: 'Donnerstag 10:00',
+      followUp: 'Nachfassen 2',
+      greeting: 'Guten Tag Herr Huber,',
+      body: 'ich wollte kurz zu unserem Angebot über 1.250 € vom Montag nachfragen. Bei Fragen rufe ich Sie gerne an.',
+      sign: 'Lisa',
+      foot: 'Mit einem Klick abmelden · Beispiel',
+      reply: 'Klingt gut — können wir Freitag telefonieren?',
+      replyNote: 'Antwort erhalten · Nachfassen gestoppt',
+    },
+  },
+  chapters: {
+    immvela: {
+      eyebrow: 'Immvela · genauer hingesehen',
+      heading: 'Ein Objekt. Jede Aufgabe rundherum.',
+      sub: 'Jedes Modul sitzt am Rad des Objekts und arbeitet mit denselben bestätigten Angaben.',
+      callouts: [
+        {
+          k: 'Dossier',
+          t: 'Liest die Unterlagen — den Energieausweis und den Rest — und zieht heraus, was Sie angeben müssen.',
+        },
+        {
+          k: 'Quill',
+          t: 'Schreibt Captions, Broschüre und Exposé aus den Angaben, die Sie bestätigt haben.',
+        },
+        {
+          k: 'Vignette',
+          t: 'Möbliert leere Räume aus einem einzigen Foto und kennzeichnet sie als virtuell möbliert.',
+        },
+        {
+          k: 'Immerse',
+          t: 'Ein Gang mit dem Handy durch das Objekt wird zum Rundgangsvideo.',
+          soon: true,
+        },
+        { k: 'Verlag', t: 'Veröffentlicht auf allen Kanälen — nur wenn Sie es sagen.' },
+      ],
+      modesLabel: 'Womit möchten Sie arbeiten?',
+      modes: [
+        {
+          k: 'Inserate',
+          t: 'Vom Objekt zum veröffentlichten Inserat: Unterlagen, Texte, Bilder und Veröffentlichung.',
+          ready: true,
+        },
+        {
+          k: 'Marketing',
+          t: 'Beiträge für Ihre Marke und Ihre Kanäle, getrennt von Ihren Inseraten.',
+          ready: true,
+        },
+        {
+          k: 'Kundenbeziehungen',
+          t: 'Anfragen zu Ihren Inseraten, eingeordnet und an Sie weitergeleitet.',
+          ready: false,
+        },
+        { k: 'Onboarding', t: 'Ein Assistent, der Sie durch Immvela führt.', ready: false },
+      ],
+      insideLabel: 'Im Modus Inserate',
+      seeInside: 'Hineinsehen',
+      manualLabel: 'Manuell',
+      manualNote: 'Sie öffnen die Module am Rad selbst.',
+      autoLabel: 'Auto',
+      autoNote: 'Sagen Sie Immvela, was Sie brauchen; es fragt vor jedem Schritt.',
+      live: 'Live',
+      soon: 'In Entwicklung',
+      prep: 'In Vorbereitung',
+      film: 'Zur Immvela-Website',
+      cta: 'Auf die Warteliste',
+    },
+    qfutool: {
+      eyebrow: 'QFUtool · Anatomie einer Nachfass-Mail',
+      heading: 'Jedes Angebot wird nachgefasst. Höflich, und in Ihrem Namen.',
+      callouts: [
+        {
+          t: 'Von Ihrer eigenen Adresse, signiert mit Ihrer Domain. Antworten landen in Ihrem Postfach.',
+        },
+        {
+          t: 'Kunde, Betrag, Angebotsgegenstand und Angebotsnummer — für jeden einzeln eingesetzt.',
+        },
+        { t: 'Eine Antwort, Abmeldung oder Rückläufer stoppt alles, was noch geplant ist.' },
+        { t: 'Abmelden mit einem Klick in jeder Mail, sofort wirksam.' },
+      ],
+      rulesLabel: 'Die Regeln, an die es sich hält',
+      rules: [
+        { k: '08:00–18:00', t: 'Sendet nur zu Geschäftszeiten, auf Wunsch nur werktags.' },
+        { k: '50 pro Tag', t: 'Zum Start. Eine neue Domain gewinnt Vertrauen langsam.' },
+        { k: 'Wertgrenze', t: 'Große Angebote werden zum Anrufen gelistet, nicht gemailt.' },
+        {
+          k: 'Nie doppelt',
+          t: 'Laden Sie den Export nächste Woche erneut hoch; Nachgefasstes wird übersprungen.',
+        },
+        {
+          k: 'Standardmäßig aus',
+          t: 'Lesen Sie genau, was rausgehen würde, bevor Sie es einschalten.',
+        },
+      ],
+      price: '14 Tage kostenlos, danach ab 19 € pro Monat.',
+      cta: 'Kostenlos testen',
+      example: 'Beispiel',
+    },
+    news: {
+      eyebrow: 'Newsroom',
+      heading: 'Was wir beim Bauen gelernt haben.',
+      all: 'Alle Beiträge',
+    },
+    steps: 'So läuft Maßarbeit ab',
+    closing: {
+      heading: 'Wählen Sie Ihr Werkzeug,',
+      headingB: 'oder erzählen Sie uns die Aufgabe.',
+      consult: 'Kostenlose Beratung buchen',
+    },
+  },
   products: {
     eyebrow: 'Produkte',
     heading: 'Unsere Produkte',
