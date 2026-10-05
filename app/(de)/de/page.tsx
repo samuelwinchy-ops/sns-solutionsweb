@@ -7,6 +7,7 @@ import LightGround from '@/components/home/LightGround'
 import Integrations from '@/components/home/Integrations'
 import LatestNews from '@/components/home/LatestNews'
 import ConsultPanel from '@/components/home/ConsultPanel'
+import { immvelaFonts } from '@/components/immvela/fonts'
 import '@/app/home.css'
 
 // Title, description and the Open Graph/Twitter cards are the German defaults
@@ -25,7 +26,7 @@ export default function HomeDe() {
     <>
       <SnsWebSiteSchema />
       <Nav locale="de" tone="dark" />
-      <main className="hm">
+      <main className={`hm ${immvelaFonts}`}>
         <LogoHero locale="de" />
         <LightGround lift>
           <Integrations locale="de" />

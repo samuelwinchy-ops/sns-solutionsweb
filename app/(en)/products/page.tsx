@@ -4,6 +4,7 @@ import Footer from '@/components/Footer'
 import LightGround from '@/components/home/LightGround'
 import ProductBoxes from '@/components/ProductBoxes'
 import { getDict } from '@/i18n'
+import { immvelaFonts } from '@/components/immvela/fonts'
 import '@/app/home.css'
 
 const t = getDict('en').productsPage
@@ -21,7 +22,7 @@ export default function ProductsPage() {
   return (
     <>
       <Nav />
-      <main className="hm">
+      <main className={`hm ${immvelaFonts}`}>
         <LightGround>
           <div className="hm-products">
             <header className="hm-products-head hm-glass">

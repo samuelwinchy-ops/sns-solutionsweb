@@ -7,6 +7,7 @@ import LightGround from '@/components/home/LightGround'
 import Integrations from '@/components/home/Integrations'
 import LatestNews from '@/components/home/LatestNews'
 import ConsultPanel from '@/components/home/ConsultPanel'
+import { immvelaFonts } from '@/components/immvela/fonts'
 import '@/app/home.css'
 
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export default function Home() {
     <>
       <SnsWebSiteSchema />
       <Nav tone="dark" />
-      <main className="hm">
+      <main className={`hm ${immvelaFonts}`}>
         <LogoHero />
         <LightGround lift>
           <Integrations />

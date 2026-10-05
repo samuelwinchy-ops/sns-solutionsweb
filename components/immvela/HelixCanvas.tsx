@@ -96,8 +96,12 @@ export default function HelixCanvas({
         target = 3
       }
       current = easeRate(current, target, dt)
-      t += dt * current
-      draw()
+      // The easing is exponential: snap the last imperceptible step so rate 0 really stands still.
+      if (Math.abs(current - target) < 0.004) current = target
+      if (current !== 0 || reveal < 1) {
+        t += dt * current
+        draw()
+      }
       id = requestAnimationFrame(tick)
     }
     const sync = () => {

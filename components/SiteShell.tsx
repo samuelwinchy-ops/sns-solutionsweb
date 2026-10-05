@@ -9,7 +9,6 @@ import {
 import { Analytics } from '@vercel/analytics/next'
 import JsonLd from '@/components/JsonLd'
 import { snsOrganizationNode } from '@/lib/schema'
-import { immvelaFonts } from '@/components/immvela/fonts'
 
 // SNS: an editorial serif for headlines over a characterful grotesk for
 // everything else. Immvela's pages keep the product's own faces — Inter for
@@ -55,7 +54,7 @@ const barlow = Barlow_Semi_Condensed({
  * chrome that drift apart: the layouts differ in the <html> tag and their
  * metadata, and in nothing else.
  */
-export const bodyClassName = `${immvelaFonts} ${GeistMono.variable} ${newsreader.variable} ${jakarta.variable} ${inter.variable} ${barlow.variable} ${archivo.variable} relative min-h-dvh bg-sns-bg font-sans text-sns-text antialiased`
+export const bodyClassName = `${GeistMono.variable} ${newsreader.variable} ${jakarta.variable} ${inter.variable} ${barlow.variable} ${archivo.variable} relative min-h-dvh bg-sns-bg font-sans text-sns-text antialiased`
 
 export default function SiteShell({ children }: { children: React.ReactNode }) {
   return (

@@ -23,14 +23,11 @@ export const de: Dictionary = {
   // Siehe en.ts. QFUtool-Texte entsprechen qfutool.com/de.
   cinema: {
     email: {
-      from: 'Von',
       sent: 'Gesendet',
       sentValue: 'Donnerstag 10:00',
       followUp: 'Nachfassen 2',
       greeting: 'Guten Tag Herr Huber,',
       body: 'ich wollte kurz zu unserem Angebot über 1.250 € vom Montag nachfragen. Bei Fragen rufe ich Sie gerne an.',
-      sign: 'Lisa',
-      foot: 'Mit einem Klick abmelden · Beispiel',
       reply: 'Klingt gut. Können wir am Freitag telefonieren?',
       replyNote: 'Antwort erhalten · Nachfassen gestoppt',
     },
@@ -57,12 +54,15 @@ export const de: Dictionary = {
     qfutoolAudience: 'Für den Vertrieb',
     pause: 'Produkt-Diashow anhalten',
     play: 'Produkt-Diashow abspielen',
+    marqueePause: 'Logos anhalten',
+    marqueePlay: 'Logos abspielen',
+    googleSignIn: 'Google-Anmeldung',
+    microsoftSignIn: 'Microsoft-Anmeldung',
     integrations: 'Integrationen',
     soon: 'Bald',
     comingSoon: 'demnächst',
     latestEyebrow: 'Aktuell',
     latestHeading: 'Neuigkeiten',
-    update: 'Update',
     updateTitle: 'immvela.com ist online, und die Bewerbung für die geschlossene Beta ist offen.',
     updateAlt:
       'Die Startseite von immvela.com: das Immvela-Zeichen und die Bewerbung für die geschlossene Beta',

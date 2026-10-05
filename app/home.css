@@ -180,7 +180,7 @@
   font-weight: 600;
   color: rgba(255, 255, 255, 0.72);
 }
-.hm-cap a[aria-current='true'] {
+.hm-cap a[data-active] {
   color: #fff;
 }
 .hm-bar {
@@ -352,6 +352,8 @@
   color: var(--hm-ink);
   font-size: clamp(2rem, 3.2vw, 2.9rem);
   text-wrap: balance;
+  hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 /* ── integrations ──────────────────────────────────────────────────────────── */
@@ -359,10 +361,6 @@
   margin: 48px var(--hm-gutter) 0;
   padding: 26px 0 30px;
   overflow: hidden;
-}
-.hm-integ .hm-eyebrow {
-  padding: 0 32px;
-  margin-bottom: 16px;
 }
 .hm-mq {
   display: flex;
@@ -380,8 +378,44 @@
   flex: none;
   animation: hm-mq var(--mq-dur, 60s) linear infinite;
 }
-.hm-mq:hover .hm-track {
+.hm-mq:hover .hm-track,
+.hm-mq:focus-within .hm-track,
+.hm-mq.is-paused .hm-track {
   animation-play-state: paused;
+}
+.hm-integ-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 32px;
+  margin-bottom: 16px;
+}
+.hm-integ-head .hm-eyebrow {
+  margin: 0;
+}
+.hm-mq-toggle {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(11, 31, 68, 0.3);
+  background: transparent;
+  color: var(--hm-ink);
+  cursor: pointer;
+  position: relative;
+}
+/* a 44px touch target around the 32px circle */
+.hm-mq-toggle::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+}
+.hm-mq-toggle:focus-visible {
+  outline: 2px solid var(--hm-blue);
+  outline-offset: 3px;
 }
 @keyframes hm-mq {
   to {
@@ -857,7 +891,7 @@
   .hm-steps {
     grid-template-columns: 1fr 1fr;
   }
-  .hm-integ .hm-eyebrow {
+  .hm-integ-head {
     padding: 0 20px;
   }
 }
@@ -866,8 +900,20 @@
     grid-template-columns: 1fr;
   }
 }
+@media (max-width: 480px) {
+  .hm-steps {
+    grid-template-columns: 1fr;
+  }
+  /* small enough that German compounds fit whole; hyphenation stays only as the last resort */
+  .hm-consult .hm-h2 {
+    font-size: clamp(1.8rem, 9.4vw, 2.6rem);
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
+  .hm-mq-toggle {
+    display: none;
+  }
   .hm-orb {
     animation: none;
   }
