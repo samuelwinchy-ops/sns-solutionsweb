@@ -79,8 +79,8 @@ export const de: Dictionary = {
   },
   consult: {
     eyebrow: 'Beratung',
-    heading: 'Sie brauchen Software für Ihr Unternehmen?',
-    sub: 'Buchen Sie ein kostenloses 30-Minuten-Gespräch. Wir sehen uns an, wie Ihr Team arbeitet, sagen Ihnen offen, ob sich eigene Software lohnt, und bauen sie, wenn ja.',
+    heading: 'Soll KI in Ihrem Unternehmen echte Arbeit übernehmen?',
+    sub: 'Buchen Sie ein kostenloses 30-Minuten-Gespräch. Wir sehen uns an, wie Ihr Team arbeitet, sagen Ihnen offen, wo sich KI lohnt, und setzen sie um, wenn ja.',
     cta: 'Kostenlose Beratung buchen',
     link: 'So läuft Maßarbeit ab',
   },

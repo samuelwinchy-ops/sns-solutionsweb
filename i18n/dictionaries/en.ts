@@ -90,8 +90,8 @@ export const en = {
   // The consultation offer: secondary to the products.
   consult: {
     eyebrow: 'Consulting',
-    heading: 'Need software built for your business?',
-    sub: 'Book a free 30-minute call. We look at how your team works, tell you straight whether custom software is worth building, and build it if it is.',
+    heading: 'Want AI to do real work in your company?',
+    sub: 'Book a free 30-minute call. We look at how your team works, tell you straight where AI is worth it, and build it if it is.',
     cta: 'Book a free consultation',
     link: 'How custom builds work',
   },
