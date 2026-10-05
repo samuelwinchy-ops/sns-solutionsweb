@@ -7,7 +7,17 @@ import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, localePath, immvelaHref } from '@/i18n/config'
 import LanguageToggle from './LanguageToggle'
 
-export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
+/**
+ * `tone="dark"`: the bar sits over a dark first screen (the home billboard), so until the page scrolls or the
+ * menu opens it is transparent with light text; then it turns solid white like everywhere else.
+ */
+export default function Nav({
+  locale = defaultLocale,
+  tone = 'light',
+}: {
+  locale?: Locale
+  tone?: 'light' | 'dark'
+}) {
   const t = getDict(locale).nav
   const home = localePath(locale, '/')
   const pathname = usePathname()
@@ -64,11 +74,16 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
   }, [pathname])
 
   const solid = scrolled || open
+  const onDark = tone === 'dark' && !solid
 
   return (
     <nav
       className={`fixed inset-x-0 top-0 z-50 h-14 px-5 transition-colors duration-200 md:px-10 ${
-        solid ? 'border-b border-sns-border bg-white' : 'border-b border-transparent bg-sns-bg'
+        solid
+          ? 'border-b border-sns-border bg-white'
+          : onDark
+            ? 'border-b border-transparent bg-transparent'
+            : 'border-b border-transparent bg-sns-bg'
       }`}
     >
       <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-between 2xl:max-w-7xl">
@@ -80,17 +95,24 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
         >
           <span className="relative shrink-0">
             <Image
-              src="/sns-icon.png"
+              src="/sns-logo.svg"
               alt="SNS Solutions"
               width={970}
               height={970}
               priority
+              unoptimized
               className="relative h-8 w-8 md:h-9 md:w-9"
             />
           </span>
-          <span className="truncate text-[15px] font-bold tracking-tight text-sns-text">
+          <span
+            className={`truncate text-[15px] font-bold tracking-tight ${onDark ? 'text-white' : 'text-sns-text'}`}
+          >
             SNS
-            <span className="ml-1 hidden font-medium text-sns-muted sm:inline">Solutions</span>
+            <span
+              className={`ml-1 hidden font-medium sm:inline ${onDark ? 'text-white/85' : 'text-sns-muted'}`}
+            >
+              Solutions
+            </span>
           </span>
         </a>
 
@@ -105,7 +127,13 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
                 {...(link.external ? { target: '_blank', rel: 'noopener' } : {})}
                 aria-current={active ? 'true' : undefined}
                 className={`relative flex min-h-11 items-center px-3 text-[15px] transition-colors duration-150 ${
-                  active ? 'font-medium text-sns-text' : 'text-sns-muted hover:text-sns-text'
+                  onDark
+                    ? active
+                      ? 'font-medium text-white'
+                      : 'text-white/85 hover:text-white'
+                    : active
+                      ? 'font-medium text-sns-text'
+                      : 'text-sns-muted hover:text-sns-text'
                 }`}
               >
                 <span>{link.label}</span>
@@ -136,7 +164,7 @@ export default function Nav({ locale = defaultLocale }: { locale?: Locale }) {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? 'Close menu' : 'Open menu'}
-            className="ml-1 flex h-11 w-11 items-center justify-center rounded-sns text-sns-text transition-colors duration-150 hover:bg-sns-text/[0.06]"
+            className={`ml-1 flex h-11 w-11 items-center justify-center rounded-sns transition-colors duration-150 ${onDark ? 'text-white hover:bg-white/10' : 'text-sns-text hover:bg-sns-text/[0.06]'}`}
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               {open ? (

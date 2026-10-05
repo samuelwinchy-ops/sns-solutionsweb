@@ -172,7 +172,11 @@ export default function Footer({
           className={`${showCta ? 'mt-16' : 'mt-2'} grid grid-cols-2 gap-8 border-t border-sns-border pt-12 md:grid-cols-4`}
         >
           <div className="col-span-2 md:col-span-1">
-            <p className="text-[15px] font-bold text-sns-text">SNS Solutions</p>
+            <p className="flex items-center gap-2.5 text-[15px] font-bold text-sns-text">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/sns-logo.svg" alt="" width={28} height={28} className="h-7 w-7" />
+              SNS Solutions
+            </p>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-sns-muted">
               SNS Software Solutions GmbH
               <br />
