@@ -1,83 +1,77 @@
-import { getDict } from '@/i18n'
 import { IMMVELA_URL, SITE, SITE_URL } from '@/lib/site'
 
 /**
- * /llms-full.txt on immvela.com (via the middleware rewrite) — the whole
- * product, including the FAQ and the per-module walkthrough copy, as one
- * Markdown document.
- *
- * Immvela's substance is spread across an animated landing page and a clip
- * player, both client components. An answer engine asked "what is Immvela",
- * "which Immvela modules are live" or "what does Immvela cost" should not have
- * to reconstruct that from a React tree — this is the same copy, in the order a
- * reader would want it, in one fetch.
- *
- * English only, deliberately: the /de pages are a translation of this same
- * content and are linked from /llms.txt.
+ * /llms-full.txt on immvela.com (via the middleware rewrite): the site's own copy as one
+ * Markdown document, for answer engines that should not have to reconstruct it from a React
+ * tree. It says no more than the pages do (design/immvela-redesign/TRUTH.md): no hosting
+ * region, no compliance label, no pricing, and "Next" for anything not built.
  */
 export function GET() {
-  const t = getDict('en').waitlistPage
+  const body = `# Immvela, full product text
 
-  const live = t.modules.filter((m) => m.status === 'active')
+> Your personal real estate assistant.
 
-  const body = `# Immvela — full product text
+Immvela is a product by ${SITE.legalName} (${SITE.name}), Vienna, Austria (${SITE_URL}/).
+Contact: ${SITE.email}. Immvela is live today in a closed beta.
 
-> ${t.tagline}
+## Documents in, a checked listing out
 
-${t.heroSub}
+Give Immvela the Energieausweis, the floor plan and the photos. It drafts the Exposé and the posts,
+and when two documents disagree, it asks you before anything goes out.
 
-Immvela is a product by ${SITE.legalName} (${SITE.name}), Vienna, Austria —
-${SITE_URL}/. It is not a separate company. Contact: ${SITE.email}.
+## Every number in your Exposé, traced to its document
 
-## Where it stands
+Immvela keeps the page and the exact line each value was read from, and who confirmed it, so any
+number can be checked in one tap.
 
-${t.proof.map((p) => `- **${p.stat}** — ${p.label}`).join('\n')}
+## One standard for every listing in your office
 
-${live.length} of ${t.modules.length} modules are live and usable today. ${t.liveNote}
+Every agent works from confirmed documents. No ad goes out with missing energy values, and you can
+see who confirmed what, from which document. Next: the office sets its own rules, required
+documents, templates and approval before publishing.
 
-## ${t.guardrail.label}
+## Say "get it ready"
 
-${t.guardrail.text}
+Immvela makes the plan, does the work and shows you each result in the thread.
 
-## Modules — ${IMMVELA_URL}/
+## Furnished before the first viewing
 
-"${t.statusActive}" means a customer can sign in and use it today.
-"${t.statusProgress}" means it is being built and is not available yet.
+Upload a photo of an empty room. Immvela furnishes it and marks the result as virtually staged.
 
-${t.modules
-  .map(
-    (m) => `### ${m.name} (${m.code}) — ${m.status === 'active' ? t.statusActive : t.statusProgress}
+## Everything Immvela does
 
-${m.desc}
+- Documents (live): reads the Energieausweis and the Grundbuchauszug, flags contradictions and
+  expiring certificates. Nothing is used until you confirm it.
+- Exposé, brochure and posts (live): drafted from your confirmed values, in the German of the
+  listing's country, with your office brand.
+- Staging (live): furnishes photos of empty rooms. Every staged photo is labelled as virtually staged.
+- Publishing (live): Instagram, Facebook, LinkedIn, TikTok and YouTube from one place, always after
+  your approval.
+- CRM import (live): bring listings in with an OpenImmo export from onOffice, Justimmo, Propstack
+  or FLOWFACT.
+- Your office (live): listings, documents and confirmed values belong to the office. Every agent
+  has their own login.
+- Language (live): German first, English available. Written for Austria, Germany and Switzerland.
+- Enquiries (next): answers and qualifies enquiries. Never books viewings or quotes prices.
 
-${m.demo.map((d) => `- ${d}`).join('\n')}`
-  )
-  .join('\n\n')}
+## Documents and data, ${IMMVELA_URL}/trust
 
-## ${t.tiersLabel}
+- Listings, values and documents belong to the office, not to the individual agent. Offices are
+  kept separate in the database.
+- Documents and text are processed by AI providers based in the USA. Staging photos are processed
+  by a separate AI image provider. EU-only processing is not in place today.
+- Nothing read from a document is used until a person confirms it.
+- Immvela always asks before anything is published.
+- Accounts are deleted on request. Documents are kept as evidence and are not deleted on the photo
+  schedule. Immvela does not state legal retention periods.
+- Not yet settled: the hosting region, the list of service providers, and whether offices can sign
+  a data processing agreement (AVV).
 
-${t.tiers
-  .map(
-    (tier) => `**${tier.label}** (${tier.status})\n${tier.items.map((i) => `- ${i}`).join('\n')}`
-  )
-  .join('\n\n')}
+## Apply, ${IMMVELA_URL}/#apply
 
-## Module walkthrough — ${IMMVELA_URL}/demo
-
-${t.demo.intro}
-
-${t.demo.clipNote}
-
-## ${t.faqLabel}
-
-${t.faq.map((f) => `**${f.q}**\n\n${f.a}`).join('\n\n')}
-
-## Early access — ${IMMVELA_URL}/#early-access
-
-${t.intro}
-
-${t.form.sub}
+Apply for the closed beta with your name, email and office size. SNS replies within a week and sets
+up your first listing with you. Estate agents who want to shape the product can book a 30 minute
+conversation at ${IMMVELA_URL}/partner.
 `
-
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }

@@ -1,4 +1,4 @@
-import { getDict } from '@/i18n'
+import { immvelaT } from '@/i18n/immvela'
 import type { Locale } from '@/i18n/config'
 import { IMMVELA_URL, SITE_URL } from '@/lib/site'
 import { SNS_ORG_ID, langTag } from '@/lib/schema'
@@ -15,13 +15,6 @@ const WEBSITE_ID = `${IMMVELA_URL}/#website`
 /** The public URL of an Immvela page — immvela.com serves these at its root. */
 function pageUrl(locale: Locale, path = ''): string {
   return `${IMMVELA_URL}${locale === 'de' ? '/de' : ''}${path}`
-}
-
-function slug(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '')
 }
 
 /**
@@ -43,112 +36,72 @@ function breadcrumb(locale: Locale, path: string, trail: { name: string; path: s
 }
 
 /**
- * The seven modules, as parts of the platform.
- *
- * This is the highest-value thing on the Immvela pages for an answer engine:
- * "what does Immvela do" is a question about a module list, and until now that
- * list existed only as prose inside an animated component. Each module is its
- * own SoftwareApplication so its name, its function and — critically — whether
- * it actually ships today are separately readable, instead of a paragraph a
- * model has to infer shipping status from.
- *
- * `status` is the dictionary's build state, straight from the Immvela repo's
- * STATUS.md: 'active' means signed-in and usable today, anything else is in
- * development. Nothing here may claim more than the dictionary does.
+ * What Immvela does today, for answer engines. Every line here is one the page itself makes and
+ * design/immvela-redesign/TRUTH.md allows: present tense only for what is live, no hosting region,
+ * no compliance label, no price. Written from the same i18n strings as the page.
  */
-function modules(locale: Locale) {
-  const t = getDict(locale).waitlistPage
+function features(locale: Locale): string[] {
+  const t = immvelaT(locale)
+  return [
+    `${t('Documents')}: ${t('Reads the Energieausweis and the Grundbuchauszug, flags contradictions and expiring certificates. Nothing is used until you confirm it.')}`,
+    `${t('Exposé, brochure and posts')}: ${t('Drafted from your confirmed values, in the German of the listing’s country, with your office brand.')}`,
+    `Staging: ${t('Furnishes photos of empty rooms. Every staged photo is labelled as virtually staged.')}`,
+    `${t('Integrations')}: ${t('Listings in from your CRM by OpenImmo export, posts out to five social channels after your approval.')}`,
+    `${t('Document checklist')}: ${t('Every listing gets a checklist of the documents it needs, from SNS’s standard lists for flats and houses.')}`,
+    `${t('Your office')}: ${t('Listings, documents and confirmed values belong to the office. Every agent has their own login.')}`,
+    `${t('Language')}: ${t('German first, English available. Written for Austria, Germany and Switzerland.')}`,
+  ]
+}
 
-  return t.modules.map((m) => ({
-    '@type': 'SoftwareApplication',
-    '@id': `${IMMVELA_URL}/#module-${slug(m.code)}`,
-    name: `${m.name} (${m.code})`,
-    alternateName: m.code,
-    description: m.desc,
-    applicationCategory: 'BusinessApplication',
-    applicationSubCategory: 'Real estate',
-    operatingSystem: 'Web',
-    isPartOf: { '@id': SOFTWARE_ID },
-    creator: { '@id': SNS_ORG_ID },
-    offers: {
-      '@type': 'Offer',
-      // Live modules can be bought and used; the rest are genuinely not
-      // available yet, and saying otherwise would be a false claim in a format
-      // built to be trusted.
-      availability:
-        m.status === 'active' ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
-      description: m.status === 'active' ? t.statusActive : t.statusProgress,
-    },
-  }))
+function description(locale: Locale): string {
+  return locale === 'de'
+    ? 'Ihr persönlicher Immobilien-Assistent. Immvela liest Energieausweis, Grundriss und Fotos, entwirft Exposé, Broschüre und Posts aus bestätigten Werten und fragt, wenn sich zwei Unterlagen widersprechen. In einer geschlossenen Beta, entwickelt in Wien von SNS Solutions.'
+    : 'Your personal real estate assistant. Immvela reads the Energieausweis, the floor plan and the photos, drafts the Exposé, brochure and posts from confirmed values, and asks when two documents disagree. In a closed beta, built in Vienna by SNS Solutions.'
 }
 
 /**
- * The nodes that describe Immvela itself: the platform, its modules and the
- * site. Every Immvela page carries the full set.
- *
- * They are repeated per page rather than emitted once on the landing page,
- * because a page whose WebPage node says `about: {'@id': …#software}` without
- * defining that node has told the reader nothing — the reference dangles and
- * the module list is invisible on the one page that demonstrates the modules.
- * Repetition across pages is the norm for site-level JSON-LD nodes and costs a
- * couple of kB of static HTML.
+ * The nodes that describe Immvela itself, repeated on every Immvela page so an `about` reference
+ * never dangles.
  */
 function coreNodes(locale: Locale) {
-  const t = getDict(locale).waitlistPage
-  const parts = modules(locale)
-
   return [
     {
       '@type': 'SoftwareApplication',
       '@id': SOFTWARE_ID,
-      name: t.brand,
+      name: 'Immvela',
       alternateName: 'Immvela by SNS Solutions',
       url: IMMVELA_URL,
-      description: t.heroSub,
+      description: description(locale),
       applicationCategory: 'BusinessApplication',
       applicationSubCategory: 'Real estate',
       operatingSystem: 'Web',
       image: `${SITE_URL}/og.png`,
-      // The platform is bilingual with a German default, and both facts are
-      // load-bearing claims on the page — don't let this follow the locale
-      // the page happens to render in.
       inLanguage: ['de-AT', 'en'],
       availableLanguage: ['German', 'English'],
       countriesSupported: ['AT', 'DE', 'CH'],
       brand: { '@id': SNS_ORG_ID },
       creator: { '@id': SNS_ORG_ID },
       publisher: { '@id': SNS_ORG_ID },
-      // The plain-string mirror of `hasPart` below. Redundant on purpose:
-      // featureList is the property a summariser is most likely to read
-      // straight through, and it survives being flattened out of the graph.
-      featureList: t.modules.map((m) => `${m.name} (${m.code}): ${m.desc}`),
-      hasPart: parts.map((p) => ({ '@id': p['@id'] })),
-      // No price yet (the page's own FAQ says so) — describe the waitlist
-      // rather than fabricate a price/availability that isn't real.
+      featureList: features(locale),
+      // No price: access is by application to a closed beta.
       offers: {
         '@type': 'Offer',
-        availability: 'https://schema.org/PreOrder',
-        description: 'Early-access waitlist',
+        availability: 'https://schema.org/LimitedAvailability',
+        description:
+          locale === 'de'
+            ? 'Geschlossene Beta, Zugang auf Bewerbung'
+            : 'Closed beta, access by application',
       },
       sameAs: SOCIALS,
     },
-    ...parts,
     {
       '@type': 'WebSite',
       '@id': WEBSITE_ID,
-      // The site is immvela.com as a whole, not the page being rendered —
-      // pointing this at /de made the German page claim a second, differently
-      // scoped site under the same @id. Same reasoning applies to
-      // `inLanguage`: one @id can't be two languages depending on the visit.
       url: IMMVELA_URL,
-      name: t.brand,
+      name: 'Immvela',
       alternateName: 'Immvela by SNS Solutions',
-      description: t.heroSub,
+      description: description(locale),
       inLanguage: ['de-AT', 'en'],
-      // A publisher is an organization, not a piece of software: this pointed
-      // at Immvela itself, so the node said the site publishes itself and no
-      // machine-readable line ran from immvela.com back to SNS. The @id
-      // resolves against the Organization node the root layout emits.
       publisher: { '@id': SNS_ORG_ID },
       about: { '@id': SOFTWARE_ID },
     },
@@ -156,20 +109,23 @@ function coreNodes(locale: Locale) {
 }
 
 /**
- * Structured data for the Immvela landing pages. The site-wide schema in the
- * root layout only describes SNS Solutions (a ProfessionalService); without
- * this, nothing machine-readable identifies "Immvela" as a product at all,
- * which matters for AI answer engines as much as classic SEO rich results.
- *
- * Immvela is deliberately typed as a SoftwareApplication (a product), not an
- * Organization — it isn't its own legal entity, it's "a product by SNS
- * Software Solutions GmbH" per the page copy, so `brand`/`creator` point back
- * at the real organization instead of inventing one.
+ * Structured data for the immvela.com home page. Immvela is typed as a SoftwareApplication made by
+ * SNS Software Solutions GmbH, not as an organisation of its own.
  */
 export function immvelaJsonLd(locale: Locale) {
-  const t = getDict(locale).waitlistPage
+  const t = immvelaT(locale)
   const url = pageUrl(locale)
-
+  // the page's own answers; the hosting answer is still a placeholder on the page, so it is left out
+  const faq: [string, string][] = [
+    [
+      'Is it in German?',
+      'Yes. German first, English available. The Exposé is always written in the German of the listing’s country.',
+    ],
+    [
+      'Does it work with my CRM?',
+      'Bring listings in with an OpenImmo export from onOffice, Justimmo, Propstack or FLOWFACT.',
+    ],
+  ]
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -178,8 +134,8 @@ export function immvelaJsonLd(locale: Locale) {
         '@type': 'WebPage',
         '@id': `${url}#webpage`,
         url,
-        name: `${t.brand} · ${t.tagline}`,
-        description: t.heroSub,
+        name: `Immvela · ${t('Your personal real estate assistant')}`,
+        description: description(locale),
         inLanguage: langTag(locale),
         isPartOf: { '@id': WEBSITE_ID },
         about: { '@id': SOFTWARE_ID },
@@ -188,82 +144,13 @@ export function immvelaJsonLd(locale: Locale) {
       },
       breadcrumb(locale, '', []),
       {
-        // The explainer film. A narrated 16:9 video is one of the few assets a
-        // search engine will surface as its own result, and none of that works
-        // from a <video> tag alone — the duration, the thumbnail and the
-        // description all have to be declared. `uploadDate` is the date the
-        // film was first published here; move it only if the film is recut.
-        '@type': 'VideoObject',
-        '@id': `${url}#film`,
-        name: `${t.brand} — ${t.film.heading}`,
-        description: t.film.sub,
-        thumbnailUrl: `${IMMVELA_URL}/immvela/film-${locale}.jpg`,
-        contentUrl: `${IMMVELA_URL}/immvela/film-${locale}.mp4`,
-        // ISO 8601. The two cuts are genuinely different lengths, so this
-        // follows the locale rather than being a single shared constant.
-        duration: locale === 'de' ? 'PT2M27S' : 'PT2M16S',
-        uploadDate: '2026-08-19',
-        inLanguage: langTag(locale),
-        isFamilyFriendly: true,
-        publisher: { '@id': SNS_ORG_ID },
-        about: { '@id': SOFTWARE_ID },
-      },
-      {
         '@type': 'FAQPage',
         '@id': `${url}#faq`,
         inLanguage: langTag(locale),
-        mainEntity: t.faq.map((f) => ({
+        mainEntity: faq.map(([q, a]) => ({
           '@type': 'Question',
-          name: f.q,
-          acceptedAnswer: { '@type': 'Answer', text: f.a },
-        })),
-      },
-    ],
-  }
-}
-
-/**
- * Structured data for the module walkthrough (/demo on immvela.com).
- *
- * The page shipped with none at all, so the one page that demonstrates each
- * module working was invisible as an entity — it read as an orphan URL under a
- * brand-new domain. This ties it to the product and spells out, per module,
- * what the clip shows.
- */
-export function immvelaDemoJsonLd(locale: Locale) {
-  const t = getDict(locale).waitlistPage
-  const url = pageUrl(locale, '/demo')
-
-  return {
-    '@context': 'https://schema.org',
-    '@graph': [
-      ...coreNodes(locale),
-      {
-        '@type': 'WebPage',
-        '@id': `${url}#webpage`,
-        url,
-        name: `${t.brand} · ${t.demo.heading}`,
-        description: t.demo.intro,
-        inLanguage: langTag(locale),
-        isPartOf: { '@id': WEBSITE_ID },
-        about: { '@id': SOFTWARE_ID },
-        breadcrumb: { '@id': `${url}#breadcrumb` },
-      },
-      breadcrumb(locale, '/demo', [{ name: t.demo.eyebrow, path: '/demo' }]),
-      {
-        '@type': 'ItemList',
-        '@id': `${url}#modules`,
-        name: t.demo.heading,
-        description: t.demo.intro,
-        itemListElement: t.modules.map((m, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          name: `${m.name} (${m.code})`,
-          // The walkthrough bullets are this page's own description of the
-          // module — what it does, the constraint it works under, and what it
-          // leaves behind — which is more specific than the platform blurb.
-          description: m.demo.join(' '),
-          item: { '@id': `${IMMVELA_URL}/#module-${slug(m.code)}` },
+          name: t(q),
+          acceptedAnswer: { '@type': 'Answer', text: t(a) },
         })),
       },
     ],

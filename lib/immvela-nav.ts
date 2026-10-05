@@ -6,10 +6,10 @@ import { type Locale, defaultLocale } from '@/i18n/config'
 /**
  * The Immvela pages are served under two different path shapes:
  *
- *   • immvela.com          → the domain root (`/`, `/de`, `/demo`, `/de/demo`),
+ *   • immvela.com          → the domain root (`/`, `/de`, `/modules`, `/de/modules`),
  *     which middleware.ts rewrites onto the `/immvela` routes.
  *   • the SNS deployment, previews and `next dev` → the routes themselves
- *     (`/immvela`, `/de/immvela`, `/immvela/demo`, …).
+ *     (`/immvela`, `/de/immvela`, `/immvela/modules`, …).
  *
  * A link hard-coded to either shape costs a redirect on the other, so links
  * *between* Immvela pages resolve against the path actually being served.
@@ -20,11 +20,11 @@ import { type Locale, defaultLocale } from '@/i18n/config'
  * @example
  *   const path = useImmvelaPath(locale)
  *   path()          // the landing
- *   path('/demo')   // the module walkthrough
+ *   path('/modules') // the Modules page
  */
 export function useImmvelaPath(locale: Locale = defaultLocale) {
   const pathname = usePathname() || '/'
-  // `/immvela`, `/immvela/demo`, `/de/immvela`, … — but not a path that merely
+  // `/immvela`, `/immvela/modules`, `/de/immvela`, … — but not a path that merely
   // starts with those letters.
   const rooted = !/^\/(de\/)?immvela(\/|$)/.test(pathname)
   const prefix = rooted

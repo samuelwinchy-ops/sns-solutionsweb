@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next'
-import ImmvelaHeader from '@/components/ImmvelaHeader'
-import ImmvelaFooter from '@/components/ImmvelaFooter'
-import ImmvelaLanding from '@/components/ImmvelaLanding'
+import ImmvelaFrame from '@/components/immvela/ImmvelaFrame'
+import ImmvelaHome from '@/components/immvela/ImmvelaHome'
 import { IMMVELA_URL, SITE_URL } from '@/lib/site'
 import JsonLd from '@/components/JsonLd'
 import { immvelaJsonLd } from '@/lib/immvela-schema'
@@ -11,9 +10,9 @@ export const metadata: Metadata = {
   // for its own brand name in the title of every Immvela page. Searching
   // "immvela" is meant to find Immvela — the title is the strongest signal of
   // what a page is about, and this one led with someone else's name.
-  title: { absolute: 'Immvela · listings, Exposés and posts for estate agents' },
+  title: { absolute: 'Immvela · your personal real estate assistant' },
   description:
-    'One platform for real-estate teams, where every module writes back to the same verified record of your properties, leads and deals, so it gets sharper the longer you use it. German first, hosted in the EU. Built in the open by SNS Solutions.',
+    'Give Immvela the Energieausweis, the floor plan and the photos. It drafts the Exposé and the posts, traces every number to its document and asks you before anything goes out. German first, in a closed beta, built in Vienna by SNS Solutions.',
   // The root layout's are SNS's ("AI software studio", "Vienna", …) and named
   // Immvela nowhere. Same for applicationName/authors below.
   keywords: [
@@ -52,9 +51,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     siteName: 'Immvela',
-    title: 'Immvela · listings, Exposés and posts for estate agents',
+    title: 'Immvela · your personal real estate assistant',
     description:
-      'One record of your properties, leads and deals, with a module for each part of the job. Built in the open by SNS Solutions. Join the waitlist.',
+      'Documents in, a checked listing out. Every number in your Exposé traced to its document. Apply for the closed beta.',
     url: IMMVELA_URL,
     // No Immvela-specific image yet — reusing the SNS og.png (dark) beats no
     // image at all in link previews, but it doesn't match Immvela's light
@@ -66,9 +65,9 @@ export const metadata: Metadata = {
   // Solutions" title/description while og:title correctly said "Immvela".
   twitter: {
     card: 'summary_large_image',
-    title: 'Immvela · listings, Exposés and posts for estate agents',
+    title: 'Immvela · your personal real estate assistant',
     description:
-      'One record of your properties, leads and deals, with a module for each part of the job. Built in the open by SNS Solutions. Join the waitlist.',
+      'Documents in, a checked listing out. Every number in your Exposé traced to its document. Apply for the closed beta.',
     images: [`${SITE_URL}/og.png`],
   },
 }
@@ -82,19 +81,9 @@ export const viewport: Viewport = {
 
 export default function ImmvelaPage() {
   return (
-    <div className="immvela-theme relative min-h-dvh">
+    <ImmvelaFrame locale="en" heroMark>
       <JsonLd data={immvelaJsonLd('en')} />
-      <div className="pointer-events-none fixed inset-0 z-0 bg-[#f2f1e8]" aria-hidden="true" />
-
-      <div className="relative z-10">
-        <ImmvelaHeader />
-        <main className="px-5 pb-10 pt-24 md:px-10 md:pt-28">
-          <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
-            <ImmvelaLanding />
-          </div>
-        </main>
-        <ImmvelaFooter />
-      </div>
-    </div>
+      <ImmvelaHome locale="en" />
+    </ImmvelaFrame>
   )
 }

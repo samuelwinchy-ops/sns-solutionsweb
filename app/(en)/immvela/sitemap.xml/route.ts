@@ -4,7 +4,7 @@ import { IMMVELA_URL } from '@/lib/site'
 // rewrite. The root app/sitemap.ts covers only the SNS domain's own paths, so
 // immvela.com's pages need their own entry point.
 //
-// Paths are the public ones (`/`, `/de`, `/demo`, …), i.e. the values in
+// Paths are the public ones (`/`, `/de`, `/modules`, …), i.e. the values in
 // middleware.ts's IMMVELA_PAGES — a new page added there belongs here too.
 export function GET() {
   const now = new Date().toISOString()
@@ -12,8 +12,14 @@ export function GET() {
   const urls = [
     { path: '', alt: '/de', priority: '1.0' },
     { path: '/de', alt: '/de', priority: '0.9' },
-    { path: '/demo', alt: '/de/demo', priority: '0.8' },
-    { path: '/de/demo', alt: '/de/demo', priority: '0.7' },
+    { path: '/modules', alt: '/de/modules', priority: '0.8' },
+    { path: '/de/modules', alt: '/de/modules', priority: '0.7' },
+    { path: '/why', alt: '/de/why', priority: '0.7' },
+    { path: '/de/why', alt: '/de/why', priority: '0.6' },
+    { path: '/trust', alt: '/de/trust', priority: '0.6' },
+    { path: '/de/trust', alt: '/de/trust', priority: '0.5' },
+    { path: '/partner', alt: '/de/partner', priority: '0.6' },
+    { path: '/de/partner', alt: '/de/partner', priority: '0.5' },
   ]
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
