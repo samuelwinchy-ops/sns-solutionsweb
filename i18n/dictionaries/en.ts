@@ -73,7 +73,7 @@ export const en = {
     latestEyebrow: 'Latest',
     latestHeading: 'News and updates',
     updateTitle: 'immvela.com is live, and applications for the closed beta are open.',
-    updateAlt: 'The immvela.com home page: the Immvela mark and Apply for the closed beta',
+    updateAlt: "Immvela's sign-in screen on a laptop and a phone",
     articlesInEnglish: '',
   },
   // The /products page: the two products side by side.

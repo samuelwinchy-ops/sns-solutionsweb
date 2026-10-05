@@ -64,8 +64,7 @@ export const de: Dictionary = {
     latestEyebrow: 'Aktuell',
     latestHeading: 'Neuigkeiten',
     updateTitle: 'immvela.com ist online, und die Bewerbung für die geschlossene Beta ist offen.',
-    updateAlt:
-      'Die Startseite von immvela.com: das Immvela-Zeichen und die Bewerbung für die geschlossene Beta',
+    updateAlt: 'Die Anmeldeseite von Immvela auf einem Laptop und einem Smartphone',
     articlesInEnglish: 'Die Artikel sind auf Englisch.',
   },
   productsPage: {

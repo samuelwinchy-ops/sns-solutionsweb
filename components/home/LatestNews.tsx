@@ -10,12 +10,8 @@ import { sortedPosts, type BlogProduct } from '@/lib/blog'
  * its own ground, so no two look alike. No stock or generated images. Articles are English only.
  */
 
-const UPDATE = {
-  date: '2026-10-04',
-  image: '/news/immvela-com-hero-2026-10-06.jpg',
-  width: 1120,
-  height: 816,
-}
+// The launch card shows the product itself: Immvela's sign-in on a laptop and a phone, in the reader's language.
+const UPDATE = { date: '2026-10-04' }
 
 const BRICO = 'var(--font-bricolage), var(--font-geist-sans), sans-serif'
 const ARCHIVO = 'var(--font-archivo), var(--font-jakarta), sans-serif'
@@ -146,14 +142,26 @@ export default function LatestNews({ locale = defaultLocale }: { locale?: Locale
       <ul className="hm-grid">
         <li>
           <a className="hm-card" href={immvelaHref(locale)}>
-            <span className="hm-cov">
-              <Image
-                src={UPDATE.image}
-                alt={t.updateAlt}
-                width={UPDATE.width}
-                height={UPDATE.height}
-                sizes="(max-width: 960px) 100vw, 46vw"
-              />
+            <span className="hm-cov hm-devices" role="img" aria-label={t.updateAlt}>
+              <span className="hm-lap">
+                <span className="hm-scr">
+                  <Image
+                    src={`/news/immvela-login-laptop-${locale}.jpg`}
+                    alt=""
+                    fill
+                    sizes="(max-width: 600px) 80vw, (max-width: 960px) 72vw, 34vw"
+                  />
+                </span>
+                <span className="hm-base" />
+              </span>
+              <span className="hm-ph">
+                <Image
+                  src={`/products/immvela/immvela-phone-login-light-${locale}.jpg`}
+                  alt=""
+                  fill
+                  sizes="(max-width: 600px) 36vw, 14vw"
+                />
+              </span>
             </span>
             <span className="hm-cb">
               <span className={`hm-tag ${TAG.immvela.cls}`}>{TAG.immvela.label}</span>

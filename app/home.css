@@ -526,6 +526,89 @@
   object-fit: cover;
   display: block;
 }
+/* the launch card: Immvela's sign-in on a laptop with a phone in front, on the page's own light */
+.hm-devices {
+  container-type: inline-size;
+  background:
+    radial-gradient(60% 70% at 0% 100%, rgba(244, 178, 146, 0.55), transparent 70%),
+    radial-gradient(60% 70% at 100% 0%, rgba(122, 140, 205, 0.5), transparent 70%), #f2eee8;
+}
+.hm-devices > span {
+  position: absolute;
+  display: block;
+}
+.hm-lap {
+  left: 8%;
+  top: 13%;
+  width: 72%;
+}
+.hm-scr {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  border: 0.9cqw solid #16191d;
+  border-bottom-width: 1.4cqw;
+  border-radius: 2.2cqw 2.2cqw 0 0;
+  overflow: hidden;
+  background: #16191d;
+}
+.hm-scr img {
+  object-fit: cover;
+  object-position: top;
+}
+.hm-base {
+  position: relative;
+  display: block;
+  margin: 0 -6%;
+  height: 1.8cqw;
+  border-radius: 0 0 2.4cqw 2.4cqw;
+  background: linear-gradient(#e3e5ea, #a9aeb8);
+  box-shadow: 0 2.4cqw 4cqw -2cqw rgba(11, 31, 68, 0.45);
+}
+.hm-base::before {
+  content: '';
+  position: absolute;
+  left: 42%;
+  right: 42%;
+  top: 0;
+  height: 0.6cqw;
+  border-radius: 0 0 1cqw 1cqw;
+  background: #9aa0aa;
+}
+.hm-ph {
+  right: 7%;
+  bottom: 8%;
+  width: 19%;
+  aspect-ratio: 1206 / 2460;
+  border: 0.55cqw solid #16191d;
+  border-radius: 3.6cqw;
+  overflow: hidden;
+  background: #16191d;
+  box-shadow: 0 3cqw 5cqw -2.4cqw rgba(11, 31, 68, 0.5);
+}
+.hm-ph img {
+  object-fit: cover;
+  border-radius: 3cqw;
+}
+/* on a phone the laptop's screen is too small to read, so the phone leads, larger and in front */
+@container (max-width: 460px) {
+  .hm-lap {
+    left: 6%;
+    top: 22%;
+    width: 64%;
+  }
+  .hm-ph {
+    right: 7%;
+    bottom: 5%;
+    width: 31%;
+    border-width: 0.9cqw;
+    border-radius: 5.6cqw;
+  }
+  .hm-ph img {
+    border-radius: 4.8cqw;
+  }
+}
+
 /* typographic covers: the article's idea set large on its own tinted ground */
 .hm-type {
   position: absolute;
