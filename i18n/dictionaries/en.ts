@@ -7,56 +7,198 @@ export type ConsentSegment = { t: string; link?: boolean }
 
 export const en = {
   nav: {
-    home: 'home',
-    services: 'custom builds',
-    realEstate: 'immvela',
-    team: 'team',
-    contact: 'contact',
+    home: 'Home',
+    products: 'Products',
+    services: 'Consulting',
+    realEstate: 'Immvela',
+    qfutool: 'QFUtool',
+    team: 'Team',
+    contact: 'Contact',
   },
   // (No `langToggle` entry: the switch is two flags with visually-hidden
   // language names, so its labels live in LanguageToggle.tsx and are never
   // translated — "English"/"Deutsch" are endonyms in both locales.)
   hero: {
-    // "Agentic software, auditable by design" was a leftover from the studio
-    // positioning: "agentic" is AI-industry vocabulary a brokerage owner does
-    // not use — and in real estate "agent" already means a person — while
-    // "auditable by design" answered an objection before the reader had formed
-    // any desire. Neither said who it was for or what it did.
-    //
-    // This is the same selectivity /services already sells ("where AI and
-    // better systems would genuinely pay off, and where they wouldn't"), and it
-    // is a real differentiator while everyone else sells AI on everything. The
-    // headline carries the position; the subtitle below carries the specifics.
-    h1a: 'Implementing AI',
-    h1b: 'where it makes a difference.',
-    // The hero is Immvela and nothing else. Custom builds used to be tacked on
-    // here as "for everyone else", which read as a consolation prize to exactly
-    // the prospect it was meant to attract — they now get their own section at
-    // the foot of the page (`customBuilds`), where the pitch is an invitation
-    // rather than an afterthought.
+    // SNS is the parent company: the homepage says in two lines what we do,
+    // then hands the visitor to a product. The headline is the outcome in the
+    // customer's words; it does not mention software, AI or agents.
+    h1a: 'What took hours yesterday',
+    h1b: 'now handles itself.',
+    // Says what SNS is, not what the products share: Immvela and QFUtool are
+    // separate businesses for separate buyers, and each gets its own tile
+    // below rather than a combined pitch here.
     subtitle: [
-      { t: 'A Vienna studio building ' },
-      { t: 'Immvela', strong: true },
-      { t: ', the agentic operating system for ' },
-      { t: 'real estate', strong: true },
-      { t: '. One verified record of your properties, leads and deals, with a module for each part of the job.' },
+      {
+        t: 'SNS Solutions is a software company in Vienna. We design, build and run our own products — and when a business needs something no product covers, we build that too.',
+      },
     ] as Segment[],
+    ctaProducts: 'See our products',
     ctaStart: 'Book a free consultation',
-    ctaSolutions: 'see immvela',
   },
-  // One industry now, so this section carries the real-estate card's own copy
-  // rather than reading it out of the retired solutionsPage.industries list.
-  homeFocus: {
-    eyebrow: 'Who we build for',
-    heading: 'Purpose-built for real estate.',
-    sub: 'We know real estate inside out: how it talks, how it works, what the day actually looks like. So Immvela fits the way you already do the job.',
-    cta: 'See how Immvela works',
-    card: {
-      label: 'Immvela',
-      descriptor: 'Real estate · sales & lettings',
-      blurb:
-        'Our own platform, sold module by module. Each one stands alone, and all of them write back to the same record of your properties, leads and deals.',
+  // The product tiles (components/ProductTiles.tsx). Each product is shown in
+  // its OWN brand — Immvela's beige and green, QFUtool's slate and orange — the
+  // way a parent company presents the things it makes. Claims here must match
+  // each product's own site: Immvela's module status comes from the Immvela
+  // repo, QFUtool's audience, headline and trial from qfutool.com.
+  // The homepage slideshow (components/CinemaHero.tsx).
+  cinema: {
+    upNext: 'Up next',
+    pause: 'Pause the product slideshow',
+    play: 'Play the product slideshow',
+    tabs: 'Products',
+    email: {
+      from: 'From',
+      sent: 'Sent',
+      sentValue: 'Thursday 10:00',
+      followUp: 'Follow-up 2',
+      greeting: 'Hello Mr Huber,',
+      body: 'just checking in on the €1,250 quote we sent on Monday. Happy to call if anything is unclear.',
+      sign: 'Lisa',
+      foot: 'Unsubscribe in one click · Example',
+      reply: 'Sounds good — can we talk Friday?',
+      replyNote: 'Reply received · follow-ups stopped',
     },
+  },
+  // Homepage sections below the slideshow (components/HomeChapters.tsx).
+  // Every Immvela module is listed, in development or not.
+  chapters: {
+    immvela: {
+      eyebrow: 'Immvela · take a closer look',
+      heading: 'One property. Every job around it.',
+      sub: 'Each module sits on the property’s Wheel and works from the same confirmed facts.',
+      callouts: [
+        {
+          k: 'Dossier',
+          t: 'Reads the paperwork — the Energieausweis and the rest — and pulls out what you have to disclose.',
+        },
+        { k: 'Quill', t: 'Writes the captions, brochure and Exposé from the facts you confirmed.' },
+        { k: 'Vignette', t: 'Stages empty rooms from a single photo, and labels them as staged.' },
+        {
+          k: 'Immerse',
+          t: 'One walk through the property with a phone becomes a walkthrough video.',
+          soon: true,
+        },
+        { k: 'Verlag', t: 'Posts to every channel — only when you say so.' },
+      ],
+      // Immvela is sold by MODE, not module (Immvela repo, lib/auth/modes.ts,
+      // 2026-09-25). Listings and Marketing are open; the other two are "in
+      // preparation" in the product and greyed out here to match.
+      // The app's own mode-selector question, not a count — "four modes" read
+      // like a settings menu.
+      modesLabel: 'What would you like to work on?',
+      modes: [
+        {
+          k: 'Listings',
+          t: 'From property to published listing: documents, copy, images and publishing.',
+          ready: true,
+        },
+        {
+          k: 'Marketing',
+          t: 'Posts for your brand and your channels, kept apart from your listings.',
+          ready: true,
+        },
+        {
+          k: 'Customer relationships',
+          t: 'Enquiries about your listings, qualified and routed to you.',
+          ready: false,
+        },
+        { k: 'Onboarding', t: 'An assistant that guides you through Immvela.', ready: false },
+      ],
+      insideLabel: 'Inside Listings',
+      seeInside: 'See inside',
+      manualLabel: 'Manual',
+      manualNote: 'Open the modules on the Wheel yourself.',
+      autoLabel: 'Auto',
+      autoNote: 'Tell Immvela what you need; it asks before every step.',
+      live: 'Live',
+      soon: 'In development',
+      prep: 'In preparation',
+      film: 'Visit the Immvela website',
+      cta: 'Join the waitlist',
+    },
+    qfutool: {
+      eyebrow: 'QFUtool · anatomy of a follow-up',
+      heading: 'Every quote gets chased. Politely, and as you.',
+      callouts: [
+        { t: 'From your own address, signed by your domain. Replies land in your inbox.' },
+        { t: 'Customer, amount, what was quoted and the quote number — filled in for each one.' },
+        { t: 'A reply, an unsubscribe or a bounce cancels everything still queued.' },
+        { t: 'One-click unsubscribe in every email, honoured instantly.' },
+      ],
+      rulesLabel: 'The rules it keeps',
+      rules: [
+        { k: '08:00–18:00', t: 'Sends only in working hours, weekdays if you like.' },
+        { k: '50 a day', t: 'To start. A new domain earns trust slowly.' },
+        { k: 'Value ceiling', t: 'Big quotes are listed for you to call, not emailed.' },
+        { k: 'Never twice', t: 'Upload next week’s export; quotes already chased are skipped.' },
+        { k: 'Off by default', t: 'Read exactly what would go out before you switch it on.' },
+      ],
+      price: '14 days free, then from €19 a month.',
+      cta: 'Start free trial',
+      example: 'Example',
+    },
+    news: {
+      eyebrow: 'Newsroom',
+      heading: 'What we’ve learned building them.',
+      all: 'All stories',
+    },
+    steps: 'How a custom build works',
+    closing: {
+      heading: 'Pick your tool,',
+      headingB: 'or tell us the job.',
+      consult: 'Book a free consultation',
+    },
+  },
+  products: {
+    eyebrow: 'Products',
+    heading: 'Our products',
+    learnMore: 'Learn more',
+    immvela: {
+      audience: 'For estate agents',
+      tagline: 'The listing, the Exposé and the posts, from one set of facts.',
+      desc: 'Enter a property once and confirm its facts. Immvela drafts the captions, the brochure and the Exposé from them and posts to your channels.',
+      status: 'Two of seven modules live · early access open',
+      cta: 'Join the waitlist',
+      webAlt:
+        "Immvela on a laptop: a property's Wheel, with Dossier, Quill, Vignette and Verlag around it",
+      phoneAlt: "Immvela's sign-in screen on a phone, in dark mode",
+    },
+    qfutool: {
+      audience: 'For salespeople',
+      tagline: 'You sent the quote. Now somebody has to chase it.',
+      desc: 'Upload the spreadsheet of quotes that went out. QFUtool follows up with each customer in your name, during business hours, and hands you the ones who reply.',
+      status: 'Free for 14 days · no CRM to set up',
+      cta: 'Start free trial',
+      // The illustration: what QFUtool's follow-up list looks like. Sample
+      // rows, labelled as an example on screen, never presented as customers.
+      example: 'Example',
+      exampleLabel: 'Example of a QFUtool follow-up list',
+      cols: ['Customer', 'Quote', 'Status'],
+      rows: [
+        {
+          who: 'Keller GmbH',
+          amount: '€ 4,800',
+          state: 'Replied — moved to your list',
+          tone: 'reply',
+        },
+        { who: 'M. Huber', amount: '€ 1,250', state: 'Follow-up 2 · Thu 10:00', tone: 'queued' },
+        {
+          who: 'Baumann & Söhne',
+          amount: '€ 9,300',
+          state: 'Follow-up 1 sent · Tue 09:14',
+          tone: 'sent',
+        },
+        { who: 'A. Novak', amount: '€ 2,100', state: 'Stopped — unsubscribed', tone: 'stopped' },
+      ],
+    },
+  },
+  // The consultation offer: secondary to the products, one band after them.
+  consult: {
+    eyebrow: 'Consulting',
+    heading: 'Need software built for your business?',
+    sub: 'Book a free 30-minute call. We look at how your team works, tell you straight whether custom software is worth building, and build it if it is.',
+    cta: 'Book a free consultation',
+    link: 'How custom builds work',
   },
   // The closing section of the homepage, and the one job the hero no longer
   // does: catching the visitor Immvela doesn't fit. It was a generic "how we
@@ -66,9 +208,11 @@ export const en = {
   // process" to "tell us what Immvela doesn't cover and we'll work it out with
   // you." The last step is the invitation, not a description.
   customBuilds: {
-    eyebrow: 'custom builds',
-    heading: 'Immvela not the shape of your problem?',
-    sub: 'Immvela covers the work most real-estate teams share. If yours runs on something it doesn’t reach — an in-house system it has to talk to, a process nobody else has, a piece of the job we haven’t built yet — that’s a custom build, and it’s half of what we do. We work it through with you first, and you get a straight answer on whether it’s worth building at all.',
+    // Lives on /services now, as the "how it works" section; the homepage
+    // carries the offer itself in `consult`.
+    eyebrow: 'How a custom build works',
+    heading: 'From the first call to the handover.',
+    sub: 'Four steps, and the second one is the one most people skip: we measure the work before we touch it, so at the end you can see what changed.',
     steps: [
       {
         k: '01',
@@ -98,37 +242,27 @@ export const en = {
     note: 'And if the honest answer is “you don’t need this built”, that’s the answer you get.',
     cta: 'Tell us what you need',
   },
-  announce: {
-    tag: 'Built in the open',
-    heading: 'Meet Immvela.',
-    body: 'Our own platform for real-estate teams: the operating system behind your listings, leads and deals. Two modules live, the rest shipping in the open.',
-    cta: 'Join the waitlist',
-    dismiss: 'Dismiss',
-  },
-  buildLog: {
-    eyebrow: 'build log · current operations',
-    heading: "What's running right now.",
-    note: 'Active projects are under NDA. Descriptions are intentionally redacted.',
-    live: 'Live systems',
-    operational: 'operational',
-  },
   // NOTE: the homepage team section is gone — /team already carries the
   // founders (components/Founders.tsx) and repeating three cards above the
   // footer was pure duplication. `teamPage` below is the surviving copy.
   footer: {
-    eyebrow: '> get in touch',
-    heading: 'Have something complex to simplify?',
-    sub: "Tell us what's slowing you down. We'll tell you how we'd automate it.",
+    eyebrow: 'Get in touch',
+    heading: 'Is something taking your team too long?',
+    sub: "Tell us what it is. We'll tell you whether it can be automated, and what that would take.",
     ctaStart: 'Book a free consultation',
     or: 'or',
     team: 'Team',
     legal: { imprint: 'Imprint', privacy: 'Privacy', terms: 'Terms' },
+    // Column heads for the sitemap footer.
+    cols: { products: 'Products', company: 'Company', legal: 'Legal' },
+    contact: 'Contact',
+    blog: 'Blog',
   },
   servicesPage: {
     eyebrow: 'Custom builds & AI consulting',
-    heading: 'Let’s work out where AI actually fits.',
+    heading: 'Custom software for the work that eats your week.',
     intro:
-      'Most teams don’t need more software. They need to know which part of their work is worth automating, and which isn’t. So we start with a conversation, give you a straight answer, and build something only if it’s worth building.',
+      'Not every task is worth automating. We start with a conversation about how your team works, tell you which parts are worth it and which aren’t, and only build when it pays off.',
     consult: {
       tag: 'Free consultation',
       heading: 'Book a free online meeting.',
@@ -145,7 +279,8 @@ export const en = {
     whatWeDoLabel: 'What we do',
     outcomesLabel: 'What you get',
     closingHeading: 'Not sure which one you need?',
-    closingSub: 'Tell us the problem on a free 30-minute call. We’ll tell you how we’d approach it, or tell you honestly if you don’t need us.',
+    closingSub:
+      'Tell us the problem on a free 30-minute call. We’ll tell you how we’d approach it, or tell you honestly if you don’t need us.',
     closingCta: 'Book an online meeting',
     items: [
       {
@@ -166,31 +301,31 @@ export const en = {
       },
       {
         name: 'AI & Automation',
-        tagline: 'Custom automation and agents, built around your own systems.',
+        tagline: 'Repetitive work, done in the background by your own systems.',
         problem:
           'Your team loses hours every week to repetitive work: copying data between systems, processing documents by hand, chasing updates. It is slow, easy to get wrong, and it does not scale as you grow.',
         whatWeDo:
-          'We build automations and AI agents that do that work in the background: document processing, data syncing between your tools, and pipelines that run reliably without anyone watching them.',
+          'We build automations that take that work over: reading incoming documents, keeping data in sync between your tools, and scheduled jobs that run without anyone watching them.',
         outcomes: [
           'The repetitive work runs on its own, around the clock',
           'Fewer errors, because the process is consistent',
           'Your team gets their time back for work that needs a human',
         ],
         example:
-          'For example: an autonomous document ingestion pipeline with OCR and validation, and an event-driven sync between a CRM, an ERP, and analytics.',
+          'For example: scanned documents read, checked and filed automatically, and a CRM, an ERP and reporting that stay in sync on their own.',
         cta: 'Automate a workflow',
       },
       {
         name: 'AI & IT Consulting',
-        tagline: 'Straight answers on where AI actually pays off.',
+        tagline: 'Straight answers on where AI pays off.',
         problem:
-          'AI is moving fast and the options are overwhelming. It is easy to spend money on tools that do not fit, or to put it off because you are not sure where to start.',
+          'It is hard to tell which AI tools are worth paying for. Buy the wrong one and it sits unused; wait too long and the work stays manual.',
         whatWeDo:
-          'We help you work out where AI and better systems will actually pay off for your business, then plan the architecture, and build it if you want us to. Straight answers, not hype.',
+          'We look at how your team works, tell you which parts are worth automating and which are not, and write down a plan. If you want us to, we build it too.',
         outcomes: [
-          'A clear, practical plan you can act on',
-          'Honest advice from people who build, not just advise',
-          'A partner who stays involved as far as you need',
+          'A written plan you can act on',
+          'Advice from people who build this, not only advise on it',
+          'Help for as long as you need it, and no longer',
         ],
         example:
           'For example: going from a first “where do we even start” conversation to a working, deployed system.',
@@ -201,8 +336,7 @@ export const en = {
   teamPage: {
     eyebrow: 'The team',
     heading: 'The people behind SNS.',
-    intro:
-      'Three founders, one standard: if it’s complicated to use, it’s not finished. Here’s who we are.',
+    intro: 'Three founders, one standard: if it’s complicated to use, it’s not finished.',
     // Bios are ordered to match the founders list in components/Founders.tsx
     // (Samuel Winch, Nicholas Pellechi, Samson Belachew).
     bios: [
@@ -215,7 +349,7 @@ export const en = {
     eyebrow: 'Get in touch',
     heading: 'What can we take off your plate?',
     intro:
-      "Custom software, AI agents, or AI & IT consulting: tell us what's slowing you down and we'll tell you how we'd approach it. We read every message.",
+      "Tell us what's taking your team too long and we'll tell you how we'd approach it. We read every message and reply ourselves.",
     details: {
       email: 'Email',
       basedIn: 'Based in',
@@ -225,7 +359,14 @@ export const en = {
     },
   },
   contactForm: {
-    services: ['Immvela · Real Estate', 'Custom Software', 'AI & Automation', 'AI & IT Consulting', 'Something else'],
+    services: [
+      'Immvela · Real Estate',
+      'QFUtool',
+      'Custom Software',
+      'AI & Automation',
+      'AI & IT Consulting',
+      'Something else',
+    ],
     name: 'Name',
     email: 'Email',
     phone: 'Phone',
@@ -281,7 +422,7 @@ export const en = {
     film: {
       eyebrow: 'The film',
       heading: 'The whole product, explained out loud.',
-      sub: 'One narrated run through Immvela: what the single verified record actually is, why it beats seven tools sharing a login, and what each module does with it. No signup, no form.',
+      sub: 'A narrated walk through Immvela: what it does with a property’s facts, and what each module is for. No signup, no form.',
       play: 'Play with sound',
       duration: '2:16',
       durationLong: '2 minutes 16 seconds',
@@ -291,24 +432,16 @@ export const en = {
     byline: 'by SNS Solutions',
     backToSns: 'Back to SNS',
     builtInOpen: 'Built in the open',
-    tagline: 'The agentic operating system for real estate.',
+    tagline: 'The listing, the Exposé and the posts, from one set of facts.',
     // The positioning is the flywheel, not a feature list: Immvela is the
     // system of record for an agent's business, and the compounding asset is
     // the verified graph of properties, listings, leads and outcomes that the
     // modules leave behind. Anything written here should survive the question
     // "would this still be true if a competitor copied every feature?"
     heroSub:
-      'Not seven AI tools sharing a login. Every module reads from and writes back to one verified record of your properties, your leads and your deals. Confirm a fact once and everything downstream uses it. Edit a draft and it learns how you write. Immvela is worth more in month twelve than on day one, and that is the whole point.',
+      'Enter a property once and confirm its facts. Immvela drafts the captions, the brochure and the Exposé from them and posts to your channels. Every module works from the same property records, so a fact you confirm once is used everywhere, and the edits you make teach it how you write.',
     primaryCta: 'Join the waitlist',
     secondaryCta: 'See the modules',
-    // Chrome for the rotating Immvela panel in the SNS homepage hero
-    // (components/ImmvelaShowcase.tsx). {n}/{total} are filled from the
-    // modules array below, so the count can't drift from the badges.
-    showcase: {
-      pause: 'Pause the module spotlight',
-      play: 'Resume the module spotlight',
-      liveCount: '{n} of {total} modules live · built in the open',
-    },
     // ── Modules: named and staged from the Immvela repo's STATUS.md, which is
     // its source of truth for BUILD state. Do not promote a module here from
     // marketing enthusiasm — `code` is the product name, `name` the function.
@@ -317,8 +450,8 @@ export const en = {
     // of scope by decision, so listing it would promise a module nobody is
     // building.
     modulesLabel: 'Module by module',
-    modulesHeadingA: 'Not a finished product pretending to be one.',
-    modulesHeadingB: 'A platform taking shape.',
+    modulesHeadingA: 'Seven modules.',
+    modulesHeadingB: 'Two you can use today.',
     statusActive: 'Live',
     statusProgress: 'In development',
     modules: [
@@ -355,10 +488,22 @@ export const en = {
     },
     faqLabel: 'Questions people ask',
     faq: [
-      { q: 'Is it live yet?', a: 'Two modules are live today, Listing Kit and Publishing, and you can sign in and use them. The other five are in active development, and waitlist members get each one first.' },
-      { q: 'What does “it gets better” actually mean?', a: 'Every module writes structured data back to the same record instead of keeping its own copy. A value Dossier extracts and you confirm is the value Quill writes ads from, and the one Winston answers questions from. Edits you make to a draft teach Quill how you write. None of that is a setting you configure; it is a consequence of using it.' },
-      { q: 'What does it cost?', a: 'Pricing isn’t set yet. Modules are sold one at a time rather than as one big suite, and Publishing comes free with any paid module. Waitlist members help shape the rest and get early-access terms when Immvela opens up.' },
-      { q: 'Which language, and where is my data?', a: 'German first. It is the default interface language, and Exposé sections, Objektdaten labels and compliance markers stay German because they name real documents. English is selectable per user. Data is hosted in the EU, and each brokerage stays its own data controller, so franchise offices never see each other’s.' },
+      {
+        q: 'Is it live yet?',
+        a: 'Two modules are live today, Listing Kit and Publishing, and you can sign in and use them. The other five are in active development, and waitlist members get each one first.',
+      },
+      {
+        q: 'What does “it gets better” actually mean?',
+        a: 'Every module writes structured data back to the same record instead of keeping its own copy. A value Dossier extracts and you confirm is the value Quill writes ads from, and the one Winston answers questions from. Edits you make to a draft teach Quill how you write. None of that is a setting you configure; it is a consequence of using it.',
+      },
+      {
+        q: 'What does it cost?',
+        a: 'Pricing isn’t set yet. Modules are sold one at a time rather than as one big suite, and Publishing comes free with any paid module. Waitlist members help shape the rest and get early-access terms when Immvela opens up.',
+      },
+      {
+        q: 'Which language, and where is my data?',
+        a: 'German first. It is the default interface language, and Exposé sections, Objektdaten labels and compliance markers stay German because they name real documents. English is selectable per user. Data is hosted in the EU, and each brokerage stays its own data controller, so franchise offices never see each other’s.',
+      },
     ],
     tiersLabel: 'Build status by module',
     // The order here is the actual build order from the Immvela repo's roadmap,
@@ -379,7 +524,7 @@ export const en = {
         status: 'in progress',
         items: [
           'Reception (Iris): qualifies and routes every inquiry; never books, never quotes',
-          'Knowledge (Winston): DACH real-estate copilot answering from your own sources, with citations',
+          'Knowledge (Winston): DACH real-estate assistant answering from your own sources, with citations',
         ],
       },
       {
@@ -403,7 +548,9 @@ export const en = {
       sizePlaceholder: 'Select…',
       sizes: ['Solo agent', 'Team', 'Franchise'],
       consent: [
-        { t: 'I agree that my details may be used to contact me about early access, as described in the ' },
+        {
+          t: 'I agree that my details may be used to contact me about early access, as described in the ',
+        },
         { t: 'Privacy Policy', link: true },
         { t: '.' },
       ] as ConsentSegment[],

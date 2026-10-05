@@ -40,7 +40,12 @@ export function GET() {
 
 ${SITE.legalName} is based in Vienna, Austria (${SITE.address.streetAddress}, ${SITE.address.postalCode}) and was founded in ${SITE.foundingDate} by ${SITE.founders.join(', ')}. The whole site is published in English and German (Austrian German, formal Sie-form); German pages live under /de.
 
-Real estate is the focus. Our product is Immvela, an agentic operating system for real-estate teams, and it lives on its own domain — ${IMMVELA_URL}/ (${immvelaLive} live today). The studio also takes on custom software and automation work outside it.
+SNS Solutions is the parent company of two separate products, each on its own domain:
+
+- Immvela — software for estate agents that drafts listings, Exposés and social posts from checked property facts: ${IMMVELA_URL}/ (${immvelaLive} live today).
+- QFUtool — automated follow-up on sent quotes for salespeople, sending from their own domain during working hours: https://www.qfutool.com/
+
+We also offer a free 30-minute consultation and custom software work.
 
 Services: ${services}.
 
@@ -48,12 +53,13 @@ Contact: ${SITE.email}, ${SITE.phone}. ${t.contactPage.details.response}: ${t.co
 
 ## Pages
 
-- [Home](${url('/')}): what SNS Solutions is, who we build for, and how we work. [Deutsch](${url('/de')}).
+- [Home](${url('/')}): what SNS Solutions is, its two products, and the consultation offer. [Deutsch](${url('/de')}).
 - [Services](${url('/services')}): the three service lines in detail — the problem each solves, what we do, and what you get. Includes a free 30-minute consultation offer. [Deutsch](${url('/de/services')}).
-- [Immvela](${IMMVELA_URL}/): our real-estate platform, on its own domain, with its own ${IMMVELA_URL}/llms.txt and module-by-module build status.
+- [Immvela](${IMMVELA_URL}/): our product for estate agents, on its own domain, with its own ${IMMVELA_URL}/llms.txt and module-by-module build status.
+- [QFUtool](https://www.qfutool.com/): our quote follow-up product for salespeople, on its own domain.
 - [Team](${url('/team')}): the three founders and what each of them leads. [Deutsch](${url('/de/team')}).
 - [Contact](${url('/contact')}): email, phone, and the inquiry form. [Deutsch](${url('/de/contact')}).
-- [Blog](${url('/blog')}): AI infrastructure for real estate and service businesses — Immvela, data fragmentation, QFUtool, and AI outbound. English only. Posts:
+- [Blog](${url('/blog')}): notes on the problems behind each product, filed by product. English only. Posts:
 ${blogList}
 
 ## Optional

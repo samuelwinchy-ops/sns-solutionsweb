@@ -34,8 +34,17 @@ export type BlogCta = {
   external?: boolean
 }
 
+/**
+ * Which product a post belongs to. SNS is the parent company and its products
+ * are separate businesses with separate buyers, so the blog files each post
+ * under exactly one of them — the index groups by it, and posts do not
+ * cross-promote one product from inside the other's articles.
+ */
+export type BlogProduct = 'immvela' | 'qfutool'
+
 export type BlogPost = {
   slug: string
+  product: BlogProduct
   title: string
   /** The category chip and the JSON-LD `articleSection`. */
   eyebrow: string
@@ -61,6 +70,7 @@ const contactHref = (service: string) => `/contact?service=${encodeURIComponent(
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'real-estate-data-fragmentation',
+    product: 'immvela',
     title: "The Real Data Problem in Real Estate (And Why Buying More Software Doesn't Fix It)",
     eyebrow: 'Real Estate',
     description:
@@ -138,14 +148,11 @@ export const BLOG_POSTS: BlogPost[] = [
       href: IMMVELA_URL,
       external: true,
     },
-    related: [
-      'immvela-one-record-real-estate-operating-system',
-      'ai-infrastructure-for-real-estate-agencies',
-      'hvac-data-fragmentation',
-    ],
+    related: ['immvela-one-record-real-estate-operating-system', 'ai-infrastructure-for-real-estate-agencies'],
   },
   {
     slug: 'immvela-one-record-real-estate-operating-system',
+    product: 'immvela',
     title: 'Immvela: One Verified Record Instead of Seven Logins',
     eyebrow: 'Immvela · Product',
     description:
@@ -230,180 +237,190 @@ export const BLOG_POSTS: BlogPost[] = [
       href: IMMVELA_URL,
       external: true,
     },
-    related: [
-      'real-estate-data-fragmentation',
-      'ai-infrastructure-for-real-estate-agencies',
-      'ai-outbound-for-service-businesses',
-    ],
+    related: ['real-estate-data-fragmentation', 'ai-infrastructure-for-real-estate-agencies'],
   },
   {
-    slug: 'hvac-data-fragmentation',
-    title: 'Why HVAC and Heating Installers Lose Deals After the Quote Goes Out',
-    eyebrow: 'HVAC & Trades',
+    // Was /blog/hvac-data-fragmentation, written when QFUtool was sold to HVAC
+    // installers. QFUtool is for salespeople in general now; the old URL 301s
+    // here (next.config.mjs).
+    slug: 'why-quotes-go-unanswered',
+    product: 'qfutool',
+    title: 'Why Sales Teams Lose Deals After the Quote Goes Out',
+    eyebrow: 'Sales & Follow-up',
     description:
-      "For an HVAC or heating & cooling installer, fragmentation doesn't look like seven tools — it looks like a spreadsheet and an inbox. Where the follow-up gap actually comes from.",
+      'A quote goes out, then silence. Why the follow-up gap is a data problem rather than a discipline problem, and what fixes it without a CRM migration.',
     date: '2026-09-01',
-    readTime: '7 min read',
+    readTime: '6 min read',
     accent: 'violet',
     intro: [
-      'For a real-estate brokerage, data fragmentation means facts scattered across too many tools. For a heating, ventilation or air-conditioning installer, it usually means the opposite problem: almost no tooling at all. A quote goes out as a PDF attached to an email. It gets logged, if it gets logged, as a row in a spreadsheet. From that point on, whether it becomes a job depends entirely on whether someone remembers to chase it.',
-      'That gap — the silence between "quote sent" and either "job won" or "job lost" — is where a meaningful share of an installer’s revenue quietly disappears.',
+      'For a lot of sales teams, a quote goes out as a PDF attached to an email. It gets logged, if it gets logged, as a row in a spreadsheet or an export from the quoting tool. From that point on, whether it becomes a deal depends entirely on whether someone remembers to chase it.',
+      'That gap — the silence between "quote sent" and either "won" or "lost" — is where a meaningful share of revenue quietly disappears.',
     ],
     sections: [
       {
         heading: 'Where the money actually leaks',
         paragraphs: [
-          'Quotes get sent and then forgotten, not out of negligence but because nothing in the process prompts a follow-up. The spreadsheet functions as the entire customer record: useful for keeping a list, useless for reminding anyone to act on it. There’s no consistent trigger — no day-three nudge, no day-seven check-in — so whether a lead gets chased comes down to whichever salesperson happens to remember, on a day when they’re usually needed on-site instead.',
+          'Quotes get sent and then forgotten, not out of negligence but because nothing in the process prompts a follow-up. The spreadsheet works as a list and fails as a reminder. There’s no consistent trigger — no day-three nudge, no day-seven check-in — so whether a lead gets chased comes down to whichever salesperson happens to remember, on a day they have other things to do.',
         ],
       },
       {
         heading: 'Why this is a data problem, not a discipline problem',
         paragraphs: [
-          'It’s tempting to file this under "we just need to be better about following up." The more accurate diagnosis is structural: the quote data — amount, system type, customer, date sent — lives in a format nothing else can act on. A spreadsheet built by whoever happened to set it up, with whatever column names they chose, in German or English depending on the office. Nothing can automatically act on data that isn’t in a consistent shape, no matter how disciplined the team is.',
+          'It’s tempting to file this under "we just need to be better about following up." The more accurate diagnosis is structural: the quote data — customer, amount, what was quoted, date sent — lives in a format nothing else can act on. A spreadsheet built by whoever set it up, with whatever column names they chose, in German or English depending on the office. Nothing can act automatically on data that isn’t in a consistent shape, however disciplined the team is.',
         ],
       },
       {
-        heading: "What a fix looks like without forcing a CRM migration",
+        heading: 'What a fix looks like without forcing a CRM migration',
         paragraphs: [
-          'Most small and mid-size installers won’t adopt a full CRM just to fix follow-up, and telling them to is the same "just get a CRM" advice that doesn’t hold up in real estate either — it adds a system rather than fixing the gap between the systems that already exist. The fix that actually gets adopted works with the mess already there: it reads the spreadsheet the team already keeps, regardless of column naming or language, sends reminders that read as coming from the actual salesperson, and stops automatically the moment the customer replies.',
+          'Most small teams won’t adopt a full CRM just to fix follow-up, and "just get a CRM" adds a system rather than closing the gap. The fix that actually gets adopted works with what’s already there: it reads the export the team already has, whatever the columns are called, sends reminders that come from the actual salesperson, and stops the moment the customer replies.',
           'That’s the shape of QFUtool, SNS’s tool for exactly this gap — covered in full in the next post.',
         ],
       },
       {
-        heading: 'The compliance side people forget',
+        heading: 'The safeguards people forget',
         bullets: [
-          'A one-click unsubscribe on every email, not buried in a footer nobody reads.',
-          'Sending restricted to business hours, so a reminder never lands as a 2 a.m. notification.',
-          'A ceiling on quote size, so an installer’s biggest jobs are excluded from templated automation and get a phone call instead.',
+          'A one-click unsubscribe on every email, honoured immediately.',
+          'Sending restricted to working hours, so a reminder never lands at 2 a.m.',
+          'A ceiling on quote value, so the biggest deals get a phone call instead of a template.',
+          'A daily sending cap, so a new domain builds trust slowly instead of tripping spam filters.',
         ],
         paragraphs: [
-          'These aren’t features specific to any one tool — they’re what any automated outbound system should have before it touches a real customer relationship.',
+          'None of these are specific to one tool. They’re what any automated email should have before it touches a real customer relationship.',
         ],
       },
     ],
     takeaways: [
-      'The HVAC follow-up gap is a data-shape problem: quote data sits in a spreadsheet nothing else can act on.',
-      'It isn’t a discipline problem — no consistent trigger exists to prompt a follow-up in the first place.',
-      'The fix that gets adopted works with the spreadsheet installers already use, rather than requiring a CRM migration.',
+      'The follow-up gap is a data-shape problem: quote data sits in a spreadsheet nothing else can act on.',
+      'It isn’t a discipline problem — there’s no consistent trigger to prompt a follow-up in the first place.',
+      'The fix that gets adopted works with the export a team already has, rather than requiring a CRM migration.',
     ],
     faq: [
       {
-        q: 'Why do HVAC quotes go unanswered?',
-        a: 'Not because customers aren’t interested, but because nothing in most installers’ process triggers a follow-up. The quote is logged in a spreadsheet, if anywhere, and whether it gets chased depends on one person remembering, on a day they’re usually needed on-site.',
+        q: 'Why do quotes go unanswered?',
+        a: 'Usually not because customers aren’t interested, but because nothing in the process triggers a follow-up. The quote is logged in a spreadsheet, if anywhere, and whether it gets chased depends on one person remembering.',
       },
       {
         q: 'Do I need a CRM to fix follow-up?',
-        a: 'No. A CRM solves a broader problem but adds a system to learn and migrate into. The narrower fix — reading the spreadsheet an installer already keeps and automating reminders from it — closes the follow-up gap without a migration.',
+        a: 'No. A CRM solves a broader problem but adds a system to learn and migrate into. The narrower fix — reading the spreadsheet or export you already keep and automating reminders from it — closes the follow-up gap without a migration.',
       },
       {
-        q: 'Is automated quote follow-up appropriate for every job?',
-        a: 'Not the largest ones. A sensible setup excludes quotes above a set value from templated automation, on the basis that a big job earns a phone call rather than an email sequence.',
+        q: 'Is automated quote follow-up right for every deal?',
+        a: 'Not the largest ones. A sensible setup keeps quotes above a set value out of templated email, on the basis that a big deal earns a phone call.',
       },
     ],
     cta: {
       heading: 'See exactly how the follow-up works',
-      sub: 'QFUtool is SNS’s tool for HVAC and heating & cooling installers, built around this specific gap.',
+      sub: 'QFUtool is SNS’s tool for salespeople who chase their own quotes, built around this specific gap.',
       label: 'Read about QFUtool',
-      href: '/blog/qfutool-ai-follow-up-hvac-quotes',
+      href: '/blog/qfutool-automated-quote-follow-up',
     },
-    related: [
-      'qfutool-ai-follow-up-hvac-quotes',
-      'ai-outbound-for-service-businesses',
-      'ai-infrastructure-for-real-estate-agencies',
-    ],
+    related: ['qfutool-automated-quote-follow-up', 'ai-outbound-for-service-businesses'],
   },
   {
-    slug: 'qfutool-ai-follow-up-hvac-quotes',
-    title: 'QFUtool: Automated Follow-Up for HVAC and Heating & Cooling Quotes',
+    // Was /blog/qfutool-ai-follow-up-hvac-quotes; 301s here. Facts and prices
+    // are qfutool.com's as of 2026-09-29 — the product site is the source of
+    // truth, and this post says so rather than pretending to be it.
+    slug: 'qfutool-automated-quote-follow-up',
+    product: 'qfutool',
+    title: 'QFUtool: Automated Follow-Up for the Quotes Nobody Chases',
     eyebrow: 'QFUtool · Product',
     description:
-      'What QFUtool does, how it works from an existing spreadsheet, the safeguards built in, and what it costs — SNS’s tool for HVAC and heating & cooling installers.',
+      'What QFUtool does, how it works from the export you already have, the rules it keeps, and what it costs.',
     date: '2026-09-03',
     readTime: '6 min read',
     accent: 'indigo',
     intro: [
-      'QFUtool automates the follow-up after an HVAC or heating & cooling quote goes out. Upload the spreadsheet an installer already sends quotes from, and it sends personalized reminders during business hours, stopping the moment a customer replies. It’s built by SNS Solutions, and it’s the narrow, practical answer to the follow-up gap described in the previous post: not a CRM, not a platform migration — a tool that works with the spreadsheet already sitting on the desktop.',
+      'QFUtool follows up on quotes you’ve already sent. Export them from your quoting tool as Excel or CSV, check in plain words what it’s about to send, and it emails each customer in your name, from your own domain, during working hours — then hands you the ones who reply. It’s built by SNS Solutions for salespeople who chase their own quotes: not a CRM, and not a platform migration.',
     ],
     sections: [
       {
-        heading: 'How it works, step by step',
+        heading: 'How it works',
         ordered: true,
         bullets: [
-          'Upload the quotes spreadsheet as it already exists — QFUtool recognizes the relevant columns regardless of naming convention, in English or German.',
-          'It shows what it understood in plain language before sending anything, so nothing goes out on a misread.',
-          'Reminders go out personalized with merge fields — first name, quote amount, system type, technician name and quote reference — so each one reads as written for that customer, not a template.',
-          'The sequence stops automatically the moment a customer replies, unsubscribes, or the email bounces.',
+          'Upload the export as it is. QFUtool identifies columns by what’s in them rather than what they’re called, in English or German.',
+          'Confirm it in plain words — not "column F is the amount" but "we’re about to email Dirk about a €3,450 website redesign quote." Nothing goes out on a misread.',
+          'Send. One email per quote, from your own domain, with the right salesperson’s name on it, personalised with the customer’s name, the amount, what was quoted and the quote number.',
         ],
       },
       {
         heading: 'Why it sends from your own domain',
         paragraphs: [
-          'Emails authenticate from the installer’s own company address and the actual salesperson’s name, not a third-party sender. A follow-up that reads as coming from a mass-mail platform gets ignored, or marked as spam, at precisely the moment it needs to look like a person checking in.',
+          'The message comes from your address, signed by your domain, and replies land in your normal inbox. A follow-up that reads as coming from a mass-mail platform gets ignored or marked as spam at exactly the moment it needs to look like a person checking in.',
         ],
       },
       {
-        heading: 'The safeguards',
+        heading: 'What stops a sequence',
+        paragraphs: [
+          'A reply, an unsubscribe, a bounce or a spam complaint cancels every message still queued for that person. Customers who reply are moved to your list to pick up yourself.',
+        ],
+      },
+      {
+        heading: 'The rules it keeps',
         bullets: [
-          'One-click unsubscribe on every email.',
-          'Sends only 08:00–18:00, Monday to Friday.',
-          'A quote-amount ceiling that excludes an installer’s largest jobs from templated automation, so they get a phone call instead.',
+          'Sends between 08:00 and 18:00, with a weekday-only option.',
+          '50 emails a day to start — a new domain earns trust slowly.',
+          'A value ceiling: quotes above it are listed for you to call, not emailed.',
+          'Never twice: re-upload next week’s export and quotes already followed up are skipped.',
+          'One-click unsubscribe on every email, honoured instantly, without a login.',
+          'A master switch that is off until you flip it, so you can import and read exactly what would go out first.',
         ],
       },
       {
         heading: 'Pricing',
         bullets: [
-          'Trial — free for 14 days, 25 follow-ups per month, 2 seats.',
-          'Starter — €49/month, 150 follow-ups, 2 seats.',
-          'Pro — €149/month, 750 follow-ups, 10 seats.',
-          'Business — custom pricing, unlimited follow-ups and seats.',
+          'Trial — free for 14 days, 10 follow-ups a month, 1 seat. The clock starts once your sending domain is verified.',
+          'Starter — €19 a month, 40 follow-ups, 1 seat.',
+          'Pro — €49 a month, 150 follow-ups, 5 seats.',
+          'Business — by arrangement, unlimited follow-ups and seats.',
         ],
-        paragraphs: ['Every plan sends as the actual salesperson — that isn’t a paid upgrade.'],
+        paragraphs: ['Prices as listed on qfutool.com at the time of writing; the site always has the current ones.'],
+      },
+      {
+        heading: 'Where the data lives',
+        paragraphs: ['In an EU-hosted database in Ireland, encrypted in transit and at rest.'],
       },
       {
         heading: 'Who it’s for',
         paragraphs: [
-          'HVAC installers and heating & cooling contractors who send quotes regularly and want them followed up on consistently, without adopting a full CRM to get there.',
+          'Salespeople who send quotes and chase them themselves, in any trade or service, and want that done consistently without adopting a CRM to get there.',
         ],
       },
     ],
     takeaways: [
-      'QFUtool reads the spreadsheet an installer already keeps and turns quote follow-up into an automatic sequence.',
-      'Every reminder sends from the real salesperson’s name and domain, and stops the moment a customer engages.',
-      'A free 14-day trial covers 25 follow-ups; paid tiers start at €49/month.',
+      'QFUtool reads the quote export you already have and turns follow-up into an automatic sequence you confirm first.',
+      'Every email comes from the real salesperson’s name and domain, and the sequence stops the moment a customer replies, unsubscribes or bounces.',
+      'A free 14-day trial covers 10 follow-ups; paid plans start at €19 a month.',
     ],
     faq: [
       {
         q: 'What is QFUtool?',
-        a: 'A tool from SNS Solutions that automates follow-up emails for HVAC and heating & cooling quotes, built from a spreadsheet an installer already keeps rather than requiring a new CRM.',
+        a: 'A tool from SNS Solutions that follows up on sent quotes by email — from your own address, during working hours — built from the export you already keep rather than requiring a CRM.',
       },
       {
-        q: 'Does QFUtool work with my existing spreadsheet?',
-        a: 'Yes. It recognizes the relevant columns regardless of naming convention, in English or German, and shows what it understood before sending anything.',
+        q: 'Does my spreadsheet need a particular layout?',
+        a: 'No. Columns are identified by what’s in them rather than what they’re called, in English or German, and you confirm what it understood before anything is sent.',
       },
       {
         q: 'How much does QFUtool cost?',
-        a: 'A 14-day free trial covers 25 follow-ups across 2 seats. Paid plans start at €49/month (Starter, 150 follow-ups) up to €149/month (Pro, 750 follow-ups, 10 seats), with a custom Business tier for unlimited follow-ups and seats.',
+        a: 'A 14-day free trial includes 10 follow-ups and starts once your sending domain is verified. Starter is €19 a month (40 follow-ups), Pro is €49 a month (150 follow-ups, 5 seats), and Business is by arrangement. qfutool.com has the current prices.',
       },
       {
         q: 'What happens when a customer replies?',
-        a: 'The follow-up sequence for that quote stops automatically — the same as when a customer unsubscribes or an email bounces.',
+        a: 'Everything still queued for that customer is cancelled, and they are moved to your list to follow up yourself. An unsubscribe, bounce or spam complaint does the same.',
       },
     ],
     cta: {
       heading: 'Try it on your own quotes',
-      sub: 'Free for 14 days, 25 follow-ups included.',
+      sub: 'Free for 14 days, 10 follow-ups included.',
       label: 'Start free trial',
       href: 'https://www.qfutool.com/',
       external: true,
     },
-    related: [
-      'hvac-data-fragmentation',
-      'ai-outbound-for-service-businesses',
-      'ai-infrastructure-for-real-estate-agencies',
-    ],
+    related: ['why-quotes-go-unanswered', 'ai-outbound-for-service-businesses'],
   },
   {
     slug: 'ai-outbound-for-service-businesses',
+    product: 'qfutool',
     title: 'From Follow-Up to Outbound: Where AI-Driven Sales Automation Is Headed',
     eyebrow: 'AI Outbound',
     description:
@@ -434,12 +451,6 @@ export const BLOG_POSTS: BlogPost[] = [
         ],
       },
       {
-        heading: 'What this means for real estate specifically',
-        paragraphs: [
-          'Immvela’s Iris module handles the inbound side for real-estate agencies — qualifying and routing inquiries that already arrived. Nothing in Immvela’s current lineup automates outbound prospecting for agents, and the same underlying thesis applies regardless of vertical: automation only compounds once the data underneath it is trustworthy, whether that data is an HVAC quote spreadsheet or a brokerage’s lead record.',
-        ],
-      },
-      {
         heading: "What to ask before you buy any 'AI outbound' tool",
         bullets: [
           'Does it require clean, confirmed data, or does it improvise around gaps in what it’s given?',
@@ -452,7 +463,7 @@ export const BLOG_POSTS: BlogPost[] = [
     takeaways: [
       'Follow-up (reminding someone who already engaged) and outbound (reaching someone who hasn’t) fail differently — outbound has a higher data-quality and compliance bar.',
       'QFUtool is a follow-up tool today; outbound is the stated direction it’s moving toward, extending the same safeguards rather than loosening them.',
-      'The same thesis holds across verticals: automation only compounds once the data underneath it is trustworthy.',
+      'Outbound only works once the data underneath it is trustworthy; skip that and it is spam with better grammar.',
     ],
     faq: [
       {
@@ -463,25 +474,18 @@ export const BLOG_POSTS: BlogPost[] = [
         q: 'Is QFUtool an outbound tool today?',
         a: 'Not yet. Today it automates follow-up on quotes a customer already requested, which is inbound-originated. Outbound — reaching new prospects — is the direction it’s stated to be moving toward.',
       },
-      {
-        q: 'Does Immvela do outbound for real-estate agents?',
-        a: 'Not currently. Immvela’s Iris module handles inbound reception — qualifying and routing inquiries that already arrived — rather than outbound prospecting.',
-      },
     ],
     cta: {
       heading: 'Want to know when outbound ships?',
       sub: 'Tell us what your outbound process looks like today and we’ll keep you posted as it comes online.',
       label: 'Get in touch',
-      href: contactHref('AI & Automation'),
+      href: contactHref('QFUtool'),
     },
-    related: [
-      'qfutool-ai-follow-up-hvac-quotes',
-      'hvac-data-fragmentation',
-      'ai-infrastructure-for-real-estate-agencies',
-    ],
+    related: ['qfutool-automated-quote-follow-up', 'why-quotes-go-unanswered'],
   },
   {
     slug: 'ai-infrastructure-for-real-estate-agencies',
+    product: 'immvela',
     title: "What 'AI Infrastructure' Actually Means for a Real Estate Agency",
     eyebrow: 'AI Infrastructure',
     description:
@@ -520,12 +524,6 @@ export const BLOG_POSTS: BlogPost[] = [
         ],
       },
       {
-        heading: "It's not one vertical's problem",
-        paragraphs: [
-          'The same root cause shows up outside real estate in a different shape. SNS also builds QFUtool, a tool for HVAC and heating & cooling installers, and the fragmentation there isn’t seven tools — it’s closer to zero. Quotes live in a spreadsheet or an inbox and nothing prompts a follow-up. Different vertical, same underlying thesis: fix the data and workflow layer before adding AI on top of it, or the AI just repeats whatever mess is already there, faster.',
-        ],
-      },
-      {
         heading: 'A short checklist before you buy another AI feature',
         bullets: [
           'Does it read the same record as your other tools, or does it keep its own siloed copy?',
@@ -538,7 +536,7 @@ export const BLOG_POSTS: BlogPost[] = [
     takeaways: [
       'AI infrastructure is the data and workflow layer underneath a feature, not the feature itself.',
       'It only pays off when outputs get fed back into one shared, verified record — otherwise each tool starts from zero every time.',
-      'The same fragmentation pattern shows up well outside real estate — see how it plays out for HVAC installers.',
+      'Before buying another AI feature, check whether it reads and writes the same record as everything else you use.',
     ],
     faq: [
       {
@@ -560,11 +558,7 @@ export const BLOG_POSTS: BlogPost[] = [
       label: 'Book a free consultation',
       href: contactHref('AI & IT Consulting'),
     },
-    related: [
-      'real-estate-data-fragmentation',
-      'immvela-one-record-real-estate-operating-system',
-      'hvac-data-fragmentation',
-    ],
+    related: ['real-estate-data-fragmentation', 'immvela-one-record-real-estate-operating-system'],
   },
 ]
 

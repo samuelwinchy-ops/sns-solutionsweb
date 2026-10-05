@@ -71,12 +71,12 @@ export default function LanguageToggle() {
   // colour keeps both readable as flags. The label is visually hidden rather
   // than dropped — a flag is not an accessible name.
   const base =
-    'group relative flex h-6 w-[26px] items-center justify-center rounded-[4px] transition-all duration-300 ease-sns-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent'
+    'group relative flex h-6 w-[26px] items-center justify-center rounded-[4px] hit-area transition-[opacity,filter,box-shadow] duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sns-accent'
   const on = 'opacity-100 ring-1 ring-sns-text/25 shadow-[0_1px_5px_-1px_rgba(11,15,34,0.4)]'
   const off = 'opacity-55 saturate-[0.55] hover:opacity-100 hover:saturate-100'
 
   return (
-    <div className="ml-1.5 flex items-center gap-1.5" role="group" aria-label="Language / Sprache">
+    <div className="ml-2 flex items-center gap-2" role="group" aria-label="Language / Sprache">
       <Link
         href={enHref}
         hrefLang="en"

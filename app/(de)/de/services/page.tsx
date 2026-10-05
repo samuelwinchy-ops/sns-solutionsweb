@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import Services from '@/components/Services'
+import CustomBuilds from '@/components/CustomBuilds'
 import JsonLd from '@/components/JsonLd'
 import { servicesGraph } from '@/lib/schema'
 
@@ -24,6 +25,7 @@ export default function ServicesPageDe() {
         <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
           <Services locale="de" />
         </div>
+        <CustomBuilds locale="de" />
       </main>
       <Footer showCta={false} locale="de" />
     </>

@@ -1,12 +1,8 @@
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
-import Hero from '@/components/Hero'
-import HomeFocus from '@/components/HomeFocus'
-import CustomBuilds from '@/components/CustomBuilds'
+import CinemaHero from '@/components/CinemaHero'
+import HomeChapters from '@/components/HomeChapters'
 import Footer from '@/components/Footer'
-import ScrollProgress from '@/components/ScrollProgress'
-import KeyboardNav from '@/components/KeyboardNav'
-import BuildAnnouncement from '@/components/BuildAnnouncement'
 import SnsWebSiteSchema from '@/components/SnsWebSiteSchema'
 
 // Title, description and the Open Graph/Twitter cards are the German defaults
@@ -26,15 +22,11 @@ export default function HomeDe() {
     <>
       <SnsWebSiteSchema />
       <Nav locale="de" />
-      <ScrollProgress />
-      <KeyboardNav />
       <main>
-        <Hero locale="de" />
-        <HomeFocus locale="de" />
-        <CustomBuilds locale="de" />
+        <CinemaHero locale="de" />
+        <HomeChapters locale="de" />
       </main>
       <Footer locale="de" showCta={false} />
-      <BuildAnnouncement locale="de" />
     </>
   )
 }

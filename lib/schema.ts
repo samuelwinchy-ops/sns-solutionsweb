@@ -441,7 +441,7 @@ export function blogIndexGraph(locale: Locale) {
       type: 'CollectionPage',
       name: 'Blog',
       description:
-        "SNS Solutions on AI infrastructure for real estate and service businesses: Immvela, data fragmentation, and QFUtool.",
+        'Notes from SNS Solutions on the problems behind our products: Immvela for estate agents, and QFUtool for salespeople chasing quotes.',
     },
     {
       '@type': 'Blog',

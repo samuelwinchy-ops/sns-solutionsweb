@@ -1,12 +1,8 @@
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
-import Hero from '@/components/Hero'
-import HomeFocus from '@/components/HomeFocus'
-import CustomBuilds from '@/components/CustomBuilds'
+import CinemaHero from '@/components/CinemaHero'
+import HomeChapters from '@/components/HomeChapters'
 import Footer from '@/components/Footer'
-import ScrollProgress from '@/components/ScrollProgress'
-import KeyboardNav from '@/components/KeyboardNav'
-import BuildAnnouncement from '@/components/BuildAnnouncement'
 import SnsWebSiteSchema from '@/components/SnsWebSiteSchema'
 
 export const metadata: Metadata = {
@@ -21,15 +17,11 @@ export default function Home() {
     <>
       <SnsWebSiteSchema />
       <Nav />
-      <ScrollProgress />
-      <KeyboardNav />
       <main>
-        <Hero />
-        <HomeFocus />
-        <CustomBuilds />
+        <CinemaHero />
+        <HomeChapters />
       </main>
       <Footer showCta={false} />
-      <BuildAnnouncement />
     </>
   )
 }

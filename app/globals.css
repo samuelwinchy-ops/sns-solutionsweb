@@ -6,155 +6,141 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Flat paper and ink. The page used to be "lit" by two radial gradients, a
+   particle field, a grain overlay and tinted-glass cards; together they read as
+   generated rather than designed, and the particles sat behind form fields that
+   were 70% transparent. Surfaces are now opaque, separated by hairlines, and
+   colour is spent on actions only. */
 body {
-  /* Daylight: cool porcelain paper, deep navy ink. Cooler and crisper than
-     Immvela's warm cream so the two brands read as distinct. */
-  background-color: #eef0f7;
-  color: #0b0f22;
-  /* Two coloured light sources — indigo from the top, cyan from the lower right
-     — so the page reads as lit and atmospheric instead of a flat cream field. */
-  background-image: radial-gradient(
-      100% 70% at 50% -12%,
-      rgba(79, 70, 229, 0.12) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      70% 60% at 108% 108%,
-      rgba(8, 145, 178, 0.1) 0%,
-      transparent 60%
-    );
-  background-attachment: fixed;
+  background-color: #faf9f5;
+  color: #0e1726;
+}
+
+/* Native controls (the <select> popup in particular) follow the light scheme
+   instead of the OS's dark one. */
+:root {
+  color-scheme: light;
 }
 
 ::selection {
-  background-color: rgba(79, 70, 229, 0.24);
-  color: #0b0f22;
+  background-color: rgba(11, 63, 160, 0.18);
+  color: #0e1726;
 }
 
-/* ── Solid card with real edge definition (replaces the near-invisible
-   cream-on-cream cards) ─────────────────────────────────────────────── */
-.sns-card {
-  background: #ffffff;
-  border: 1px solid #d3d7e6;
-  border-radius: 20px;
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
-    0 20px 44px -28px rgba(11, 15, 34, 0.28);
-}
-
-/* ── `.lift` — the tinted-glass card ─────────────────────────────────────
-   Flat #fff on #eef0f7 is only ~2% apart in luminance, so a grid of white
-   cards reads as one blank slab: that was the "no life" problem, and it was
-   a surface problem, not a missing brand colour.
-
-   Each card carries a hue instead. Four things do the work together, and
-   removing any one of them takes most of the effect with it:
-     1. a gradient rule across the top edge — the single loudest signal;
-     2. a wash of the same hue bleeding out of the bottom-right corner;
-     3. a border and a drop shadow tinted toward that hue rather than grey;
-     4. a paper gradient so the face itself is never one flat value.
-
-   Set the hue per card with `--lift`. The page background does the rest of
-   the lifting and is deliberately NOT darkened to make cards pop: dropping
-   it even to #e4e8f4 pushes `sns-faint` body text under the 4.5:1 AA floor
-   that a previous a11y pass deliberately fixed. All the contrast here is
-   added on top of the page, never taken out of it.
-
-   Hover raises the card slightly and brightens the top rule. */
+/* ── The one card ─────────────────────────────────────────────────────────
+   White on the grey paper, a hairline edge and a shadow you only notice when
+   it is missing. `.lift` is kept as an alias so existing markup renders the
+   same card; the per-hue `.lift-*` modifiers are now no-ops. */
+.sns-card,
 .lift {
-  --lift: #4f46e5;
   position: relative;
-  background: radial-gradient(
-      125% 100% at 100% 100%,
-      color-mix(in srgb, var(--lift) 10%, transparent) 0%,
-      transparent 58%
-    ),
-    linear-gradient(
-      168deg,
-      #ffffff 0%,
-      #fdfdff 58%,
-      color-mix(in srgb, var(--lift) 5%, #ffffff) 100%
-    );
-  border: 1px solid color-mix(in srgb, var(--lift) 20%, #d3d7e6);
-  border-radius: 20px;
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.95),
-    0 1px 2px 0 rgba(11, 15, 34, 0.04),
-    0 22px 48px -30px color-mix(in srgb, var(--lift) 55%, rgba(11, 15, 34, 0.55));
-  overflow: hidden;
-  transition: box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s ease;
+  background: #ffffff;
+  border: 1px solid #e2dfd5;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px 0 rgba(11, 15, 34, 0.04);
 }
-
-/* The top rule. Inset by the border so it doesn't sit proud of the radius. */
-.lift::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--lift) 20%,
-    color-mix(in srgb, var(--lift) 40%, transparent) 65%,
-    transparent 100%
-  );
-  opacity: 0.8;
-  transition: opacity 0.45s ease;
-  pointer-events: none;
+.lift-hover {
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out,
+    transform 0.2s ease-out;
 }
-
+/* A clickable card answers the pointer: it rises 2px and its edge darkens.
+   Gaining prominence on hover, never losing it. */
 .lift-hover:hover {
-  transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--lift) 42%, #d3d7e6);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.95),
-    0 1px 2px 0 rgba(11, 15, 34, 0.04),
-    0 30px 60px -28px color-mix(in srgb, var(--lift) 65%, rgba(11, 15, 34, 0.5));
-}
-.lift-hover:hover::before {
-  opacity: 1;
+  border-color: #c9c4b6;
+  box-shadow: 0 8px 24px -12px rgba(14, 23, 38, 0.22);
+  transform: translateY(-2px);
 }
 
-/* The site's accent spectrum. Cycle these across a row so a grid of cards
-   reads as a gradient rather than as repetition. */
-.lift-indigo { --lift: #4f46e5; }
-.lift-blue   { --lift: #2563eb; }
-.lift-cyan   { --lift: #0891b2; }
-.lift-violet { --lift: #7c3aed; }
+/* ── Headings ────────────────────────────────────────────────────────────
+   One class per heading role, so every section title on the site is the
+   same size and weight rather than each component picking its own. */
+.display-title {
+  text-wrap: balance;
+  font-family: var(--font-newsreader), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(2.75rem, 1.6rem + 4.2vw, 4.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+.page-title {
+  text-wrap: balance;
+  font-family: var(--font-newsreader), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(2.5rem, 1.7rem + 3vw, 3.75rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+.section-title {
+  text-wrap: balance;
+  font-family: var(--font-newsreader), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(2rem, 1.5rem + 1.8vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+/* The small label above a section title. Ink, not the action colour — it is
+   not something you can press. */
+.eyebrow {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  color: #4a5262;
+}
 
-/* ── Text gradient (indigo → blue → cyan), deepened to read on cream ─── */
+/* Immvela's pages keep the product's own brand faces: Inter for text, and
+   Barlow Semi Condensed 600 for titles — DIN-derived, the lettering of a
+   German technical drawing's title block (Immvela design system §4.1). */
+.immvela-theme {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+.im-title {
+  font-family: var(--font-barlow), var(--font-inter), sans-serif;
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.im-section-title {
+  font-size: clamp(2rem, 1.5rem + 1.8vw, 2.875rem);
+}
+
+/* Emphasis in a headline is solid ink in the accent, never a gradient. */
 .text-gradient-blue {
-  background: linear-gradient(100deg, #4f46e5 0%, #2563eb 45%, #0891b2 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: #0e1726;
 }
 
-/* ── Immvela — SNS's end-to-end real-estate product ──────────────────────
-   Its waitlist lives on /immvela. Immvela has its own identity: a warm, light,
-   editorial brand — cream paper, forest green, emerald, warm amber sunlight —
-   deliberately the "daylight" counterpart to the dark SNS site (same particle
-   field, inverted world). Everything Immvela is scoped under .immvela-theme so
-   it never leaks into the dark studio site.
+/* ── Immvela — SNS's real-estate product ─────────────────────────────────
+   Its landing lives on /immvela, in the product's own "Blueprint & Daylight"
+   identity (docs/design-system.md in the Immvela repo): bone-beige paper,
+   hairlines, forest ink and one green that means "this module / do this /
+   done". No washes, no glows. Amber is attention in the product and has no
+   job on a marketing page, so it has no token here. Everything Immvela is
+   scoped under .immvela-theme so it never leaks into the SNS site.
    ►► To retune the brand, change the tokens below. */
 .immvela-theme {
-  --im-cream: #f2f1e8; /* page paper */
+  --im-cream: #f2f1e8; /* page paper — the whole page, top to bottom */
   --im-cream-2: #eceada; /* deeper panel */
   --im-paper: #fcfbf6; /* card face */
   --im-ink: #16352a; /* forest near-black — headings, wordmark */
   --im-ink-soft: #24473a;
-  --im-green: #2f7d5b; /* emerald accent — buttons, labels */
-  --im-green-bright: #2e9e6a; /* highlight green */
-  --im-amber: #e3b268; /* warm sunlight accent */
-  --im-muted: #5c6b61; /* body text */
-  --im-faint: #8a978c; /* faint labels */
+  /* Was #2f7d5b: 4.40:1 on the beige, under AA for the small green text it
+     carries. #2b7554 is 4.91:1 on #f2f1e8 and 4.60:1 on the #eceada panel.
+     Bounds from the WCAG relative-luminance formula on the declared hexes,
+     not a browser measurement. */
+  --im-green: #2b7554; /* emerald — actions, verdicts, module identity */
+  --im-green-bright: #2e9e6a; /* the wordmark dot only; never text */
+  --im-muted: #5c6b61; /* body text — 4.96:1 on the beige */
+  /* Was #8a978c: 2.69:1 on the beige, used for real small text. #5e6d62 is
+     4.82:1 on #f2f1e8 and 4.52:1 on #eceada (same formula as above). It sits
+     close to --im-muted now; rank between the two is carried by size. */
+  --im-faint: #5e6d62;
   --im-line: rgba(22, 53, 42, 0.12); /* hairline */
-  --im-line-strong: rgba(22, 53, 42, 0.2);
+  --im-line-strong: rgba(22, 53, 42, 0.22);
+  background-color: var(--im-cream);
   color: var(--im-ink);
 }
 .immvela-theme ::selection {
-  background: color-mix(in srgb, var(--im-green) 26%, transparent);
+  background: color-mix(in srgb, var(--im-green) 22%, transparent);
   color: var(--im-ink);
 }
 
@@ -173,17 +159,16 @@ body {
 .im-faint { color: var(--im-faint); }
 .im-green { color: var(--im-green); }
 
-/* Small-caps mono label, emerald — the ad's "OFFEN ENTWICKELT" style. */
+/* Section label: sentence case, Inter, green. It used to be uppercase,
+   letterspaced mono — but mono is reserved for literal tokens and figures,
+   and a page where every label shouts at the same volume has no rank. */
 .im-eyebrow {
   color: var(--im-green);
-  font-family: var(--font-geist-mono), monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
+  font-weight: 600;
 }
 
 /* Body copy for Immvela's legal pages — the daylight counterpart to
-   .legal-prose, which is coloured for the dark SNS site and would put indigo
-   links and slate text on cream. Same rhythm and sizes, Immvela's tokens. */
+   .legal-prose. Same rhythm and sizes, Immvela's tokens. */
 .im-legal-prose {
   color: var(--im-muted);
   font-size: 0.95rem;
@@ -201,7 +186,7 @@ body {
   list-style: disc;
 }
 .im-legal-prose li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 .im-legal-prose strong {
   color: var(--im-ink);
@@ -217,146 +202,115 @@ body {
   transition: color 0.2s ease;
 }
 .im-legal-prose a:hover {
-  color: var(--im-green-bright);
+  color: var(--im-ink);
 }
 
-.im-card {
+/* The one card: paper face, a hairline, no shadow to speak of. `.im-card-warm`
+   and `.im-card-cta` used to add an amber and a green corner wash; they are
+   now the same card, and what differs between a live and an in-development
+   module is said by its status capsule, in words. */
+.im-card,
+.im-card-warm,
+.im-card-cta {
   background: var(--im-paper);
   border: 1px solid var(--im-line);
-  border-radius: 20px;
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.7) inset,
-    0 24px 48px -32px rgba(22, 53, 42, 0.35);
+  border-radius: 12px;
 }
 
 /* ── The screening room ───────────────────────────────────────────────────
    The explainer film is itself cream-on-cream — its title card uses the same
    paper as this site — so on the page it would dissolve into the background
-   and read as an illustration rather than as something to watch. Putting it
-   in a dark surround is what makes it a *screen*: a bright rectangle in a
-   dark room, which is the whole of the cinema metaphor.
-
-   Forest rather than black, so the room still belongs to Immvela — black
-   would be a foreign object on a page with no true neutral in its palette.
-   The radial wash sits behind the frame and reads as projection spill. */
+   and read as an illustration rather than as something to watch. A dark
+   surround is what makes it a *screen*. This is the one dark surface on the
+   page, and it is flat forest rather than a lit gradient. */
 .im-theatre {
-  background:
-    radial-gradient(
-      110% 75% at 50% 38%,
-      color-mix(in srgb, var(--im-green) 26%, transparent) 0%,
-      transparent 60%
-    ),
-    linear-gradient(180deg, #173a2d 0%, #0d1f17 100%);
-  border: 1px solid rgba(242, 241, 232, 0.1);
-  border-radius: 24px;
+  background: #15342a;
+  border-radius: 16px;
 }
 /* Cream-side type inside the dark room. Named rather than inlined so the two
    sides of the inversion stay legible next to each other in the markup. */
 .im-theatre-ink { color: #f4f2e9; }
-.im-theatre-muted { color: rgba(244, 242, 233, 0.66); }
-.im-theatre-faint { color: rgba(244, 242, 233, 0.45); }
-.im-theatre-eyebrow { color: #7cc9a0; }
-/* Active-module card: a warm sunlight wash in one corner, like the ad. */
-.im-card-warm {
-  background: radial-gradient(
-      130% 90% at 100% 100%,
-      color-mix(in srgb, var(--im-amber) 24%, transparent) 0%,
-      transparent 52%
-    ),
-    var(--im-paper);
-  border: 1px solid var(--im-line);
-  border-radius: 20px;
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.7) inset,
-    0 24px 48px -32px rgba(22, 53, 42, 0.35);
-}
+.im-theatre-muted { color: rgba(244, 242, 233, 0.74); }
+.im-theatre-faint { color: rgba(244, 242, 233, 0.62); }
+.im-theatre-eyebrow { color: #8fd3ae; }
+
 .im-panel {
   background: var(--im-cream-2);
   border: 1px solid var(--im-line);
-  border-radius: 20px;
-}
-/* Sign-up card that closes the module grid (the 9th cell of the 3×3): a green
-   wash and accent hairline so it reads as the next step, not another module. */
-.im-card-cta {
-  background: radial-gradient(
-      130% 90% at 100% 100%,
-      color-mix(in srgb, var(--im-green) 13%, transparent) 0%,
-      transparent 55%
-    ),
-    var(--im-paper);
-  border: 1px solid color-mix(in srgb, var(--im-green) 26%, transparent);
-  border-radius: 20px;
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.7) inset,
-    0 24px 48px -32px rgba(22, 53, 42, 0.35);
+  border-radius: 12px;
 }
 
+/* Buttons are rectangles with a label — a control, never the capsule shape a
+   verdict wears. Hover darkens; nothing lifts or glows. 44px tall so the tap
+   target is honest on a phone. */
+.im-btn,
+.im-btn-ghost {
+  min-height: 44px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease-out, border-color 0.2s ease-out,
+    color 0.2s ease-out, transform 0.2s ease-out;
+}
+/* A press sinks the button slightly, so it answers the click. */
+.im-btn:active,
+.im-btn-ghost:active {
+  transform: scale(0.98);
+}
 .im-btn {
   background-color: var(--im-green);
   color: #f6f8f4;
-  border-radius: 9999px;
-  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--im-green) 70%, transparent);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .im-btn:hover {
   background-color: var(--im-ink-soft);
-  transform: translateY(-2px);
-  box-shadow: 0 16px 40px -12px color-mix(in srgb, var(--im-green) 80%, transparent);
 }
 .im-btn-ghost {
-  background: transparent;
+  background: var(--im-paper);
   color: var(--im-ink);
   border: 1px solid var(--im-line-strong);
-  border-radius: 9999px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .im-btn-ghost:hover {
-  background: color-mix(in srgb, var(--im-ink) 5%, transparent);
-  border-color: var(--im-green);
+  border-color: var(--im-ink);
+  background: #ffffff;
 }
 
 .im-hairline {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in srgb, var(--im-green) 55%, transparent) 50%,
-    transparent
-  );
+  background: var(--im-line-strong);
 }
 
-/* Status chips — AKTIV (emerald) / IN ARBEIT (quiet), from the ad. */
+/* Status capsule: a dot and a sentence-case word. Live is the verdict tint;
+   in development is ink on a hairline, never a pale green (green on this
+   system means present, not absent). */
 .im-chip {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   border-radius: 9999px;
-  padding: 0.2rem 0.6rem;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  padding: 0.15rem 0.6rem;
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
 }
 .im-chip-active {
   color: var(--im-green);
-  background: color-mix(in srgb, var(--im-green) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--im-green) 30%, transparent);
+  background: color-mix(in srgb, var(--im-green) 12%, var(--im-paper));
 }
 .im-chip-progress {
   color: var(--im-faint);
-  background: color-mix(in srgb, var(--im-ink) 4%, transparent);
-  border: 1px solid var(--im-line);
+  border: 1px solid var(--im-line-strong);
 }
 
 /* Module picker on the demo page — one tab per module. Selected is a solid
-   emerald fill rather than a tint, because seven quiet pills in a row give no
+   emerald fill rather than a tint, because seven quiet tabs in a row give no
    answer at a glance to "which one am I looking at". */
 .im-tab {
-  background: transparent;
+  background: var(--im-paper);
   color: var(--im-muted);
   border: 1px solid var(--im-line-strong);
-  border-radius: 9999px;
-  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 .im-tab:hover {
   color: var(--im-ink);
-  border-color: var(--im-green);
+  border-color: var(--im-ink);
 }
 .im-tab.is-on {
   background: var(--im-green);
@@ -374,17 +328,15 @@ body {
 .im-tab.is-on .im-dot {
   background: currentColor;
 }
-.im-tab .im-dot-quiet {
-  background: var(--im-faint);
-}
 
-/* Form inputs on paper */
+/* Form inputs on paper: opaque, so nothing behind them shows through. */
 .im-field {
-  background: #fffefb;
+  min-height: 44px;
+  background-color: #ffffff;
   border: 1px solid var(--im-line-strong);
   color: var(--im-ink);
-  border-radius: 12px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 8px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .im-field::placeholder {
   color: var(--im-faint);
@@ -392,29 +344,42 @@ body {
 .im-field:focus {
   outline: none;
   border-color: var(--im-green);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--im-green) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--im-green) 18%, transparent);
 }
 .im-field-bad {
-  border-color: #c2543f;
+  border-color: #b3452f;
+}
+/* A native <select> with its arrow redrawn, because `appearance: none` is
+   what lets the box match the inputs beside it. The chevron is ink-coloured
+   so it reads as a control, not as decoration. */
+select.im-field {
+  appearance: none;
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%2316352a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px 8px;
+}
+select.im-field option {
+  background: #ffffff;
+  color: var(--im-ink);
 }
 .immvela-theme .im-header {
-  background: color-mix(in srgb, var(--im-cream) 82%, transparent);
+  background: var(--im-cream);
   border-bottom: 1px solid var(--im-line);
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
 }
 
 /* Text links: faint → emerald (or → ink) on hover. */
 .im-link {
   color: var(--im-faint);
-  transition: color 0.2s ease;
+  transition: color 0.15s ease;
 }
 .im-link:hover {
   color: var(--im-green);
 }
 .im-link-ink {
   color: var(--im-faint);
-  transition: color 0.2s ease;
+  transition: color 0.15s ease;
 }
 .im-link-ink:hover {
   color: var(--im-ink);
@@ -423,137 +388,30 @@ body {
   color: var(--im-ink);
 }
 
-.text-glow {
-  text-shadow: 0 0 24px rgba(79, 70, 229, 0.14);
-}
-
-/* ── Glow scale (soft indigo cast on cream) ─────────────────────────── */
-.glow-sm {
-  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.1),
-    0 8px 24px -8px rgba(20, 25, 43, 0.1);
-}
-.glow-blue {
-  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.12),
-    0 16px 44px -18px rgba(79, 70, 229, 0.22);
-}
-.glow-blue-strong {
-  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.18),
-    0 24px 60px -18px rgba(79, 70, 229, 0.28),
-    0 0 80px -28px rgba(8, 145, 178, 0.18);
-}
-
-/* ── Glass surface (frosted white card on cream) ────────────────────── */
-.glass {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.72) 0%,
-    rgba(255, 255, 255, 0.46) 100%
-  );
-  border: 1px solid rgba(20, 25, 43, 0.08);
-  backdrop-filter: blur(12px) saturate(130%);
-  -webkit-backdrop-filter: blur(12px) saturate(130%);
-}
+/* ── Solid surfaces. `.glass*` were frosted translucent panels; anything that
+   sits over content (the nav, the mobile menu) now has to be opaque to stay
+   legible, so the names survive and the translucency does not. */
+.glass,
 .glass-strong {
-  background: rgba(250, 249, 242, 0.82);
-  border: 1px solid rgba(20, 25, 43, 0.08);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  background: #ffffff;
+  border: 1px solid #e2dfd5;
 }
 
-/* Hairline top-edge highlight for cards */
-.edge-light {
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.7);
-}
-
-/* ── Fine grain overlay over flat surfaces ──────────────────────────── */
-.grain-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.02;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ── Hero dot grid with slow upward drift ───────────────────────────── */
-@keyframes drift {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 0 -32px;
-  }
-}
-
-.dot-grid {
-  background-image: radial-gradient(
-    circle,
-    rgba(79, 70, 229, 0.9) 1px,
-    transparent 1px
-  );
-  background-size: 34px 34px;
-  opacity: 0.08;
-  animation: drift 14s linear infinite;
-  -webkit-mask-image: radial-gradient(
-    ellipse 90% 70% at 30% 30%,
-    #000 0%,
-    transparent 75%
-  );
-  mask-image: radial-gradient(
-    ellipse 90% 70% at 30% 30%,
-    #000 0%,
-    transparent 75%
-  );
-}
-
-/* ── CRT scan-line overlay for the terminal ─────────────────────────── */
-.scanlines {
-  background-image: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.14) 0px,
-    rgba(0, 0, 0, 0.14) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-}
-
-/* Voice-demo waveform bar */
-@keyframes sns-wave {
-  0%,
-  100% {
-    transform: scaleY(0.22);
-  }
-  50% {
-    transform: scaleY(1);
-  }
-}
-
-/* Animated gradient hairline (used for section dividers) */
+/* A plain section rule. */
 .hairline-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(79, 70, 229, 0.4) 35%,
-    rgba(8, 145, 178, 0.55) 50%,
-    rgba(79, 70, 229, 0.4) 65%,
-    transparent
-  );
-  background-size: 200% 100%;
-  animation: shimmer 6s linear infinite;
+  background: #e2dfd5;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .dot-grid,
-  .hairline-shimmer,
-  .animate-aurora-slow,
-  .animate-aurora-slower,
-  .animate-shimmer,
-  .animate-pulse-soft,
-  .voice-bar {
-    animation: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
@@ -565,7 +423,7 @@ body {
 }
 .legal-prose h2 {
   margin-top: 2.75rem;
-  margin-bottom: 0.85rem;
+  margin-bottom: 1rem;
   color: #14192b;
   font-size: 1.2rem;
   font-weight: 600;
@@ -590,16 +448,16 @@ body {
   list-style: disc;
 }
 .legal-prose li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 .legal-prose a {
-  color: #4f46e5;
+  color: #0b3fa0;
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: color 0.2s ease;
 }
 .legal-prose a:hover {
-  color: #0891b2;
+  color: #082f78;
 }
 .legal-prose strong {
   color: #14192b;
@@ -639,24 +497,25 @@ body {
 .article-prose h2 {
   margin-top: 3rem;
   margin-bottom: 1rem;
-  color: #0b0f22;
-  font-size: 1.5rem;
-  font-weight: 700;
+  color: #0e1726;
+  font-family: var(--font-newsreader), Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 500;
   letter-spacing: -0.015em;
 }
 .article-prose h2:first-child {
   margin-top: 0;
 }
 .article-prose p {
-  margin-bottom: 1.15rem;
+  margin-bottom: 1.25rem;
 }
 .article-prose ul,
 .article-prose ol {
-  margin: 0 0 1.15rem 0;
-  padding-left: 1.35rem;
+  margin: 0 0 1.25rem 0;
+  padding-left: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 .article-prose ul {
   list-style: disc;
@@ -668,15 +527,57 @@ body {
   line-height: 1.65;
 }
 .article-prose strong {
-  color: #0b0f22;
+  color: #0e1726;
   font-weight: 600;
 }
 .article-prose a {
-  color: #4f46e5;
+  color: #0b3fa0;
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: color 0.2s ease;
 }
 .article-prose a:hover {
-  color: #0891b2;
+  color: #082f78;
+}
+
+/* ── The one arrival moment (the homepage hero) ─────────────────────────
+   CSS rather than a JS animation library, so the hero is never stuck
+   invisible waiting for hydration. Staggered 70ms apart via inline
+   animation-delay — under the ~100ms at which a stagger stops reading as one
+   movement. The reduced-motion rule above collapses it to an instant. */
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.arrive {
+  animation: arrive 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Enlarges a small control's hit area to 48px without changing how it looks
+   (Fitts). The element needs `position: relative`. */
+.hit-area::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+}
+
+/* The homepage slideshow's progress line: fills over the 10 s a slide shows.
+   It remounts per slide (keyed in CinemaHero), so the animation restarts. */
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.hero-progress {
+  transform-origin: left;
+  animation: hero-progress 10s linear forwards;
 }
