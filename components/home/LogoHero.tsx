@@ -65,8 +65,7 @@ export default function LogoHero({ locale = defaultLocale }: { locale?: Locale }
   const t = dict.home
   const products = localePath(locale, '/products')
 
-  const [paused, setPaused] = useState(false)
-  const [reduced, setReduced] = useState(false)
+  const [paused] = useState(false)
   const pausedRef = useRef(false)
   const syncRef = useRef<() => void>(() => {})
   const section = useRef<HTMLElement>(null)
@@ -136,7 +135,6 @@ export default function LogoHero({ locale = defaultLocale }: { locale?: Locale }
     }
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setReduced(true)
       frame(0)
       return
     }
@@ -307,36 +305,6 @@ export default function LogoHero({ locale = defaultLocale }: { locale?: Locale }
             <i ref={barB} />
           </span>
         </a>
-        {!reduced && (
-          <button
-            type="button"
-            onClick={() => setPaused((p) => !p)}
-            aria-label={paused ? t.play : t.pause}
-          >
-            {paused ? (
-              <svg
-                width="12"
-                height="14"
-                viewBox="0 0 12 14"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M2 1.2 11 7 2 12.8Z" />
-              </svg>
-            ) : (
-              <svg
-                width="12"
-                height="14"
-                viewBox="0 0 12 14"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <rect x="1" y="1" width="3.4" height="12" rx="1" />
-                <rect x="7.6" y="1" width="3.4" height="12" rx="1" />
-              </svg>
-            )}
-          </button>
-        )}
       </div>
     </section>
   )
