@@ -16,7 +16,7 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
       <header className="sticky top-0 z-50 border-b border-sns-border bg-white px-5">
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <Image src="/sns-icon.png" alt="" width={970} height={970} className="h-8 w-8" />
+            <Image src="/sns-logo.svg" alt="" width={970} height={970} unoptimized className="h-8 w-8" />
             <span className="text-[15px] font-bold tracking-tight text-sns-text">
               SNS <span className="hidden font-medium text-sns-muted sm:inline">Solutions</span>
             </span>

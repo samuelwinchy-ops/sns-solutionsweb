@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 970 970" width="970" height="970">
+  <!-- SNS Solutions mark. Vector rebuilt geometrically from public/sns-icon.png (970 px):
+       a vertical gradient disc and two strokes, each a stem, a 1.095 diagonal and an elliptical bowl
+       with a horizontal terminal. Stroke B is stroke A's construction turned 180 degrees about the centre. -->
+  <title>SNS Solutions</title>
+  <defs>
+    <linearGradient id="sns-disc" x1="0" y1="18" x2="0" y2="952" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0" stop-color="#033692"/>
+      <stop offset="0.2453" stop-color="#034599"/>
+      <stop offset="0.3155" stop-color="#054a9a"/>
+      <stop offset="0.4702" stop-color="#2b5ba2"/>
+      <stop offset="0.8524" stop-color="#7e90bc"/>
+      <stop offset="1.0" stop-color="#96a3cd"/>
+    </linearGradient>
+    <clipPath id="sns-clip"><circle cx="485" cy="485" r="466.5"/></clipPath>
+  </defs>
+  <circle id="sns-disc-shape" cx="485" cy="485" r="467" fill="url(#sns-disc)"/>
+  <g id="sns-monogram" clip-path="url(#sns-clip)" fill="#f5f1e6">
+    <!-- stroke A: left stem (leaves the disc at the bottom), diagonal, lower bowl, terminal -->
+    <path id="sns-stroke-a" data-start="244.4,884.67" data-end="391.23,700.8" d="M206.6 252.5 L637.53 646.04 A163 123.3 0 1 1 351.97 700.79 L430.5 700.8 A87.25 66.1 0 1 0 579.1 682.44 L282.2 411.3 L282.2 971.5 L206.6 971.5 Z"/>
+    <!-- stroke B: upper bowl, diagonal, right stem (leaves the disc at the top) -->
+    <path id="sns-stroke-b" data-start="725.6,85.33" data-end="579.27,273.9" transform="rotate(180 485 485)" d="M206.6 248.25 L637.03 641.34 A163 123.3 0 1 1 351.47 696.09 L430 696.1 A87.25 66.1 0 1 0 578.6 677.74 L282.2 407.06 L282.2 971.5 L206.6 971.5 Z"/>
+  </g>
+</svg>
