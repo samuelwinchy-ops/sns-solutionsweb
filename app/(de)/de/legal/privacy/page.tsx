@@ -14,7 +14,7 @@ export const metadata: Metadata = snsPage({
   },
 })
 
-const UPDATED = '15. September 2026'
+const UPDATED = '6. Oktober 2026'
 
 export default function PrivacyPageDe() {
   return (
@@ -82,12 +82,20 @@ export default function PrivacyPageDe() {
 
         <h3>4.1 Verantwortlicher und Auftragsverarbeiter</h3>
         <p>
-          Für die Daten, die ein Maklerbüro in Immvela über seine eigenen Objekte, Kunden und
-          Interessenten einbringt, ist das <strong>Maklerbüro der Verantwortliche</strong> und{' '}
-          <strong>SNS handelt als Auftragsverarbeiter</strong> nach dessen Weisung (Art. 28 DSGVO),
-          auf Grundlage einer gesonderten schriftlichen Vereinbarung samt
-          Auftragsverarbeitungsvertrag (AVV). Für die Konto- und Vertragsdaten des Maklerbüros
-          selbst ist SNS Verantwortlicher.
+          Für die personenbezogenen Daten, die ein Maklerbüro und seine Nutzerinnen und Nutzer in
+          Immvela eingeben oder hochladen (etwa zu Objekten, zu Eigentümerinnen und Eigentümern, zu
+          Interessentinnen und Interessenten sowie in Unterlagen und Fotos), ist{' '}
+          <strong>das Maklerbüro Verantwortlicher</strong>.{' '}
+          <strong>SNS verarbeitet diese Daten als Auftragsverarbeiter</strong> nach Weisung des
+          Maklerbüros auf Grundlage eines Auftragsverarbeitungsvertrags (AVV, Art. 28 DSGVO).
+        </p>
+        <p>
+          Verantwortlicher ist SNS nur, soweit wir Daten zu eigenen Zwecken verarbeiten: für die
+          Anlage und Verwaltung der Zugänge, die Vertragsverwaltung und die Kommunikation mit dem
+          Maklerbüro, für die Sicherheit des Dienstes und den Schutz vor Missbrauch (einschließlich
+          Server-Protokollen), für die Auswertung von Rückmeldungen, die über die Feedback-Funktion
+          gesendet werden, für anonymisierte, zusammengefasste Nutzungsstatistiken sowie für unsere
+          eigene Website.
         </p>
         <p>
           Jedes Maklerbüro ist ein eigener Mandant und eigener Verantwortlicher. Gehört ein
@@ -161,6 +169,21 @@ export default function PrivacyPageDe() {
           Training eigener KI-Modelle.
         </p>
         <p>
+          Für die virtuelle Möblierung übermitteln wir, wenn eine Nutzerin oder ein Nutzer ein Foto
+          virtuell möblieren lässt, an <strong>fal.ai (Features &amp; Labels, Inc., USA)</strong>{' '}
+          als Unterauftragsverarbeiter einen eine Stunde gültigen Link auf das Originalfoto, über
+          den fal.ai die Datei abruft. Der Link enthält interne Kennungen des Maklerbüros und des
+          Nutzerkontos. Außerdem übermitteln wir den Anweisungstext, einschließlich einer optionalen
+          Notiz, die die Nutzerin oder der Nutzer dazu eingibt. fal.ai gibt das möblierte Bild
+          zurück; wir speichern es bei uns. Zweck ist ausschließlich die Erstellung der
+          angeforderten möblierten Variante. fal.ai verarbeitet die Daten in den USA und nach
+          eigener Angabe auch in weiteren Ländern; eine Verarbeitung in der EU ist derzeit nicht
+          eingerichtet. Nach den Nutzungsbedingungen von fal.ai darf fal.ai anonymisierte oder
+          zusammengefasste Nutzungsdaten zur Entwicklung eigener Produkte und KI-Modelle verwenden.
+          Eine Kopie, die fal.ai bereits erhalten hat, können wir nicht zurückholen; für sie gelten
+          die Aufbewahrungsregeln von fal.ai.
+        </p>
+        <p>
           Zwei Grenzen sind in der Plattform selbst verankert und nicht bloß in dieser Erklärung.
           Sachangaben in erzeugten Texten stammen ausschließlich aus Daten, die das Maklerbüro
           bestätigt hat; die Plattform erfindet daher keine Objektangaben. Und KI-gestagte Bilder
@@ -176,7 +199,10 @@ export default function PrivacyPageDe() {
         </p>
 
         <h3>4.5 Speicherung und Unterauftragsverarbeiter</h3>
-        <p>Die Daten von Immvela werden in der Europäischen Union gespeichert:</p>
+        <p>
+          Datenbank und gespeicherte Dateien von Immvela liegen in der Europäischen Union. Einzelne
+          Unterauftragsverarbeiter verarbeiten Daten jedoch außerhalb der EU, wie unten beschrieben.
+        </p>
         <ul>
           <li>
             Datenbank, Authentifizierung und Dateispeicher: <strong>Supabase</strong>, gehostet in
@@ -190,13 +216,35 @@ export default function PrivacyPageDe() {
             Verarbeitung von Hintergrundjobs: <strong>Trigger.dev</strong>
           </li>
           <li>
-            KI-Texterzeugung: <strong>Anthropic PBC</strong> (siehe Abschnitt 4.4)
+            KI-Texterzeugung und Auslesen hochgeladener Dokumente: <strong>Anthropic PBC</strong>,
+            USA (siehe Abschnitt 4.4)
+          </li>
+          <li>
+            Virtuelle Möblierung mit KI: <strong>fal.ai (Features &amp; Labels, Inc.)</strong>, USA
+            (siehe Abschnitt 4.4)
+          </li>
+          <li>
+            Fehlerüberwachung, nur falls wir sie einführen:{' '}
+            <strong>Sentry (Functional Software, Inc.)</strong>, EU-Region (Frankfurt);
+            Fehlermeldungen und technische Angaben zur jeweiligen Anfrage, personenbezogene Daten
+            nur, soweit eine Fehlermeldung sie enthält
           </li>
         </ul>
         <p>
+          <strong>Verarbeitung außerhalb der EU.</strong> Anthropic (Texterzeugung und Auslesen von
+          Dokumenten; eine reine EU-Verarbeitung bietet Anthropic für diese Schnittstelle nicht an)
+          und fal.ai (virtuelle Möblierung) verarbeiten Daten in den USA. Vercel und Trigger.dev
+          sind Anbieter mit Sitz in den USA; auch bei ihnen kann eine Verarbeitung oder ein Zugriff
+          außerhalb der EU stattfinden.
+        </p>
+        <p>
           Soweit ein Unterauftragsverarbeiter eine Übermittlung außerhalb der EU/des EWR umfasst,
-          ist diese durch einen Auftragsverarbeitungsvertrag und die EU-Standardvertragsklauseln
-          abgesichert.
+          erfolgt diese auf Grundlage der Auftragsverarbeitungsbedingungen des jeweiligen Anbieters
+          mit den EU-Standardvertragsklauseln (Durchführungsbeschluss (EU) 2021/914) oder, bei
+          zertifizierten Empfängern, des Angemessenheitsbeschlusses zum EU-US Data Privacy
+          Framework. Für fal.ai ist dies das von fal.ai veröffentlichte Data Processing Addendum
+          (Stand 31. Juli 2026), das Übermittlungen auf Grundlage der Standardvertragsklauseln
+          vorsieht.
         </p>
 
         <h3>4.6 Verbundene Veröffentlichungsplattformen</h3>
@@ -221,13 +269,16 @@ export default function PrivacyPageDe() {
           veröffentlicht wurde; dort gilt die Aufbewahrung der jeweiligen Plattform.
         </p>
         <p>
-          Sind Sie Kauf-, Verkaufs- oder Mietinteressent und hält ein Maklerbüro Ihre Daten in
-          Immvela, ist dieses Maklerbüro Ihr Verantwortlicher und die richtige erste Anlaufstelle
-          für einen Löschantrag. Leitet ein Maklerbüro einen solchen Antrag an uns weiter, löschen
-          wir die Datensätze dieser Person plattformweit, einschließlich abgeleiteter Datensätze,
-          aus Dokumenten ausgelesener Werte, erzeugter Dokumente und gespeicherter Dateien. Wir
-          führen dies innerhalb von 30 Tagen manuell durch; einen automatisierten Löschvorgang gibt
-          es in der Anwendung derzeit nicht. Wir können festhalten, dass ein Geschäftsvorfall
+          Sind Sie Eigentümerin oder Eigentümer, Kauf-, Verkaufs- oder Mietinteressentin oder
+          -interessent und hält ein Maklerbüro Ihre Daten in Immvela, ist dieses Maklerbüro Ihr
+          Verantwortlicher: Richten Sie Anträge zur Ausübung Ihrer Rechte, auch Löschanträge, bitte
+          an dieses Maklerbüro. Erreicht uns ein solcher Antrag direkt, leiten wir ihn unverzüglich
+          an das Maklerbüro weiter, teilen Ihnen dies mit und unterstützen das Maklerbüro bei der
+          Beantwortung. Leitet ein Maklerbüro einen solchen Antrag an uns weiter, löschen wir die
+          Datensätze dieser Person plattformweit, einschließlich abgeleiteter Datensätze, aus
+          Dokumenten ausgelesener Werte, erzeugter Dokumente und gespeicherter Dateien. Wir führen
+          dies innerhalb von 30 Tagen manuell durch; einen automatisierten Löschvorgang gibt es in
+          der Anwendung derzeit nicht. Wir können festhalten, dass ein Geschäftsvorfall
           stattgefunden hat, sofern dieser die Person nicht mehr identifiziert und eine gesetzliche
           Aufbewahrungspflicht besteht. Maklerbüros können jederzeit die Löschung oder Trennung
           verlangen, indem sie sich an{' '}
@@ -451,7 +502,9 @@ export default function PrivacyPageDe() {
         </ul>
         <p>
           Zur Ausübung dieser Rechte kontaktieren Sie uns unter{' '}
-          <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>.
+          <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>. Werden Ihre Daten von
+          einem Maklerbüro in Immvela verarbeitet, wenden Sie sich bitte stattdessen an dieses
+          Maklerbüro (siehe Abschnitt 4.7).
         </p>
 
         <h2>11. Beschwerderecht</h2>

@@ -271,6 +271,16 @@ import { IMMVELA_ICONS, immvelaImages } from '@/lib/share'
  * places" over-claims: the service role bypasses RLS on every token WRITE
  * (`platform_connection` carries a SELECT-only policy), so the application is
  * the only boundary on that path. Both live policies now say so.
+ *
+ * ── The closed-beta round, 2026-10-06 (DRAFT, counsel review advised) ──────
+ *
+ * Aligned with the AVV draft (app repo `.claude/briefs/legal-2026-10-05/`):
+ * the office is controller and SNS processor (#1181), with the SAME role
+ * statement as SNS policy 4.1; fal.ai is named for Vignette; "where data is
+ * processed" replaces silence on location. The section above is now
+ * `Unterauftragsverarbeiter`, which settles the rename deferred in the parity
+ * round. Every sentence the AVV marks [PRÜFEN] is listed for Samuel in
+ * `privacy-policy-changes.md` there; do not publish before that list is cleared.
  */
 
 export const metadata: Metadata = {
@@ -313,8 +323,8 @@ export const metadata: Metadata = {
   },
 }
 
-const UPDATED_DE = '15. September 2026'
-const UPDATED_EN = 'September 15, 2026'
+const UPDATED_DE = '6. Oktober 2026'
+const UPDATED_EN = 'October 6, 2026'
 
 // Same host now. The app served this page until the 2026-09-05 split put
 // every legal document on the landing page and left the product with
@@ -397,7 +407,8 @@ export default function ImmvelaPrivacyPage() {
 
           {/* ── German, first: the market's default language ─────────────── */}
           <div lang="de">
-            <Section lang="de" title="Verantwortlicher">
+            <Section lang="de" title="Verantwortlicher und Auftragsverarbeiter">
+              <p>Anbieter von Immvela:</p>
               <p>
                 <strong>SNS Software Solutions GmbH</strong>
                 <br />
@@ -410,6 +421,23 @@ export default function ImmvelaPrivacyPage() {
                 Immobilienmaklerinnen und -makler und keine eigene Rechtsperson. Diese Erklärung
                 beschreibt, welche Daten wir in Immvela verarbeiten. Vollständige Angaben zum
                 Unternehmen finden Sie im <a href="/legal/imprint">Impressum</a>.
+              </p>
+              <p>
+                Für die personenbezogenen Daten, die ein Maklerbüro und seine Nutzerinnen und Nutzer
+                in Immvela eingeben oder hochladen (etwa zu Objekten, zu Eigentümerinnen und
+                Eigentümern, zu Interessentinnen und Interessenten sowie in Unterlagen und Fotos),
+                ist <strong>das Maklerbüro Verantwortlicher</strong>.{' '}
+                <strong>SNS verarbeitet diese Daten als Auftragsverarbeiter</strong> nach Weisung
+                des Maklerbüros auf Grundlage eines Auftragsverarbeitungsvertrags (AVV, Art. 28
+                DSGVO).
+              </p>
+              <p>
+                Verantwortlicher ist SNS nur, soweit wir Daten zu eigenen Zwecken verarbeiten: für
+                die Anlage und Verwaltung der Zugänge, die Vertragsverwaltung und die Kommunikation
+                mit dem Maklerbüro, für die Sicherheit des Dienstes und den Schutz vor Missbrauch
+                (einschließlich Server-Protokollen), für die Auswertung von Rückmeldungen, die über
+                die Feedback-Funktion gesendet werden, für anonymisierte, zusammengefasste
+                Nutzungsstatistiken sowie für unsere eigene Website.
               </p>
             </Section>
 
@@ -532,6 +560,27 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
+            <Section lang="de" title="Virtuelle Möblierung mit KI">
+              <p>
+                Wenn Sie ein Foto virtuell möblieren lassen, übermitteln wir an unseren
+                Dienstleister <strong>fal.ai (Features &amp; Labels, Inc., USA)</strong> einen eine
+                Stunde gültigen Link auf das <strong>Originalfoto</strong>, über den fal.ai die
+                Datei abruft. Der Link enthält interne Kennungen Ihres Maklerbüros und Ihres
+                Nutzerkontos. Außerdem übermitteln wir den Anweisungstext, einschließlich einer
+                optionalen Notiz, die Sie dazu eingeben. fal.ai gibt das möblierte Bild zurück; wir
+                speichern es bei uns.
+              </p>
+              <p>
+                Zweck ist ausschließlich die Erstellung der von Ihnen angeforderten möblierten
+                Variante. fal.ai verarbeitet die Daten <strong>in den USA</strong> und nach eigener
+                Angabe auch in weiteren Ländern; eine Verarbeitung in der EU ist derzeit nicht
+                eingerichtet. Nach den Nutzungsbedingungen von fal.ai darf fal.ai anonymisierte oder
+                zusammengefasste Nutzungsdaten zur Entwicklung eigener Produkte und KI-Modelle
+                verwenden. Eine Kopie, die fal.ai bereits erhalten hat, können wir nicht
+                zurückholen; für sie gelten die Aufbewahrungsregeln von fal.ai.
+              </p>
+            </Section>
+
             <Section lang="de" title="Aufzeichnungen">
               <p>
                 Wir speichern, <em>dass</em> ein Beitrag veröffentlicht wurde, mit Zeitpunkt und
@@ -547,11 +596,51 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
-            <Section lang="de" title="Auftragsverarbeiter">
+            <Section lang="de" title="Unterauftragsverarbeiter und Ort der Verarbeitung">
+              <p>Wir setzen folgende Unterauftragsverarbeiter ein:</p>
+              <ul>
+                <li>
+                  <strong>Supabase</strong> (Datenbank, Anmeldung und Dateispeicher), Speicherort in
+                  der EU: Frankfurt am Main (Region eu-central-1);
+                </li>
+                <li>
+                  <strong>Vercel Inc.</strong>, USA (Hosting und Serverfunktionen der Anwendung);
+                </li>
+                <li>
+                  <strong>Trigger.dev</strong> (Hintergrundaufträge);
+                </li>
+                <li>
+                  <strong>Anthropic PBC</strong>, USA (Texterstellung und Auswertung hochgeladener
+                  Dokumente);
+                </li>
+                <li>
+                  <strong>fal.ai (Features &amp; Labels, Inc.)</strong>, USA (virtuelle Möblierung,
+                  siehe oben);
+                </li>
+                <li>
+                  <strong>Sentry (Functional Software, Inc.)</strong>, nur falls wir eine
+                  Fehlerüberwachung einführen: Fehlermeldungen und technische Angaben zur jeweiligen
+                  Anfrage, verarbeitet in der EU-Region (Frankfurt); personenbezogene Daten nur,
+                  soweit eine Fehlermeldung sie enthält.
+                </li>
+              </ul>
               <p>
-                Supabase (Datenbank und Dateispeicher), Vercel (Hosting), Trigger.dev
-                (Hintergrundaufträge) und Anthropic (Texterstellung und Auswertung hochgeladener
-                Dokumente).
+                <strong>Ort der Verarbeitung.</strong> Datenbank und gespeicherte Dateien liegen in
+                der EU (Frankfurt am Main). Einzelne Unterauftragsverarbeiter verarbeiten Daten
+                jedoch <strong>außerhalb der EU</strong>, insbesondere in den USA: Anthropic bei der
+                Texterstellung und beim Auslesen von Dokumenten (eine reine EU-Verarbeitung bietet
+                Anthropic für diese Schnittstelle nicht an) und fal.ai bei der virtuellen
+                Möblierung. Vercel und Trigger.dev sind Anbieter mit Sitz in den USA; auch bei ihnen
+                kann eine Verarbeitung oder ein Zugriff außerhalb der EU stattfinden.
+              </p>
+              <p>
+                Übermittlungen in Länder außerhalb der EU und des EWR erfolgen auf Grundlage der
+                Auftragsverarbeitungsbedingungen des jeweiligen Anbieters mit den
+                EU-Standardvertragsklauseln (Durchführungsbeschluss (EU) 2021/914) oder, bei
+                zertifizierten Empfängern, auf Grundlage des Angemessenheitsbeschlusses zum EU-US
+                Data Privacy Framework. Für fal.ai ist dies das von fal.ai veröffentlichte Data
+                Processing Addendum (Stand 31. Juli 2026), das Übermittlungen auf Grundlage der
+                Standardvertragsklauseln vorsieht.
               </p>
               <p>
                 Beiträge, die Sie veröffentlichen, werden an die von Ihnen gewählte Plattform
@@ -599,7 +688,7 @@ export default function ImmvelaPrivacyPage() {
                 </li>
                 <li>
                   <strong>Weitergabe.</strong> Wir verkaufen keine Daten. Eine Weitergabe erfolgt
-                  ausschließlich an die oben genannten Auftragsverarbeiter und an die von Ihnen
+                  ausschließlich an die oben genannten Unterauftragsverarbeiter und an die von Ihnen
                   verbundenen Veröffentlichungsplattformen.
                 </li>
                 <li>
@@ -656,11 +745,18 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
-            <Section lang="de" title="Daten Ihrer eigenen Kundinnen und Kunden">
+            <Section lang="de" title="Daten Ihrer Kundinnen und Kunden und weiterer Personen">
               <p>
-                Angaben, die Sie zu Interessentinnen und Interessenten in Immvela erfassen,
-                verarbeiten wir in Ihrem Auftrag. Für diese Daten bleiben Sie verantwortlich;
-                Anfragen dazu richten Sie bitte an uns über die oben genannte Adresse.
+                Angaben, die Sie in Immvela zu Eigentümerinnen und Eigentümern, zu Interessentinnen
+                und Interessenten oder zu anderen Personen erfassen oder in Unterlagen hochladen,
+                verarbeiten wir in Ihrem Auftrag. Verantwortlicher für diese Daten ist Ihr
+                Maklerbüro (siehe „Verantwortlicher und Auftragsverarbeiter“).
+              </p>
+              <p>
+                Personen, deren Daten ein Maklerbüro in Immvela verarbeitet, wenden sich zur
+                Ausübung ihrer Rechte bitte an dieses Maklerbüro. Erreicht uns eine solche Anfrage
+                direkt, leiten wir sie unverzüglich an das Maklerbüro weiter, teilen dies der
+                anfragenden Person mit und unterstützen das Maklerbüro bei der Beantwortung.
               </p>
             </Section>
           </div>
@@ -669,7 +765,8 @@ export default function ImmvelaPrivacyPage() {
 
           {/* ── English, for platform reviewers ──────────────────────────── */}
           <div lang="en">
-            <Section lang="en" title="Controller">
+            <Section lang="en" title="Controller and processor">
+              <p>Immvela is provided by:</p>
               <p>
                 <strong>SNS Software Solutions GmbH</strong>
                 <br />
@@ -681,6 +778,20 @@ export default function ImmvelaPrivacyPage() {
                 Immvela is SNS Software Solutions GmbH&apos;s software platform for real-estate
                 agents and is not a separate legal entity. This policy describes the data we process
                 in Immvela. Full company details are in the <a href="/legal/imprint">imprint</a>.
+              </p>
+              <p>
+                For the personal data that a brokerage and its users enter or upload in Immvela (for
+                example about properties, owners, prospective buyers or tenants, and in documents
+                and photos), <strong>the brokerage is the controller</strong>.{' '}
+                <strong>SNS processes that data as processor</strong> on the brokerage&apos;s
+                instructions under a data processing agreement (AVV, Art. 28 GDPR).
+              </p>
+              <p>
+                SNS is the controller only where we process data for our own purposes: setting up
+                and managing user accounts, contract administration and communication with the
+                brokerage, security of the service and abuse prevention (including server logs),
+                evaluating feedback sent through the feedback function, anonymised aggregated usage
+                statistics, and our own website.
               </p>
             </Section>
 
@@ -799,6 +910,25 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
+            <Section lang="en" title="AI virtual staging">
+              <p>
+                When you have a photo virtually furnished, we send our provider{' '}
+                <strong>fal.ai (Features &amp; Labels, Inc., USA)</strong> a link to the{' '}
+                <strong>original photo</strong> that is valid for one hour and through which fal.ai
+                retrieves the file. The link contains internal identifiers of your brokerage and of
+                your user account. We also send the instruction text, including any optional note
+                you type for it. fal.ai returns the staged image, which we store.
+              </p>
+              <p>
+                This is solely to produce the staged version you asked for. fal.ai processes the
+                data <strong>in the United States</strong> and, by its own account, in other
+                countries as well; processing in the EU is not currently set up. Under fal.ai&apos;s
+                terms, fal.ai may use anonymised or aggregated usage data to develop its own
+                products and AI models. A copy fal.ai has already received cannot be recalled by us
+                and is subject to fal.ai&apos;s own retention rules.
+              </p>
+            </Section>
+
             <Section lang="en" title="Records">
               <p>
                 We store the fact <em>that</em> a post was published, with its time and channel,
@@ -813,10 +943,51 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
-            <Section lang="en" title="Processors">
+            <Section lang="en" title="Sub-processors and where data is processed">
+              <p>We use the following sub-processors:</p>
+              <ul>
+                <li>
+                  <strong>Supabase</strong> (database, sign-in and file storage), stored in the EU:
+                  Frankfurt am Main (region eu-central-1);
+                </li>
+                <li>
+                  <strong>Vercel Inc.</strong>, USA (hosting and the application&apos;s server
+                  functions);
+                </li>
+                <li>
+                  <strong>Trigger.dev</strong> (background jobs);
+                </li>
+                <li>
+                  <strong>Anthropic PBC</strong>, USA (text generation, and extraction from uploaded
+                  documents);
+                </li>
+                <li>
+                  <strong>fal.ai (Features &amp; Labels, Inc.)</strong>, USA (virtual staging, see
+                  above);
+                </li>
+                <li>
+                  <strong>Sentry (Functional Software, Inc.)</strong>, only if we introduce error
+                  monitoring: error reports and technical details of the request concerned,
+                  processed in the EU region (Frankfurt); personal data only to the extent an error
+                  report contains it.
+                </li>
+              </ul>
               <p>
-                Supabase (database and file storage), Vercel (hosting), Trigger.dev (background
-                jobs) and Anthropic (text generation, and extraction from uploaded documents).
+                <strong>Where data is processed.</strong> The database and stored files are in the
+                EU (Frankfurt am Main). Some sub-processors, however, process data{' '}
+                <strong>outside the EU</strong>, mainly in the United States: Anthropic for text
+                generation and for reading documents (Anthropic offers no EU-only processing for
+                this interface), and fal.ai for virtual staging. Vercel and Trigger.dev are
+                providers based in the United States; with them too, processing or access outside
+                the EU can take place.
+              </p>
+              <p>
+                Transfers to countries outside the EU and the EEA are made on the basis of each
+                provider&apos;s data processing terms with the EU Standard Contractual Clauses
+                (Commission Implementing Decision (EU) 2021/914) or, for certified recipients, on
+                the basis of the adequacy decision for the EU-US Data Privacy Framework. For fal.ai,
+                this is the Data Processing Addendum fal.ai publishes (dated 31 July 2026), which
+                provides for transfers under the Standard Contractual Clauses.
               </p>
               <p>
                 Posts you publish are transmitted to the platform you select and are then subject to
@@ -861,7 +1032,7 @@ export default function ImmvelaPrivacyPage() {
                 </li>
                 <li>
                   <strong>Disclosure.</strong> We do not sell data. We disclose it only to the
-                  processors named above and to the publishing platforms you connect.
+                  sub-processors named above and to the publishing platforms you connect.
                 </li>
                 <li>
                   <strong>Our own access.</strong> Access to production systems is limited to the
@@ -910,11 +1081,17 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
-            <Section lang="en" title="Your own customers' data">
+            <Section lang="en" title="Data about your clients and other people">
               <p>
-                Details you record about prospective buyers or tenants in Immvela are processed on
-                your behalf. You remain responsible for that data; please direct requests about it
-                to us at the address above.
+                Details you record in Immvela about owners, prospective buyers or tenants, or other
+                people, or upload in documents, are processed by us on your behalf. Your brokerage
+                is the controller for that data (see “Controller and processor”).
+              </p>
+              <p>
+                People whose data a brokerage processes in Immvela should contact that brokerage to
+                exercise their rights. If such a request reaches us directly, we forward it to the
+                brokerage without delay, tell the person who made it that we have done so, and help
+                the brokerage respond.
               </p>
             </Section>
           </div>

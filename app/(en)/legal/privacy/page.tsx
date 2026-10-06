@@ -14,7 +14,7 @@ export const metadata: Metadata = snsPage({
   },
 })
 
-const UPDATED = 'September 15, 2026'
+const UPDATED = 'October 6, 2026'
 
 export default function PrivacyPage() {
   return (
@@ -80,11 +80,18 @@ export default function PrivacyPage() {
 
         <h3>4.1 Who is controller, and who is processor</h3>
         <p>
-          For the data a brokerage puts into Immvela about its own properties, clients and
-          prospects, the <strong>brokerage is the controller</strong> and{' '}
-          <strong>SNS acts as processor</strong> on its instructions (Art. 28 GDPR), under a
-          separate written agreement including a Data Processing Agreement (AVV). For the
-          brokerage’s own account and contract data, SNS is the controller.
+          For the personal data that a brokerage and its users enter or upload in Immvela (for
+          example about properties, owners, prospective buyers or tenants, and in documents and
+          photos), <strong>the brokerage is the controller</strong>.{' '}
+          <strong>SNS processes that data as processor</strong> on the brokerage’s instructions
+          under a data processing agreement (AVV, Art. 28 GDPR).
+        </p>
+        <p>
+          SNS is the controller only where we process data for our own purposes: setting up and
+          managing user accounts, contract administration and communication with the brokerage,
+          security of the service and abuse prevention (including server logs), evaluating feedback
+          sent through the feedback function, anonymised aggregated usage statistics, and our own
+          website.
         </p>
         <p>
           Each brokerage is a separate tenant and its own controller. Where a brokerage belongs to a
@@ -153,6 +160,19 @@ export default function PrivacyPage() {
           to train AI models of our own.
         </p>
         <p>
+          For virtual staging, when a user has a photo virtually furnished, we send{' '}
+          <strong>fal.ai (Features &amp; Labels, Inc., USA)</strong>, acting as a sub-processor, a
+          link to the original photo that is valid for one hour and through which fal.ai retrieves
+          the file. The link contains internal identifiers of the brokerage and of the user. We also
+          send the instruction text, including any optional note the user types for it. fal.ai
+          returns the staged image, which we store. This is solely to produce the staged version the
+          user asked for. fal.ai processes the data in the United States and, by its own account, in
+          other countries as well; processing in the EU is not currently set up. Under fal.ai’s
+          terms, fal.ai may use anonymised or aggregated usage data to develop its own products and
+          AI models. A copy fal.ai has already received cannot be recalled by us and is subject to
+          fal.ai’s own retention rules.
+        </p>
+        <p>
           Two limits are built into the platform rather than left to policy. Factual values in
           generated text are taken only from data the brokerage has confirmed, so the platform does
           not invent property specifications. And AI-staged images carry a “virtually staged” label
@@ -168,7 +188,10 @@ export default function PrivacyPage() {
         </p>
 
         <h3>4.5 Storage and sub-processors</h3>
-        <p>Immvela’s data is stored in the European Union:</p>
+        <p>
+          Immvela’s database and stored files are kept in the European Union. Some sub-processors,
+          however, process data outside the EU, as set out below.
+        </p>
         <ul>
           <li>
             Database, authentication and file storage: <strong>Supabase</strong>, hosted in the EU
@@ -181,12 +204,33 @@ export default function PrivacyPage() {
             Background job processing: <strong>Trigger.dev</strong>
           </li>
           <li>
-            AI text generation: <strong>Anthropic PBC</strong> (see Section 4.4)
+            AI text generation and reading of uploaded documents: <strong>Anthropic PBC</strong>,
+            USA (see Section 4.4)
+          </li>
+          <li>
+            AI virtual staging: <strong>fal.ai (Features &amp; Labels, Inc.)</strong>, USA (see
+            Section 4.4)
+          </li>
+          <li>
+            Error monitoring, only if we introduce it:{' '}
+            <strong>Sentry (Functional Software, Inc.)</strong>, EU region (Frankfurt); error
+            reports and technical details of the request concerned, with personal data only to the
+            extent an error report contains it
           </li>
         </ul>
         <p>
-          Where a sub-processor involves a transfer outside the EU/EEA, that transfer is covered by
-          a data processing agreement and safeguarded by the EU Standard Contractual Clauses.
+          <strong>Processing outside the EU.</strong> Anthropic (text generation and reading
+          documents; Anthropic offers no EU-only processing for this interface) and fal.ai (virtual
+          staging) process data in the United States. Vercel and Trigger.dev are providers based in
+          the United States; with them too, processing or access outside the EU can take place.
+        </p>
+        <p>
+          Where a sub-processor involves a transfer outside the EU/EEA, that transfer is made on the
+          basis of the provider’s data processing terms with the EU Standard Contractual Clauses
+          (Commission Implementing Decision (EU) 2021/914) or, for certified recipients, the
+          adequacy decision for the EU-US Data Privacy Framework. For fal.ai, this is the Data
+          Processing Addendum fal.ai publishes (dated 31 July 2026), which provides for transfers
+          under the Standard Contractual Clauses.
         </p>
 
         <h3>4.6 Connected publishing platforms</h3>
@@ -211,9 +255,11 @@ export default function PrivacyPage() {
           subject to that platform’s own retention.
         </p>
         <p>
-          If you are a buyer, seller or tenant whose data a brokerage holds in Immvela, that
-          brokerage is your controller and is the right first point of contact for an erasure
-          request. When a brokerage passes such a request to us, we erase that person’s records
+          If you are an owner, buyer, seller or tenant whose data a brokerage holds in Immvela, that
+          brokerage is your controller: please send requests to exercise your rights, including
+          erasure requests, to that brokerage. If such a request reaches us directly, we forward it
+          to the brokerage without delay, tell you that we have done so, and help the brokerage
+          respond. When a brokerage passes such a request to us, we erase that person’s records
           across the platform, including derived records, values extracted from documents, generated
           documents and stored files. We carry this out by hand, within 30 days; there is currently
           no automated erasure flow in the application. We may retain a record that a business event
@@ -421,7 +467,8 @@ export default function PrivacyPage() {
         </ul>
         <p>
           To exercise any of these rights, contact us at{' '}
-          <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>.
+          <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>. If your data is held
+          in Immvela by a brokerage, please contact that brokerage instead (see Section 4.7).
         </p>
 
         <h2>11. Right to lodge a complaint</h2>
