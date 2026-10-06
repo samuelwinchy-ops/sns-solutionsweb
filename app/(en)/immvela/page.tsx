@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { IMMVELA_ICONS, immvelaImages } from '@/lib/share'
 import ImmvelaFrame from '@/components/immvela/ImmvelaFrame'
 import ImmvelaHome from '@/components/immvela/ImmvelaHome'
 import { IMMVELA_URL, SITE_URL } from '@/lib/site'
@@ -30,10 +31,10 @@ export const metadata: Metadata = {
   // The root layout's /site.webmanifest names the app "SNS Solutions" and sets
   // the dark #06080F theme — installing immvela.com from Android gave you an
   // SNS-branded, dark-chromed app for a cream-coloured site. Relative, so it
-  // resolves on whichever host is serving the page. The icons inside it are
-  // still SNS's mark; swap them when an Immvela one exists (same gap as og.png
-  // below).
+  // resolves on whichever host is serving the page. Its icons and the ones
+  // below are Immvela's helix (lib/share.ts).
   manifest: '/immvela.webmanifest',
+  icons: IMMVELA_ICONS,
   // Immvela is served from its own domain, so its canonical and language
   // alternates are absolute to that origin — not the SNS domain.
   alternates: {
@@ -55,10 +56,7 @@ export const metadata: Metadata = {
     description:
       'Documents in, a checked listing out. Every number in your Exposé traced to its document. Apply for the closed beta.',
     url: IMMVELA_URL,
-    // No Immvela-specific image yet — reusing the SNS og.png (dark) beats no
-    // image at all in link previews, but it doesn't match Immvela's light
-    // brand. Swap for a dedicated Immvela image when one exists.
-    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: 'Immvela' }],
+    images: immvelaImages('en').og,
   },
   // Root layout's twitter metadata is SNS-branded; without an override here
   // Immvela pages inherited it wholesale, so shares on X showed "SNS
@@ -68,7 +66,7 @@ export const metadata: Metadata = {
     title: 'Immvela · your personal real estate assistant',
     description:
       'Documents in, a checked listing out. Every number in your Exposé traced to its document. Apply for the closed beta.',
-    images: [`${SITE_URL}/og.png`],
+    images: immvelaImages('en').twitter,
   },
 }
 

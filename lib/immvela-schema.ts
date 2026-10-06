@@ -1,6 +1,6 @@
 import { immvelaT } from '@/i18n/immvela'
 import type { Locale } from '@/i18n/config'
-import { IMMVELA_URL, SITE_URL } from '@/lib/site'
+import { IMMVELA_URL } from '@/lib/site'
 import { SNS_ORG_ID, langTag } from '@/lib/schema'
 
 // Kept in sync with the SOCIALS map in components/ImmvelaFooter.tsx.
@@ -75,7 +75,7 @@ function coreNodes(locale: Locale) {
       applicationCategory: 'BusinessApplication',
       applicationSubCategory: 'Real estate',
       operatingSystem: 'Web',
-      image: `${SITE_URL}/og.png`,
+      image: `${IMMVELA_URL}/og/immvela-${locale}.png`,
       inLanguage: ['de-AT', 'en'],
       availableLanguage: ['German', 'English'],
       countriesSupported: ['AT', 'DE', 'CH'],
@@ -140,7 +140,7 @@ export function immvelaJsonLd(locale: Locale) {
         isPartOf: { '@id': WEBSITE_ID },
         about: { '@id': SOFTWARE_ID },
         breadcrumb: { '@id': `${url}#breadcrumb` },
-        primaryImageOfPage: `${SITE_URL}/og.png`,
+        primaryImageOfPage: `${IMMVELA_URL}/og/immvela-${locale}.png`,
       },
       breadcrumb(locale, '', []),
       {

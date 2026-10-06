@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from 'next'
+import { IMMVELA_ICONS, immvelaImages } from '@/lib/share'
 import ImmvelaFrame from '@/components/immvela/ImmvelaFrame'
 import WhySections from '@/components/immvela/rest/WhySections'
-import { IMMVELA_URL, SITE_URL } from '@/lib/site'
+import { IMMVELA_URL } from '@/lib/site'
 import '@/app/immvela-rest.css'
 
 // Served at immvela.com/why (middleware.ts maps it onto this route), so the canonical and
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
   description,
   applicationName: 'Immvela',
   manifest: '/immvela.webmanifest',
+  icons: IMMVELA_ICONS,
   alternates: {
     canonical: `${IMMVELA_URL}/why`,
     languages: {
@@ -30,9 +32,9 @@ export const metadata: Metadata = {
     title,
     description,
     url: `${IMMVELA_URL}/why`,
-    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: 'Immvela' }],
+    images: immvelaImages('en').og,
   },
-  twitter: { card: 'summary_large_image', title, description, images: [`${SITE_URL}/og.png`] },
+  twitter: { card: 'summary_large_image', title, description, images: immvelaImages('en').twitter },
 }
 
 export const viewport: Viewport = {

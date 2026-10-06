@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { IMMVELA_URL } from '@/lib/site'
+import { IMMVELA_ICONS, immvelaImages } from '@/lib/share'
 
 /**
  * Immvela's own privacy policy, served at www.immvela.com/legal/privacy.
@@ -276,7 +277,7 @@ export const metadata: Metadata = {
   // Absolute: the root layout's "%s | SNS Solutions" template would put the
   // wrong company in the title of the one document a reviewer reads to decide
   // whose app this is.
-  title: { absolute: 'Datenschutzerklärung / Privacy Policy — Immvela' },
+  title: { absolute: 'Datenschutzerklärung / Privacy Policy · Immvela' },
   description:
     'Wie Immvela verbundene Social-Media-Konten, Inhalte und Reichweitendaten verarbeitet. How Immvela processes connected social accounts, content and engagement data.',
   // Absolute to the Immvela origin: this document's home is immvela.com, not
@@ -289,6 +290,26 @@ export const metadata: Metadata = {
       en: `${IMMVELA_URL}/legal/privacy`,
       'x-default': `${IMMVELA_URL}/legal/privacy`,
     },
+  },
+  applicationName: 'Immvela',
+  manifest: '/immvela.webmanifest',
+  icons: IMMVELA_ICONS,
+  openGraph: {
+    type: 'website',
+    locale: 'de_AT',
+    siteName: 'Immvela',
+    url: `${IMMVELA_URL}/legal/privacy`,
+    title: 'Datenschutzerklärung / Privacy Policy · Immvela',
+    description:
+      'Wie Immvela verbundene Social-Media-Konten, Inhalte und Reichweitendaten verarbeitet. How Immvela processes connected social accounts, content and engagement data.',
+    images: immvelaImages('de').og,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Datenschutzerklärung / Privacy Policy · Immvela',
+    description:
+      'Wie Immvela verbundene Social-Media-Konten, Inhalte und Reichweitendaten verarbeitet. How Immvela processes connected social accounts, content and engagement data.',
+    images: immvelaImages('de').twitter,
   },
 }
 

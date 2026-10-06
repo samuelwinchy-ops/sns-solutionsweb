@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
+import { IMMVELA_ICONS, immvelaImages } from '@/lib/share'
 import { ImmvelaPartnerPage } from '@/components/immvela/ImmvelaSubpage'
-import { IMMVELA_URL, SITE_URL } from '@/lib/site'
+import { IMMVELA_URL } from '@/lib/site'
 
 // Served at immvela.com/partner (middleware.ts maps it onto this route), so the canonical and
 // alternates are absolute to that origin. See app/(en)/immvela/page.tsx for why each field is restated.
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
     'We are building Immvela with estate agents. Give us 30 minutes and tell us what slows your listings down.',
   applicationName: 'Immvela',
   manifest: '/immvela.webmanifest',
+  icons: IMMVELA_ICONS,
   alternates: {
     canonical: `${IMMVELA_URL}/partner`,
     languages: {
@@ -26,14 +28,14 @@ export const metadata: Metadata = {
     description:
       'We are building Immvela with estate agents. Give us 30 minutes and tell us what slows your listings down.',
     url: `${IMMVELA_URL}/partner`,
-    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: 'Immvela' }],
+    images: immvelaImages('en').og,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Immvela · help us build Immvela',
     description:
       'We are building Immvela with estate agents. Give us 30 minutes and tell us what slows your listings down.',
-    images: [`${SITE_URL}/og.png`],
+    images: immvelaImages('en').twitter,
   },
 }
 
