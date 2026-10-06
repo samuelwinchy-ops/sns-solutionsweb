@@ -147,8 +147,9 @@ body {
 /* Brand wordmark: "Immvela" in forest ink, trailing dot in emerald. */
 .im-wordmark {
   color: var(--im-ink);
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.035em;
 }
 .im-wordmark .dot {
   color: var(--im-green-bright);
