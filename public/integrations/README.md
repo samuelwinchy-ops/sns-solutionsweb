@@ -8,6 +8,7 @@ Shown in the home page integrations row (components/home/Integrations.tsx), each
 | gmail.svg | Wikimedia Commons, `Gmail_icon_(2020).svg` | public domain (simple geometry), trademark of Google |
 | google.svg | Wikimedia Commons, `Google_"G"_logo.svg` | public domain (simple geometry), trademark of Google |
 | instagram.svg | Wikimedia Commons, `Instagram_logo_2016.svg` | public domain (simple geometry), trademark of Meta |
+| outlook.svg | Wikimedia Commons, `Microsoft_Outlook_Icon_(2025–present).svg` (credited there to microsoft.com/microsoft-365), unmodified, SHA-1 0cfae8496355008e6d095366a535828deca0aa48, fetched 2026-10-06 | public domain (simple geometry), trademark of Microsoft |
 | microsoft.svg | drawn here: the four squares in Microsoft's published colours (#F25022, #7FBA00, #00A4EF, #FFB900) | trademark of Microsoft |
 
 What was added to the Simple Icons shapes: the brand fill colour (Facebook #0866FF, LinkedIn #0A66C2,
