@@ -526,7 +526,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: 'Why this compounds instead of decaying',
         paragraphs: [
-          'Correct a fact once and every tool that touches it uses the corrected version. Each step’s output becomes the next step’s input: a confirmed listing feeds the brochure, the brochure feeds the captions, and what the captions earned feeds back into what the listing record knows worked. That’s the flywheel: worth more in month twelve than on day one.',
+          'Correct a fact once and every tool that touches it uses the corrected version. Each step’s output becomes the next step’s input: a confirmed listing feeds the brochure, and the brochure feeds the captions. That’s the flywheel: worth more in month twelve than on day one.',
           'A stack of disconnected point-AI tools does the opposite. Nothing routes back into anything else, so accuracy doesn’t improve with use; it just gets re-rolled, tool by tool, every single time.',
         ],
       },
