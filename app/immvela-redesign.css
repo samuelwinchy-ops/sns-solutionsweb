@@ -656,7 +656,7 @@
 .site-navlink[aria-current='page']{color:#14473a;font-weight:600}
 /* nav: Apply is the one filled action; under 860px the rest folds into a sheet */
 .nv-logo{justify-self:start;display:flex;align-items:center;gap:8px;text-decoration:none}
-.nv-word{font-family:var(--font-bricolage),var(--font-geist-sans),system-ui,sans-serif;font-optical-sizing:auto;font-variation-settings:'opsz' 32;font-weight:700;font-size:21px;letter-spacing:-.035em;line-height:1;color:#14473a}
+.nv-word{font-family:var(--font-inter),system-ui,sans-serif;font-weight:700;font-size:21px;letter-spacing:-.035em;line-height:1;color:#14473a}
 .nv-mid{justify-self:center;display:flex;align-items:center;gap:28px}
 .nv-right{justify-self:end;display:flex;align-items:center;gap:18px}
 .nv-lang{display:flex}

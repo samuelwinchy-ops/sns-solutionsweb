@@ -12,6 +12,8 @@
   --hm-serif: var(--font-newsreader), Georgia, serif;
   --hm-sans: var(--font-jakarta), system-ui, sans-serif;
   --hm-brico: var(--font-bricolage), var(--font-geist-sans), sans-serif;
+  /* Immvela's wordmark face, as in the app (app.immvela.com): Inter Bold. */
+  --hm-inter: var(--font-inter), system-ui, sans-serif;
   --hm-archivo: var(--font-archivo), var(--font-jakarta), sans-serif;
 }
 
@@ -67,11 +69,10 @@
   line-height: 1;
 }
 .hm-s-imv .hm-wm {
-  font-family: var(--hm-brico);
+  font-family: var(--hm-inter);
   font-weight: 700;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.035em;
   color: #f2f1e8;
-  font-variation-settings: 'opsz' 96;
 }
 .hm-s-imv .hm-wm i {
   font-style: normal;
@@ -875,10 +876,9 @@
   margin-right: 0.28em;
 }
 .hm-half.imv .hm-mark {
-  font-family: var(--hm-brico);
+  font-family: var(--hm-inter);
   font-weight: 700;
-  letter-spacing: -0.045em;
-  font-variation-settings: 'opsz' 96;
+  letter-spacing: -0.035em;
   color: #f2f1e8;
 }
 .hm-half.imv .hm-mark i {
