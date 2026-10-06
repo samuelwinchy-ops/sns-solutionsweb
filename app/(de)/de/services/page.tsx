@@ -5,16 +5,16 @@ import Services from '@/components/Services'
 import CustomBuilds from '@/components/CustomBuilds'
 import JsonLd from '@/components/JsonLd'
 import { servicesGraph } from '@/lib/schema'
+import { snsPage } from '@/lib/share'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = snsPage({
+  locale: 'de',
   title: 'Leistungen',
   description:
-    'Was SNS Solutions macht, klar erklärt: individuelle Software, KI-Automatisierung und KI- & IT-Beratung — die Probleme, die wir lösen, und was Sie bekommen.',
-  alternates: {
-    canonical: '/de/services',
-    languages: { en: '/services', de: '/de/services', 'x-default': '/services' },
-  },
-}
+    'Was SNS Solutions macht, klar erklärt: individuelle Software, KI-Automatisierung und KI- & IT-Beratung. Die Probleme, die wir lösen, und was Sie bekommen.',
+  path: '/de/services',
+  languages: { en: '/services', de: '/de/services', 'x-default': '/services' },
+})
 
 export default function ServicesPageDe() {
   return (

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import type { Locale } from '@/i18n/config'
 import { SITE, SITE_COPY, SITE_URL } from '@/lib/site'
+import { snsImages } from '@/lib/share'
 
 /**
  * The root metadata for each language's root layout.
@@ -22,6 +23,7 @@ import { SITE, SITE_COPY, SITE_URL } from '@/lib/site'
 export function rootMetadata(locale: Locale): Metadata {
   const copy = SITE_COPY[locale]
   const home = locale === 'de' ? '/de' : '/'
+  const img = snsImages('sns', locale)
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -60,13 +62,13 @@ export function rootMetadata(locale: Locale): Metadata {
       siteName: SITE.name,
       title: copy.title,
       description: copy.description,
-      images: [{ url: '/og.png', width: 1200, height: 630, alt: copy.imageAlt }],
+      images: img.og,
     },
     twitter: {
       card: 'summary_large_image',
       title: copy.title,
       description: copy.description,
-      images: ['/og.png'],
+      images: img.twitter,
     },
     robots: {
       index: true,

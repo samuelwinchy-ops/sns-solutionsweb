@@ -6,17 +6,18 @@ import ProductBoxes from '@/components/ProductBoxes'
 import { getDict } from '@/i18n'
 import { immvelaFonts } from '@/components/immvela/fonts'
 import '@/app/home.css'
+import { snsPage } from '@/lib/share'
 
 const t = getDict('en').productsPage
 
-export const metadata: Metadata = {
+export const metadata: Metadata = snsPage({
+  locale: 'en',
   title: t.title,
   description: t.description,
-  alternates: {
-    canonical: '/products',
-    languages: { en: '/products', de: '/de/products', 'x-default': '/products' },
-  },
-}
+  path: '/products',
+  languages: { en: '/products', de: '/de/products', 'x-default': '/products' },
+  card: 'products',
+})
 
 export default function ProductsPage() {
   return (

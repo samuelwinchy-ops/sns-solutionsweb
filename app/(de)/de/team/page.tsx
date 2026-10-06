@@ -4,16 +4,16 @@ import Footer from '@/components/Footer'
 import Founders from '@/components/Founders'
 import JsonLd from '@/components/JsonLd'
 import { teamGraph } from '@/lib/schema'
+import { snsPage } from '@/lib/share'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = snsPage({
+  locale: 'de',
   title: 'Team',
   description:
-    'Lernen Sie die Gründer von SNS Solutions kennen — Samuel Winch (CTO), Nicholas Pellechi (CEO) und Samson Belachew (CSO), das Team hinter individueller Software und KI-Automatisierung in Wien.',
-  alternates: {
-    canonical: '/de/team',
-    languages: { en: '/team', de: '/de/team', 'x-default': '/team' },
-  },
-}
+    'Lernen Sie die Gründer von SNS Solutions kennen: Samuel Winch (CTO), Nicholas Pellechi (CEO) und Samson Belachew (CSO), das Team hinter individueller Software und KI-Automatisierung in Wien.',
+  path: '/de/team',
+  languages: { en: '/team', de: '/de/team', 'x-default': '/team' },
+})
 
 export default function TeamPageDe() {
   return (

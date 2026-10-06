@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { snsImages } from '@/lib/share'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
@@ -29,7 +30,15 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       title: post.title,
       description: post.description,
       publishedTime: post.date,
-      images: [{ url: '/og.png', width: 1200, height: 630, alt: post.title }],
+      locale: 'en_US',
+      siteName: 'SNS Solutions',
+      images: snsImages('sns', 'en').og,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: snsImages('sns', 'en').twitter,
     },
   }
 }
