@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from 'react'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, immvelaHref } from '@/i18n/config'
 import { sortedPosts, type BlogProduct } from '@/lib/blog'
+import SwipeRow from './SwipeRow'
 
 /*
  * News and updates, set like a magazine page: the newest item as the lead, the blog posts beside it.
@@ -172,8 +173,12 @@ export default function LatestNews({ locale = defaultLocale }: { locale?: Locale
             </span>
           </a>
         </div>
-        {/* Part of the grid on wide screens; on a phone, a row of cards to swipe through. */}
-        <ul className="hm-rest">
+        <SwipeRow
+          label={t.moreStories}
+          count={sortedPosts().length}
+          prev={t.prevStories}
+          next={t.nextStories}
+        >
           {sortedPosts().map((post) => (
             <li key={post.slug}>
               <a className="hm-card" href={`/blog/${post.slug}`} hrefLang="en">
@@ -194,7 +199,7 @@ export default function LatestNews({ locale = defaultLocale }: { locale?: Locale
               </a>
             </li>
           ))}
-        </ul>
+        </SwipeRow>
       </div>
     </section>
   )
