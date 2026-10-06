@@ -62,7 +62,7 @@ export function snsOrganizationNode() {
     slogan: SITE.tagline,
     foundingDate: SITE.foundingDate,
     logo: `${SITE_URL}/sns-icon.png`,
-    image: `${SITE_URL}/og.png`,
+    image: `${SITE_URL}/og/sns-en.png`,
     address: {
       '@type': 'PostalAddress',
       streetAddress: SITE.address.streetAddress,
@@ -418,7 +418,7 @@ function blogPostingNode(locale: Locale, post: BlogPost) {
     // invent one.
     author: { '@id': SNS_ORG_ID },
     publisher: { '@id': SNS_ORG_ID },
-    image: `${SITE_URL}/og.png`,
+    image: `${SITE_URL}/og/sns-en.png`,
     mainEntityOfPage: { '@id': `${url}#webpage` },
     isPartOf: { '@id': `${pageUrl(locale, '/blog')}#blog` },
   }
@@ -482,5 +482,10 @@ export function blogPostGraph(locale: Locale, post: BlogPost) {
     })
   }
 
-  return graph(locale, `/blog/${post.slug}`, { name: post.title, description: post.description }, ...entities)
+  return graph(
+    locale,
+    `/blog/${post.slug}`,
+    { name: post.title, description: post.description },
+    ...entities
+  )
 }

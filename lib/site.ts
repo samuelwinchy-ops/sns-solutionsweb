@@ -26,6 +26,13 @@ export const IMMVELA_URL = (
   process.env.NEXT_PUBLIC_IMMVELA_URL || 'https://www.immvela.com'
 ).replace(/\/$/, '')
 
+/**
+ * The one public sentence about Immvela that the SNS site repeats (llms files). Kept to what immvela.com
+ * itself says (design/immvela-redesign/TRUTH.md): no module names, no build status, no dates.
+ */
+export const IMMVELA_DESCRIPTION =
+  'It reads the documents for a property, drafts the listing texts and social posts from the values the agent has confirmed, and asks before anything is published. German first, English available, in a closed beta. Built in Vienna.'
+
 export const SITE = {
   name: 'SNS Solutions',
   legalName: 'SNS Software Solutions GmbH',
@@ -35,7 +42,7 @@ export const SITE = {
   title: 'SNS Solutions | Software company in Vienna, maker of Immvela and QFUtool',
   description:
     'SNS Solutions is a software company in Vienna. We build Immvela, which drafts listings, Exposés and social posts for estate agents, and QFUtool, which follows up on sent quotes for salespeople. Free consultation for custom software.',
-  tagline: 'Simplicity is the solution.',
+  tagline: 'What took hours yesterday now handles itself.',
   email: 'office@sns-austria.com',
   phone: '+436701922538',
   foundingDate: '2026',

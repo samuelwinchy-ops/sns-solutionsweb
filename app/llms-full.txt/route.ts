@@ -1,12 +1,12 @@
 import { getDict } from '@/i18n'
-import { IMMVELA_URL, SITE, SITE_URL } from '@/lib/site'
+import { IMMVELA_DESCRIPTION, IMMVELA_URL, SITE, SITE_URL } from '@/lib/site'
 import { sortedPosts } from '@/lib/blog'
 
 /**
  * /llms-full.txt — the whole site as one Markdown document.
  *
  * /llms.txt is a map; this is the territory. An answer engine asked "what does
- * SNS Solutions charge" or "which Immvela modules are live" can answer from
+ * SNS Solutions charge" or "what is Immvela" can answer from
  * this in one fetch, without crawling every page and reconstructing the
  * copy out of an animated React tree. That matters more than usual here,
  * because most of this site's substance lives inside client components behind
@@ -31,7 +31,7 @@ export function GET() {
 
   const sections: string[] = []
 
-  sections.push(`# ${SITE.name} — full site text
+  sections.push(`# ${SITE.name}: full site text
 
 > ${SITE.description}
 
@@ -48,13 +48,12 @@ URL. German translations of every page live under ${url('/de')}.
 - Email: ${SITE.email}
 - Phone: ${SITE.phone}
 - Languages: English and German (Austrian German, formal Sie-form)
-- Area served: Austria, and the DACH market for the productised agents
-- Tagline: ${SITE.tagline}
+- Area served: Austria and the DACH market
 - Founders: ${SITE.founders.join(', ')}
 - Real-estate platform: Immvela, on its own domain at ${IMMVELA_URL}/`)
 
   // ── /services ────────────────────────────────────────────────────────────
-  sections.push(`## Services — ${url('/services')}
+  sections.push(`## Services: ${url('/services')}
 
 ### ${t.servicesPage.heading}
 
@@ -80,23 +79,17 @@ ${t.servicesPage.consult.sub}
 ${t.servicesPage.consult.points.map((p) => `- ${p}`).join('\n')}`)
 
   // ── Immvela ──────────────────────────────────────────────────────────────
-  sections.push(`## Immvela — ${IMMVELA_URL}/
+  // Only the public line: what Immvela is and how to get in. Its own site and its own llms files are the
+  // source for anything more, so nothing here can claim more than immvela.com does.
+  sections.push(`## Immvela: ${IMMVELA_URL}/
 
-Immvela is ${SITE.name}'s real-estate platform. It has its own domain and its
-own ${IMMVELA_URL}/llms.txt and ${IMMVELA_URL}/llms-full.txt; this is the
-summary as it appears on the SNS site.
+Immvela is a product of ${SITE.name} for estate agents, on its own domain with
+its own ${IMMVELA_URL}/llms.txt and ${IMMVELA_URL}/llms-full.txt.
 
-${t.waitlistPage.tagline} ${t.waitlistPage.heroSub}
-
-${t.waitlistPage.modules
-  .map(
-    (m) =>
-      `- **${m.name} (${m.code})** — ${m.status === 'active' ? t.waitlistPage.statusActive : t.waitlistPage.statusProgress}: ${m.desc}`
-  )
-  .join('\n')}`)
+${t.productsPage.immvelaTagline} ${IMMVELA_DESCRIPTION}`)
 
   // ── QFUtool ──────────────────────────────────────────────────────────────
-  sections.push(`## QFUtool — https://www.qfutool.com/
+  sections.push(`## QFUtool: https://www.qfutool.com/
 
 QFUtool is ${SITE.name}'s second product, separate from Immvela, on its own
 domain. This is the summary as it appears on the SNS site.
@@ -104,38 +97,40 @@ domain. This is the summary as it appears on the SNS site.
 ${t.products.qfutool.tagline} ${t.products.qfutool.desc} ${t.products.qfutool.status}.`)
 
   // ── /blog ────────────────────────────────────────────────────────────────
-  // Every post's full text, so an answer engine can quote from a post — or
-  // answer a question its FAQ section covers — without a second fetch. English
-  // only, same reasoning as the rest of this file.
+  // A summary and a link per post, not the full text: the posts are the source, and an answer engine
+  // quotes them from their own pages.
   sections.push(
-    `## Blog — ${url('/blog')}
+    `## Blog: ${url('/blog')}
 
 Notes from SNS Solutions on the problems behind our products: Immvela for estate agents, and QFUtool for salespeople chasing quotes.
 
 ${sortedPosts()
   .map(
-    (post) => `### ${post.title} — ${url(`/blog/${post.slug}`)}
-
-*${post.eyebrow} · ${post.date}*
-
-${[...post.intro, ...post.sections.flatMap((s) => [`#### ${s.heading}`, ...(s.paragraphs ?? []), ...(s.bullets ?? []).map((b) => `- ${b}`)])].join('\n\n')}
-
-${post.faq.length ? `**FAQ**\n\n${post.faq.map((f) => `- **${f.q}** ${f.a}`).join('\n')}` : ''}`
+    (post) =>
+      `- [${post.title}](${url(`/blog/${post.slug}`)}), ${post.eyebrow}, ${post.date}: ${post.description}`
   )
-  .join('\n\n')}`
+  .join('\n')}`
   )
+
+  // ── /products ────────────────────────────────────────────────────────────
+  sections.push(`## Our products: ${url('/products')}
+
+${t.productsPage.line}
+
+- Immvela, ${t.products.immvela.audience.toLowerCase()}: ${t.productsPage.immvelaTagline} ${IMMVELA_URL}/
+- QFUtool, ${t.products.qfutool.audience.toLowerCase()}: ${t.products.qfutool.tagline} ${t.productsPage.qfutoolPrice} https://www.qfutool.com/`)
 
   // ── /team ────────────────────────────────────────────────────────────────
-  sections.push(`## Team — ${url('/team')}
+  sections.push(`## Team: ${url('/team')}
 
 ${t.teamPage.intro}
 
 ${Object.keys(founderRoles)
-  .map((name, i) => `#### ${name} — ${founderRoles[name]}\n\n${t.teamPage.bios[i]?.trim() ?? ''}`)
+  .map((name, i) => `#### ${name}, ${founderRoles[name]}\n\n${t.teamPage.bios[i]?.trim() ?? ''}`)
   .join('\n\n')}`)
 
   // ── /contact ─────────────────────────────────────────────────────────────
-  sections.push(`## Contact — ${url('/contact')}
+  sections.push(`## Contact: ${url('/contact')}
 
 ${t.contactPage.intro}
 

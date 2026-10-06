@@ -1,18 +1,18 @@
 import type { Metadata } from 'next'
+import { snsPage } from '@/lib/share'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = snsPage({
+  locale: 'de',
   title: 'Impressum',
   description:
     'Offenlegung (Impressum) der SNS Software Solutions GmbH gemäß §5 ECG und §25 MedienG.',
-  alternates: {
-    canonical: '/de/legal/imprint',
-    languages: {
-      en: '/legal/imprint',
-      de: '/de/legal/imprint',
-      'x-default': '/legal/imprint',
-    },
+  path: '/de/legal/imprint',
+  languages: {
+    en: '/legal/imprint',
+    de: '/de/legal/imprint',
+    'x-default': '/legal/imprint',
   },
-}
+})
 
 const UPDATED = '5. September 2026'
 

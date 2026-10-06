@@ -148,7 +148,10 @@ export const BLOG_POSTS: BlogPost[] = [
       href: IMMVELA_URL,
       external: true,
     },
-    related: ['immvela-one-record-real-estate-operating-system', 'ai-infrastructure-for-real-estate-agencies'],
+    related: [
+      'immvela-one-record-real-estate-operating-system',
+      'ai-infrastructure-for-real-estate-agencies',
+    ],
   },
   {
     slug: 'immvela-one-record-real-estate-operating-system',
@@ -373,7 +376,9 @@ export const BLOG_POSTS: BlogPost[] = [
           'Pro — €49 a month, 150 follow-ups, 5 seats.',
           'Business — by arrangement, unlimited follow-ups and seats.',
         ],
-        paragraphs: ['Prices as listed on qfutool.com at the time of writing; the site always has the current ones.'],
+        paragraphs: [
+          'Prices as listed on qfutool.com at the time of writing; the site always has the current ones.',
+        ],
       },
       {
         heading: 'Where the data lives',
@@ -489,7 +494,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "What 'AI Infrastructure' Actually Means for a Real Estate Agency",
     eyebrow: 'AI Infrastructure',
     description:
-      "Most 'AI for real estate' is a chatbot bolted onto the same fragmented tools. Real AI infrastructure is the data layer underneath it — here's what that means in practice.",
+      "Most 'AI for real estate' is a chatbot bolted onto the same fragmented tools. Real AI infrastructure is the data layer underneath it. Here's what that means in practice.",
     date: '2026-09-15',
     readTime: '9 min read',
     accent: 'indigo',

@@ -109,6 +109,15 @@ const IMMVELA_LEGAL_CANONICAL: Record<string, string> = {
 const IMMVELA_AGENT_FILES = new Set(['/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt'])
 
 /**
+ * The icons a browser asks for at the root without reading the page's <link> tags. On immvela.com they
+ * are Immvela's helix, not the SNS mark. Like the files above, each is also listed in `config.matcher`.
+ */
+const IMMVELA_ROOT_ICONS: Record<string, string> = {
+  '/favicon.ico': '/immvela/icons/favicon.ico',
+  '/apple-touch-icon.png': '/immvela/icons/apple-touch-icon.png',
+}
+
+/**
  * The retired /solutions section, as `old SNS path → path on immvela.com`.
  *
  * SNS used to sell two product lines — HVAC/SHK and real estate — from a shared
@@ -159,6 +168,12 @@ export function middleware(req: NextRequest) {
     if (IMMVELA_AGENT_FILES.has(pathname)) {
       const url = req.nextUrl.clone()
       url.pathname = `/immvela${pathname}`
+      return NextResponse.rewrite(url)
+    }
+    const icon = IMMVELA_ROOT_ICONS[pathname]
+    if (icon) {
+      const url = req.nextUrl.clone()
+      url.pathname = icon
       return NextResponse.rewrite(url)
     }
     // Ahead of the IMMVELA_PAGES rules: the legal documents, whose public
@@ -225,5 +240,8 @@ export const config = {
     '/sitemap.xml',
     '/llms.txt',
     '/llms-full.txt',
+    // Keep in step with IMMVELA_ROOT_ICONS.
+    '/favicon.ico',
+    '/apple-touch-icon.png',
   ],
 }

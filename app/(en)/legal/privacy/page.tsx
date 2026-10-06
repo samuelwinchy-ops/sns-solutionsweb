@@ -1,18 +1,18 @@
 import type { Metadata } from 'next'
+import { snsPage } from '@/lib/share'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = snsPage({
+  locale: 'en',
   title: 'Privacy Policy',
   description:
     'How SNS Software Solutions GmbH processes personal data on its websites and in the Immvela platform, in accordance with the EU General Data Protection Regulation (GDPR).',
-  alternates: {
-    canonical: '/legal/privacy',
-    languages: {
-      en: '/legal/privacy',
-      de: '/de/legal/privacy',
-      'x-default': '/legal/privacy',
-    },
+  path: '/legal/privacy',
+  languages: {
+    en: '/legal/privacy',
+    de: '/de/legal/privacy',
+    'x-default': '/legal/privacy',
   },
-}
+})
 
 const UPDATED = 'September 15, 2026'
 

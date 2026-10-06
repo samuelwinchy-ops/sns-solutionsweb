@@ -6,13 +6,15 @@ import BlogPostCard, { BlogArrowIcon } from '@/components/BlogPostCard'
 import { blogIndexGraph } from '@/lib/schema'
 import { sortedPosts } from '@/lib/blog'
 import { IMMVELA_URL } from '@/lib/site'
+import { snsPage } from '@/lib/share'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = snsPage({
+  locale: 'en',
   title: 'Blog',
   description:
     'Notes from SNS Solutions on the problems behind our products: Immvela for estate agents, and QFUtool for salespeople chasing quotes.',
-  alternates: { canonical: '/blog' },
-}
+  path: '/blog',
+})
 
 // The blog is filed by product, the way a parent company's newsroom is: each
 // post belongs to exactly one of them (`product` in lib/blog.ts), and the

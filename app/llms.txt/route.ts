@@ -1,5 +1,5 @@
 import { getDict } from '@/i18n'
-import { IMMVELA_URL, SITE, SITE_URL } from '@/lib/site'
+import { IMMVELA_DESCRIPTION, IMMVELA_URL, SITE, SITE_URL } from '@/lib/site'
 import { sortedPosts } from '@/lib/blog'
 
 /**
@@ -21,18 +21,15 @@ export function GET() {
 
   const url = (p = '') => `${SITE_URL}${p}`
 
-  // "Name — tagline" for each of the three service lines.
+  // "Name (tagline)" for each of the three service lines.
   const services = t.servicesPage.items
     .map((s) => `${s.name} (${s.tagline.replace(/\.$/, '')})`)
     .join('; ')
 
-  const immvelaLive = t.waitlistPage.modules
-    .filter((m) => m.status === 'active')
-    .map((m) => `${m.name} (${m.code})`)
-    .join(', ')
-
   const posts = sortedPosts()
-  const blogList = posts.map((p) => `  - [${p.title}](${url(`/blog/${p.slug}`)}): ${p.description}`).join('\n')
+  const blogList = posts
+    .map((p) => `  - [${p.title}](${url(`/blog/${p.slug}`)}): ${p.description}`)
+    .join('\n')
 
   const body = `# ${SITE.name}
 
@@ -42,8 +39,8 @@ ${SITE.legalName} is based in Vienna, Austria (${SITE.address.streetAddress}, ${
 
 SNS Solutions is the parent company of two separate products, each on its own domain:
 
-- Immvela — software for estate agents that drafts listings, Exposés and social posts from checked property facts: ${IMMVELA_URL}/ (${immvelaLive} live today).
-- QFUtool — automated follow-up on sent quotes for salespeople, sending from their own domain during working hours: https://www.qfutool.com/
+- Immvela, ${IMMVELA_URL}/: ${t.productsPage.immvelaTagline} ${IMMVELA_DESCRIPTION}
+- QFUtool: automated follow-up on sent quotes for salespeople, sending from their own domain during working hours. https://www.qfutool.com/
 
 We also offer a free 30-minute consultation and custom software work.
 
@@ -53,9 +50,10 @@ Contact: ${SITE.email}, ${SITE.phone}. ${t.contactPage.details.response}: ${t.co
 
 ## Pages
 
-- [Home](${url('/')}): what SNS Solutions is, its two products, and the consultation offer. [Deutsch](${url('/de')}).
-- [Services](${url('/services')}): the three service lines in detail — the problem each solves, what we do, and what you get. Includes a free 30-minute consultation offer. [Deutsch](${url('/de/services')}).
-- [Immvela](${IMMVELA_URL}/): our product for estate agents, on its own domain, with its own ${IMMVELA_URL}/llms.txt and module-by-module build status.
+- [Home](${url('/')}): what SNS Solutions is, its two products, news and updates, and the consultation offer. [Deutsch](${url('/de')}).
+- [Our products](${url('/products')}): Immvela and QFUtool side by side, each with a link to its own site. [Deutsch](${url('/de/products')}).
+- [Services](${url('/services')}): the three service lines in detail: the problem each solves, what we do, and what you get. Includes a free 30-minute consultation offer. [Deutsch](${url('/de/services')}).
+- [Immvela](${IMMVELA_URL}/): our product for estate agents, on its own domain, with its own ${IMMVELA_URL}/llms.txt.
 - [QFUtool](https://www.qfutool.com/): our quote follow-up product for salespeople, on its own domain.
 - [Team](${url('/team')}): the three founders and what each of them leads. [Deutsch](${url('/de/team')}).
 - [Contact](${url('/contact')}): email, phone, and the inquiry form. [Deutsch](${url('/de/contact')}).
@@ -66,7 +64,7 @@ ${blogList}
 
 - [Full site text](${url('/llms-full.txt')}): every page's content in one Markdown file.
 - [Imprint](${url('/legal/imprint')}) · [Privacy](${url('/legal/privacy')}) · [Terms](${url('/legal/terms')})
-- German equivalents of every page above are at ${url('/de')}… — for example ${url('/de/services')} is "${de.servicesPage.heading}".
+- German equivalents of every page above are at ${url('/de')}…, for example ${url('/de/services')} is "${de.servicesPage.heading}".
 `
 
   return new Response(body, {

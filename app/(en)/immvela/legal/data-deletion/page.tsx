@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { IMMVELA_URL } from '@/lib/site'
+import { IMMVELA_ICONS, immvelaImages } from '@/lib/share'
 
 /**
  * Immvela's data-deletion instructions, served at
@@ -93,7 +94,7 @@ import { IMMVELA_URL } from '@/lib/site'
  */
 
 export const metadata: Metadata = {
-  title: { absolute: 'Datenlöschung / Data deletion — Immvela' },
+  title: { absolute: 'Datenlöschung / Data deletion · Immvela' },
   description:
     'Wie Sie in Immvela gespeicherte Plattformdaten löschen. How to delete platform data stored in Immvela.',
   alternates: {
@@ -103,6 +104,26 @@ export const metadata: Metadata = {
       en: `${IMMVELA_URL}/legal/data-deletion`,
       'x-default': `${IMMVELA_URL}/legal/data-deletion`,
     },
+  },
+  applicationName: 'Immvela',
+  manifest: '/immvela.webmanifest',
+  icons: IMMVELA_ICONS,
+  openGraph: {
+    type: 'website',
+    locale: 'de_AT',
+    siteName: 'Immvela',
+    url: `${IMMVELA_URL}/legal/data-deletion`,
+    title: 'Datenlöschung / Data deletion · Immvela',
+    description:
+      'Wie Sie in Immvela gespeicherte Plattformdaten löschen. How to delete platform data stored in Immvela.',
+    images: immvelaImages('de').og,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Datenlöschung / Data deletion · Immvela',
+    description:
+      'Wie Sie in Immvela gespeicherte Plattformdaten löschen. How to delete platform data stored in Immvela.',
+    images: immvelaImages('de').twitter,
   },
 }
 

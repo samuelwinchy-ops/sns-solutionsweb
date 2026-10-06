@@ -1,17 +1,17 @@
 import type { Metadata } from 'next'
+import { snsPage } from '@/lib/share'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = snsPage({
+  locale: 'de',
   title: 'Nutzungsbedingungen',
   description: 'Die Bedingungen für die Nutzung der Website der SNS Software Solutions GmbH',
-  alternates: {
-    canonical: '/de/legal/terms',
-    languages: {
-      en: '/legal/terms',
-      de: '/de/legal/terms',
-      'x-default': '/legal/terms',
-    },
+  path: '/de/legal/terms',
+  languages: {
+    en: '/legal/terms',
+    de: '/de/legal/terms',
+    'x-default': '/legal/terms',
   },
-}
+})
 
 const UPDATED = '15. September 2026'
 

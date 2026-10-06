@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { IMMVELA_ICONS, immvelaImages } from '@/lib/share'
 import ImmvelaFrame from '@/components/immvela/ImmvelaFrame'
 import ImmvelaHome from '@/components/immvela/ImmvelaHome'
 import { IMMVELA_URL, SITE_URL } from '@/lib/site'
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'SNS Software Solutions GmbH', url: SITE_URL }],
   // See app/immvela/page.tsx — the root layout's manifest is SNS-branded.
   manifest: '/immvela.webmanifest',
+  icons: IMMVELA_ICONS,
   // Served from immvela.com — absolute canonical + language alternates.
   alternates: {
     canonical: `${IMMVELA_URL}/de`,
@@ -44,14 +46,14 @@ export const metadata: Metadata = {
       'Unterlagen rein, ein geprüftes Inserat raus. Jede Zahl im Exposé bis zum Dokument zurückverfolgt. Jetzt für die geschlossene Beta bewerben.',
     url: `${IMMVELA_URL}/de`,
     // See app/immvela/page.tsx — no Immvela-specific image yet, reusing SNS's.
-    images: [{ url: `${SITE_URL}/og.png`, width: 1200, height: 630, alt: 'Immvela' }],
+    images: immvelaImages('de').og,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Immvela · Ihr persönlicher Immobilien-Assistent',
     description:
       'Unterlagen rein, ein geprüftes Inserat raus. Jede Zahl im Exposé bis zum Dokument zurückverfolgt. Jetzt für die geschlossene Beta bewerben.',
-    images: [`${SITE_URL}/og.png`],
+    images: immvelaImages('de').twitter,
   },
 }
 
