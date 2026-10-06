@@ -65,10 +65,10 @@ export default function LogoHero({ locale = defaultLocale }: { locale?: Locale }
   const t = dict.home
   const products = localePath(locale, '/products')
 
-  const [paused, setPaused] = useState(false)
-  const [reduced, setReduced] = useState(false)
+  const [paused] = useState(false)
   const pausedRef = useRef(false)
   const syncRef = useRef<() => void>(() => {})
+  const jumpRef = useRef<(slide: 0 | 1) => void>(() => {})
   const section = useRef<HTMLElement>(null)
   const [onImmvela, setOnImmvela] = useState(true)
   const slideA = useRef<HTMLDivElement>(null)
@@ -136,8 +136,8 @@ export default function LogoHero({ locale = defaultLocale }: { locale?: Locale }
     }
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setReduced(true)
       frame(0)
+      jumpRef.current = (slide) => frame(slide === 0 ? 0 : SLIDE + SLIDE / 2)
       return
     }
     let T = 0
@@ -165,6 +165,13 @@ export default function LogoHero({ locale = defaultLocale }: { locale?: Locale }
       }
     }
     syncRef.current = sync
+    // Jump to the start of a slide; the frame logic then cross-fades into it and replays the dial's rev.
+    jumpRef.current = (slide) => {
+      const c = T % (2 * SLIDE)
+      if (c < SLIDE === (slide === 0)) return
+      T = T - c + (slide === 0 ? 2 * SLIDE : SLIDE)
+      frame(T)
+    }
     frame(0)
     const seen =
       typeof IntersectionObserver === 'undefined' || !section.current
@@ -182,6 +189,7 @@ export default function LogoHero({ locale = defaultLocale }: { locale?: Locale }
     sync()
     return () => {
       syncRef.current = () => {}
+      jumpRef.current = () => {}
       cancelAnimationFrame(id)
       seen?.disconnect()
       document.removeEventListener('visibilitychange', onVis)
@@ -295,48 +303,28 @@ export default function LogoHero({ locale = defaultLocale }: { locale?: Locale }
       </div>
 
       <div className="hm-cap">
-        <a href={`${products}#immvela`} data-active={onImmvela ? '' : undefined}>
+        <button
+          type="button"
+          className="hm-tab"
+          aria-pressed={onImmvela}
+          onClick={() => jumpRef.current(0)}
+        >
           Immvela
           <span className="hm-bar">
             <i ref={barA} />
           </span>
-        </a>
-        <a href={`${products}#qfutool`} data-active={onImmvela ? undefined : ''}>
+        </button>
+        <button
+          type="button"
+          className="hm-tab"
+          aria-pressed={!onImmvela}
+          onClick={() => jumpRef.current(1)}
+        >
           QFUtool
           <span className="hm-bar">
             <i ref={barB} />
           </span>
-        </a>
-        {!reduced && (
-          <button
-            type="button"
-            onClick={() => setPaused((p) => !p)}
-            aria-label={paused ? t.play : t.pause}
-          >
-            {paused ? (
-              <svg
-                width="12"
-                height="14"
-                viewBox="0 0 12 14"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M2 1.2 11 7 2 12.8Z" />
-              </svg>
-            ) : (
-              <svg
-                width="12"
-                height="14"
-                viewBox="0 0 12 14"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <rect x="1" y="1" width="3.4" height="12" rx="1" />
-                <rect x="7.6" y="1" width="3.4" height="12" rx="1" />
-              </svg>
-            )}
-          </button>
-        )}
+        </button>
       </div>
     </section>
   )
