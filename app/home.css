@@ -212,43 +212,94 @@
   outline-offset: 3px;
 }
 
-/* Phone and small tablet: one composed screen. The mark is centred in the space between the nav and the
-   headline (--hm-fg-h is measured by LogoHero), and the shade deepens smoothly under the text. */
+/* Phone and small tablet: the hero is one grid in normal flow, so the mark, the headline, the button and the
+   caption cannot overlap. Rows: the nav's space, the mark (both slides share this cell and cross-fade), the
+   headline with its button, the caption. The mark row is never shorter than its content, so on a short screen
+   the hero grows instead of anything colliding; svh only sets how big the mark is, never where things go. */
 @media (max-width: 860px) {
-  .hm-logo {
-    left: 0;
-    right: 0;
-    top: 64px;
-    bottom: var(--hm-fg-h, 340px);
-    translate: 0 0;
+  .hm-bb {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 64px 1fr auto auto;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    max-height: none;
+    isolation: isolate;
+  }
+  .hm-slide {
+    position: static;
+    grid-row: 2;
+    grid-column: 1;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    --d: min(64vw, 280px, calc(100svh - var(--hm-fg-h, 340px) - 190px));
+    padding: 8px 0 18px;
+  }
+  /* the slide's colour fills the whole hero from behind, from a layer positioned on the section */
+  .hm-s-imv,
+  .hm-s-qfu {
+    background: none;
+  }
+  .hm-slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  .hm-s-imv::before {
+    background:
+      radial-gradient(70% 70% at 70% 45%, rgba(76, 193, 150, 0.22), transparent 70%),
+      linear-gradient(180deg, #16463a 0%, #0c2e25 100%);
+  }
+  .hm-s-qfu::before {
+    background: radial-gradient(90% 90% at 70% 45%, #35586b 0%, #223844 46%, #132029 100%);
+  }
+  .hm-logo {
+    position: static;
+    translate: none;
+    --d: min(64vw, 280px, 30vh);
   }
   .hm-shade {
     background: linear-gradient(
       0deg,
       rgba(6, 16, 18, 0.72) 0%,
-      rgba(6, 16, 18, 0.5) calc(var(--hm-fg-h, 340px) - 60px),
-      rgba(6, 16, 18, 0) calc(var(--hm-fg-h, 340px) + 140px)
+      rgba(6, 16, 18, 0.45) 26%,
+      rgba(6, 16, 18, 0) 44%
     );
   }
   .hm-fg {
+    position: relative;
+    grid-row: 3;
+    grid-column: 1;
     top: auto;
-    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    left: auto;
     transform: none;
     max-width: none;
-    right: var(--hm-gutter);
+    margin: 0 var(--hm-gutter) 26px;
   }
   .hm-go {
     margin-top: 24px;
   }
   .hm-cap {
-    right: var(--hm-gutter);
-    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    position: relative;
+    grid-row: 4;
+    grid-column: 1;
+    left: auto;
+    bottom: auto;
+    margin: 0 var(--hm-gutter);
+    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
     gap: 18px;
   }
   .hm-cap button {
     margin-left: auto;
+  }
+}
+@supports (height: 1svh) {
+  @media (max-width: 860px) {
+    .hm-logo {
+      --d: min(64vw, 280px, 30svh);
+    }
   }
 }
 
