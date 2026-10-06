@@ -90,7 +90,7 @@ export default function Nav({
         <a
           href={home}
           aria-label="SNS Solutions — home"
-          className="group flex min-w-0 items-center gap-3"
+          className="group flex min-w-0 items-center gap-3 max-md:min-h-11"
           onClick={() => setOpen(false)}
         >
           <span className="relative shrink-0">
@@ -194,6 +194,19 @@ export default function Nav({
           className="absolute inset-x-0 top-full border-b border-sns-border bg-white px-5 pb-5 pt-2 shadow-[0_12px_24px_-16px_rgba(11,15,34,0.25)] md:hidden"
         >
           <div className="mx-auto flex max-w-6xl flex-col">
+            {/* Phones get the products overview first; on desktop the hero's button leads there. */}
+            <a
+              href={localePath(locale, '/products')}
+              onClick={() => setOpen(false)}
+              aria-current={isActive(localePath(locale, '/products')) ? 'true' : undefined}
+              className={`flex min-h-11 items-center gap-2 rounded-sns px-3 text-base transition-colors duration-150 ${
+                isActive(localePath(locale, '/products'))
+                  ? 'font-medium text-sns-text'
+                  : 'text-sns-muted hover:bg-sns-text/[0.05] hover:text-sns-text'
+              }`}
+            >
+              {t.products}
+            </a>
             {links.map((link) => {
               const active = isActive(link.href)
               return (

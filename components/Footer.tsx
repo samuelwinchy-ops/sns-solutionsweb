@@ -91,7 +91,10 @@ export default function Footer({
     ]
 
   return (
-    <footer id="contact" className="relative scroll-mt-24 px-5 pb-12 pt-16 md:px-10">
+    <footer
+      id="contact"
+      className="relative scroll-mt-24 px-5 pb-8 pt-10 md:px-10 md:pb-12 md:pt-16"
+    >
       <div className="mx-auto w-full max-w-6xl 2xl:max-w-7xl">
         {showCta && (
           <div className="sns-card p-6 md:p-12">
@@ -169,20 +172,23 @@ export default function Footer({
             we are, the legal pages, then the company line. Every product is one
             click from every page. */}
         <div
-          className={`${showCta ? 'mt-16' : 'mt-2'} grid grid-cols-2 gap-8 border-t border-sns-border pt-12 md:grid-cols-4`}
+          className={`${showCta ? 'mt-16' : 'mt-2'} grid grid-cols-2 gap-x-8 gap-y-5 border-t border-sns-border pt-8 md:grid-cols-4 md:gap-8 md:pt-12`}
         >
-          <div className="col-span-2 md:col-span-1">
-            <p className="flex items-center gap-2.5 text-[15px] font-bold text-sns-text">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/sns-logo.svg" alt="" width={28} height={28} className="h-7 w-7" />
-              SNS Solutions
-            </p>
-            <p className="mt-2 max-w-xs text-sm leading-relaxed text-sns-muted">
-              SNS Software Solutions GmbH
-              <br />
-              Vienna, Austria
-            </p>
-            <div className="-ml-3 mt-3 flex items-center">
+          {/* On a phone: the brand with its links on one line, two link columns, legal in one row. */}
+          <div className="col-span-2 flex items-start justify-between md:col-span-1 md:block">
+            <div>
+              <p className="flex items-center gap-2.5 text-[15px] font-bold text-sns-text">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/sns-logo.svg" alt="" width={28} height={28} className="h-7 w-7" />
+                SNS Solutions
+              </p>
+              <p className="mt-2 max-w-xs text-base leading-relaxed text-sns-muted md:text-sm md:leading-relaxed">
+                SNS Software Solutions GmbH
+                <br />
+                Vienna, Austria
+              </p>
+            </div>
+            <div className="-mr-3 flex items-center md:-ml-3 md:mr-0 md:mt-3">
               {(Object.keys(SOCIALS) as (keyof typeof SOCIALS)[]).map((key) => (
                 <a
                   key={key}
@@ -198,8 +204,12 @@ export default function Footer({
             </div>
           </div>
 
-          {columns.map((col) => (
-            <nav key={col.title} aria-label={col.title}>
+          {columns.map((col, i) => (
+            <nav
+              key={col.title}
+              aria-label={col.title}
+              className={i === columns.length - 1 ? 'hidden md:block' : undefined}
+            >
               <p className="text-sm font-semibold text-sns-text">{col.title}</p>
               <ul className="mt-2">
                 {col.links.map((l) => (
@@ -209,14 +219,14 @@ export default function Footer({
                         href={l.href}
                         target="_blank"
                         rel="noopener"
-                        className="inline-flex min-h-11 items-center text-sm text-sns-muted transition-colors duration-150 hover:text-sns-text"
+                        className="inline-flex min-h-11 items-center text-base text-sns-muted transition-colors duration-150 hover:text-sns-text max-md:min-w-11 md:text-sm"
                       >
                         {l.label}
                       </a>
                     ) : (
                       <Link
                         href={l.href}
-                        className="inline-flex min-h-11 items-center text-sm text-sns-muted transition-colors duration-150 hover:text-sns-text"
+                        className="inline-flex min-h-11 items-center text-base text-sns-muted transition-colors duration-150 hover:text-sns-text max-md:min-w-11 md:text-sm"
                       >
                         {l.label}
                       </Link>
@@ -228,7 +238,21 @@ export default function Footer({
           ))}
         </div>
 
-        <p className="mt-8 border-t border-sns-border pt-6 text-sm text-sns-faint">
+        <nav
+          aria-label={t.cols.legal}
+          className="mt-4 flex flex-wrap gap-x-6 border-t border-sns-border pt-2 md:hidden"
+        >
+          {columns[columns.length - 1].links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="inline-flex min-h-11 items-center text-base text-sns-muted transition-colors duration-150 hover:text-sns-text max-md:min-w-11 md:text-sm"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+        <p className="mt-2 border-t-0 border-sns-border pt-2 text-sm text-sns-faint md:mt-8 md:border-t md:pt-6">
           © 2026 SNS Software Solutions GmbH
         </p>
       </div>

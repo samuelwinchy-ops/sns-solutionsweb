@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from 'react'
 import { getDict } from '@/i18n'
 import { type Locale, defaultLocale, immvelaHref } from '@/i18n/config'
 import { sortedPosts, type BlogProduct } from '@/lib/blog'
+import SwipeRow from './SwipeRow'
 
 /*
  * News and updates, set like a magazine page: the newest item as the lead, the blog posts beside it.
@@ -139,8 +140,8 @@ export default function LatestNews({ locale = defaultLocale }: { locale?: Locale
         </h2>
         {t.articlesInEnglish && <p className="hm-news-note">{t.articlesInEnglish}</p>}
       </div>
-      <ul className="hm-grid">
-        <li>
+      <div className="hm-grid">
+        <div className="hm-lead">
           <a className="hm-card" href={immvelaHref(locale)}>
             <span className="hm-cov hm-devices" role="img" aria-label={t.updateAlt}>
               <span className="hm-lap">
@@ -171,26 +172,35 @@ export default function LatestNews({ locale = defaultLocale }: { locale?: Locale
               </span>
             </span>
           </a>
-        </li>
-        {sortedPosts().map((post) => (
-          <li key={post.slug}>
-            <a className="hm-card" href={`/blog/${post.slug}`} hrefLang="en">
-              <span className="hm-cov" style={{ containerType: 'inline-size' }}>
-                <TypeCover slug={post.slug} title={post.title} />
-              </span>
-              <span className="hm-cb">
-                <span className={`hm-tag ${TAG[post.product].cls}`}>{TAG[post.product].label}</span>
-                <span className="hm-ct" lang="en">
-                  {post.title}
+        </div>
+        <SwipeRow
+          label={t.moreStories}
+          count={sortedPosts().length}
+          prev={t.prevStories}
+          next={t.nextStories}
+        >
+          {sortedPosts().map((post) => (
+            <li key={post.slug}>
+              <a className="hm-card" href={`/blog/${post.slug}`} hrefLang="en">
+                <span className="hm-cov" style={{ containerType: 'inline-size' }}>
+                  <TypeCover slug={post.slug} title={post.title} />
                 </span>
-                <span className="hm-cd">
-                  <time dateTime={post.date}>{date(post.date)}</time>
+                <span className="hm-cb">
+                  <span className={`hm-tag ${TAG[post.product].cls}`}>
+                    {TAG[post.product].label}
+                  </span>
+                  <span className="hm-ct" lang="en">
+                    {post.title}
+                  </span>
+                  <span className="hm-cd">
+                    <time dateTime={post.date}>{date(post.date)}</time>
+                  </span>
                 </span>
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
+              </a>
+            </li>
+          ))}
+        </SwipeRow>
+      </div>
     </section>
   )
 }

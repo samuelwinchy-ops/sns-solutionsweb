@@ -212,31 +212,39 @@
   outline-offset: 3px;
 }
 
+/* Phone and small tablet: one composed screen. The mark is centred in the space between the nav and the
+   headline (--hm-fg-h is measured by LogoHero), and the shade deepens smoothly under the text. */
 @media (max-width: 860px) {
   .hm-logo {
     left: 0;
     right: 0;
     top: 64px;
+    bottom: var(--hm-fg-h, 340px);
     translate: 0 0;
-    --d: min(52vw, 220px, 30vh);
+    justify-content: center;
+    --d: min(64vw, 280px, calc(100svh - var(--hm-fg-h, 340px) - 190px));
   }
   .hm-shade {
     background: linear-gradient(
       0deg,
-      rgba(6, 16, 18, 0.9) 0%,
-      rgba(6, 16, 18, 0.82) 40%,
-      rgba(6, 16, 18, 0) 47%
+      rgba(6, 16, 18, 0.72) 0%,
+      rgba(6, 16, 18, 0.5) calc(var(--hm-fg-h, 340px) - 60px),
+      rgba(6, 16, 18, 0) calc(var(--hm-fg-h, 340px) + 140px)
     );
   }
   .hm-fg {
     top: auto;
-    bottom: 96px;
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
     transform: none;
     max-width: none;
     right: var(--hm-gutter);
   }
+  .hm-go {
+    margin-top: 24px;
+  }
   .hm-cap {
     right: var(--hm-gutter);
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
     gap: 18px;
   }
   .hm-cap button {
@@ -371,8 +379,8 @@
 .hm-track {
   display: flex;
   align-items: center;
-  gap: var(--mq-gap, 56px);
-  padding: 0 var(--mq-gap, 56px) 0 0;
+  gap: var(--mq-gap, var(--mq-base, 56px));
+  padding: 0 var(--mq-gap, var(--mq-base, 56px)) 0 0;
   margin: 0;
   list-style: none;
   flex: none;
@@ -416,6 +424,14 @@
 .hm-mq-toggle:focus-visible {
   outline: 2px solid var(--hm-blue);
   outline-offset: 3px;
+}
+@keyframes hm-nudge {
+  35% {
+    transform: translateX(-26px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 @keyframes hm-mq {
   to {
@@ -485,11 +501,19 @@
   display: grid;
   grid-template-columns: 1.7fr 1fr 1fr;
   gap: 0 36px;
-  list-style: none;
   margin: 0;
   padding: 0;
 }
-.hm-grid > li:first-child {
+.hm-rest,
+.hm-swipe {
+  display: contents;
+  list-style: none;
+}
+.hm-swipe-head,
+.hm-dots {
+  display: none;
+}
+.hm-lead {
   grid-row: span 3;
 }
 .hm-card {
@@ -500,7 +524,7 @@
   border-top: 1px solid rgba(11, 31, 68, 0.25);
   color: var(--hm-ink);
 }
-.hm-grid > li:first-child .hm-card {
+.hm-lead .hm-card {
   flex-direction: column;
   gap: 18px;
   border-top: 0;
@@ -515,7 +539,7 @@
   border-radius: 6px;
   align-self: flex-start;
 }
-.hm-grid > li:first-child .hm-cov {
+.hm-lead .hm-cov {
   width: 100%;
   aspect-ratio: 4 / 3;
   box-shadow: 0 24px 50px -34px rgba(11, 31, 68, 0.45);
@@ -649,7 +673,7 @@
   font-size: 18px;
   line-height: 1.25;
 }
-.hm-grid > li:first-child .hm-ct {
+.hm-lead .hm-ct {
   font-size: clamp(26px, 2.5vw, 38px);
   line-height: 1.1;
   letter-spacing: -0.015em;
@@ -956,7 +980,7 @@
   .hm-grid {
     grid-template-columns: 1fr 1fr;
   }
-  .hm-grid > li:first-child {
+  .hm-lead {
     grid-row: auto;
     grid-column: 1 / -1;
   }
@@ -978,15 +1002,276 @@
     padding: 0 20px;
   }
 }
+/* ── phone ───────────────────────────────────────────────────────────────── */
 @media (max-width: 600px) {
+  /* integrations: no panel, a full-bleed row of larger marks set closer together */
+  .hm-integ {
+    margin: 44px 0 0;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .hm-integ-head {
+    padding: 0 var(--hm-gutter);
+    margin-bottom: 14px;
+  }
+  .hm-mq {
+    --mq-base: 14px;
+    padding: 4px 0 10px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  }
+  .hm-tile {
+    height: 58px;
+    min-width: 58px;
+  }
+  .hm-tile img {
+    height: 30px;
+  }
+
+  /* news: the lead story edge to edge, the rest a row of cards to swipe */
+  .hm-news {
+    padding-top: 56px;
+  }
+  .hm-news-head {
+    margin-bottom: 22px;
+  }
   .hm-grid {
+    display: block;
+  }
+  .hm-lead .hm-cov {
+    width: calc(100% + 2 * var(--hm-gutter));
+    margin: 0 calc(-1 * var(--hm-gutter));
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .hm-lead .hm-ct {
+    font-size: 28px;
+  }
+  .hm-swipe {
+    display: block;
+    margin-top: 34px;
+  }
+  .hm-swipe-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .hm-swipe-head .hm-eyebrow {
+    margin: 0;
+    font-size: 16px;
+  }
+  .hm-swipe-count {
+    color: var(--hm-muted);
+    font-weight: 500;
+  }
+  .hm-swipe-nav {
+    display: flex;
+    gap: 8px;
+  }
+  .hm-swipe-nav button {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid rgba(11, 31, 68, 0.28);
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--hm-ink);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  .hm-swipe-nav button.is-end {
+    opacity: 0.35;
+  }
+  .hm-swipe-nav button:focus-visible {
+    outline: 2px solid var(--hm-blue);
+    outline-offset: 2px;
+  }
+  .hm-rest {
+    display: flex;
+    gap: 14px;
+    margin: 0 calc(-1 * var(--hm-gutter));
+    padding: 6px var(--hm-gutter) 22px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 var(--hm-gutter);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .hm-rest::-webkit-scrollbar {
+    display: none;
+  }
+  /* about a fifth of the next card shows, so the row reads as more to come */
+  .hm-rest > li {
+    flex: 0 0 72vw;
+    scroll-snap-align: start;
+  }
+  .hm-rest .hm-card {
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    border-top: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow:
+      0 0 0 1px rgba(11, 31, 68, 0.08),
+      0 14px 28px -18px rgba(11, 31, 68, 0.5);
+  }
+  .hm-rest .hm-cov {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 0;
+  }
+  .hm-rest .hm-cb {
+    flex: 1;
+    padding: 14px 16px 16px;
+  }
+  .hm-rest .hm-ct {
+    font-size: 19px;
+  }
+  .hm-rest .hm-cd {
+    margin-top: 10px;
+  }
+  .hm-rest.is-nudge > li {
+    animation: hm-nudge 1.1s ease-in-out 0.25s 1;
+  }
+  .hm-dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 2px;
+  }
+  .hm-dots i {
+    width: 7px;
+    height: 7px;
+    border-radius: 4px;
+    background: rgba(11, 31, 68, 0.25);
+    transition:
+      width 0.25s ease,
+      background 0.25s ease;
+  }
+  .hm-dots i.is-on {
+    width: 22px;
+    background: var(--hm-ink);
+  }
+
+  /* the colour light, placed where a phone actually shows it */
+  .hm-orb {
+    width: 440px;
+    height: 440px;
+    filter: blur(56px);
+  }
+  .hm-o1 {
+    right: -210px;
+    left: auto;
+    top: -40px;
+  }
+  .hm-o2 {
+    left: -220px;
+    right: auto;
+    top: 700px;
+  }
+  .hm-o3 {
+    right: -200px;
+    left: auto;
+    top: 1720px;
+  }
+  .hm-o4 {
+    left: -200px;
+    right: auto;
+    top: auto;
+    bottom: 520px;
+  }
+  /* products is short: its top light sits behind the two product boxes, not behind the subline */
+  .hm-ground:has(.hm-products) .hm-o1 {
+    top: 360px;
+  }
+
+  /* consulting: a tighter rhythm, the four steps as a 2 x 2 */
+  .hm-consult {
+    margin-top: 48px;
+    padding: 32px 20px 30px;
+  }
+  .hm-consult-sub {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .hm-steps {
+    margin-top: 24px;
+    gap: 18px 16px;
+  }
+  .hm-steps li {
+    padding-top: 10px;
+  }
+  .hm-steps b {
+    display: block;
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  .hm-steps b span {
+    display: block;
+    margin: 0 0 2px;
+  }
+  .hm-steps p {
+    margin-top: 4px;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+  .hm-consult-cta {
+    margin-top: 26px;
+  }
+  .hm-after {
+    height: 24px;
+  }
+
+  /* products: a plain heading on the ground, no box, and no empty band before the footer */
+  .hm-products {
+    padding: 92px var(--hm-gutter) 8px;
+  }
+  .hm-products-head {
+    padding: 0 2px;
+    margin-bottom: 22px;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .hm-products-head h1 {
+    font-size: 44px;
+  }
+  .hm-products-head p {
+    font-size: 17px;
+  }
+  .hm-half {
+    padding: 26px 22px 28px;
+    border-radius: 22px;
+  }
+  .hm-more {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .hm-price,
+  .hm-news-note {
+    font-size: 16px;
+  }
+}
+@media (max-width: 359px) {
+  .hm-steps {
     grid-template-columns: 1fr;
   }
 }
 @media (max-width: 480px) {
-  .hm-steps {
-    grid-template-columns: 1fr;
-  }
   /* small enough that German compounds fit whole; hyphenation stays only as the last resort */
   .hm-consult .hm-h2 {
     font-size: clamp(1.8rem, 9.4vw, 2.6rem);
@@ -1016,6 +1301,26 @@
   }
   .hm-track[aria-hidden='true'] {
     display: none;
+  }
+  .hm-rest.is-nudge > li {
+    animation: none;
+  }
+}
+/* On a phone the still marks stay one row to swipe, rather than wrapping into a tall block. */
+@media (prefers-reduced-motion: reduce) and (max-width: 600px) {
+  .hm-mq {
+    overflow-x: auto;
+    justify-content: flex-start;
+    scrollbar-width: none;
+  }
+  .hm-mq::-webkit-scrollbar {
+    display: none;
+  }
+  .hm-track {
+    flex: none;
+    flex-wrap: nowrap;
+    padding: 0 var(--hm-gutter);
+    --mq-gap: 14px;
   }
 }
 

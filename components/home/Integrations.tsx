@@ -53,12 +53,13 @@ export default function Integrations({ locale = defaultLocale }: { locale?: Loca
       const first = tracks[0]
       if (!first) return
       tracks.forEach((x) => x.style.removeProperty('--mq-gap'))
+      const baseGap = parseFloat(getComputedStyle(el).getPropertyValue('--mq-base')) || BASE_GAP
       const items = first.children.length
       const widest = Math.max(
         ...Array.from(first.children).map((c) => c.getBoundingClientRect().width)
       )
-      const base = first.getBoundingClientRect().width - BASE_GAP * items
-      const gap = Math.max(BASE_GAP, Math.ceil((window.innerWidth + widest + 40 - base) / items))
+      const base = first.getBoundingClientRect().width - baseGap * items
+      const gap = Math.max(baseGap, Math.ceil((window.innerWidth + widest + 40 - base) / items))
       tracks.forEach((x) => {
         x.style.setProperty('--mq-gap', `${gap}px`)
         x.style.setProperty('--mq-dur', `${Math.round((base + gap * items) / 40)}s`)
