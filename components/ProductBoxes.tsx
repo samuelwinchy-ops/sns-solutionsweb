@@ -58,7 +58,7 @@ export default function ProductBoxes({ locale = defaultLocale }: { locale?: Loca
           <div className="hm-ctas">
             <a
               className="hm-btn hm-btn-qfu"
-              href={`${QFUTOOL_URL}/login`}
+              href={locale === 'de' ? `${QFUTOOL_URL}/de/pricing` : `${QFUTOOL_URL}/pricing`}
               target="_blank"
               rel="noopener"
             >
