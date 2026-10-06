@@ -90,7 +90,7 @@ export default function Nav({
         <a
           href={home}
           aria-label="SNS Solutions — home"
-          className="group flex min-w-0 items-center gap-3"
+          className="group flex min-w-0 items-center gap-3 max-md:min-h-11"
           onClick={() => setOpen(false)}
         >
           <span className="relative shrink-0">
