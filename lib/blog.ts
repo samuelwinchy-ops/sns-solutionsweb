@@ -86,31 +86,31 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: 'Where the fragmentation actually lives',
         paragraphs: [
-          'Follow one listing through its life and you can watch the same handful of facts get re-typed at every handoff. The property’s technical details — floor area, year of construction, energy certificate values — go from the PDF a seller hands over, into whatever the agent uses to draft the listing, and into the portal separately. A lead’s contact details go from a capture form, into a CRM if one exists, and into an agent’s own notes app if it doesn’t. Deal terms get negotiated over email or WhatsApp and, more often than anyone would like to admit, exist only there.',
+          'Follow one listing through its life and you can watch the same handful of facts get re-typed at every handoff. The property’s technical details (floor area, year of construction, the energy certificate values) go from the PDF a seller hands over, into whatever the agent uses to draft the listing, and into the portal separately. A lead’s contact details go from a capture form, into a CRM if one exists, and into an agent’s own notes app if it doesn’t. Deal terms get negotiated over email or WhatsApp and, more often than anyone would like to admit, exist only there.',
           'None of these are unusual failures. They’re what happens by default when every tool in the stack keeps its own copy of the truth.',
         ],
       },
       {
         heading: "Why 'just get a CRM' doesn't solve it",
         paragraphs: [
-          'A CRM looks like the fix, and it solves a real problem — but it’s one more place to type things into, not a place everything else reads from. The portal still has its own export. The document tool still has its own upload. The publishing tool still has its own draft. Adding a CRM to that pile doesn’t remove a step; it adds one, unless every other tool in the stack is built to read from it.',
-          'The gap isn’t a missing piece of software. It’s a missing architecture — nothing in the stack is designated as the canonical version, so every tool quietly assumes it is.',
+          'A CRM looks like the fix, and it solves a real problem, but it’s one more place to type things into, not a place everything else reads from. The portal still has its own export. The document tool still has its own upload. The publishing tool still has its own draft. Adding a CRM to that pile doesn’t remove a step; it adds one, unless every other tool in the stack is built to read from it.',
+          'The gap isn’t a missing piece of software. It’s a missing architecture: nothing in the stack is designated as the canonical version, so every tool quietly assumes it is.',
         ],
       },
       {
         heading: 'What it costs, concretely',
         bullets: [
           'Numbers drift: a floor area typed three times ends up as three slightly different numbers by the time a buyer compares the brochure to the portal listing.',
-          'Compliance risk: a disclosure value that was correct in the original file can go stale or get mistyped by the time it reaches a published listing.',
+          'Wrong numbers in the ad: an energy value that was correct in the certificate can go stale or get mistyped by the time it reaches a published listing.',
           'Senior time on copy-paste: the people best placed to talk to clients spend part of every day re-entering facts those clients already gave someone else.',
-          'Performance data that goes nowhere: what a listing’s post actually earned — views, enquiries, what converted — usually never makes it back anywhere it could inform the next one.',
+          'Performance data that goes nowhere: what a listing’s post actually earned (views, enquiries, what converted) usually never makes it back anywhere it could inform the next one.',
         ],
       },
       {
         heading: 'The fix is architectural, not another app',
         paragraphs: [
           'The actual fix is one verified record per property, lead and deal, with every tool downstream reading from it and writing back to it. Confirm a fact once and it propagates everywhere it’s used, instead of being retyped at each step and drifting a little further from correct each time.',
-          'It’s the reasoning behind Immvela, SNS’s own real-estate platform: a listing kit that drafts only from fields the agent has confirmed, a publishing module that won’t clear a post that fails a disclosure check, and a documents module that extracts values from paperwork but always shows them for confirmation before anything downstream treats them as fact.',
+          'It’s the reasoning behind Immvela, SNS’s own product for estate agents. It reads the Energieausweis and the Grundbuchauszug and shows every value it reads as a draft for the agent to confirm. It drafts the Exposé, the brochure and the social captions only from confirmed values, and every confirmed value records who confirmed it and which document it came from. An ad that is missing its energy values is held instead of published.',
         ],
       },
       {
@@ -118,19 +118,19 @@ export const BLOG_POSTS: BlogPost[] = [
         bullets: [
           'Is there one place a fact like floor area or energy rating is confirmed, or does every tool ask for it separately?',
           'When that fact changes, does it update everywhere it’s used, or only in whichever tool you edited?',
-          'Does anything downstream of publishing — enquiries, engagement, what converted — make it back to the record, or does it stop at the platform that generated it?',
+          'Does anything downstream of publishing (enquiries, engagement, what converted) make it back to the record, or does it stop at the platform that generated it?',
         ],
       },
     ],
     takeaways: [
-      'Fragmentation isn’t a missing tool — it’s the absence of one record every tool reads from and writes back to.',
+      'Fragmentation isn’t a missing tool. It’s the absence of one record every tool reads from and writes back to.',
       'A CRM alone doesn’t fix it; it just adds another place data can drift from the truth.',
-      'The cost shows up as drifting numbers, compliance risk, senior time lost to re-typing, and performance data that never gets reused.',
+      'The cost shows up as drifting numbers, wrong values in published ads, senior time lost to re-typing, and performance data that never gets reused.',
     ],
     faq: [
       {
         q: 'What is data fragmentation in real estate?',
-        a: 'It’s when the same property, lead or deal facts are stored separately across a portal, a CRM, a document store and a messaging thread, with no single record any of them defer to — so the copies drift apart over time.',
+        a: 'It’s when the same property, lead or deal facts are stored separately across a portal, a CRM, a document store and a messaging thread, with no single record any of them defer to, so the copies drift apart over time.',
       },
       {
         q: 'Why doesn’t switching CRMs fix data fragmentation?',
@@ -138,12 +138,12 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: 'What does a single source of truth look like for a brokerage in practice?',
-        a: 'One verified record per property, lead and deal that every module or tool reads from and writes back to — so a fact confirmed once (a floor area, a disclosure value, a lead’s status) is correct everywhere it’s used, rather than re-entered and re-drifting at each step.',
+        a: 'One verified record per property, lead and deal that every tool reads from and writes back to, so a fact confirmed once (a floor area, an energy value, a lead’s status) is correct everywhere it’s used, rather than re-entered and re-drifting at each step.',
       },
     ],
     cta: {
       heading: 'See how one verified record actually works',
-      sub: 'Immvela is SNS’s own platform, built module by module around exactly this problem.',
+      sub: 'Immvela is SNS’s own product for estate agents, built around exactly this problem. It is in a closed beta.',
       label: 'See Immvela',
       href: IMMVELA_URL,
       external: true,
@@ -159,83 +159,85 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Immvela: One Verified Record Instead of Seven Logins',
     eyebrow: 'Immvela · Product',
     description:
-      "What Immvela actually is, module by module: the architecture behind SNS's real-estate platform, what's live today, and the constraints built into it rather than left to policy.",
+      "What Immvela actually is: the idea behind SNS's product for estate agents, what it does today, and the limits built into it rather than left to policy.",
     date: '2026-08-27',
     readTime: '8 min read',
     accent: 'cyan',
     intro: [
-      'Immvela is SNS’s own platform for real-estate teams in Austria, Germany and Switzerland, sold module by module: each one stands alone, and all of them read from and write back to the same record of a brokerage’s properties, leads and deals. Two modules are live today; the rest are shipping in the open.',
-      'The point of writing this out isn’t the feature list — it’s the architecture underneath it, because that’s the part that decides whether the thing gets more useful over time or just accumulates more disconnected AI features.',
+      'Immvela is SNS’s own product for estate agents in Austria, Germany and Switzerland. Everything it does reads from and writes back to one record per property: the documents, the values confirmed from them, and the texts drafted from those values. It is in a closed beta, German first with English available.',
+      'The point of writing this out isn’t the feature list. It’s the architecture underneath it, because that’s the part that decides whether the thing gets more useful over time or just accumulates more disconnected AI features.',
     ],
     sections: [
       {
-        heading: 'The core idea: modules share one record',
+        heading: 'The core idea: everything shares one record',
         paragraphs: [
-          'Most "AI for real estate" products are a single feature bolted onto whatever tools an agency already has, which means every new feature re-derives its own facts from scratch. Immvela is built the other way round: there’s one verified record per property, lead and deal, and every module reads from it and writes back to it. Confirm a floor area once and every module that touches that listing uses the same number. Edit a draft and the platform learns how you write, rather than forgetting it the moment the browser tab closes.',
-          'That’s also why it’s described as an operating system rather than a tool: the record is the substrate every module sits on, and it’s meant to be worth more in month twelve than it is on day one — the opposite of most point-solution AI, which doesn’t compound because nothing routes back into anything else.',
+          'Most "AI for real estate" products are a single feature bolted onto whatever tools an agency already has, which means every new feature re-derives its own facts from scratch. Immvela is built the other way round: there’s one verified record per property, and everything Immvela does reads from it and writes back to it. Confirm a floor area once and every text drafted for that listing uses the same number.',
+          'That’s also why it’s described as an operating system rather than a tool: the record is what everything else sits on, and it’s meant to be worth more in month twelve than it is on day one. Most point-solution AI is the opposite, and doesn’t compound, because nothing routes back into anything else.',
         ],
       },
       {
-        heading: 'What’s live today',
+        heading: 'What it does today',
         bullets: [
-          'Quill (Listing Kit) — drafts captions, the brochure and the full Exposé from the listing record in seconds. Figures come only from fields the agent has confirmed, and every edit teaches it how that agent writes.',
-          'Verlag (Publishing) — one composer and one schedule board across every channel. Nothing goes out without clearing a compliance gate, and what each post earns writes back to the listing it came from.',
+          'Documents: it reads the Energieausweis and the Grundbuchauszug, keeps the other documents of a listing, checks documents against each other and flags contradictions and certificates that are about to expire. Every value it reads is a draft until the agent confirms it.',
+          'Who confirmed what: every confirmed value records who confirmed it and which document it came from. Listings, values and documents belong to the office, not to one agent.',
+          'Texts: the Exposé, the brochure and the social captions are drafted from confirmed values, in the German of the listing’s country, with the office’s brand on the documents.',
+          'Publishing: posts go to Instagram, Facebook, LinkedIn, TikTok and YouTube from one place, and only after someone approves them. An ad that is missing its energy values is held, for every agent in the office.',
+          'Staging: photos can be staged with AI, and every staged photo is labelled as virtually staged.',
+          'Import: listings come in from an OpenImmo export of onOffice, Justimmo, Propstack or FLOWFACT.',
         ],
       },
       {
-        heading: 'What’s shipping next, in the open',
-        paragraphs: [
-          'Five more modules are in development, and none of them are described past what’s already built and demonstrable:',
-        ],
+        heading: 'Next',
+        paragraphs: ['Not in the product yet, and labelled as next on Immvela’s own site too:'],
         bullets: [
-          'Iris (Reception) — qualifies inbound inquiries on budget, intent and financing, then routes them to the right agent. It never books and never quotes.',
-          'Winston (Knowledge) — a DACH real-estate copilot that answers from a brokerage’s own documents plus a maintained domain corpus, and names the source behind every answer.',
-          'Vignette (Staging) — furnishes an empty room from a single photo. It only ever adds; it won’t paint over a defect, and the "virtually staged" label is rendered into the pixels, not left to a caption.',
-          'Immerse (Walkthrough) — one walk through a property with a phone comes back as a finished walkthrough video, cut for the listing and for social.',
-          'Dossier (Documents) — reads the paperwork, pulls out the values a listing is legally required to disclose, and shows each one for confirmation before it counts as fact.',
+          'Enquiries: answering and qualifying enquiries. It will never book a viewing or quote a price.',
+          'Office rules: the office sets which documents are required, its templates, and manager approval before anything is published.',
+          'An overview for the owner of what every agent confirmed and published.',
+          'Publishing to the portals, willhaben and ImmoScout24.',
+          'A walkthrough video from one walk through the property with a phone.',
         ],
       },
       {
         heading: 'Three constraints built into the architecture, not left to policy',
         bullets: [
-          'Numbers in generated text come only from data the brokerage has confirmed — the platform doesn’t invent property specifications to fill a gap.',
-          'Nothing binding is decided by the platform on its own. Where a module qualifies or routes an inquiry, it prepares information for a person to act on; prices, appointments and contract terms are confirmed by a human.',
-          'Anything AI-generated that could mislead if mistaken for real is labeled as such at the source, not just in a caption — a staged photo carries its "virtually staged" mark rendered into the image itself.',
+          'Numbers in generated text come only from values the office has confirmed. Immvela doesn’t invent property details to fill a gap.',
+          'Nothing goes out on its own. Every post is approved by a person first, and Immvela does not agree prices, appointments or contract terms.',
+          'AI images are labelled: every staged photo is labelled as virtually staged.',
         ],
       },
       {
         heading: "Why 'operating system' and not 'AI tool'",
         paragraphs: [
-          'A tool answers one prompt, once, in isolation. An operating system is what every module and every future feature runs on top of. That’s the actual bet Immvela is making — less about any single module being clever on its own, and more about the record underneath it staying accurate and durable as more gets built on it.',
+          'A tool answers one prompt, once, in isolation. An operating system is what everything else runs on top of. That’s the actual bet Immvela is making: less about any single feature being clever on its own, and more about the record underneath it staying accurate and durable as more gets built on it.',
         ],
       },
     ],
     takeaways: [
-      'Immvela is one verified record per property, lead and deal — every module reads from it and writes back to it.',
-      'Two modules (Quill, Verlag) are live; five more (Iris, Winston, Vignette, Immerse, Dossier) are shipping in the open.',
-      'Facts only from confirmed data, no autonomous binding decisions, and AI-generated media labeled at the source — built into the architecture, not left to a policy document.',
+      'Immvela keeps one verified record per property, and everything it does reads from it and writes back to it.',
+      'Today it reads documents, drafts the Exposé, brochure and captions from confirmed values, and publishes to social channels after approval. It is in a closed beta.',
+      'Facts only from confirmed values, nothing published without approval, and staged photos labelled as such: built into how it works, not left to a policy document.',
     ],
     faq: [
       {
         q: 'What is Immvela?',
-        a: 'Immvela is SNS Solutions’ platform for real-estate teams in the DACH market (Austria, Germany, Switzerland), built module by module around one shared, verified record of a brokerage’s properties, leads and deals.',
+        a: 'Immvela is SNS Solutions’ product for estate agents in Austria, Germany and Switzerland: a personal real estate AI assistant built around one verified record per property. It is in a closed beta.',
       },
       {
-        q: 'Which Immvela modules are live today?',
-        a: 'Quill (Listing Kit) and Verlag (Publishing) are live. Iris, Winston, Vignette, Immerse and Dossier are in development and shipping in the open.',
+        q: 'What can Immvela do today?',
+        a: 'It reads the Energieausweis and the Grundbuchauszug and asks the agent to confirm each value, checks documents against each other, drafts the Exposé, brochure and social captions from confirmed values, stages photos with a visible label, and posts to Instagram, Facebook, LinkedIn, TikTok and YouTube after approval. Answering enquiries is next.',
       },
       {
         q: 'Does Immvela make binding decisions on its own?',
-        a: 'No. Where a module qualifies or routes something — like Iris with an inbound inquiry — it prepares information for a person to act on. It doesn’t agree prices, appointments or contract terms; a human confirms anything binding.',
+        a: 'No. Nothing is published until a person approves it, and Immvela does not agree prices, appointments or contract terms. Answering enquiries is next, and it will never book a viewing or quote a price.',
       },
       {
         q: 'Who is Immvela built for?',
-        a: 'Real-estate agencies and brokerages in Austria, Germany and Switzerland, sold module by module so a team can adopt the parts it needs.',
+        a: 'Estate agents and brokerages in Austria, Germany and Switzerland. Listings, documents and confirmed values belong to the office, and each person has their own login.',
       },
     ],
     cta: {
-      heading: 'Watch the two-minute walkthrough',
-      sub: 'One narrated run through Immvela: the single verified record, and what each module does with it. No signup.',
+      heading: 'See what Immvela does',
+      sub: 'Immvela’s own site shows what it does today and what comes next, and you can apply for the closed beta there.',
       label: 'See Immvela',
       href: IMMVELA_URL,
       external: true,
@@ -500,32 +502,32 @@ export const BLOG_POSTS: BlogPost[] = [
     accent: 'indigo',
     featured: true,
     intro: [
-      'Agencies keep buying AI tools and the results don’t compound. A caption generator here, a chatbot there, a pricing assistant somewhere else — each one useful in isolation, and the stack as a whole no more coherent a year later than it was on day one. The usual explanation is that the tools aren’t good enough yet. The more accurate one is that AI layered on top of fragmented data just repeats the fragmentation faster.',
-      "'AI infrastructure' isn’t a feature or a chatbot. It's the data layer and the workflow layer underneath any AI feature — the part that decides whether that feature gets more useful over time or just adds noise. Here’s what that means concretely.",
+      'Agencies keep buying AI tools and the results don’t compound. A caption generator here, a chatbot there, a pricing assistant somewhere else: each one useful in isolation, and the stack as a whole no more coherent a year later than it was on day one. The usual explanation is that the tools aren’t good enough yet. The more accurate one is that AI layered on top of fragmented data just repeats the fragmentation faster.',
+      "'AI infrastructure' isn’t a feature or a chatbot. It's the data layer and the workflow layer underneath any AI feature: the part that decides whether that feature gets more useful over time or just adds noise. Here’s what that means concretely.",
     ],
     sections: [
       {
         heading: 'The tool-by-tool trap',
         paragraphs: [
-          'A typical brokerage stack already has a CRM, a portal export tool, WhatsApp for anything urgent, a shared drive for documents, a staging tool, and a publishing tool — none of them sharing a record. Every new AI feature gets bolted onto that pile the same way: it reads whatever context it’s handed, generates an output, and forgets everything the moment the session ends. None of them share a record, so none of them get more accurate as the agency uses them — which is exactly why outputs drift and agents stop trusting them within a few months.',
+          'A typical brokerage stack already has a CRM, a portal export tool, WhatsApp for anything urgent, a shared drive for documents, a staging tool, and a publishing tool, none of them sharing a record. Every new AI feature gets bolted onto that pile the same way: it reads whatever context it’s handed, generates an output, and forgets everything the moment the session ends. None of them share a record, so none of them get more accurate as the agency uses them, which is exactly why outputs drift and agents stop trusting them within a few months.',
         ],
       },
       {
         heading: 'What infrastructure means, concretely',
         bullets: [
           'One verified record per property, lead and deal that every tool reads from and writes back to, instead of each tool keeping its own copy.',
-          'A confirmation layer, so AI never asserts a fact it wasn’t given — it works only from what a human has already confirmed.',
+          'A confirmation layer, so AI never asserts a fact it wasn’t given: it works only from what a human has already confirmed.',
           'An audit trail, so any generated document or action can be traced back to the exact record state that produced it.',
         ],
         paragraphs: [
-          'Immvela is built as a working example of this, not a special case: Quill drafts listing copy only from confirmed fields, Verlag won’t publish anything that fails a compliance check, and none of the modules in development — Iris included — are allowed to make a binding decision on their own.',
+          'Immvela is built as a working example of this, not a special case: the Exposé, the brochure and the captions are drafted only from values the agent has confirmed, every confirmed value records who confirmed it and which document it came from, and nothing is published until a person approves it.',
         ],
       },
       {
         heading: 'Why this compounds instead of decaying',
         paragraphs: [
-          'Correct a fact once and every module that touches it uses the corrected version. Each module’s output becomes the next module’s input — a confirmed listing feeds the brochure, the brochure feeds the captions, engagement on the captions feeds back into what the listing record knows worked. That’s the flywheel: worth more in month twelve than on day one.',
-          'A stack of disconnected point-AI tools does the opposite. Nothing routes back into anything else, so accuracy doesn’t improve with use — it just gets re-rolled, tool by tool, every single time.',
+          'Correct a fact once and every tool that touches it uses the corrected version. Each step’s output becomes the next step’s input: a confirmed listing feeds the brochure, the brochure feeds the captions, and what the captions earned feeds back into what the listing record knows worked. That’s the flywheel: worth more in month twelve than on day one.',
+          'A stack of disconnected point-AI tools does the opposite. Nothing routes back into anything else, so accuracy doesn’t improve with use; it just gets re-rolled, tool by tool, every single time.',
         ],
       },
       {
@@ -540,7 +542,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     takeaways: [
       'AI infrastructure is the data and workflow layer underneath a feature, not the feature itself.',
-      'It only pays off when outputs get fed back into one shared, verified record — otherwise each tool starts from zero every time.',
+      'It only pays off when outputs get fed back into one shared, verified record. Otherwise each tool starts from zero every time.',
       'Before buying another AI feature, check whether it reads and writes the same record as everything else you use.',
     ],
     faq: [
@@ -554,7 +556,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         q: 'How does Immvela apply this in practice?',
-        a: 'One verified record per property, lead and deal; every module reads from and writes back to it; generated text uses only confirmed facts; and nothing in the platform makes a binding decision — a human confirms anything that commits the agency.',
+        a: 'One verified record per property that everything Immvela does reads from and writes back to. Generated text uses only values the agent has confirmed, every confirmed value records who confirmed it and which document it came from, and nothing is published until a person approves it.',
       },
     ],
     cta: {
