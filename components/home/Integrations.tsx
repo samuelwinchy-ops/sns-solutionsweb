@@ -6,8 +6,9 @@ import { type Locale, defaultLocale } from '@/i18n/config'
 
 /*
  * What the two products connect to, as one slow row of marks on identical white tiles.
- * True today: QFUtool sends through Gmail and signs in with Google or Microsoft; Immvela publishes to
- * Instagram, Facebook, LinkedIn, TikTok and YouTube and imports listings via OpenImmo from the four CRMs.
+ * True today: QFUtool sends from the user's own Gmail or Outlook address and signs in with Google or
+ * Microsoft; Immvela publishes to Instagram, Facebook, LinkedIn, TikTok and YouTube and imports listings
+ * via OpenImmo from the four CRMs.
  * Not live yet, so faded and tagged: WhatsApp and the three portals.
  * Sources and licences of the marks: public/integrations/README.md.
  */
@@ -19,6 +20,7 @@ type Mark =
 
 const MARKS: Mark[] = [
   { name: 'Gmail', src: '/integrations/gmail.svg' },
+  { name: 'Outlook', src: '/integrations/outlook.svg' },
   { name: 'Google', src: '/integrations/google.svg', label: 'googleSignIn' },
   { name: 'Microsoft', src: '/integrations/microsoft.svg', label: 'microsoftSignIn' },
   { name: 'Instagram', src: '/integrations/instagram.svg' },
