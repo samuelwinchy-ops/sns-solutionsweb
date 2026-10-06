@@ -139,8 +139,8 @@ export default function LatestNews({ locale = defaultLocale }: { locale?: Locale
         </h2>
         {t.articlesInEnglish && <p className="hm-news-note">{t.articlesInEnglish}</p>}
       </div>
-      <ul className="hm-grid">
-        <li>
+      <div className="hm-grid">
+        <div className="hm-lead">
           <a className="hm-card" href={immvelaHref(locale)}>
             <span className="hm-cov hm-devices" role="img" aria-label={t.updateAlt}>
               <span className="hm-lap">
@@ -171,26 +171,31 @@ export default function LatestNews({ locale = defaultLocale }: { locale?: Locale
               </span>
             </span>
           </a>
-        </li>
-        {sortedPosts().map((post) => (
-          <li key={post.slug}>
-            <a className="hm-card" href={`/blog/${post.slug}`} hrefLang="en">
-              <span className="hm-cov" style={{ containerType: 'inline-size' }}>
-                <TypeCover slug={post.slug} title={post.title} />
-              </span>
-              <span className="hm-cb">
-                <span className={`hm-tag ${TAG[post.product].cls}`}>{TAG[post.product].label}</span>
-                <span className="hm-ct" lang="en">
-                  {post.title}
+        </div>
+        {/* Part of the grid on wide screens; on a phone, a row of cards to swipe through. */}
+        <ul className="hm-rest">
+          {sortedPosts().map((post) => (
+            <li key={post.slug}>
+              <a className="hm-card" href={`/blog/${post.slug}`} hrefLang="en">
+                <span className="hm-cov" style={{ containerType: 'inline-size' }}>
+                  <TypeCover slug={post.slug} title={post.title} />
                 </span>
-                <span className="hm-cd">
-                  <time dateTime={post.date}>{date(post.date)}</time>
+                <span className="hm-cb">
+                  <span className={`hm-tag ${TAG[post.product].cls}`}>
+                    {TAG[post.product].label}
+                  </span>
+                  <span className="hm-ct" lang="en">
+                    {post.title}
+                  </span>
+                  <span className="hm-cd">
+                    <time dateTime={post.date}>{date(post.date)}</time>
+                  </span>
                 </span>
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }

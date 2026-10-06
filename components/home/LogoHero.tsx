@@ -70,6 +70,7 @@ export default function LogoHero({ locale = defaultLocale }: { locale?: Locale }
   const pausedRef = useRef(false)
   const syncRef = useRef<() => void>(() => {})
   const section = useRef<HTMLElement>(null)
+  const fg = useRef<HTMLDivElement>(null)
   const [onImmvela, setOnImmvela] = useState(true)
   const slideA = useRef<HTMLDivElement>(null)
   const slideB = useRef<HTMLDivElement>(null)
@@ -83,6 +84,21 @@ export default function LogoHero({ locale = defaultLocale }: { locale?: Locale }
   const trail = useRef<(SVGPathElement | null)[]>([])
   const wordB = useRef<HTMLSpanElement>(null)
   const audB = useRef<HTMLSpanElement>(null)
+
+  // On a phone the mark is centred in the space above the headline, so the stack needs to know where the
+  // headline starts. Desktop CSS never reads this.
+  useEffect(() => {
+    const s = section.current
+    const f = fg.current
+    if (!s || !f || typeof ResizeObserver === 'undefined') return
+    const put = () =>
+      s.style.setProperty('--hm-fg-h', `${Math.round(s.clientHeight - f.offsetTop)}px`)
+    const ro = new ResizeObserver(put)
+    ro.observe(s)
+    ro.observe(f)
+    put()
+    return () => ro.disconnect()
+  }, [])
 
   useEffect(() => {
     pausedRef.current = paused
@@ -285,7 +301,7 @@ export default function LogoHero({ locale = defaultLocale }: { locale?: Locale }
       </div>
       <div className="hm-shade" />
 
-      <div className="hm-fg">
+      <div className="hm-fg" ref={fg}>
         <h1 className="hm-h1">
           {h.h1a} <em>{h.h1b}</em>
         </h1>
