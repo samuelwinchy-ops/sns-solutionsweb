@@ -64,8 +64,11 @@ Upload a photo of an empty room. Immvela furnishes it and marks the result as vi
 - Immvela always asks before anything is published.
 - Accounts are deleted on request. Documents are kept as evidence and are not deleted on the photo
   schedule. Immvela does not state legal retention periods.
-- Not yet settled: the hosting region, the list of service providers, and whether offices can sign
-  a data processing agreement (AVV).
+- Storage: the database and the files you upload are stored with Supabase in Frankfurt, Germany.
+- Service providers: Supabase (database and files), Vercel (hosting), Trigger.dev (background
+  jobs), Anthropic (documents and text) and fal.ai (staging photos).
+- Data processing agreement (AVV): no standard AVV is offered yet. Offices write to
+  office@sns-austria.com before uploading documents that name people.
 
 ## Apply, ${IMMVELA_URL}/#apply
 

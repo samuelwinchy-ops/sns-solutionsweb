@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from 'next'
+import JsonLd from '@/components/JsonLd'
+import { immvelaPageJsonLd } from '@/lib/immvela-schema'
 import { IMMVELA_ICONS, immvelaImages } from '@/lib/share'
 import ImmvelaFrame from '@/components/immvela/ImmvelaFrame'
 import WhySections from '@/components/immvela/rest/WhySections'
@@ -45,6 +47,7 @@ export const viewport: Viewport = {
 export default function Page() {
   return (
     <ImmvelaFrame locale="de">
+      <JsonLd data={immvelaPageJsonLd('de', '/why', title, description)} />
       <div className="imv-band imv-page">
         <WhySections locale="de" />
       </div>
