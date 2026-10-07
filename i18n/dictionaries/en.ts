@@ -239,8 +239,8 @@ export const en = {
     // (Samuel Winch, Nicholas Pellechi, Samson Belachew).
     bios: [
       'Samuel leads SNS’s technical architecture and full-stack delivery. Originally from England and a self-taught engineer with a background in business, he focuses on turning complex requirements into clean, reliable systems. ',
-      'Nicholas leads SNS’s client relationships, delivery, and operations. From Switzerland and holding a degree in economics, he focuses on understanding what clients actually need before a line of code is written. ',
-      'Samson leads product strategy and sales at SNS. From Austria and holding a degree in psychology, he shapes how SNS’s capabilities meet real market needs, with an eye for the human side of what technology solves. ',
+      'Nicholas leads SNS’s finances as CFO. From Switzerland and holding a degree in economics, he focuses on keeping SNS financially sound as it grows. ',
+      'Samson leads SNS as CEO. From Austria and holding a degree in psychology, he sets the company’s direction and shapes how SNS’s products meet real market needs, with an eye for the human side of what technology solves. ',
     ],
   },
   contactPage: {
