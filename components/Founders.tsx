@@ -10,8 +10,8 @@ import { type Locale, defaultLocale } from '@/i18n/config'
 // below — do not substitute stock or generated images for the real founders.
 const founders = [
   { initials: 'SW', name: 'Samuel Winch', role: 'Co-founder & CTO' },
-  { initials: 'NP', name: 'Nicholas Pellechi', role: 'Co-founder & CEO' },
-  { initials: 'SB', name: 'Samson Belachew', role: 'Co-founder & CSO' },
+  { initials: 'NP', name: 'Nicholas Pellechi', role: 'Co-founder & CFO' },
+  { initials: 'SB', name: 'Samson Belachew', role: 'Co-founder & CEO' },
 ]
 
 export default function Founders({ locale = defaultLocale }: { locale?: Locale }) {
