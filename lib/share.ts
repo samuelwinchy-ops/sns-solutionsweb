@@ -9,6 +9,7 @@ import { IMMVELA_URL, SITE, SITE_COPY, SITE_URL } from '@/lib/site'
  */
 
 const V = '?v=2'
+const ICON_V = '?v=3'
 
 export type SnsCard = 'sns' | 'products'
 
@@ -88,10 +89,10 @@ export function snsPage({
  */
 export const IMMVELA_ICONS: Metadata['icons'] = {
   icon: [
-    { url: `/immvela/icons/icon.svg${V}`, type: 'image/svg+xml' },
-    { url: `/immvela/icons/favicon.ico${V}`, sizes: 'any' },
-    { url: `/immvela/icons/favicon-16x16.png${V}`, type: 'image/png', sizes: '16x16' },
-    { url: `/immvela/icons/favicon-32x32.png${V}`, type: 'image/png', sizes: '32x32' },
+    { url: `/immvela/icons/icon.svg${ICON_V}`, type: 'image/svg+xml' },
+    { url: `/immvela/icons/favicon.ico${ICON_V}`, sizes: 'any' },
+    { url: `/immvela/icons/favicon-16x16.png${ICON_V}`, type: 'image/png', sizes: '16x16' },
+    { url: `/immvela/icons/favicon-32x32.png${ICON_V}`, type: 'image/png', sizes: '32x32' },
   ],
-  apple: [{ url: `/immvela/icons/apple-touch-icon.png${V}`, sizes: '180x180' }],
+  apple: [{ url: `/immvela/icons/apple-touch-icon.png${ICON_V}`, sizes: '180x180' }],
 }

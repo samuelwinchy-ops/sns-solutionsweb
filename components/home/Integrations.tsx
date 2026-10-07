@@ -44,7 +44,7 @@ const BASE_GAP = 56
 export default function Integrations({ locale = defaultLocale }: { locale?: Locale }) {
   const t = getDict(locale).home
   const row = useRef<HTMLDivElement>(null)
-  const [paused, setPaused] = useState(false)
+  const [paused] = useState(false)
 
   // One copy of the row is always wider than the screen plus its widest mark, so the copy that follows
   // only arrives once the first has left: no mark is ever on screen twice.
@@ -110,23 +110,6 @@ export default function Integrations({ locale = defaultLocale }: { locale?: Loca
         <p className="hm-eyebrow" id="hm-integ-h">
           {t.integrations}
         </p>
-        <button
-          type="button"
-          className="hm-mq-toggle"
-          onClick={() => setPaused((x) => !x)}
-          aria-label={paused ? t.marqueePlay : t.marqueePause}
-        >
-          {paused ? (
-            <svg width="10" height="12" viewBox="0 0 12 14" fill="currentColor" aria-hidden="true">
-              <path d="M2 1.2 11 7 2 12.8Z" />
-            </svg>
-          ) : (
-            <svg width="10" height="12" viewBox="0 0 12 14" fill="currentColor" aria-hidden="true">
-              <rect x="1" y="1" width="3.4" height="12" rx="1" />
-              <rect x="7.6" y="1" width="3.4" height="12" rx="1" />
-            </svg>
-          )}
-        </button>
       </div>
       <div className={paused ? 'hm-mq is-paused' : 'hm-mq'} ref={row}>
         <ul className="hm-track">{items(false)}</ul>

@@ -21,8 +21,8 @@ import { sortedPosts } from '@/lib/blog'
 
 const founderRoles: Record<string, string> = {
   'Samuel Winch': 'Co-founder & CTO',
-  'Nicholas Pellechi': 'Co-founder & CEO',
-  'Samson Belachew': 'Co-founder & CSO',
+  'Nicholas Pellechi': 'Co-founder & CFO',
+  'Samson Belachew': 'Co-founder & CEO',
 }
 
 export function GET() {

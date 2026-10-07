@@ -12,6 +12,8 @@
   --hm-serif: var(--font-newsreader), Georgia, serif;
   --hm-sans: var(--font-jakarta), system-ui, sans-serif;
   --hm-brico: var(--font-bricolage), var(--font-geist-sans), sans-serif;
+  /* Immvela's wordmark face, as in the app (app.immvela.com): Inter Bold. */
+  --hm-inter: var(--font-inter), system-ui, sans-serif;
   --hm-archivo: var(--font-archivo), var(--font-jakarta), sans-serif;
 }
 
@@ -67,11 +69,10 @@
   line-height: 1;
 }
 .hm-s-imv .hm-wm {
-  font-family: var(--hm-brico);
+  font-family: var(--hm-inter);
   font-weight: 700;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.035em;
   color: #f2f1e8;
-  font-variation-settings: 'opsz' 96;
 }
 .hm-s-imv .hm-wm i {
   font-style: normal;
@@ -170,17 +171,27 @@
   align-items: flex-end;
   gap: 26px;
 }
-.hm-cap a {
+.hm-cap .hm-tab {
   display: flex;
   flex-direction: column;
   gap: 8px;
   min-width: 96px;
+  min-height: 44px;
+  justify-content: flex-end;
   padding: 6px 0;
+  border: 0;
+  background: none;
+  font: inherit;
   font-size: 16px;
   font-weight: 600;
+  text-align: left;
   color: rgba(255, 255, 255, 0.72);
+  cursor: pointer;
 }
-.hm-cap a[data-active] {
+.hm-cap .hm-tab:hover {
+  color: #fff;
+}
+.hm-cap .hm-tab[aria-pressed='true'] {
   color: #fff;
 }
 .hm-bar {
@@ -195,60 +206,96 @@
   width: 0;
   background: #fff;
 }
-.hm-cap button {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  background: transparent;
-  color: #fff;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-}
-.hm-cap a:focus-visible,
-.hm-cap button:focus-visible {
+.hm-cap .hm-tab:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 3px;
 }
 
-/* Phone and small tablet: one composed screen. The mark is centred in the space between the nav and the
-   headline (--hm-fg-h is measured by LogoHero), and the shade deepens smoothly under the text. */
+/* Phone and small tablet: the hero is one grid in normal flow, so the mark, the headline, the button and the
+   caption cannot overlap. Rows: the nav's space, the mark (both slides share this cell and cross-fade), the
+   headline with its button, the caption. The mark row is never shorter than its content, so on a short screen
+   the hero grows instead of anything colliding; svh only sets how big the mark is, never where things go. */
 @media (max-width: 860px) {
-  .hm-logo {
-    left: 0;
-    right: 0;
-    top: 64px;
-    bottom: var(--hm-fg-h, 340px);
-    translate: 0 0;
+  .hm-bb {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 64px 1fr auto auto;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    max-height: none;
+    isolation: isolate;
+  }
+  .hm-slide {
+    position: static;
+    grid-row: 2;
+    grid-column: 1;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    --d: min(64vw, 280px, calc(100svh - var(--hm-fg-h, 340px) - 190px));
+    padding: 8px 0 18px;
+  }
+  /* the slide's colour fills the whole hero from behind, from a layer positioned on the section */
+  .hm-s-imv,
+  .hm-s-qfu {
+    background: none;
+  }
+  .hm-slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  .hm-s-imv::before {
+    background:
+      radial-gradient(70% 70% at 70% 45%, rgba(76, 193, 150, 0.22), transparent 70%),
+      linear-gradient(180deg, #16463a 0%, #0c2e25 100%);
+  }
+  .hm-s-qfu::before {
+    background: radial-gradient(90% 90% at 70% 45%, #35586b 0%, #223844 46%, #132029 100%);
+  }
+  .hm-logo {
+    position: static;
+    translate: none;
+    --d: min(64vw, 280px, 30vh);
   }
   .hm-shade {
     background: linear-gradient(
       0deg,
       rgba(6, 16, 18, 0.72) 0%,
-      rgba(6, 16, 18, 0.5) calc(var(--hm-fg-h, 340px) - 60px),
-      rgba(6, 16, 18, 0) calc(var(--hm-fg-h, 340px) + 140px)
+      rgba(6, 16, 18, 0.45) 26%,
+      rgba(6, 16, 18, 0) 44%
     );
   }
   .hm-fg {
+    position: relative;
+    grid-row: 3;
+    grid-column: 1;
     top: auto;
-    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    left: auto;
     transform: none;
     max-width: none;
-    right: var(--hm-gutter);
+    margin: 0 var(--hm-gutter) 26px;
   }
   .hm-go {
     margin-top: 24px;
   }
   .hm-cap {
-    right: var(--hm-gutter);
-    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    position: relative;
+    grid-row: 4;
+    grid-column: 1;
+    left: auto;
+    bottom: auto;
+    margin: 0 var(--hm-gutter);
+    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
     gap: 18px;
   }
-  .hm-cap button {
-    margin-left: auto;
+}
+@supports (height: 1svh) {
+  @media (max-width: 860px) {
+    .hm-logo {
+      --d: min(64vw, 280px, 30svh);
+    }
   }
 }
 
@@ -829,10 +876,9 @@
   margin-right: 0.28em;
 }
 .hm-half.imv .hm-mark {
-  font-family: var(--hm-brico);
+  font-family: var(--hm-inter);
   font-weight: 700;
-  letter-spacing: -0.045em;
-  font-variation-settings: 'opsz' 96;
+  letter-spacing: -0.035em;
   color: #f2f1e8;
 }
 .hm-half.imv .hm-mark i {
