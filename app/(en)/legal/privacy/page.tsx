@@ -14,7 +14,7 @@ export const metadata: Metadata = snsPage({
   },
 })
 
-const UPDATED = 'October 6, 2026'
+const UPDATED = 'October 7, 2026'
 
 export default function PrivacyPage() {
   return (
@@ -107,6 +107,13 @@ export default function PrivacyPage() {
             organisation, and interface-language preference.
           </li>
           <li>
+            Where a user chooses to sign in with Google or Microsoft: the name, email address, an
+            identifier of the user’s account with that provider and, where there is one, a link to
+            the profile picture, as the provider returns them. They are used only to create the
+            account and sign the user in. Google and Microsoft are not sub-processors here; the user
+            chooses them for signing in.
+          </li>
+          <li>
             Property and listing records, including descriptive and technical attributes such as
             floor area, year of construction and energy certificate values.
           </li>
@@ -124,8 +131,17 @@ export default function PrivacyPage() {
             footage.
           </li>
           <li>
+            Smaller copies of uploaded photos for display in the application and a colour value
+            shown while a photo loads. Both are created automatically, stored in the same place as
+            the original and deleted together with it.
+          </li>
+          <li>
             Text the platform drafts on the brokerage’s instruction (listing copy, captions, Exposé
             documents) and the brokerage’s edits to it.
+          </li>
+          <li>
+            Where the brokerage uses chat understanding: the requests a user types into the chat on
+            a property (see Section 4.4).
           </li>
           <li>
             Access tokens issued by connected publishing platforms, used solely to publish on the
@@ -138,6 +154,11 @@ export default function PrivacyPage() {
           <li>
             Records of platform activity showing which module produced or used which record, used to
             operate the service and to make the brokerage’s own data reusable across modules.
+          </li>
+          <li>
+            Usage counters per person, brokerage and week for functions with a weekly allowance (a
+            count only, no content), and the end date of the trial where the brokerage’s access is
+            set up as a trial.
           </li>
         </ul>
 
@@ -173,6 +194,16 @@ export default function PrivacyPage() {
           fal.ai’s own retention rules.
         </p>
         <p>
+          If a brokerage uses chat understanding, a request a user types into the chat on a property
+          is sent to <strong>Anthropic PBC</strong>, which maps it to the choices the plan offers,
+          for example which steps to run and which layout and style to use. We send the text and the
+          list of those choices, including the names of the highlights for the property; no property
+          details are created from the text. We store the text to improve chat understanding. Only
+          the user who wrote it can read it; other members of the brokerage cannot. It is deleted
+          when that user’s account or the listing concerned is deleted, and our activity records
+          hold only the recognised choices, not the text.
+        </p>
+        <p>
           Two limits are built into the platform rather than left to policy. Factual values in
           generated text are taken only from data the brokerage has confirmed, so the platform does
           not invent property specifications. And AI-staged images carry a “virtually staged” label
@@ -204,25 +235,28 @@ export default function PrivacyPage() {
             Background job processing: <strong>Trigger.dev</strong>
           </li>
           <li>
-            AI text generation and reading of uploaded documents: <strong>Anthropic PBC</strong>,
-            USA (see Section 4.4)
+            AI text generation, reading of uploaded documents and, if the brokerage uses it, chat
+            understanding: <strong>Anthropic PBC</strong>, USA (see Section 4.4)
           </li>
           <li>
             AI virtual staging: <strong>fal.ai (Features &amp; Labels, Inc.)</strong>, USA (see
             Section 4.4)
           </li>
           <li>
-            Error monitoring, only if we introduce it:{' '}
-            <strong>Sentry (Functional Software, Inc.)</strong>, EU region (Frankfurt); error
-            reports and technical details of the request concerned, with personal data only to the
-            extent an error report contains it
+            Error monitoring, only if we enable it:{' '}
+            <strong>Sentry (Functional Software, Inc.)</strong>, EU region (Frankfurt); technical
+            details of errors (error type, error code, the place in the program and the page called,
+            without identifiers). Sentry is set up to send no user details, cookies, request
+            contents or error message texts, and the storage of IP addresses is switched off, so it
+            receives personal data only to the extent these technical details contain it
           </li>
         </ul>
         <p>
-          <strong>Processing outside the EU.</strong> Anthropic (text generation and reading
-          documents; Anthropic offers no EU-only processing for this interface) and fal.ai (virtual
-          staging) process data in the United States. Vercel and Trigger.dev are providers based in
-          the United States; with them too, processing or access outside the EU can take place.
+          <strong>Processing outside the EU.</strong> Anthropic (text generation, reading documents
+          and chat understanding; Anthropic offers no EU-only processing for this interface) and
+          fal.ai (virtual staging) process data in the United States. Vercel and Trigger.dev are
+          providers based in the United States; with them too, processing or access outside the EU
+          can take place.
         </p>
         <p>
           Where a sub-processor involves a transfer outside the EU/EEA, that transfer is made on the

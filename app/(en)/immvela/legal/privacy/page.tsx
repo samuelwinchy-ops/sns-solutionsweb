@@ -281,6 +281,10 @@ import { IMMVELA_ICONS, immvelaImages } from '@/lib/share'
  * `Unterauftragsverarbeiter`, which settles the rename deferred in the parity
  * round. Every sentence the AVV marks [PRÜFEN] is listed for Samuel in
  * `privacy-policy-changes.md` there; do not publish before that list is cleared.
+ *
+ * Round 2, 2026-10-07: sign-in with Google or Microsoft, chat understanding,
+ * derived image sizes, usage counters and the trial, and Sentry as "if enabled".
+ * Each is worded to stay true while the feature is switched off.
  */
 
 export const metadata: Metadata = {
@@ -323,8 +327,8 @@ export const metadata: Metadata = {
   },
 }
 
-const UPDATED_DE = '6. Oktober 2026'
-const UPDATED_EN = 'October 6, 2026'
+const UPDATED_DE = '7. Oktober 2026'
+const UPDATED_EN = 'October 7, 2026'
 
 // Same host now. The app served this page until the 2026-09-05 split put
 // every legal document on the landing page and left the product with
@@ -441,6 +445,22 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
+            <Section lang="de" title="Anmeldung mit Google oder Microsoft">
+              <p>
+                Wenn Sie sich entscheiden, sich mit Google oder Microsoft anzumelden, leiten wir Sie
+                zur Anmeldeseite des jeweiligen Anbieters weiter. Nach Ihrer Zustimmung übermittelt
+                uns der Anbieter Ihren Namen, Ihre E-Mail-Adresse, eine Kennung Ihres Kontos bei
+                diesem Anbieter und, falls vorhanden, einen Link zu Ihrem Profilbild. Ihr Passwort
+                bei Google oder Microsoft erhalten wir nicht.
+              </p>
+              <p>
+                Wir verwenden diese Angaben ausschließlich, um Ihr Immvela-Konto anzulegen und Sie
+                anzumelden; gespeichert werden sie bei Supabase. Der Anbieter erfährt dabei, dass
+                Sie sich bei Immvela anmelden; dafür gelten seine eigenen Datenschutzbestimmungen.
+                Die Anmeldung mit E-Mail-Adresse und Passwort bleibt daneben möglich.
+              </p>
+            </Section>
+
             <Section lang="de" title="Verbundene Social-Media-Konten und Veröffentlichung">
               <p>
                 Wenn Sie ein Konto bei Instagram, Facebook, LinkedIn, TikTok oder YouTube mit
@@ -537,6 +557,13 @@ export default function ImmvelaPrivacyPage() {
                 Beiträge. Mediendateien liegen in einem nicht öffentlichen Speicher; der Zugriff
                 erfolgt über kurzlebige signierte Links.
               </p>
+              <p>
+                Aus hochgeladenen Fotos erstellen wir automatisch verkleinerte Kopien für die
+                Anzeige in der Anwendung und ermitteln einen Farbwert, der angezeigt wird, bis das
+                Bild geladen ist. Die Kopien liegen am selben Speicherort wie das Original, der
+                Farbwert beim Eintrag des Fotos in der Datenbank. Beides wird zusammen mit dem
+                Original gelöscht. Einen weiteren Dienstleister setzen wir dafür nicht ein.
+              </p>
             </Section>
 
             <Section lang="de" title="Texterstellung mit KI">
@@ -581,6 +608,39 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
+            <Section lang="de" title="Chat-Verständnis mit KI">
+              <p>
+                Wenn Ihr Maklerbüro das Chat-Verständnis nutzt, übermitteln wir eine Anfrage, die
+                Sie im Chat zu einem Objekt eintippen, an Anthropic. Anthropic ordnet sie den
+                Auswahlmöglichkeiten des Plans zu, etwa welche Schritte ausgeführt werden und
+                welches Layout und welcher Stil gelten sollen. Übermittelt werden Ihr Text und die
+                Liste dieser Auswahlmöglichkeiten, einschließlich der Bezeichnungen der
+                Hervorhebungen zum Objekt. Aus Ihrem Text werden keine Angaben zum Objekt erstellt.
+              </p>
+              <p>
+                Ihren Text speichern wir bei uns, um das Chat-Verständnis zu verbessern. Lesen kann
+                ihn nur, wer ihn geschrieben hat; die übrigen Mitglieder Ihres Maklerbüros sehen ihn
+                nicht. Er wird gelöscht, wenn Ihr Konto oder das betreffende Inserat gelöscht wird.
+                In unseren Aktivitätsaufzeichnungen halten wir nur die erkannten Auswahlen fest,
+                nicht Ihren Text.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Nutzungskontingente und Testzeitraum">
+              <p>
+                Für einige Funktionen gilt ein wöchentliches Kontingent je Person, etwa für die
+                Texterstellung, das Auslesen von Dokumenten, die virtuelle Möblierung und das
+                Chat-Verständnis. Dafür zählen wir je Person, Maklerbüro und Woche, wie oft eine
+                solche Funktion gestartet wurde. Die Zähler enthalten keine Inhalte, nur die Anzahl,
+                und werden mit Ihrem Konto gelöscht.
+              </p>
+              <p>
+                Ist der Zugang Ihres Maklerbüros als Testzugang eingerichtet, speichern wir außerdem
+                das Enddatum des Testzeitraums. Danach sind die betreffenden Funktionen gesperrt,
+                bis der Zugang verlängert oder umgestellt wird.
+              </p>
+            </Section>
+
             <Section lang="de" title="Aufzeichnungen">
               <p>
                 Wir speichern, <em>dass</em> ein Beitrag veröffentlicht wurde, mit Zeitpunkt und
@@ -610,28 +670,31 @@ export default function ImmvelaPrivacyPage() {
                   <strong>Trigger.dev</strong> (Hintergrundaufträge);
                 </li>
                 <li>
-                  <strong>Anthropic PBC</strong>, USA (Texterstellung und Auswertung hochgeladener
-                  Dokumente);
+                  <strong>Anthropic PBC</strong>, USA (Texterstellung, Auswertung hochgeladener
+                  Dokumente und, falls Ihr Maklerbüro es nutzt, Chat-Verständnis);
                 </li>
                 <li>
                   <strong>fal.ai (Features &amp; Labels, Inc.)</strong>, USA (virtuelle Möblierung,
                   siehe oben);
                 </li>
                 <li>
-                  <strong>Sentry (Functional Software, Inc.)</strong>, nur falls wir eine
-                  Fehlerüberwachung einführen: Fehlermeldungen und technische Angaben zur jeweiligen
-                  Anfrage, verarbeitet in der EU-Region (Frankfurt); personenbezogene Daten nur,
-                  soweit eine Fehlermeldung sie enthält.
+                  <strong>Sentry (Functional Software, Inc.)</strong>, nur falls wir die
+                  Fehlerüberwachung aktivieren: technische Angaben zu Fehlern (Fehlerart,
+                  Fehlercode, Programmstelle und die aufgerufene Seite ohne Kennungen), verarbeitet
+                  in der EU-Region (Frankfurt). Sentry ist so eingestellt, dass keine Nutzerangaben,
+                  Cookies, Anfrageinhalte oder Texte von Fehlermeldungen übermittelt werden, und die
+                  Speicherung von IP-Adressen ist abgeschaltet; personenbezogene Daten erhält Sentry
+                  daher nur, soweit sie in diesen technischen Angaben enthalten sind.
                 </li>
               </ul>
               <p>
                 <strong>Ort der Verarbeitung.</strong> Datenbank und gespeicherte Dateien liegen in
                 der EU (Frankfurt am Main). Einzelne Unterauftragsverarbeiter verarbeiten Daten
                 jedoch <strong>außerhalb der EU</strong>, insbesondere in den USA: Anthropic bei der
-                Texterstellung und beim Auslesen von Dokumenten (eine reine EU-Verarbeitung bietet
-                Anthropic für diese Schnittstelle nicht an) und fal.ai bei der virtuellen
-                Möblierung. Vercel und Trigger.dev sind Anbieter mit Sitz in den USA; auch bei ihnen
-                kann eine Verarbeitung oder ein Zugriff außerhalb der EU stattfinden.
+                Texterstellung, beim Auslesen von Dokumenten und beim Chat-Verständnis (eine reine
+                EU-Verarbeitung bietet Anthropic für diese Schnittstelle nicht an) und fal.ai bei
+                der virtuellen Möblierung. Vercel und Trigger.dev sind Anbieter mit Sitz in den USA;
+                auch bei ihnen kann eine Verarbeitung oder ein Zugriff außerhalb der EU stattfinden.
               </p>
               <p>
                 Übermittlungen in Länder außerhalb der EU und des EWR erfolgen auf Grundlage der
@@ -645,6 +708,10 @@ export default function ImmvelaPrivacyPage() {
               <p>
                 Beiträge, die Sie veröffentlichen, werden an die von Ihnen gewählte Plattform
                 übermittelt und unterliegen dort deren eigenen Bestimmungen.
+              </p>
+              <p>
+                Google und Microsoft sind bei der Anmeldung keine Unterauftragsverarbeiter, sondern
+                Anbieter, die Sie selbst für Ihre Anmeldung wählen.
               </p>
             </Section>
 
@@ -795,6 +862,22 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
+            <Section lang="en" title="Sign-in with Google or Microsoft">
+              <p>
+                If you choose to sign in with Google or Microsoft, we redirect you to that
+                provider&apos;s sign-in page. Once you agree, the provider sends us your name, your
+                email address, an identifier of your account with that provider and, where there is
+                one, a link to your profile picture. We never receive your Google or Microsoft
+                password.
+              </p>
+              <p>
+                We use these details only to create your Immvela account and to sign you in; they
+                are stored at Supabase. The provider learns that you are signing in to Immvela, and
+                its own privacy terms apply to that. Signing in with an email address and password
+                remains available.
+              </p>
+            </Section>
+
             <Section lang="en" title="Connected social accounts and publishing">
               <p>
                 When you connect an Instagram, Facebook, LinkedIn, TikTok or YouTube account to
@@ -887,6 +970,13 @@ export default function ImmvelaPrivacyPage() {
                 posts. Media files are held in non-public storage and are reached through
                 short-lived signed links.
               </p>
+              <p>
+                From uploaded photos we automatically create smaller copies for display in the
+                application and work out a colour value that is shown until the picture has loaded.
+                The copies are stored in the same place as the original, and the colour value with
+                the photo&apos;s entry in the database. Both are deleted together with the original.
+                We use no additional provider for this.
+              </p>
             </Section>
 
             <Section lang="en" title="AI text generation">
@@ -929,6 +1019,36 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
+            <Section lang="en" title="AI chat understanding">
+              <p>
+                If your office uses chat understanding, a request you type into the chat on a
+                property is sent to Anthropic, which maps it to the choices the plan offers, for
+                example which steps to run and which layout and style to use. We send your text and
+                the list of those choices, including the names of the highlights for the property.
+                No property details are created from your text.
+              </p>
+              <p>
+                We store your text to improve chat understanding. Only the person who wrote it can
+                read it; the other members of your office cannot see it. It is deleted when your
+                account or the listing concerned is deleted. Our activity records hold only the
+                choices that were recognised, not your text.
+              </p>
+            </Section>
+
+            <Section lang="en" title="Usage allowances and trial period">
+              <p>
+                Some functions have a weekly allowance per person, for example text generation,
+                reading documents, virtual staging and chat understanding. For this we count, per
+                person, office and week, how often such a function was started. The counters hold no
+                content, only the number, and are deleted with your account.
+              </p>
+              <p>
+                If your office&apos;s access is set up as a trial, we also store the date the trial
+                ends. After that date the functions concerned are locked until the access is
+                extended or changed.
+              </p>
+            </Section>
+
             <Section lang="en" title="Records">
               <p>
                 We store the fact <em>that</em> a post was published, with its time and channel,
@@ -958,28 +1078,31 @@ export default function ImmvelaPrivacyPage() {
                   <strong>Trigger.dev</strong> (background jobs);
                 </li>
                 <li>
-                  <strong>Anthropic PBC</strong>, USA (text generation, and extraction from uploaded
-                  documents);
+                  <strong>Anthropic PBC</strong>, USA (text generation, extraction from uploaded
+                  documents and, if your office uses it, chat understanding);
                 </li>
                 <li>
                   <strong>fal.ai (Features &amp; Labels, Inc.)</strong>, USA (virtual staging, see
                   above);
                 </li>
                 <li>
-                  <strong>Sentry (Functional Software, Inc.)</strong>, only if we introduce error
-                  monitoring: error reports and technical details of the request concerned,
-                  processed in the EU region (Frankfurt); personal data only to the extent an error
-                  report contains it.
+                  <strong>Sentry (Functional Software, Inc.)</strong>, only if we enable error
+                  monitoring: technical details of errors (error type, error code, the place in the
+                  program and the page called, without identifiers), processed in the EU region
+                  (Frankfurt). Sentry is set up to send no user details, cookies, request contents
+                  or error message texts, and the storage of IP addresses is switched off; Sentry
+                  therefore receives personal data only to the extent these technical details
+                  contain it.
                 </li>
               </ul>
               <p>
                 <strong>Where data is processed.</strong> The database and stored files are in the
                 EU (Frankfurt am Main). Some sub-processors, however, process data{' '}
                 <strong>outside the EU</strong>, mainly in the United States: Anthropic for text
-                generation and for reading documents (Anthropic offers no EU-only processing for
-                this interface), and fal.ai for virtual staging. Vercel and Trigger.dev are
-                providers based in the United States; with them too, processing or access outside
-                the EU can take place.
+                generation, for reading documents and for chat understanding (Anthropic offers no
+                EU-only processing for this interface), and fal.ai for virtual staging. Vercel and
+                Trigger.dev are providers based in the United States; with them too, processing or
+                access outside the EU can take place.
               </p>
               <p>
                 Transfers to countries outside the EU and the EEA are made on the basis of each
@@ -992,6 +1115,10 @@ export default function ImmvelaPrivacyPage() {
               <p>
                 Posts you publish are transmitted to the platform you select and are then subject to
                 that platform&apos;s own terms.
+              </p>
+              <p>
+                Google and Microsoft are not sub-processors when you sign in with them; they are
+                providers you choose yourself for signing in.
               </p>
             </Section>
 

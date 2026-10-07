@@ -14,7 +14,7 @@ export const metadata: Metadata = snsPage({
   },
 })
 
-const UPDATED = '6. Oktober 2026'
+const UPDATED = '7. Oktober 2026'
 
 export default function PrivacyPageDe() {
   return (
@@ -112,6 +112,14 @@ export default function PrivacyPageDe() {
             und bevorzugte Oberflächensprache.
           </li>
           <li>
+            Wenn sich eine Nutzerin oder ein Nutzer entscheidet, sich mit Google oder Microsoft
+            anzumelden: Name, E-Mail-Adresse, eine Kennung des Kontos bei diesem Anbieter und, falls
+            vorhanden, ein Link zum Profilbild, wie der Anbieter sie übermittelt. Sie dienen
+            ausschließlich dazu, das Konto anzulegen und die Person anzumelden. Google und Microsoft
+            sind dabei keine Unterauftragsverarbeiter, sondern Anbieter, die die Person selbst für
+            ihre Anmeldung wählt.
+          </li>
+          <li>
             Objekt- und Inseratsdaten, einschließlich beschreibender und technischer Angaben wie
             Wohnfläche, Baujahr und Werte des Energieausweises.
           </li>
@@ -129,8 +137,17 @@ export default function PrivacyPageDe() {
             Rundgangsaufnahmen.
           </li>
           <li>
+            Verkleinerte Kopien hochgeladener Fotos für die Anzeige in der Anwendung und ein
+            Farbwert, der angezeigt wird, bis ein Foto geladen ist. Beides wird automatisch
+            erstellt, am selben Ort wie das Original gespeichert und zusammen mit ihm gelöscht.
+          </li>
+          <li>
             Texte, die die Plattform auf Weisung des Maklerbüros entwirft (Inseratstexte, Captions,
             Exposés), sowie die Überarbeitungen des Maklerbüros daran.
+          </li>
+          <li>
+            Wenn das Maklerbüro das Chat-Verständnis nutzt: die Anfragen, die eine Nutzerin oder ein
+            Nutzer im Chat zu einem Objekt eintippt (siehe Abschnitt 4.4).
           </li>
           <li>
             Zugangstoken der verbundenen Veröffentlichungsplattformen, die ausschließlich dazu
@@ -145,6 +162,11 @@ export default function PrivacyPageDe() {
             Aufzeichnungen über Aktivitäten in der Plattform, die festhalten, welches Modul welchen
             Datensatz erzeugt oder genutzt hat. Sie dienen dem Betrieb des Dienstes und dazu, die
             eigenen Daten des Maklerbüros modulübergreifend nutzbar zu machen.
+          </li>
+          <li>
+            Nutzungszähler je Person, Maklerbüro und Woche für Funktionen mit einem wöchentlichen
+            Kontingent (nur die Anzahl, keine Inhalte) sowie das Enddatum des Testzeitraums, wenn
+            der Zugang des Maklerbüros als Testzugang eingerichtet ist.
           </li>
         </ul>
 
@@ -184,6 +206,19 @@ export default function PrivacyPageDe() {
           die Aufbewahrungsregeln von fal.ai.
         </p>
         <p>
+          Wenn ein Maklerbüro das Chat-Verständnis nutzt, übermitteln wir eine Anfrage, die eine
+          Nutzerin oder ein Nutzer im Chat zu einem Objekt eintippt, an{' '}
+          <strong>Anthropic PBC</strong>. Anthropic ordnet sie den Auswahlmöglichkeiten des Plans
+          zu, etwa welche Schritte ausgeführt werden und welches Layout und welcher Stil gelten
+          sollen. Übermittelt werden der Text und die Liste dieser Auswahlmöglichkeiten,
+          einschließlich der Bezeichnungen der Hervorhebungen zum Objekt; aus dem Text werden keine
+          Angaben zum Objekt erstellt. Den Text speichern wir, um das Chat-Verständnis zu
+          verbessern. Lesen kann ihn nur, wer ihn geschrieben hat; die übrigen Mitglieder des
+          Maklerbüros sehen ihn nicht. Er wird gelöscht, wenn das Konto dieser Person oder das
+          betreffende Inserat gelöscht wird, und unsere Aktivitätsaufzeichnungen halten nur die
+          erkannten Auswahlen fest, nicht den Text.
+        </p>
+        <p>
           Zwei Grenzen sind in der Plattform selbst verankert und nicht bloß in dieser Erklärung.
           Sachangaben in erzeugten Texten stammen ausschließlich aus Daten, die das Maklerbüro
           bestätigt hat; die Plattform erfindet daher keine Objektangaben. Und KI-gestagte Bilder
@@ -216,26 +251,29 @@ export default function PrivacyPageDe() {
             Verarbeitung von Hintergrundjobs: <strong>Trigger.dev</strong>
           </li>
           <li>
-            KI-Texterzeugung und Auslesen hochgeladener Dokumente: <strong>Anthropic PBC</strong>,
-            USA (siehe Abschnitt 4.4)
+            KI-Texterzeugung, Auslesen hochgeladener Dokumente und, falls das Maklerbüro es nutzt,
+            Chat-Verständnis: <strong>Anthropic PBC</strong>, USA (siehe Abschnitt 4.4)
           </li>
           <li>
             Virtuelle Möblierung mit KI: <strong>fal.ai (Features &amp; Labels, Inc.)</strong>, USA
             (siehe Abschnitt 4.4)
           </li>
           <li>
-            Fehlerüberwachung, nur falls wir sie einführen:{' '}
-            <strong>Sentry (Functional Software, Inc.)</strong>, EU-Region (Frankfurt);
-            Fehlermeldungen und technische Angaben zur jeweiligen Anfrage, personenbezogene Daten
-            nur, soweit eine Fehlermeldung sie enthält
+            Fehlerüberwachung, nur falls wir sie aktivieren:{' '}
+            <strong>Sentry (Functional Software, Inc.)</strong>, EU-Region (Frankfurt); technische
+            Angaben zu Fehlern (Fehlerart, Fehlercode, Programmstelle und die aufgerufene Seite ohne
+            Kennungen). Sentry ist so eingestellt, dass keine Nutzerangaben, Cookies, Anfrageinhalte
+            oder Texte von Fehlermeldungen übermittelt werden, und die Speicherung von IP-Adressen
+            ist abgeschaltet; personenbezogene Daten erhält Sentry daher nur, soweit sie in diesen
+            technischen Angaben enthalten sind
           </li>
         </ul>
         <p>
-          <strong>Verarbeitung außerhalb der EU.</strong> Anthropic (Texterzeugung und Auslesen von
-          Dokumenten; eine reine EU-Verarbeitung bietet Anthropic für diese Schnittstelle nicht an)
-          und fal.ai (virtuelle Möblierung) verarbeiten Daten in den USA. Vercel und Trigger.dev
-          sind Anbieter mit Sitz in den USA; auch bei ihnen kann eine Verarbeitung oder ein Zugriff
-          außerhalb der EU stattfinden.
+          <strong>Verarbeitung außerhalb der EU.</strong> Anthropic (Texterzeugung, Auslesen von
+          Dokumenten und Chat-Verständnis; eine reine EU-Verarbeitung bietet Anthropic für diese
+          Schnittstelle nicht an) und fal.ai (virtuelle Möblierung) verarbeiten Daten in den USA.
+          Vercel und Trigger.dev sind Anbieter mit Sitz in den USA; auch bei ihnen kann eine
+          Verarbeitung oder ein Zugriff außerhalb der EU stattfinden.
         </p>
         <p>
           Soweit ein Unterauftragsverarbeiter eine Übermittlung außerhalb der EU/des EWR umfasst,
