@@ -10,7 +10,7 @@ export const metadata: Metadata = snsPage({
   locale: 'en',
   title: 'Team',
   description:
-    'Meet the founders of SNS Solutions: Samuel Winch (CTO), Nicholas Pellechi (CEO) and Samson Belachew (CSO), the team building custom software and AI automation in Vienna.',
+    'Meet the founders of SNS Solutions: Samuel Winch (CTO), Nicholas Pellechi (CFO) and Samson Belachew (CEO), the team building custom software and AI automation in Vienna.',
   path: '/team',
   languages: { en: '/team', de: '/de/team', 'x-default': '/team' },
 })

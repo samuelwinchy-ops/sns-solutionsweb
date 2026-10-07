@@ -259,8 +259,8 @@ const AUSTRIA = [{ '@type': 'Country', name: 'Austria' }]
  */
 const FOUNDERS = [
   { name: 'Samuel Winch', jobTitle: 'Co-founder & CTO' },
-  { name: 'Nicholas Pellechi', jobTitle: 'Co-founder & CEO' },
-  { name: 'Samson Belachew', jobTitle: 'Co-founder & CSO' },
+  { name: 'Nicholas Pellechi', jobTitle: 'Co-founder & CFO' },
+  { name: 'Samson Belachew', jobTitle: 'Co-founder & CEO' },
 ]
 
 export function founderId(name: string): string {
