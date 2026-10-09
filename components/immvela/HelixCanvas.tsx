@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import Image from 'next/image'
 import { easeRate, renderHelix, type HelixTheme } from '@/lib/helix-contour'
+import { useMotionPaused } from '@/lib/motion'
 
 const REDUCED = '(prefers-reduced-motion: reduce)'
 const FALLBACK = '/immvela/redesign/helix-light.svg'
@@ -13,7 +14,8 @@ const FALLBACK = '/immvela/redesign/helix-light.svg'
  *
  * It only turns: a constant band width, no breathing or pulse. `rate` is turns per 24 s and is eased
  * (about a second to settle), never jumped. `intro` draws the lines in once, turning fast,
- * then settles to `rate`. Reduced motion gets one still frame and no loop. The loop sleeps while the
+ * then settles to `rate`. The site's pause switch (lib/motion.ts) eases it to a stop. Reduced motion gets
+ * one still frame and no loop. The loop sleeps while the
  * canvas is off screen or the tab is hidden. Before the client takes over (and with no JavaScript) the
  * static SVG stands in; a helix with an intro keeps that fallback for no-JavaScript visitors only.
  */
@@ -33,8 +35,11 @@ export default function HelixCanvas({
   const box = useRef<HTMLSpanElement | null>(null)
   const canvas = useRef<HTMLCanvasElement | null>(null)
   const [mode, setMode] = useState<'server' | 'still' | 'live'>('server')
+  const paused = useMotionPaused()
   const rateRef = useRef(rate)
-  rateRef.current = rate
+  rateRef.current = paused ? 0 : rate
+  const pausedRef = useRef(paused)
+  pausedRef.current = paused
   const introRef = useRef(intro)
 
   useEffect(() => {
@@ -54,9 +59,10 @@ export default function HelixCanvas({
     let size = 0
     let dpr = 1
     let t = 0
-    let current = introRef.current ? 3 : rateRef.current
     let elapsed = 0
-    let reveal = mode === 'live' && introRef.current ? 0 : 1
+    // Arriving with motion already paused: no draw-in either, the helix is simply there.
+    let reveal = mode === 'live' && introRef.current && !pausedRef.current ? 0 : 1
+    let current = reveal < 1 ? 3 : rateRef.current
 
     const draw = () => {
       if (!size) return

@@ -146,6 +146,7 @@ const DE: Record<string, string> = {
   'Thank you. Your application is in.': 'Danke. Ihre Bewerbung ist eingegangen.',
   'Thank you. We will be in touch.': 'Danke. Wir melden uns bei Ihnen.',
   'Send another': 'Weitere senden',
+  'Pause animation': 'Animation anhalten',
 
   // trust page
   'How Immvela handles your documents and data':

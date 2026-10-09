@@ -24,6 +24,10 @@
 .site-navlink:hover{color:#14473a}
 .site-foot a{text-decoration:none}
 .site-foot a:hover{color:#14473a}
+.site-motion{font:inherit;color:inherit;background:none;border:0;padding:0;min-height:24px;cursor:pointer}
+.site-motion:hover{color:#14473a}
+.site-motion[aria-pressed='true']{color:#14473a;text-decoration:underline;text-underline-offset:3px}
+@media (prefers-reduced-motion:reduce){.site-motion{display:none}}
 @media (max-width:860px){
   .site-side{visibility:hidden !important}
   .site-mods{display:none !important}
@@ -398,6 +402,9 @@
 .ig-social{box-shadow:inset 0 1px 0 rgb(255 255 255 / .28),inset 0 -1px 0 rgb(0 0 0 / .12),0 2px 4px rgb(10 30 20 / .12),0 14px 26px -12px rgb(10 30 20 / .4)}
 .ig-name{font-size:12.5em;line-height:1.1;font-weight:650;letter-spacing:-.01em;color:#14473a;text-align:center;padding:0 .3em}
 .ig-planned .ig-name{font-size:10.5em}
+/* Planned: a flat, dashed tile with a quieter name. The name stays readable (4.5:1); the tile is what fades. */
+.ig-tile.ig-planned,.ig-ptile.ig-planned{background-color:rgb(255 255 255 / .32);background-image:none;border:1px dashed rgba(10,43,34,0.34);box-shadow:none}
+.ig-planned .ig-name{color:#4e635b;font-weight:500}
 .ig-glyph{width:36em;height:36em;display:block}
 .ig-glyph svg{width:100%;height:100%;display:block}
 .ig-helix{position:absolute;display:flex;border-radius:50%;align-items:center;justify-content:center;box-sizing:border-box}
@@ -414,7 +421,6 @@
   .ig-ptile.ig-crm,.ig-ptile.ig-planned{background:rgb(255 255 255 / .85);border:1px solid #fff;box-shadow:inset 0 1px 0 #fff,0 1px 2px rgb(40 40 20 / .06),0 10px 20px -12px rgb(40 40 20 / .28)}
   .ig-ptile .ig-name{font-size:10.5px;padding:0 3px}
   .ig-ptile .ig-glyph{width:28px;height:28px}
-  .ig-soft .ig-ptile{opacity:.46;filter:blur(.5px)}
   .ig-pcap{font-size:13px;line-height:1.3;color:#4e635b;text-align:center}
   .ig-phelix{display:flex;width:84px;height:84px;border-radius:50%;align-items:center;justify-content:center;margin:4px 0}
 }
@@ -492,13 +498,13 @@
 
 .ap-field{display:flex;flex-direction:column;gap:8px}
 .ap-label{font-size:14px;line-height:1.3;font-weight:600;color:#14473a}
-.ap-input{font:inherit;font-size:16px;line-height:1.3;height:48px;box-sizing:border-box;width:100%;padding:0 16px;border-radius:12px;border:1px solid rgba(10,43,34,0.22);background:#ffffff;color:#14473a}
+.ap-input{font:inherit;font-size:16px;line-height:1.3;height:48px;box-sizing:border-box;width:100%;padding:0 16px;border-radius:12px;border:1px solid rgba(10,43,34,0.55);background:#ffffff;color:#14473a}
 .ap-input:focus-visible{outline:2px solid #1f7a5a;outline-offset:1px;border-color:#1f7a5a}
 
 .ap-set{margin:0;padding:0;border:0;min-width:0;display:flex;flex-direction:column;gap:8px}
 .ap-set legend{padding:0;margin-bottom:8px}
 .ap-opts{display:flex;flex-wrap:wrap;gap:8px}
-.ap-opt{display:inline-flex;align-items:center;gap:8px;font-size:16px;line-height:1.3;padding:0 16px;height:44px;border-radius:999px;border:1px solid rgba(10,43,34,0.22);background:#ffffff;color:#14473a;cursor:pointer}
+.ap-opt{display:inline-flex;align-items:center;gap:8px;font-size:16px;line-height:1.3;padding:0 16px;height:44px;border-radius:999px;border:1px solid rgba(10,43,34,0.55);background:#ffffff;color:#14473a;cursor:pointer}
 .ap-opt input{margin:0;width:16px;height:16px;accent-color:#1f7a5a}
 .ap-opt:has(input:checked){border-color:#1f7a5a;background:#e9f2ed}
 .ap-opt:has(input:focus-visible){outline:2px solid #1f7a5a;outline-offset:2px}
@@ -626,7 +632,7 @@
 .sh-field{min-width:0;display:flex;flex-direction:column;gap:8px}
 .sh-label{font-size:14px;line-height:1.3;font-weight:600;color:#14473a}
 .sh-opt{font-weight:400;color:#3f574f}
-.sh-input{font:inherit;font-size:16px;line-height:1.3;height:48px;box-sizing:border-box;width:100%;padding:0 16px;border-radius:12px;border:1px solid rgba(10,43,34,0.22);background:#ffffff;color:#14473a}
+.sh-input{font:inherit;font-size:16px;line-height:1.3;height:48px;box-sizing:border-box;width:100%;padding:0 16px;border-radius:12px;border:1px solid rgba(10,43,34,0.55);background:#ffffff;color:#14473a}
 .sh-area{height:auto;min-height:104px;padding:12px 16px;line-height:1.5;resize:vertical}
 .sh-input:focus-visible{outline:2px solid #1f7a5a;outline-offset:1px;border-color:#1f7a5a}
 
