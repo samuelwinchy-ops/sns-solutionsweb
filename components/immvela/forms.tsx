@@ -216,6 +216,7 @@ export function ApplyForm({
         <>
           <Honeypot />
           {status === 'error' && <SendError t={t} />}
+          <p className="ap-req">{t('All fields are required.')}</p>
           <div className="ap-field">
             <label className="ap-label" htmlFor="ap-name">
               {t('Name')}
@@ -224,6 +225,7 @@ export function ApplyForm({
               className="ap-input"
               id="ap-name"
               name="name"
+              aria-required="true"
               type="text"
               autoComplete="name"
               {...invalid(errors, 'name')}
@@ -238,13 +240,19 @@ export function ApplyForm({
               className="ap-input"
               id="ap-email"
               name="email"
+              aria-required="true"
               type="email"
               autoComplete="email"
               {...invalid(errors, 'email')}
             />
             <FieldError id="email-err" msg={errors.email} />
           </div>
-          <fieldset className="ap-set" {...(errors.size ? { 'aria-describedby': 'size-err' } : {})}>
+          <fieldset
+            className="ap-set"
+            role="radiogroup"
+            aria-required="true"
+            {...(errors.size ? { 'aria-describedby': 'size-err' } : {})}
+          >
             <legend className="ap-label">{t('Office size')}</legend>
             <div className="ap-opts">
               {SIZES.map((s, i) => (
@@ -267,6 +275,7 @@ export function ApplyForm({
               <input
                 id="ap-consent"
                 name="consent"
+                aria-required="true"
                 type="checkbox"
                 {...invalid(errors, 'consent')}
               />
@@ -347,6 +356,7 @@ export function PartnerForm({ locale, privacyHref }: { locale: Locale; privacyHr
                 className="sh-input"
                 id="sh-name"
                 name="name"
+                aria-required="true"
                 type="text"
                 autoComplete="name"
                 {...invalid(errors, 'name')}
@@ -361,6 +371,7 @@ export function PartnerForm({ locale, privacyHref }: { locale: Locale; privacyHr
                 className="sh-input"
                 id="sh-office"
                 name="office"
+                aria-required="true"
                 type="text"
                 autoComplete="organization"
                 {...invalid(errors, 'office')}
@@ -377,6 +388,7 @@ export function PartnerForm({ locale, privacyHref }: { locale: Locale; privacyHr
                 className="sh-input"
                 id="sh-email"
                 name="email"
+                aria-required="true"
                 type="email"
                 autoComplete="email"
                 {...invalid(errors, 'email')}
@@ -408,6 +420,7 @@ export function PartnerForm({ locale, privacyHref }: { locale: Locale; privacyHr
               <input
                 id="sh-consent"
                 name="consent"
+                aria-required="true"
                 type="checkbox"
                 {...invalid(errors, 'consent')}
               />
