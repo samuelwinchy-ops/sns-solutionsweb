@@ -373,6 +373,7 @@ export default function ImmvelaPrivacyPage() {
             </a>
             <a
               href="/"
+              lang="de"
               className="inline-flex min-h-11 items-center text-sm font-medium text-[color:var(--im-muted)] transition-colors duration-150 hover:text-[color:var(--im-green)]"
             >
               ← Zur Website

@@ -147,6 +147,8 @@ const DE: Record<string, string> = {
   'Thank you. We will be in touch.': 'Danke. Wir melden uns bei Ihnen.',
   'Send another': 'Weitere senden',
   'Pause animation': 'Animation anhalten',
+  'Skip to content': 'Zum Inhalt springen',
+  'All fields are required.': 'Alle Felder sind Pflichtfelder.',
 
   // trust page
   'How Immvela handles your documents and data':
