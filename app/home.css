@@ -166,7 +166,8 @@
   position: absolute;
   z-index: 5;
   left: var(--hm-gutter);
-  bottom: clamp(20px, 4vh, 36px);
+  /* the next section slides 36px up over the hero (.hm-lift) and casts a shadow above that: clear both */
+  bottom: calc(36px + clamp(32px, 6vh, 56px));
   display: flex;
   align-items: flex-end;
   gap: 26px;
@@ -287,7 +288,7 @@
     left: auto;
     bottom: auto;
     margin: 0 var(--hm-gutter);
-    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(30px + env(safe-area-inset-bottom, 0px));
     gap: 18px;
   }
 }
@@ -449,6 +450,24 @@
 .hm-integ-head .hm-eyebrow {
   margin: 0;
 }
+/* No panel (BOXED = false in Integrations.tsx): the row runs edge to edge on the ground. */
+@media (min-width: 601px) {
+  .hm-integ.is-bare {
+    margin: 0;
+    padding: 40px 0 0;
+  }
+  /* label, row and the rule below step down evenly: 40px, 36px, then about 60px to the news rule */
+  .hm-integ.is-bare .hm-integ-head {
+    padding: 0 var(--hm-gutter);
+    margin-bottom: 32px;
+  }
+  .hm-integ.is-bare .hm-mq {
+    padding: 4px 0 10px;
+  }
+  .hm-integ.is-bare + .hm-news {
+    padding-top: clamp(44px, 6vh, 56px);
+  }
+}
 .hm-mq-toggle {
   width: 32px;
   height: 32px;
@@ -471,6 +490,10 @@
 .hm-mq-toggle:focus-visible {
   outline: 2px solid var(--hm-blue);
   outline-offset: 3px;
+}
+.hm-mq:focus-visible {
+  outline: 2px solid var(--hm-blue);
+  outline-offset: -2px;
 }
 @keyframes hm-nudge {
   35% {
@@ -518,13 +541,17 @@
 .hm-lg.is-soon .hm-tile > * {
   opacity: 0.5;
 }
+/* a typeset name is text, not a logo: faded only as far as 4.5:1 on the white tile allows */
+.hm-lg.is-soon .hm-tile > b {
+  opacity: 0.72;
+}
 .hm-soon {
   font-family: var(--hm-sans);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--hm-faint);
+  color: var(--hm-muted);
   border: 1px solid rgba(11, 31, 68, 0.25);
   border-radius: 5px;
   padding: 2px 5px;
@@ -1053,7 +1080,8 @@
   /* integrations: no panel, a full-bleed row of larger marks set closer together */
   .hm-integ {
     margin: 44px 0 0;
-    padding: 0;
+    /* room under the ground's rounded top edge, so the label and the row sit clear of its corners */
+    padding: 28px 0 0;
     background: none;
     border: 0;
     border-radius: 0;
@@ -1062,8 +1090,9 @@
     backdrop-filter: none;
   }
   .hm-integ-head {
+    justify-content: center;
     padding: 0 var(--hm-gutter);
-    margin-bottom: 14px;
+    margin-bottom: 22px;
   }
   .hm-mq {
     --mq-base: 14px;
@@ -1081,7 +1110,7 @@
 
   /* news: the lead story edge to edge, the rest a row of cards to swipe */
   .hm-news {
-    padding-top: 56px;
+    padding-top: 30px;
   }
   .hm-news-head {
     margin-bottom: 22px;
@@ -1370,10 +1399,11 @@
   }
 }
 
-/* The site footer sits on the coloured ground here, so its quietest inks go one step darker to keep AA. */
+/* The site footer sits on the coloured ground here, so its quietest inks go darker to keep AA, down to the
+   deepest blue the ground reaches at the foot of the products page. */
 .hm-ground footer .text-sns-faint {
-  color: #4a5262;
+  color: #323d5a;
 }
 .hm-ground footer .text-sns-muted {
-  color: #3a4766;
+  color: #2b3654;
 }

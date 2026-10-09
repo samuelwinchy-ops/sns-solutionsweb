@@ -178,7 +178,7 @@ export default function ImmvelaDataDeletionPage() {
         <main className="mx-auto w-full max-w-3xl px-5 pb-24 pt-12 md:pt-16">
           <div className="mb-10 border-b border-[color:var(--im-line)] pb-8">
             <p className="im-eyebrow mb-3 text-sm">Immvela</p>
-            <h1 className="text-3xl font-bold tracking-[-0.02em] text-[color:var(--im-ink)] md:text-4xl">
+            <h1 className="break-words text-2xl font-bold tracking-[-0.02em] text-[color:var(--im-ink)] sm:text-3xl md:text-4xl">
               Datenlöschung <span className="text-[color:var(--im-faint)]">/</span> Data deletion
             </h1>
             <p className="mt-3 text-sm text-[color:var(--im-muted)]">
