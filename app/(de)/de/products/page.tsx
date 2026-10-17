@@ -7,6 +7,8 @@ import { getDict } from '@/i18n'
 import { immvelaFonts } from '@/components/immvela/fonts'
 import '@/app/home.css'
 import { snsPage } from '@/lib/share'
+import JsonLd from '@/components/JsonLd'
+import { productsGraph } from '@/lib/schema'
 
 const t = getDict('de').productsPage
 
@@ -22,6 +24,7 @@ export const metadata: Metadata = snsPage({
 export default function ProductsPageDe() {
   return (
     <>
+      <JsonLd data={productsGraph('de')} />
       <Nav locale="de" />
       <main className={`hm ${immvelaFonts}`}>
         <LightGround>

@@ -119,9 +119,7 @@ function Tile({ c, px }: { c: Cell; px: (n: number) => string }) {
           opacity: 0.8 - 0.62 * f,
           filter: f > 0.15 ? `blur(${(f * 2.6).toFixed(1)}px)` : undefined,
         }
-      : c.kind === 'planned'
-        ? { opacity: 0.46, filter: 'blur(0.6px)' }
-        : {}
+      : {}
   return (
     <span
       className={`ig-tile ig-${c.kind}`}

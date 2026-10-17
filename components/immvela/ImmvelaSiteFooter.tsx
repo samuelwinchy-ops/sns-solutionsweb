@@ -4,11 +4,13 @@ import { track } from '@vercel/analytics'
 import { type Locale, localePath } from '@/i18n/config'
 import { immvelaT } from '@/i18n/immvela'
 import { useImmvelaPath } from '@/lib/immvela-nav'
+import { toggleMotion, useMotionPaused } from '@/lib/motion'
 
 /** The quiet footer from the design. */
 export default function ImmvelaSiteFooter({ locale }: { locale: Locale }) {
   const t = immvelaT(locale)
   const path = useImmvelaPath(locale)
+  const paused = useMotionPaused()
   const links = [
     { href: path('/modules'), label: t('Modules'), onClick: () => track('immvela_see_modules') },
     { href: path('/why'), label: t('Why Immvela') },
@@ -42,6 +44,10 @@ export default function ImmvelaSiteFooter({ locale }: { locale: Locale }) {
             {l.label}
           </a>
         ))}
+        {/* The helix turns on every page; this is the control that stops it. Hidden under reduced motion. */}
+        <button type="button" className="site-motion" aria-pressed={paused} onClick={toggleMotion}>
+          {t('Pause animation')}
+        </button>
       </nav>
     </footer>
   )

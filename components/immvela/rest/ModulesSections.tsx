@@ -43,10 +43,10 @@ export default function ModulesSections({ locale }: { locale: Locale }) {
         vis={
           <nav className="rx-index" aria-label={t('Modules')}>
             <div>
-              <h3>
+              <h2>
                 <span className="rx-live">{t('Live')}</span>
                 {t('in the closed beta')}
-              </h3>
+              </h2>
               <ol>
                 {live.map(([name, href]) => (
                   <li key={href}>
@@ -59,10 +59,10 @@ export default function ModulesSections({ locale }: { locale: Locale }) {
               </ol>
             </div>
             <div>
-              <h3>
+              <h2>
                 <span className="rx-next">{t('Next')}</span>
                 {t('what we are building')}
-              </h3>
+              </h2>
               <ol>
                 {next.map((name) => (
                   <li key={name}>

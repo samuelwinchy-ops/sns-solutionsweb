@@ -123,6 +123,7 @@ const CRUMB_LABELS: Record<Locale, Record<string, string>> = {
     '/team': 'Team',
     '/contact': 'Contact',
     '/blog': 'Blog',
+    '/products': 'Our products',
   },
   de: {
     '/': 'Start',
@@ -130,6 +131,7 @@ const CRUMB_LABELS: Record<Locale, Record<string, string>> = {
     '/team': 'Team',
     '/contact': 'Kontakt',
     '/blog': 'Blog',
+    '/products': 'Unsere Produkte',
   },
 }
 
@@ -487,5 +489,55 @@ export function blogPostGraph(locale: Locale, post: BlogPost) {
     `/blog/${post.slug}`,
     { name: post.title, description: post.description },
     ...entities
+  )
+}
+
+/** /products: the two products SNS makes, each pointing at its own site. */
+export function productsGraph(locale: Locale) {
+  const t = getDict(locale).productsPage
+  const url = pageUrl(locale, '/products')
+  const de = locale === 'de'
+  const qfutool = {
+    '@type': 'SoftwareApplication',
+    '@id': 'https://www.qfutool.com/#software',
+    name: 'QFUtool',
+    url: de ? 'https://www.qfutool.com/de' : 'https://www.qfutool.com',
+    description: de
+      ? 'Automatisches Nachfassen von versendeten Angeboten für Vertriebsmitarbeiter, aus der eigenen Domain und zu Geschäftszeiten.'
+      : 'Automated follow-up on sent quotes for salespeople, sent from their own domain during working hours.',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    areaServed: DACH,
+    creator: { '@id': SNS_ORG_ID },
+    publisher: { '@id': SNS_ORG_ID },
+  }
+  const immvela = {
+    '@type': 'SoftwareApplication',
+    '@id': IMMVELA_SOFTWARE_ID,
+    name: 'Immvela',
+    url: de ? `${IMMVELA_URL}/de` : IMMVELA_URL,
+    description: t.immvelaTagline,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    areaServed: DACH,
+    creator: { '@id': SNS_ORG_ID },
+    publisher: { '@id': SNS_ORG_ID },
+  }
+  return graph(
+    locale,
+    '/products',
+    { type: 'CollectionPage', name: t.heading, description: t.description },
+    {
+      '@type': 'ItemList',
+      '@id': `${url}#products`,
+      name: t.heading,
+      itemListElement: [immvela, qfutool].map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: { '@id': p['@id'] },
+      })),
+    },
+    immvela,
+    qfutool
   )
 }

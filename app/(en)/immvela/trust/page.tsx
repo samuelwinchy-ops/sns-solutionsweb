@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from 'next'
+import JsonLd from '@/components/JsonLd'
+import { immvelaPageJsonLd } from '@/lib/immvela-schema'
 import { IMMVELA_ICONS, immvelaImages } from '@/lib/share'
 import { ImmvelaTrustPage } from '@/components/immvela/ImmvelaSubpage'
 import { IMMVELA_URL } from '@/lib/site'
@@ -45,5 +47,17 @@ export const viewport: Viewport = {
 }
 
 export default function Page() {
-  return <ImmvelaTrustPage locale="en" />
+  return (
+    <>
+      <JsonLd
+        data={immvelaPageJsonLd(
+          'en',
+          '/trust',
+          (metadata.title as { absolute: string }).absolute,
+          String(metadata.description)
+        )}
+      />
+      <ImmvelaTrustPage locale="en" />
+    </>
+  )
 }

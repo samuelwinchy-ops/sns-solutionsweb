@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import emailjs from '@emailjs/browser'
 import { getDict } from '@/i18n'
@@ -25,6 +25,13 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
   const [status, setStatus] = useState<Status>('idle')
   const [errors, setErrors] = useState<Errors>({})
   const [service, setService] = useState('')
+  const done = useRef<HTMLDivElement>(null)
+
+  // The form is replaced by the confirmation, so focus would fall back to <body> and a screen reader
+  // would hear nothing. Move it to the message.
+  useEffect(() => {
+    if (status === 'success') done.current?.focus()
+  }, [status])
 
   // Pre-select the service when arriving from a /services CTA (?service=…).
   useEffect(() => {
@@ -97,7 +104,12 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
 
   if (status === 'success') {
     return (
-      <div className="sns-card flex flex-col items-center p-10 text-center">
+      <div
+        ref={done}
+        role="status"
+        tabIndex={-1}
+        className="sns-card flex flex-col items-center p-10 text-center focus:outline-none"
+      >
         <span className="flex h-14 w-14 items-center justify-center rounded-full border border-sns-green/30 bg-sns-green/10 text-sns-green">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
@@ -131,7 +143,8 @@ export default function ContactForm({ locale = defaultLocale }: { locale?: Local
   // to find.
   const fieldBase =
     'min-h-11 w-full rounded-sns border bg-white px-4 py-3 text-base text-sns-text transition-colors focus:outline-none focus-visible:ring-2 duration-150 placeholder:text-sns-faint focus:border-sns-action focus:ring-2 focus:ring-sns-action/20'
-  const ok = 'border-sns-border hover:border-sns-text/40'
+  // The edge is what says "this is a field", so it holds 3:1 against the white card (WCAG 1.4.11).
+  const ok = 'border-[#8b8778] hover:border-sns-text/70'
   const bad = 'border-red-600 focus:border-red-600 focus:ring-red-600/20'
 
   return (

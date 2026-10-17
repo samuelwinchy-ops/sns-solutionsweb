@@ -40,11 +40,16 @@ const MARKS: Mark[] = [
 ]
 
 const BASE_GAP = 56
+// The glass panel around the row on tablet and desktop. false: the row runs edge to edge on the ground, as
+// it always has on a phone. Flip this one value to bring the panel back.
+const BOXED = false
 
 export default function Integrations({ locale = defaultLocale }: { locale?: Locale }) {
   const t = getDict(locale).home
   const row = useRef<HTMLDivElement>(null)
   const [paused] = useState(false)
+  // With reduced motion on a phone the still row scrolls sideways (home.css), so it has to take focus.
+  const [scrolls, setScrolls] = useState(false)
 
   // One copy of the row is always wider than the screen plus its widest mark, so the copy that follows
   // only arrives once the first has left: no mark is ever on screen twice.
@@ -67,6 +72,7 @@ export default function Integrations({ locale = defaultLocale }: { locale?: Loca
         x.style.setProperty('--mq-gap', `${gap}px`)
         x.style.setProperty('--mq-dur', `${Math.round((base + gap * items) / 40)}s`)
       })
+      setScrolls(getComputedStyle(el).overflowX === 'auto')
     }
     fit()
     window.addEventListener('resize', fit)
@@ -105,13 +111,20 @@ export default function Integrations({ locale = defaultLocale }: { locale?: Loca
     })
 
   return (
-    <section className="hm-integ hm-glass" aria-labelledby="hm-integ-h">
+    <section
+      className={BOXED ? 'hm-integ hm-glass' : 'hm-integ is-bare'}
+      aria-labelledby="hm-integ-h"
+    >
       <div className="hm-integ-head">
         <p className="hm-eyebrow" id="hm-integ-h">
           {t.integrations}
         </p>
       </div>
-      <div className={paused ? 'hm-mq is-paused' : 'hm-mq'} ref={row}>
+      <div
+        className={paused ? 'hm-mq is-paused' : 'hm-mq'}
+        ref={row}
+        {...(scrolls ? { tabIndex: 0, role: 'group', 'aria-labelledby': 'hm-integ-h' } : {})}
+      >
         <ul className="hm-track">{items(false)}</ul>
         <ul className="hm-track" aria-hidden="true">
           {items(true)}

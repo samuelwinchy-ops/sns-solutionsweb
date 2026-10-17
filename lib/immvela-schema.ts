@@ -115,7 +115,7 @@ function coreNodes(locale: Locale) {
 export function immvelaJsonLd(locale: Locale) {
   const t = immvelaT(locale)
   const url = pageUrl(locale)
-  // the page's own answers; the hosting answer is still a placeholder on the page, so it is left out
+  // the page's own three answers, in the order the apply section shows them
   const faq: [string, string][] = [
     [
       'Is it in German?',
@@ -124,6 +124,10 @@ export function immvelaJsonLd(locale: Locale) {
     [
       'Does it work with my CRM?',
       'Bring listings in with an OpenImmo export from onOffice, Justimmo, Propstack or FLOWFACT.',
+    ],
+    [
+      'Where is my data?',
+      'Your database and files are stored in Frankfurt. Documents and text are processed by AI providers in the USA.',
     ],
   ]
   return {
@@ -153,6 +157,34 @@ export function immvelaJsonLd(locale: Locale) {
           acceptedAnswer: { '@type': 'Answer', text: t(a) },
         })),
       },
+    ],
+  }
+}
+
+/** Structured data for an Immvela subpage: the product, the site, and the page with its breadcrumb. */
+export function immvelaPageJsonLd(
+  locale: Locale,
+  path: string,
+  name: string,
+  pageDescription: string
+) {
+  const url = pageUrl(locale, path)
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      ...coreNodes(locale),
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#webpage`,
+        url,
+        name,
+        description: pageDescription,
+        inLanguage: langTag(locale),
+        isPartOf: { '@id': WEBSITE_ID },
+        about: { '@id': SOFTWARE_ID },
+        breadcrumb: { '@id': `${url}#breadcrumb` },
+      },
+      breadcrumb(locale, path, [{ name, path }]),
     ],
   }
 }

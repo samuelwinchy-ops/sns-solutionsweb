@@ -94,7 +94,7 @@
 
 /* the index at the top of Modules */
 .rx-index{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:32px}
-.rx-index h3{margin:0 0 8px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#3f574f}
+.rx-index h2{margin:0 0 8px;display:flex;align-items:center;gap:10px;font-size:14px;line-height:1.5;font-weight:600;letter-spacing:normal;font-family:inherit;color:#3f574f}
 .rx-index ol{margin:0;padding:0;list-style:none;border-top:1px solid rgba(10,43,34,.14)}
 .rx-index li{border-bottom:1px solid rgba(10,43,34,.14)}
 .rx-index a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 2px;text-decoration:none;font-size:16px;line-height:1.3;color:#14473a}
