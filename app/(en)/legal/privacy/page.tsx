@@ -80,18 +80,11 @@ export default function PrivacyPage() {
 
         <h3>4.1 Who is controller, and who is processor</h3>
         <p>
-          For the personal data that a brokerage and its users enter or upload in Immvela (for
-          example about properties, owners, prospective buyers or tenants, and in documents and
-          photos), <strong>the brokerage is the controller</strong>.{' '}
-          <strong>SNS processes that data as processor</strong> on the brokerage’s instructions
-          under a data processing agreement (AVV, Art. 28 GDPR).
-        </p>
-        <p>
-          SNS is the controller only where we process data for our own purposes: setting up and
-          managing user accounts, contract administration and communication with the brokerage,
-          security of the service and abuse prevention (including server logs), evaluating feedback
-          sent through the feedback function, anonymised aggregated usage statistics, and our own
-          website.
+          For the data a brokerage puts into Immvela about its own properties, clients and
+          prospects, the <strong>brokerage is the controller</strong> and{' '}
+          <strong>SNS acts as processor</strong> on its instructions (Art. 28 GDPR), under a
+          separate written agreement including a Data Processing Agreement (AVV). For the
+          brokerage’s own account and contract data, SNS is the controller.
         </p>
         <p>
           Each brokerage is a separate tenant and its own controller. Where a brokerage belongs to a
@@ -289,11 +282,9 @@ export default function PrivacyPage() {
           subject to that platform’s own retention.
         </p>
         <p>
-          If you are an owner, buyer, seller or tenant whose data a brokerage holds in Immvela, that
-          brokerage is your controller: please send requests to exercise your rights, including
-          erasure requests, to that brokerage. If such a request reaches us directly, we forward it
-          to the brokerage without delay, tell you that we have done so, and help the brokerage
-          respond. When a brokerage passes such a request to us, we erase that person’s records
+          If you are a buyer, seller or tenant whose data a brokerage holds in Immvela, that
+          brokerage is your controller and is the right first point of contact for an erasure
+          request. When a brokerage passes such a request to us, we erase that person’s records
           across the platform, including derived records, values extracted from documents, generated
           documents and stored files. We carry this out by hand, within 30 days; there is currently
           no automated erasure flow in the application. We may retain a record that a business event
@@ -501,8 +492,7 @@ export default function PrivacyPage() {
         </ul>
         <p>
           To exercise any of these rights, contact us at{' '}
-          <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>. If your data is held
-          in Immvela by a brokerage, please contact that brokerage instead (see Section 4.7).
+          <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>.
         </p>
 
         <h2>11. Right to lodge a complaint</h2>

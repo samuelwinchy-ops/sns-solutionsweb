@@ -412,8 +412,7 @@ export default function ImmvelaPrivacyPage() {
 
           {/* ── German, first: the market's default language ─────────────── */}
           <div lang="de">
-            <Section lang="de" title="Verantwortlicher und Auftragsverarbeiter">
-              <p>Anbieter von Immvela:</p>
+            <Section lang="de" title="Verantwortlicher">
               <p>
                 <strong>SNS Software Solutions GmbH</strong>
                 <br />
@@ -426,23 +425,6 @@ export default function ImmvelaPrivacyPage() {
                 Immobilienmaklerinnen und -makler und keine eigene Rechtsperson. Diese Erklärung
                 beschreibt, welche Daten wir in Immvela verarbeiten. Vollständige Angaben zum
                 Unternehmen finden Sie im <a href="/legal/imprint">Impressum</a>.
-              </p>
-              <p>
-                Für die personenbezogenen Daten, die ein Maklerbüro und seine Nutzerinnen und Nutzer
-                in Immvela eingeben oder hochladen (etwa zu Objekten, zu Eigentümerinnen und
-                Eigentümern, zu Interessentinnen und Interessenten sowie in Unterlagen und Fotos),
-                ist <strong>das Maklerbüro Verantwortlicher</strong>.{' '}
-                <strong>SNS verarbeitet diese Daten als Auftragsverarbeiter</strong> nach Weisung
-                des Maklerbüros auf Grundlage eines Auftragsverarbeitungsvertrags (AVV, Art. 28
-                DSGVO).
-              </p>
-              <p>
-                Verantwortlicher ist SNS nur, soweit wir Daten zu eigenen Zwecken verarbeiten: für
-                die Anlage und Verwaltung der Zugänge, die Vertragsverwaltung und die Kommunikation
-                mit dem Maklerbüro, für die Sicherheit des Dienstes und den Schutz vor Missbrauch
-                (einschließlich Server-Protokollen), für die Auswertung von Rückmeldungen, die über
-                die Feedback-Funktion gesendet werden, für anonymisierte, zusammengefasste
-                Nutzungsstatistiken sowie für unsere eigene Website.
               </p>
             </Section>
 
@@ -813,18 +795,11 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
-            <Section lang="de" title="Daten Ihrer Kundinnen und Kunden und weiterer Personen">
+            <Section lang="de" title="Daten Ihrer eigenen Kundinnen und Kunden">
               <p>
-                Angaben, die Sie in Immvela zu Eigentümerinnen und Eigentümern, zu Interessentinnen
-                und Interessenten oder zu anderen Personen erfassen oder in Unterlagen hochladen,
-                verarbeiten wir in Ihrem Auftrag. Verantwortlicher für diese Daten ist Ihr
-                Maklerbüro (siehe „Verantwortlicher und Auftragsverarbeiter“).
-              </p>
-              <p>
-                Personen, deren Daten ein Maklerbüro in Immvela verarbeitet, wenden sich zur
-                Ausübung ihrer Rechte bitte an dieses Maklerbüro. Erreicht uns eine solche Anfrage
-                direkt, leiten wir sie unverzüglich an das Maklerbüro weiter, teilen dies der
-                anfragenden Person mit und unterstützen das Maklerbüro bei der Beantwortung.
+                Angaben, die Sie zu Interessentinnen und Interessenten in Immvela erfassen,
+                verarbeiten wir in Ihrem Auftrag. Für diese Daten bleiben Sie verantwortlich;
+                Anfragen dazu richten Sie bitte an uns über die oben genannte Adresse.
               </p>
             </Section>
           </div>
@@ -833,8 +808,7 @@ export default function ImmvelaPrivacyPage() {
 
           {/* ── English, for platform reviewers ──────────────────────────── */}
           <div lang="en">
-            <Section lang="en" title="Controller and processor">
-              <p>Immvela is provided by:</p>
+            <Section lang="en" title="Controller">
               <p>
                 <strong>SNS Software Solutions GmbH</strong>
                 <br />
@@ -846,20 +820,6 @@ export default function ImmvelaPrivacyPage() {
                 Immvela is SNS Software Solutions GmbH&apos;s software platform for real-estate
                 agents and is not a separate legal entity. This policy describes the data we process
                 in Immvela. Full company details are in the <a href="/legal/imprint">imprint</a>.
-              </p>
-              <p>
-                For the personal data that a brokerage and its users enter or upload in Immvela (for
-                example about properties, owners, prospective buyers or tenants, and in documents
-                and photos), <strong>the brokerage is the controller</strong>.{' '}
-                <strong>SNS processes that data as processor</strong> on the brokerage&apos;s
-                instructions under a data processing agreement (AVV, Art. 28 GDPR).
-              </p>
-              <p>
-                SNS is the controller only where we process data for our own purposes: setting up
-                and managing user accounts, contract administration and communication with the
-                brokerage, security of the service and abuse prevention (including server logs),
-                evaluating feedback sent through the feedback function, anonymised aggregated usage
-                statistics, and our own website.
               </p>
             </Section>
 
@@ -1209,17 +1169,11 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
-            <Section lang="en" title="Data about your clients and other people">
+            <Section lang="en" title="Your own customers' data">
               <p>
-                Details you record in Immvela about owners, prospective buyers or tenants, or other
-                people, or upload in documents, are processed by us on your behalf. Your brokerage
-                is the controller for that data (see “Controller and processor”).
-              </p>
-              <p>
-                People whose data a brokerage processes in Immvela should contact that brokerage to
-                exercise their rights. If such a request reaches us directly, we forward it to the
-                brokerage without delay, tell the person who made it that we have done so, and help
-                the brokerage respond.
+                Details you record about prospective buyers or tenants in Immvela are processed on
+                your behalf. You remain responsible for that data; please direct requests about it
+                to us at the address above.
               </p>
             </Section>
           </div>

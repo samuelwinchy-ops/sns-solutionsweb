@@ -82,20 +82,12 @@ export default function PrivacyPageDe() {
 
         <h3>4.1 Verantwortlicher und Auftragsverarbeiter</h3>
         <p>
-          Für die personenbezogenen Daten, die ein Maklerbüro und seine Nutzerinnen und Nutzer in
-          Immvela eingeben oder hochladen (etwa zu Objekten, zu Eigentümerinnen und Eigentümern, zu
-          Interessentinnen und Interessenten sowie in Unterlagen und Fotos), ist{' '}
-          <strong>das Maklerbüro Verantwortlicher</strong>.{' '}
-          <strong>SNS verarbeitet diese Daten als Auftragsverarbeiter</strong> nach Weisung des
-          Maklerbüros auf Grundlage eines Auftragsverarbeitungsvertrags (AVV, Art. 28 DSGVO).
-        </p>
-        <p>
-          Verantwortlicher ist SNS nur, soweit wir Daten zu eigenen Zwecken verarbeiten: für die
-          Anlage und Verwaltung der Zugänge, die Vertragsverwaltung und die Kommunikation mit dem
-          Maklerbüro, für die Sicherheit des Dienstes und den Schutz vor Missbrauch (einschließlich
-          Server-Protokollen), für die Auswertung von Rückmeldungen, die über die Feedback-Funktion
-          gesendet werden, für anonymisierte, zusammengefasste Nutzungsstatistiken sowie für unsere
-          eigene Website.
+          Für die Daten, die ein Maklerbüro in Immvela über seine eigenen Objekte, Kunden und
+          Interessenten einbringt, ist das <strong>Maklerbüro der Verantwortliche</strong> und{' '}
+          <strong>SNS handelt als Auftragsverarbeiter</strong> nach dessen Weisung (Art. 28 DSGVO),
+          auf Grundlage einer gesonderten schriftlichen Vereinbarung samt
+          Auftragsverarbeitungsvertrag (AVV). Für die Konto- und Vertragsdaten des Maklerbüros
+          selbst ist SNS Verantwortlicher.
         </p>
         <p>
           Jedes Maklerbüro ist ein eigener Mandant und eigener Verantwortlicher. Gehört ein
@@ -307,16 +299,13 @@ export default function PrivacyPageDe() {
           veröffentlicht wurde; dort gilt die Aufbewahrung der jeweiligen Plattform.
         </p>
         <p>
-          Sind Sie Eigentümerin oder Eigentümer, Kauf-, Verkaufs- oder Mietinteressentin oder
-          -interessent und hält ein Maklerbüro Ihre Daten in Immvela, ist dieses Maklerbüro Ihr
-          Verantwortlicher: Richten Sie Anträge zur Ausübung Ihrer Rechte, auch Löschanträge, bitte
-          an dieses Maklerbüro. Erreicht uns ein solcher Antrag direkt, leiten wir ihn unverzüglich
-          an das Maklerbüro weiter, teilen Ihnen dies mit und unterstützen das Maklerbüro bei der
-          Beantwortung. Leitet ein Maklerbüro einen solchen Antrag an uns weiter, löschen wir die
-          Datensätze dieser Person plattformweit, einschließlich abgeleiteter Datensätze, aus
-          Dokumenten ausgelesener Werte, erzeugter Dokumente und gespeicherter Dateien. Wir führen
-          dies innerhalb von 30 Tagen manuell durch; einen automatisierten Löschvorgang gibt es in
-          der Anwendung derzeit nicht. Wir können festhalten, dass ein Geschäftsvorfall
+          Sind Sie Kauf-, Verkaufs- oder Mietinteressent und hält ein Maklerbüro Ihre Daten in
+          Immvela, ist dieses Maklerbüro Ihr Verantwortlicher und die richtige erste Anlaufstelle
+          für einen Löschantrag. Leitet ein Maklerbüro einen solchen Antrag an uns weiter, löschen
+          wir die Datensätze dieser Person plattformweit, einschließlich abgeleiteter Datensätze,
+          aus Dokumenten ausgelesener Werte, erzeugter Dokumente und gespeicherter Dateien. Wir
+          führen dies innerhalb von 30 Tagen manuell durch; einen automatisierten Löschvorgang gibt
+          es in der Anwendung derzeit nicht. Wir können festhalten, dass ein Geschäftsvorfall
           stattgefunden hat, sofern dieser die Person nicht mehr identifiziert und eine gesetzliche
           Aufbewahrungspflicht besteht. Maklerbüros können jederzeit die Löschung oder Trennung
           verlangen, indem sie sich an{' '}
@@ -540,9 +529,7 @@ export default function PrivacyPageDe() {
         </ul>
         <p>
           Zur Ausübung dieser Rechte kontaktieren Sie uns unter{' '}
-          <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>. Werden Ihre Daten von
-          einem Maklerbüro in Immvela verarbeitet, wenden Sie sich bitte stattdessen an dieses
-          Maklerbüro (siehe Abschnitt 4.7).
+          <a href="mailto:office@sns-austria.com">office@sns-austria.com</a>.
         </p>
 
         <h2>11. Beschwerderecht</h2>
