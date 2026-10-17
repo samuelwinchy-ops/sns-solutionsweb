@@ -271,6 +271,55 @@ import { IMMVELA_ICONS, immvelaImages } from '@/lib/share'
  * places" over-claims: the service role bypasses RLS on every token WRITE
  * (`platform_connection` carries a SELECT-only policy), so the application is
  * the only boundary on that path. Both live policies now say so.
+ *
+ * ── The factual round, 2026-10-17 ───────────────────────────────────────────
+ *
+ * Every claim added or changed below was read against the app repo's
+ * `origin/main` at 317628868 (2026-10-17). Paths are under `apps/web/` unless
+ * they start with `supabase/`. If one becomes false, this text becomes false.
+ *
+ *   • LinkedIn's display name falls back to the account email —
+ *     `src/modules/publishing/platforms/accounts.ts:187`.
+ *   • Writing sends address, confirmed facts, selling points, style brief and
+ *     up to three kept texts, and no office name, user id, email or phone —
+ *     `src/modules/quill/prompt.ts:885-950`, `constants.ts:121`.
+ *   • Reading sends the complete PDF or photo; only the Energieausweis is
+ *     readable unless `IMMVELA_GRUNDBUCH_READ` / `IMMVELA_NUTZWERT_READ` are
+ *     "on" — `src/lib/extraction/kinds/index.ts:37-52`, `actions.ts:410-411`,
+ *     `src/lib/anthropic/client.ts:548-566`. ⚠️ Production env was NOT read.
+ *   • Chat understanding: Claude Haiku, 500 characters, the text stored for the
+ *     typist only, the activity record holds choices not text —
+ *     `src/lib/chat-understanding/config.ts:4,26`, `understand.ts:117,143`,
+ *     `supabase/migrations/0061_chat_understanding.sql:49`. An office has it
+ *     only with a `chat_understanding_office` row AND the global switch.
+ *   • Staging: one-hour link to the original photo, the optional note in the
+ *     prompt — `src/modules/vignette/provider.ts:175`, `listings.ts:121`.
+ *     Staged images expire after 30 days, job not armed — `expiry.ts:8`.
+ *   • Weekly allowances and the trial: `src/lib/allowance/config.ts:9-19`,
+ *     `supabase/migrations/0060`, `0067`, `0068`; the trial starts at the
+ *     office's first signed-in load — `src/lib/auth/module-access.ts:192`.
+ *   • History: members read office-wide entries and their own, owners and admins
+ *     read all by policy — `supabase/migrations/0008_events.sql:46`,
+ *     `src/lib/listings/history.ts:164`; an erased user's `actor_user_id` is
+ *     nulled — `scripts/lib/erasure-tables.mjs:27`.
+ *   • Sentry accepts only a `de.sentry.io` DSN, switches every data-collection
+ *     default off, rebuilds events from an allowlist and replaces message text —
+ *     `src/lib/observability/dsn.ts:23`, `options.ts:17`, `scrub.ts:5`. The IP
+ *     sentence is the transport's behaviour, not a setting we read back.
+ *   • Cookies: language `src/lib/i18n/actions.ts:55`, recent objects
+ *     `src/lib/ui/app-sidebar.tsx:141`, hint `src/lib/org/ui/brand-nudge.tsx:10`,
+ *     password reset `src/app/auth/recovery/route.ts:44`, TikTok verifier
+ *     `src/app/api/oauth/connect/[platform]/route.ts:87`; browser storage for
+ *     theme, sidebar, list layout and the brand draft; session storage for the
+ *     Sentry rate guard `src/lib/observability/init.ts:39`.
+ *   • Owner upload links keep only a hash, expire, and bind one listing —
+ *     `supabase/migrations/0051_owner_upload_link.sql:15`.
+ *
+ * ⚠️ **HELD on purpose, not published here:** the controller/processor split and
+ * the clients'-data section (they assert an AVV nobody has signed), a statement
+ * of transfer safeguards, legal bases, sign-in with Google or Microsoft (switched
+ * off), Turnstile and an email provider (not live), and the chat REPLIES (not
+ * built). The branch's earlier text for them is in commit de96d39.
  */
 
 export const metadata: Metadata = {
@@ -313,8 +362,8 @@ export const metadata: Metadata = {
   },
 }
 
-const UPDATED_DE = '15. September 2026'
-const UPDATED_EN = 'September 15, 2026'
+const UPDATED_DE = '17. Oktober 2026'
+const UPDATED_EN = 'October 17, 2026'
 
 // Same host now. The app served this page until the 2026-09-05 split put
 // every legal document on the landing page and left the product with
@@ -419,7 +468,8 @@ export default function ImmvelaPrivacyPage() {
                 Wenn Sie ein Konto bei Instagram, Facebook, LinkedIn, TikTok oder YouTube mit
                 Immvela verbinden, speichern wir den von der Plattform ausgestellten Zugriffs-Token,
                 gegebenenfalls einen Erneuerungs-Token, die Kontokennung der Plattform sowie den
-                angezeigten Kontonamen. Die Token werden vor dem Speichern verschlüsselt.
+                angezeigten Kontonamen (bei LinkedIn, falls kein Name übermittelt wird, die
+                E-Mail-Adresse des Kontos). Die Token werden vor dem Speichern verschlüsselt.
               </p>
               <p>
                 Wir verwenden sie <strong>ausschließlich für drei Zwecke</strong>: um in Ihrem
@@ -512,28 +562,102 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
-            <Section lang="de" title="Texterstellung mit KI">
+            <Section lang="de" title="KI beim Schreiben und Auslesen (Anthropic, Claude)">
               <p>
-                Wenn Sie einen Text erzeugen lassen, übermitteln wir die dafür nötigen Objektdaten —{' '}
-                <strong>einschließlich der Objektadresse</strong> und der von Ihnen bestätigten
-                Objektangaben — an unseren KI-Dienstleister Anthropic. Die erzeugten Texte und ein
-                Nutzungsnachweis werden bei uns gespeichert.
+                <strong>Schreiben.</strong> Wenn Sie einen Bildtext, eine Broschüre oder ein Exposé
+                erzeugen lassen, übermitteln wir an unseren KI-Dienstleister{' '}
+                <strong>Anthropic</strong> (Modelle der Reihe Claude) die dafür nötigen Objektdaten:{' '}
+                <strong>die Objektadresse</strong>, die von Ihnen bestätigten Objektangaben, Ihre
+                frei formulierten Verkaufsargumente und Stilangaben sowie bis zu drei Ihrer zuvor in
+                Immvela behaltenen Texte als Stilbeispiele. Nicht übermittelt werden der Name Ihres
+                Büros, Ihre Nutzerkennung, Ihre E-Mail-Adresse und Ihre Telefonnummer. Die erzeugten
+                Texte und ein Nutzungsnachweis werden bei uns gespeichert.
               </p>
               <p>
-                Wenn Sie ein Dokument zur Auswertung hochladen — etwa einen Energieausweis oder
-                einen Grundbuchauszug — übermitteln wir die <strong>vollständige Datei</strong> an
-                Anthropic, damit die darin enthaltenen Angaben ausgelesen werden können. Ein
-                Grundbuchauszug kann dabei Namen von Eigentümerinnen und Eigentümern sowie weiterer
-                Beteiligter enthalten. Ebenfalls übermittelt werden einige Ihrer zuvor in Immvela
-                behaltenen Texte, als Stilbeispiele, damit die Erzeugung Ihrem Schreibstil folgt.
+                <strong>Auslesen von Unterlagen.</strong> Wenn Sie eine Unterlage auslesen lassen,
+                übermitteln wir die <strong>vollständige Datei</strong> (PDF oder Foto) an Anthropic,
+                damit die darin enthaltenen Angaben als Vorschläge ausgelesen werden. Derzeit lesen
+                wir nur Energieausweise aus. Ein Energieausweis kann Namen enthalten, etwa der
+                Eigentümerin oder des Eigentümers und der ausstellenden Person. Andere Unterlagen,
+                etwa ein Grundbuchauszug oder ein Nutzwertgutachten, die Namen von Eigentümern und
+                Gläubigern enthalten, werden nur dann ausgelesen, wenn wir dies vorher ankündigen.
+                Unterlagen, die Sie nur speichern, gehen nicht an Anthropic.
               </p>
               <p>
-                Daten aus verbundenen Social-Media-Konten sind davon nicht betroffen; sie werden
-                nicht an Anthropic übermittelt.
+                Daten aus verbundenen Social-Media-Konten werden nicht an Anthropic übermittelt.
               </p>
             </Section>
 
-            <Section lang="de" title="Aufzeichnungen">
+            <Section lang="de" title="Virtuelle Möblierung mit KI (fal.ai)">
+              <p>
+                Wenn Sie ein Foto virtuell möblieren lassen, übermitteln wir an unseren
+                Dienstleister <strong>fal.ai (Features &amp; Labels, Inc., USA)</strong> einen eine
+                Stunde gültigen Link auf das <strong>Originalfoto</strong>, über den fal.ai die
+                Datei abruft. Der Link enthält interne Kennungen Ihres Maklerbüros und Ihres
+                Nutzerkontos. Außerdem übermitteln wir den Anweisungstext, einschließlich einer
+                optionalen Notiz, die Sie dazu eingeben. fal.ai gibt das möblierte Bild zurück; wir
+                speichern es bei uns.
+              </p>
+              <p>
+                Zweck ist ausschließlich die Erstellung der von Ihnen angeforderten möblierten
+                Variante. fal.ai verarbeitet die Daten <strong>in den USA</strong> und nach eigener
+                Angabe auch in weiteren Ländern; eine Verarbeitung in der EU ist derzeit nicht
+                eingerichtet. Nach den Nutzungsbedingungen von fal.ai darf fal.ai anonymisierte oder
+                zusammengefasste Nutzungsdaten zur Entwicklung eigener Produkte und KI-Modelle
+                verwenden. Eine Kopie, die fal.ai bereits erhalten hat, können wir nicht
+                zurückholen; für sie gelten die Aufbewahrungsregeln von fal.ai. Verwenden Sie dafür
+                nur Fotos, die Sie verwenden dürfen, und entfernen Sie auf Fotos erkennbare Personen
+                vorher.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Chat-Verständnis mit KI">
+              <p>
+                Wenn Ihr Maklerbüro das Chat-Verständnis nutzt, übermitteln wir eine Anfrage, die
+                Sie im Chat zu einem Objekt eintippen (höchstens 500 Zeichen), an Anthropic (Modell
+                Claude Haiku). Das Modell ordnet sie den Auswahlmöglichkeiten des Plans zu, etwa
+                welche Schritte ausgeführt werden und welches Layout und welcher Stil gelten sollen.
+                Übermittelt werden Ihr Text und die Liste dieser Auswahlmöglichkeiten, einschließlich
+                der Bezeichnungen der Hervorhebungen zum Objekt. Aus Ihrem Text werden keine Angaben
+                zum Objekt erstellt.
+              </p>
+              <p>
+                Ihren Text speichern wir bei uns, um das Chat-Verständnis zu verbessern. Lesen kann
+                ihn nur, wer ihn geschrieben hat; die übrigen Mitglieder Ihres Maklerbüros sehen ihn
+                nicht. Er wird gelöscht, wenn Ihr Konto oder das betreffende Inserat gelöscht wird.
+                In unseren Aktivitätsaufzeichnungen halten wir nur die erkannten Auswahlen fest,
+                nicht Ihren Text. Nennen Sie im Chat bitte keine Angaben zu anderen Personen.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Nutzungskontingente und Testzeitraum">
+              <p>
+                Für einige Funktionen gilt ein wöchentliches Kontingent je Person, etwa für die
+                Texterstellung, das Auslesen von Dokumenten, die virtuelle Möblierung und das
+                Chat-Verständnis. Dafür zählen wir je Person, Maklerbüro und Woche, wie oft eine
+                solche Funktion gestartet wurde. Die Zähler enthalten keine Inhalte, nur die Anzahl,
+                und werden mit Ihrem Konto gelöscht.
+              </p>
+              <p>
+                Ist der Zugang Ihres Maklerbüros als Testzugang eingerichtet, beginnt der
+                Testzeitraum mit der ersten Anmeldung in Ihrem Maklerbüro; wir speichern sein
+                Enddatum. Danach sind die betreffenden Funktionen gesperrt, bis der Zugang
+                verlängert oder umgestellt wird. Ihre Daten werden dadurch nicht gelöscht.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Verlauf und Aufzeichnungen">
+              <p>
+                Immvela zeichnet auf, wer wann was getan hat: etwa einen Text erzeugt, eine Angabe
+                bestätigt, eine Unterlage hochgeladen oder angefordert oder einen Beitrag
+                veröffentlicht. Im Verlauf eines Objekts sehen die Mitglieder Ihres Maklerbüros die
+                Einträge, die das ganze Büro betreffen, mit der Angabe, wer gehandelt hat. Einträge,
+                die nur einer Person zugeordnet sind, sieht in diesem Verlauf nur diese Person. Nach
+                den Zugriffsregeln der Datenbank können Inhaber und Administratoren eines
+                Maklerbüros alle Einträge ihres Büros lesen. Die Aufzeichnungen sind der Nachweis,
+                was zu einem Inserat wann galt, und werden nicht automatisch gelöscht. Wird ein
+                Konto gelöscht, entfernen wir die Zuordnung der Einträge zu dieser Person.
+              </p>
               <p>
                 Wir speichern, <em>dass</em> ein Beitrag veröffentlicht wurde, mit Zeitpunkt und
                 Kanal, sowie die dazu abgerufenen aggregierten Kennzahlen. Diese Aufzeichnungen
@@ -548,11 +672,47 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
-            <Section lang="de" title="Auftragsverarbeiter">
+            <Section lang="de" title="Unterauftragsverarbeiter und Ort der Verarbeitung">
+              <p>Wir setzen folgende Unterauftragsverarbeiter ein:</p>
+              <ul>
+                <li>
+                  <strong>Supabase</strong> (Datenbank, Anmeldung, Dateispeicher und Versand der
+                  Anmelde-E-Mails), Speicherort in der EU: Frankfurt am Main (Region eu-central-1);
+                </li>
+                <li>
+                  <strong>Vercel Inc.</strong>, USA (Hosting und Serverfunktionen der Anwendung);
+                </li>
+                <li>
+                  <strong>Trigger.dev</strong> (Hintergrundaufträge);
+                </li>
+                <li>
+                  <strong>Anthropic PBC</strong>, USA (Schreiben, Auslesen von Unterlagen und, falls
+                  Ihr Maklerbüro es nutzt, Chat-Verständnis);
+                </li>
+                <li>
+                  <strong>fal.ai (Features &amp; Labels, Inc.)</strong>, USA (virtuelle Möblierung,
+                  siehe oben);
+                </li>
+                <li>
+                  <strong>Sentry (Functional Software, Inc.)</strong>, EU-Region (Frankfurt):
+                  technische Angaben zu Fehlern in der Anwendung, nämlich Fehlerart, ein Fehlercode,
+                  die Programmstelle (Funktion, Datei, Zeile), die aufgerufene Seite als Muster ohne
+                  Kennungen sowie Umgebung, Programmversion und Art von Browser und Betriebssystem.
+                  Sentry ist so eingestellt, dass keine Nutzerangaben, Cookies und Anfrageinhalte
+                  übermittelt werden, und der Text einer Fehlermeldung wird vor dem Versand entfernt.
+                  Technisch bedingt sieht Sentry dabei die IP-Adresse des sendenden Geräts und kann
+                  daraus den ungefähren Ort (Stadt) ableiten.
+                </li>
+              </ul>
               <p>
-                Supabase (Datenbank und Dateispeicher), Vercel (Hosting), Trigger.dev
-                (Hintergrundaufträge) und Anthropic (Texterstellung und Auswertung hochgeladener
-                Dokumente).
+                <strong>Ort der Verarbeitung.</strong> Datenbank und gespeicherte Dateien liegen in
+                der EU (Frankfurt am Main). Einzelne Unterauftragsverarbeiter verarbeiten Daten
+                jedoch <strong>außerhalb der EU</strong>, insbesondere in den USA: Anthropic beim
+                Schreiben, beim Auslesen von Unterlagen und beim Chat-Verständnis (für diese
+                Schnittstelle haben wir keine Verarbeitung nur in der EU eingestellt) und fal.ai bei
+                der virtuellen Möblierung. Vercel Inc. hat seinen Sitz in den USA; auch bei Vercel,
+                Supabase und Trigger.dev kann ein Zugriff außerhalb der EU nicht ausgeschlossen
+                werden.
               </p>
               <p>
                 Beiträge, die Sie veröffentlichen, werden an die von Ihnen gewählte Plattform
@@ -600,8 +760,13 @@ export default function ImmvelaPrivacyPage() {
                 </li>
                 <li>
                   <strong>Weitergabe.</strong> Wir verkaufen keine Daten. Eine Weitergabe erfolgt
-                  ausschließlich an die oben genannten Auftragsverarbeiter und an die von Ihnen
-                  verbundenen Veröffentlichungsplattformen.
+                  ausschließlich an die genannten Unterauftragsverarbeiter und an die Plattformen,
+                  die Sie selbst verbinden.
+                </li>
+                <li>
+                  <strong>Links für Eigentümer.</strong> Über einen Upload-Link können Eigentümerinnen
+                  und Eigentümer Unterlagen senden. Der Link wird bei uns nur als Prüfwert (Hash)
+                  gespeichert, gilt nur bis zu seinem Ablauf und nur für das betreffende Objekt.
                 </li>
                 <li>
                   <strong>Zugriff durch uns.</strong> Der Zugriff auf Produktivsysteme ist auf die
@@ -612,23 +777,53 @@ export default function ImmvelaPrivacyPage() {
 
             <Section lang="de" title="Cookies und Speicherung auf Ihrem Gerät">
               <p>
-                Immvela setzt ein Cookie ausschließlich dafür, Sie angemeldet zu halten. Es ist für
-                den von Ihnen angeforderten Dienst unbedingt erforderlich, daher ist dafür keine
-                Einwilligung erforderlich. Wir setzen keine Tracking-, Werbe- oder Analyse-Cookies
-                und lesen zu keinem anderen Zweck Daten von Ihrem Gerät.
+                Immvela speichert auf Ihrem Gerät: ein Cookie, das Sie angemeldet hält; Cookies für
+                Ihre Sprache, die zuletzt geöffneten Objekte und bereits gesehene Hinweise;
+                kurzlebige Cookies während einer Passwort-Rücksetzung und beim Verbinden eines
+                TikTok-Kontos; sowie im Browserspeicher Ihre Darstellungseinstellungen (etwa hell
+                oder dunkel, Seitenleiste, Listenansicht), Entwürfe, die Sie noch nicht gespeichert
+                haben, und einen Zähler, der die Zahl der gesendeten Fehlermeldungen begrenzt. Wir
+                setzen keine Tracking-, Werbe- oder Analyse-Cookies.
               </p>
             </Section>
 
             <Section lang="de" title="Speicherdauer">
               <p>
                 Ihre Inhalte bleiben gespeichert, bis Sie sie in Immvela löschen oder Ihr Konto
-                gelöscht wird.{' '}
-                <strong>
-                  Eine automatische Löschung von Mediendateien findet derzeit nicht statt.
-                </strong>{' '}
-                Ein bereits veröffentlichter Beitrag bleibt auf der jeweiligen Plattform bestehen
-                und ist dort von Ihnen zu entfernen.
+                gelöscht wird. Im Einzelnen:
               </p>
+              <ul>
+                <li>
+                  <strong>Medien</strong> (Fotos, Videos, möblierte Bilder, Broschüren):{' '}
+                  <strong>
+                    Eine automatische Löschung von Mediendateien findet derzeit nicht statt.
+                  </strong>{' '}
+                  Vorgesehen sind eine monatliche Bereinigung von Medien, die Sie nicht als
+                  „behalten“ markieren, und der Ablauf möblierter Bilder, die Sie nicht übernehmen,
+                  nach 30 Tagen; beides ist derzeit nicht aktiv.
+                </li>
+                <li>
+                  <strong>Unterlagen</strong> sind von der Medienbereinigung ausgenommen und bleiben
+                  bis zur Löschung. Eine gesetzliche Aufbewahrungsfrist nennen wir hier nicht.
+                </li>
+                <li>
+                  <strong>Verlauf und Veröffentlichungsaufzeichnungen</strong> werden nicht
+                  automatisch gelöscht (siehe „Verlauf und Aufzeichnungen“).
+                </li>
+                <li>
+                  <strong>Chat-Texte</strong> bleiben, bis Ihr Konto oder das Inserat gelöscht wird;
+                  die <strong>Zähler</strong> der Nutzungskontingente werden mit dem Konto gelöscht.
+                </li>
+                <li>
+                  <strong>Kopien bei Anbietern</strong> (Anthropic, fal.ai) und Protokolle (Vercel,
+                  Supabase, Trigger.dev) unterliegen den Aufbewahrungsregeln der Anbieter und sind
+                  für uns nicht erreichbar.
+                </li>
+                <li>
+                  Ein bereits veröffentlichter Beitrag bleibt auf der jeweiligen Plattform bestehen
+                  und ist dort von Ihnen zu entfernen.
+                </li>
+              </ul>
             </Section>
 
             <Section lang="de" title="Löschung">
@@ -654,6 +849,21 @@ export default function ImmvelaPrivacyPage() {
               <p>
                 Ausführliche Anleitung:{' '}
                 <a href={DATA_DELETION_URL}>immvela.com/legal/data-deletion</a>.
+              </p>
+            </Section>
+
+            <Section lang="de" title="Ihre Rechte">
+              <p>
+                Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der
+                Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15 bis 21 DSGVO). Zur
+                Ausübung dieser Rechte schreiben Sie an <a href={`mailto:${CONTACT}`}>{CONTACT}</a>;
+                für die Löschung Ihres gesamten Kontos gilt der Abschnitt „Löschung“. Sie können
+                sich außerdem bei der Österreichischen Datenschutzbehörde (Barichgasse 40-42, 1030
+                Wien,{' '}
+                <a href="https://www.dsb.gv.at" target="_blank" rel="noopener noreferrer">
+                  dsb.gv.at
+                </a>
+                ) oder bei einer anderen Aufsichtsbehörde beschweren.
               </p>
             </Section>
 
@@ -690,7 +900,8 @@ export default function ImmvelaPrivacyPage() {
                 When you connect an Instagram, Facebook, LinkedIn, TikTok or YouTube account to
                 Immvela, we store the access token issued by that platform, a refresh token where
                 one is issued, the platform&apos;s account identifier, and the account&apos;s
-                display name. Tokens are encrypted before they are stored.
+                display name (for LinkedIn, where no name is provided, the account&apos;s email
+                address). Tokens are encrypted before they are stored.
               </p>
               <p>
                 We use them <strong>solely for three purposes</strong>: to publish posts on your
@@ -779,28 +990,93 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
-            <Section lang="en" title="AI text generation">
+            <Section lang="en" title="AI for writing and reading (Anthropic, Claude)">
               <p>
-                When you generate text, we send the property details needed for it —{' '}
-                <strong>including the property address</strong> and the property attributes you have
-                confirmed — to our AI provider, Anthropic. The generated text and a record of the
-                generation are stored by us.
+                <strong>Writing.</strong> When you generate a caption, brochure or Exposé, we send
+                our AI provider <strong>Anthropic</strong> (Claude models) the property details
+                needed for it: <strong>the property address</strong>, the property attributes you
+                have confirmed, your free-text selling points and style instructions, and up to
+                three of your previously kept texts as style samples. We do not send your
+                office&apos;s name, your user id, your email address or your phone number. The
+                generated text and a record of the generation are stored by us.
               </p>
               <p>
-                When you upload a document for extraction — an energy certificate (Energieausweis)
-                or a land-register extract (Grundbuchauszug) — we send the{' '}
-                <strong>complete file</strong> to Anthropic so that the values in it can be read
-                out. A land-register extract may name owners and other parties. Some of your own
-                previously kept texts are sent as well, as style samples, so that generation follows
-                your writing style.
+                <strong>Reading documents.</strong> When you have a document read, we send the{' '}
+                <strong>complete file</strong> (PDF or photo) to Anthropic so that the values in it
+                can be read out as proposals. Today we read only energy certificates
+                (Energieausweis). An energy certificate can contain names, for example of the owner
+                and of the person who issued it. Other documents, such as a land-register extract
+                (Grundbuchauszug) or a Nutzwertgutachten, which name owners and creditors, are read
+                only after we announce it. Documents you only store are not sent to Anthropic.
+              </p>
+              <p>Data from connected social accounts is not sent to Anthropic.</p>
+            </Section>
+
+            <Section lang="en" title="AI virtual staging (fal.ai)">
+              <p>
+                When you have a photo virtually furnished, we send our provider{' '}
+                <strong>fal.ai (Features &amp; Labels, Inc., USA)</strong> a link to the{' '}
+                <strong>original photo</strong> that is valid for one hour and through which fal.ai
+                retrieves the file. The link contains internal identifiers of your brokerage and of
+                your user account. We also send the instruction text, including any optional note
+                you type for it. fal.ai returns the staged image, which we store.
               </p>
               <p>
-                Data from connected social accounts is not part of this and is not sent to
-                Anthropic.
+                This is solely to produce the staged version you asked for. fal.ai processes the
+                data <strong>in the United States</strong> and, by its own account, in other
+                countries as well; processing in the EU is not currently set up. Under fal.ai&apos;s
+                terms, fal.ai may use anonymised or aggregated usage data to develop its own
+                products and AI models. A copy fal.ai has already received cannot be recalled by us
+                and is subject to fal.ai&apos;s own retention rules. Use only photos you are
+                entitled to use for this, and remove recognisable people from them first.
               </p>
             </Section>
 
-            <Section lang="en" title="Records">
+            <Section lang="en" title="AI chat understanding">
+              <p>
+                If your office uses chat understanding, a request you type into the chat on a
+                property (at most 500 characters) is sent to Anthropic (Claude Haiku model), which
+                maps it to the choices the plan offers, for example which steps to run and which
+                layout and style to use. We send your text and the list of those choices, including
+                the names of the highlights for the property. No property details are created from
+                your text.
+              </p>
+              <p>
+                We store your text to improve chat understanding. Only the person who wrote it can
+                read it; the other members of your office cannot see it. It is deleted when your
+                account or the listing concerned is deleted. Our activity records hold only the
+                choices that were recognised, not your text. Please do not enter details about other
+                people in the chat.
+              </p>
+            </Section>
+
+            <Section lang="en" title="Usage allowances and trial period">
+              <p>
+                Some functions have a weekly allowance per person, for example text generation,
+                reading documents, virtual staging and chat understanding. For this we count, per
+                person, office and week, how often such a function was started. The counters hold no
+                content, only the number, and are deleted with your account.
+              </p>
+              <p>
+                If your office&apos;s access is set up as a trial, the trial starts at the first
+                sign-in in your office, and we store the date it ends. After that date the functions
+                concerned are locked until the access is extended or changed. Your data is not
+                deleted by this.
+              </p>
+            </Section>
+
+            <Section lang="en" title="History and records">
+              <p>
+                Immvela records who did what and when: for example generating a text, confirming a
+                detail, uploading or requesting a document, or publishing a post. In a
+                property&apos;s history the members of your office see the entries that concern the
+                whole office, with the person who acted named. Entries tied to one person alone are
+                shown in this history only to that person. Under the database&apos;s access rules,
+                owners and admins of an office can read all of the office&apos;s entries. The
+                records are the evidence of what was true for a listing on a given date and are not
+                deleted automatically. When an account is deleted, we remove the link between the
+                entries and that person.
+              </p>
               <p>
                 We store the fact <em>that</em> a post was published, with its time and channel,
                 together with the aggregate figures retrieved for it. These records contain no
@@ -814,10 +1090,47 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
-            <Section lang="en" title="Processors">
+            <Section lang="en" title="Sub-processors and where data is processed">
+              <p>We use the following sub-processors:</p>
+              <ul>
+                <li>
+                  <strong>Supabase</strong> (database, sign-in, file storage and sending sign-in
+                  emails), stored in the EU: Frankfurt am Main (region eu-central-1);
+                </li>
+                <li>
+                  <strong>Vercel Inc.</strong>, USA (hosting and the application&apos;s server
+                  functions);
+                </li>
+                <li>
+                  <strong>Trigger.dev</strong> (background jobs);
+                </li>
+                <li>
+                  <strong>Anthropic PBC</strong>, USA (writing, reading documents and, if your
+                  office uses it, chat understanding);
+                </li>
+                <li>
+                  <strong>fal.ai (Features &amp; Labels, Inc.)</strong>, USA (virtual staging, see
+                  above);
+                </li>
+                <li>
+                  <strong>Sentry (Functional Software, Inc.)</strong>, EU region (Frankfurt):
+                  technical details of errors in the application, namely the error type, an error
+                  code, the place in the program (function, file, line), the page called as a
+                  pattern without identifiers, and the environment, program version and kind of
+                  browser and operating system. Sentry is set up to receive no user details, cookies
+                  or request contents, and the text of an error message is removed before sending.
+                  As a technical matter Sentry sees the IP address of the sending device and can
+                  derive an approximate location (city) from it.
+                </li>
+              </ul>
               <p>
-                Supabase (database and file storage), Vercel (hosting), Trigger.dev (background
-                jobs) and Anthropic (text generation, and extraction from uploaded documents).
+                <strong>Where data is processed.</strong> The database and stored files are in the
+                EU (Frankfurt am Main). Some sub-processors, however, process data{' '}
+                <strong>outside the EU</strong>, mainly in the United States: Anthropic for writing,
+                for reading documents and for chat understanding (we have not set this interface to
+                EU-only processing), and fal.ai for virtual staging. Vercel Inc. is based in the
+                United States; access from outside the EU cannot be ruled out with Vercel, Supabase
+                or Trigger.dev either.
               </p>
               <p>
                 Posts you publish are transmitted to the platform you select and are then subject to
@@ -862,7 +1175,12 @@ export default function ImmvelaPrivacyPage() {
                 </li>
                 <li>
                   <strong>Disclosure.</strong> We do not sell data. We disclose it only to the
-                  processors named above and to the publishing platforms you connect.
+                  sub-processors named in this policy and to the platforms you connect yourself.
+                </li>
+                <li>
+                  <strong>Owner links.</strong> Owners can send documents through an upload link. We
+                  store the link only as a check value (hash); it works only until it expires and
+                  only for that property.
                 </li>
                 <li>
                   <strong>Our own access.</strong> Access to production systems is limited to the
@@ -873,18 +1191,50 @@ export default function ImmvelaPrivacyPage() {
 
             <Section lang="en" title="Cookies and device storage">
               <p>
-                Immvela sets a cookie only to keep you signed in. It is strictly necessary for the
-                service you asked for, so no consent is required for it. We set no tracking,
-                advertising or analytics cookies, and we read nothing else from your device.
+                Immvela stores on your device: a cookie that keeps you signed in; cookies for your
+                language, the properties you opened recently and hints you have already seen;
+                short-lived cookies during a password reset and when connecting a TikTok account;
+                and, in browser storage, your display settings (such as light or dark, sidebar, list
+                layout), drafts you have not saved yet, and a counter that limits how many error
+                reports are sent. We set no tracking, advertising or analytics cookies.
               </p>
             </Section>
 
             <Section lang="en" title="Retention">
               <p>
-                Your content is retained until you delete it in Immvela or your account is deleted.{' '}
-                <strong>There is currently no automatic deletion of media files.</strong> A post
-                already published remains on the platform concerned and is removed by you there.
+                Your content is retained until you delete it in Immvela or your account is deleted.
+                In detail:
               </p>
+              <ul>
+                <li>
+                  <strong>Media</strong> (photos, videos, staged images, brochures):{' '}
+                  <strong>There is currently no automatic deletion of media files.</strong> A
+                  monthly clean-up of media you have not marked &quot;keep&quot; is planned, and so
+                  is the expiry after 30 days of staged images you do not keep; neither is active
+                  today.
+                </li>
+                <li>
+                  <strong>Documents</strong> are exempt from the media clean-up and stay until they
+                  are deleted. We state no statutory retention period here.
+                </li>
+                <li>
+                  <strong>History and publication records</strong> are not deleted automatically
+                  (see &quot;History and records&quot;).
+                </li>
+                <li>
+                  <strong>Chat texts</strong> stay until your account or the listing is deleted; the{' '}
+                  <strong>counters</strong> of the usage allowances are deleted with the account.
+                </li>
+                <li>
+                  <strong>Copies at providers</strong> (Anthropic, fal.ai) and logs (Vercel,
+                  Supabase, Trigger.dev) follow those providers&apos; retention rules and are out of
+                  our reach.
+                </li>
+                <li>
+                  A post already published remains on the platform concerned and is removed by you
+                  there.
+                </li>
+              </ul>
             </Section>
 
             <Section lang="en" title="Deletion">
@@ -908,6 +1258,20 @@ export default function ImmvelaPrivacyPage() {
               </p>
               <p>
                 Full instructions: <a href={DATA_DELETION_URL}>immvela.com/legal/data-deletion</a>.
+              </p>
+            </Section>
+
+            <Section lang="en" title="Your rights">
+              <p>
+                You have the right of access, rectification, erasure, restriction of processing,
+                data portability and objection (Art. 15 to 21 GDPR). To exercise these rights, write
+                to <a href={`mailto:${CONTACT}`}>{CONTACT}</a>; deleting your entire account is
+                covered under &quot;Deletion&quot;. You may also complain to the Austrian Data
+                Protection Authority (Barichgasse 40-42, 1030 Vienna,{' '}
+                <a href="https://www.dsb.gv.at" target="_blank" rel="noopener noreferrer">
+                  dsb.gv.at
+                </a>
+                ) or to another supervisory authority.
               </p>
             </Section>
 

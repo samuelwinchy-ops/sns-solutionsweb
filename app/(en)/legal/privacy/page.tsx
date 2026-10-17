@@ -14,7 +14,7 @@ export const metadata: Metadata = snsPage({
   },
 })
 
-const UPDATED = 'September 15, 2026'
+const UPDATED = 'October 17, 2026'
 
 export default function PrivacyPage() {
   return (
@@ -121,8 +121,14 @@ export default function PrivacyPage() {
             documents) and the brokerage’s edits to it.
           </li>
           <li>
+            Where the brokerage uses chat understanding: the requests a user types into the chat on
+            a property (see Section 4.4).
+          </li>
+          <li>
             Access tokens issued by connected publishing platforms, used solely to publish on the
-            brokerage’s behalf and to retrieve the resulting engagement data.
+            brokerage’s behalf and to retrieve the resulting engagement data, and the connected
+            account’s identifier and display name (for LinkedIn, where no name is provided, the
+            account’s email address).
           </li>
           <li>
             Engagement data returned by those platforms (for example views, reactions and post
@@ -130,7 +136,14 @@ export default function PrivacyPage() {
           </li>
           <li>
             Records of platform activity showing which module produced or used which record, used to
-            operate the service and to make the brokerage’s own data reusable across modules.
+            operate the service and to make the brokerage’s own data reusable across modules. In a
+            property’s history, the members of the brokerage see the entries that concern the whole
+            office with the person who acted named.
+          </li>
+          <li>
+            Usage counters per person, brokerage and week for functions with a weekly allowance (a
+            count only, no content), and the end date of the trial where the brokerage’s access is
+            set up as a trial.
           </li>
         </ul>
 
@@ -148,9 +161,42 @@ export default function PrivacyPage() {
           Several Immvela modules generate text or images using AI. For text generation, the
           relevant listing and property data is transmitted to <strong>Anthropic PBC</strong>{' '}
           (Claude models) acting as a sub-processor, solely to produce the output the brokerage
-          asked for. Under Anthropic’s commercial API terms, data submitted through the API is not
-          used to train their models. We do not sell client data, use it for advertising, or use it
-          to train AI models of our own.
+          asked for. Anthropic states in its commercial terms that data submitted through the API
+          is not used to train its models. We do not sell client data, use it for advertising, or
+          use it to train AI models of our own.
+        </p>
+        <p>
+          For writing, we send the property address, the confirmed property details, the user’s
+          free-text selling points and style instructions, and up to three of the user’s previously
+          kept texts as style samples; we do not send the office’s name, the user id, the email
+          address or the phone number. For reading documents, the complete file (PDF or photo) goes
+          to Anthropic; today only energy certificates are read, other document kinds such as a
+          land-register extract only after we announce it, and documents that are only stored are
+          not sent.
+        </p>
+        <p>
+          For virtual staging, when a user has a photo virtually furnished, we send{' '}
+          <strong>fal.ai (Features &amp; Labels, Inc., USA)</strong>, acting as a sub-processor, a
+          link to the original photo that is valid for one hour and through which fal.ai retrieves
+          the file. The link contains internal identifiers of the brokerage and of the user. We also
+          send the instruction text, including any optional note the user types for it. fal.ai
+          returns the staged image, which we store. This is solely to produce the staged version the
+          user asked for. fal.ai processes the data in the United States and, by its own account, in
+          other countries as well; processing in the EU is not currently set up. Under fal.ai’s
+          terms, fal.ai may use anonymised or aggregated usage data to develop its own products and
+          AI models. A copy fal.ai has already received cannot be recalled by us and is subject to
+          fal.ai’s own retention rules.
+        </p>
+        <p>
+          If a brokerage uses chat understanding, a request a user types into the chat on a property
+          (at most 500 characters) is sent to <strong>Anthropic PBC</strong> (Claude Haiku model),
+          which maps it to the choices the plan offers,
+          for example which steps to run and which layout and style to use. We send the text and the
+          list of those choices, including the names of the highlights for the property; no property
+          details are created from the text. We store the text to improve chat understanding. Only
+          the user who wrote it can read it; other members of the brokerage cannot. It is deleted
+          when that user’s account or the listing concerned is deleted, and our activity records
+          hold only the recognised choices, not the text.
         </p>
         <p>
           Two limits are built into the platform rather than left to policy. Factual values in
@@ -168,22 +214,47 @@ export default function PrivacyPage() {
         </p>
 
         <h3>4.5 Storage and sub-processors</h3>
-        <p>Immvela’s data is stored in the European Union:</p>
+        <p>
+          Immvela’s database and stored files are kept in the European Union. Some sub-processors,
+          however, process data outside the EU, as set out below.
+        </p>
         <ul>
           <li>
             Database, authentication and file storage: <strong>Supabase</strong>, hosted in the EU
             (eu-central-1, Frankfurt, Germany)
           </li>
           <li>
-            Application hosting: <strong>Vercel</strong> (see Section 3 for Vercel’s data handling)
+            Application hosting: <strong>Vercel Inc.</strong>, USA (see Section 3 for Vercel’s data
+            handling)
           </li>
           <li>
             Background job processing: <strong>Trigger.dev</strong>
           </li>
           <li>
-            AI text generation: <strong>Anthropic PBC</strong> (see Section 4.4)
+            AI text generation, reading of uploaded documents and, if the brokerage uses it, chat
+            understanding: <strong>Anthropic PBC</strong>, USA (see Section 4.4)
+          </li>
+          <li>
+            AI virtual staging: <strong>fal.ai (Features &amp; Labels, Inc.)</strong>, USA (see
+            Section 4.4)
+          </li>
+          <li>
+            Error monitoring: <strong>Sentry (Functional Software, Inc.)</strong>, EU region
+            (Frankfurt); technical details of errors (error type, an error code, the place in the
+            program, the page called as a pattern without identifiers, and environment, program
+            version and kind of browser and operating system). Sentry is set up to receive no user
+            details, cookies or request contents, and the text of an error message is removed
+            before sending. As a technical matter Sentry sees the IP address of the sending device
+            and can derive an approximate location (city) from it
           </li>
         </ul>
+        <p>
+          <strong>Processing outside the EU.</strong> Anthropic (text generation, reading documents
+          and chat understanding; we have not set this interface to EU-only processing) and fal.ai
+          (virtual staging) process data in the United States. Vercel Inc. is based in the United
+          States; access from outside the EU cannot be ruled out with Vercel, Supabase or
+          Trigger.dev either.
+        </p>
         <p>
           Where a sub-processor involves a transfer outside the EU/EEA, that transfer is covered by
           a data processing agreement and safeguarded by the EU Standard Contractual Clauses.
