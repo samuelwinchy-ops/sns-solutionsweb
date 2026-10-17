@@ -14,7 +14,7 @@ export const metadata: Metadata = snsPage({
   },
 })
 
-const UPDATED = 'October 7, 2026'
+const UPDATED = 'October 17, 2026'
 
 export default function PrivacyPage() {
   return (
@@ -117,11 +117,6 @@ export default function PrivacyPage() {
             footage.
           </li>
           <li>
-            Smaller copies of uploaded photos for display in the application and a colour value
-            shown while a photo loads. Both are created automatically, stored in the same place as
-            the original and deleted together with it.
-          </li>
-          <li>
             Text the platform drafts on the brokerage’s instruction (listing copy, captions, Exposé
             documents) and the brokerage’s edits to it.
           </li>
@@ -131,7 +126,9 @@ export default function PrivacyPage() {
           </li>
           <li>
             Access tokens issued by connected publishing platforms, used solely to publish on the
-            brokerage’s behalf and to retrieve the resulting engagement data.
+            brokerage’s behalf and to retrieve the resulting engagement data, and the connected
+            account’s identifier and display name (for LinkedIn, where no name is provided, the
+            account’s email address).
           </li>
           <li>
             Engagement data returned by those platforms (for example views, reactions and post
@@ -139,7 +136,9 @@ export default function PrivacyPage() {
           </li>
           <li>
             Records of platform activity showing which module produced or used which record, used to
-            operate the service and to make the brokerage’s own data reusable across modules.
+            operate the service and to make the brokerage’s own data reusable across modules. In a
+            property’s history, the members of the brokerage see the entries that concern the whole
+            office with the person who acted named.
           </li>
           <li>
             Usage counters per person, brokerage and week for functions with a weekly allowance (a
@@ -162,9 +161,18 @@ export default function PrivacyPage() {
           Several Immvela modules generate text or images using AI. For text generation, the
           relevant listing and property data is transmitted to <strong>Anthropic PBC</strong>{' '}
           (Claude models) acting as a sub-processor, solely to produce the output the brokerage
-          asked for. Under Anthropic’s commercial API terms, data submitted through the API is not
-          used to train their models. We do not sell client data, use it for advertising, or use it
-          to train AI models of our own.
+          asked for. Anthropic states in its commercial terms that data submitted through the API
+          is not used to train its models. We do not sell client data, use it for advertising, or
+          use it to train AI models of our own.
+        </p>
+        <p>
+          For writing, we send the property address, the confirmed property details, the user’s
+          free-text selling points and style instructions, and up to three of the user’s previously
+          kept texts as style samples; we do not send the office’s name, the user id, the email
+          address or the phone number. For reading documents, the complete file (PDF or photo) goes
+          to Anthropic; today only energy certificates are read, other document kinds such as a
+          land-register extract only after we announce it, and documents that are only stored are
+          not sent.
         </p>
         <p>
           For virtual staging, when a user has a photo virtually furnished, we send{' '}
@@ -181,7 +189,8 @@ export default function PrivacyPage() {
         </p>
         <p>
           If a brokerage uses chat understanding, a request a user types into the chat on a property
-          is sent to <strong>Anthropic PBC</strong>, which maps it to the choices the plan offers,
+          (at most 500 characters) is sent to <strong>Anthropic PBC</strong> (Claude Haiku model),
+          which maps it to the choices the plan offers,
           for example which steps to run and which layout and style to use. We send the text and the
           list of those choices, including the names of the highlights for the property; no property
           details are created from the text. We store the text to improve chat understanding. Only
@@ -215,7 +224,8 @@ export default function PrivacyPage() {
             (eu-central-1, Frankfurt, Germany)
           </li>
           <li>
-            Application hosting: <strong>Vercel</strong> (see Section 3 for Vercel’s data handling)
+            Application hosting: <strong>Vercel Inc.</strong>, USA (see Section 3 for Vercel’s data
+            handling)
           </li>
           <li>
             Background job processing: <strong>Trigger.dev</strong>
@@ -229,28 +239,25 @@ export default function PrivacyPage() {
             Section 4.4)
           </li>
           <li>
-            Error monitoring, only if we enable it:{' '}
-            <strong>Sentry (Functional Software, Inc.)</strong>, EU region (Frankfurt); technical
-            details of errors (error type, error code, the place in the program and the page called,
-            without identifiers). Sentry is set up to send no user details, cookies, request
-            contents or error message texts, and the storage of IP addresses is switched off, so it
-            receives personal data only to the extent these technical details contain it
+            Error monitoring: <strong>Sentry (Functional Software, Inc.)</strong>, EU region
+            (Frankfurt); technical details of errors (error type, an error code, the place in the
+            program, the page called as a pattern without identifiers, and environment, program
+            version and kind of browser and operating system). Sentry is set up to receive no user
+            details, cookies or request contents, and the text of an error message is removed
+            before sending. As a technical matter Sentry sees the IP address of the sending device
+            and can derive an approximate location (city) from it
           </li>
         </ul>
         <p>
           <strong>Processing outside the EU.</strong> Anthropic (text generation, reading documents
-          and chat understanding; Anthropic offers no EU-only processing for this interface) and
-          fal.ai (virtual staging) process data in the United States. Vercel and Trigger.dev are
-          providers based in the United States; with them too, processing or access outside the EU
-          can take place.
+          and chat understanding; we have not set this interface to EU-only processing) and fal.ai
+          (virtual staging) process data in the United States. Vercel Inc. is based in the United
+          States; access from outside the EU cannot be ruled out with Vercel, Supabase or
+          Trigger.dev either.
         </p>
         <p>
-          Where a sub-processor involves a transfer outside the EU/EEA, that transfer is made on the
-          basis of the provider’s data processing terms with the EU Standard Contractual Clauses
-          (Commission Implementing Decision (EU) 2021/914) or, for certified recipients, the
-          adequacy decision for the EU-US Data Privacy Framework. For fal.ai, this is the Data
-          Processing Addendum fal.ai publishes (dated 31 July 2026), which provides for transfers
-          under the Standard Contractual Clauses.
+          Where a sub-processor involves a transfer outside the EU/EEA, that transfer is covered by
+          a data processing agreement and safeguarded by the EU Standard Contractual Clauses.
         </p>
 
         <h3>4.6 Connected publishing platforms</h3>

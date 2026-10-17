@@ -14,7 +14,7 @@ export const metadata: Metadata = snsPage({
   },
 })
 
-const UPDATED = '7. Oktober 2026'
+const UPDATED = '17. Oktober 2026'
 
 export default function PrivacyPageDe() {
   return (
@@ -121,11 +121,6 @@ export default function PrivacyPageDe() {
             Rundgangsaufnahmen.
           </li>
           <li>
-            Verkleinerte Kopien hochgeladener Fotos für die Anzeige in der Anwendung und ein
-            Farbwert, der angezeigt wird, bis ein Foto geladen ist. Beides wird automatisch
-            erstellt, am selben Ort wie das Original gespeichert und zusammen mit ihm gelöscht.
-          </li>
-          <li>
             Texte, die die Plattform auf Weisung des Maklerbüros entwirft (Inseratstexte, Captions,
             Exposés), sowie die Überarbeitungen des Maklerbüros daran.
           </li>
@@ -136,7 +131,9 @@ export default function PrivacyPageDe() {
           <li>
             Zugangstoken der verbundenen Veröffentlichungsplattformen, die ausschließlich dazu
             dienen, im Auftrag des Maklerbüros zu veröffentlichen und die dazugehörigen
-            Interaktionsdaten abzurufen.
+            Interaktionsdaten abzurufen, sowie die Kennung und der angezeigte Name des verbundenen
+            Kontos (bei LinkedIn, falls kein Name übermittelt wird, die E-Mail-Adresse des
+            Kontos).
           </li>
           <li>
             Interaktionsdaten, die diese Plattformen zurückliefern (zum Beispiel Aufrufe, Reaktionen
@@ -145,7 +142,9 @@ export default function PrivacyPageDe() {
           <li>
             Aufzeichnungen über Aktivitäten in der Plattform, die festhalten, welches Modul welchen
             Datensatz erzeugt oder genutzt hat. Sie dienen dem Betrieb des Dienstes und dazu, die
-            eigenen Daten des Maklerbüros modulübergreifend nutzbar zu machen.
+            eigenen Daten des Maklerbüros modulübergreifend nutzbar zu machen. Im Verlauf eines
+            Objekts sehen die Mitglieder des Maklerbüros die Einträge, die das ganze Büro
+            betreffen, mit der Angabe, wer gehandelt hat.
           </li>
           <li>
             Nutzungszähler je Person, Maklerbüro und Woche für Funktionen mit einem wöchentlichen
@@ -169,10 +168,20 @@ export default function PrivacyPageDe() {
           Mehrere Immvela-Module erzeugen Texte oder Bilder mit KI. Für die Texterzeugung werden die
           betreffenden Inserats- und Objektdaten an <strong>Anthropic PBC</strong> (Claude-Modelle)
           als Unterauftragsverarbeiter übermittelt, ausschließlich zur Erstellung des vom Maklerbüro
-          angeforderten Ergebnisses. Nach den kommerziellen API-Bedingungen von Anthropic werden
-          über die API übermittelte Daten nicht zum Training der dortigen Modelle verwendet. Wir
+          angeforderten Ergebnisses. Anthropic gibt in seinen kommerziellen Bedingungen an, dass
+          über die API übermittelte Daten nicht zum Training seiner Modelle verwendet werden. Wir
           verkaufen Kundendaten nicht, nutzen sie nicht für Werbung und verwenden sie nicht zum
           Training eigener KI-Modelle.
+        </p>
+        <p>
+          Zum Schreiben übermitteln wir die Objektadresse, die bestätigten Objektangaben, die frei
+          formulierten Verkaufsargumente und Stilangaben der Nutzerin oder des Nutzers sowie bis zu
+          drei ihrer oder seiner zuvor behaltenen Texte als Stilbeispiele; nicht übermittelt werden
+          der Name des Büros, die Nutzerkennung, die E-Mail-Adresse und die Telefonnummer. Beim
+          Auslesen von Unterlagen geht die vollständige Datei (PDF oder Foto) an Anthropic; derzeit
+          lesen wir nur Energieausweise aus, andere Unterlagen wie einen Grundbuchauszug erst nach
+          vorheriger Ankündigung, und Unterlagen, die nur gespeichert werden, gehen nicht an
+          Anthropic.
         </p>
         <p>
           Für die virtuelle Möblierung übermitteln wir, wenn eine Nutzerin oder ein Nutzer ein Foto
@@ -191,8 +200,8 @@ export default function PrivacyPageDe() {
         </p>
         <p>
           Wenn ein Maklerbüro das Chat-Verständnis nutzt, übermitteln wir eine Anfrage, die eine
-          Nutzerin oder ein Nutzer im Chat zu einem Objekt eintippt, an{' '}
-          <strong>Anthropic PBC</strong>. Anthropic ordnet sie den Auswahlmöglichkeiten des Plans
+          Nutzerin oder ein Nutzer im Chat zu einem Objekt eintippt (höchstens 500 Zeichen), an{' '}
+          <strong>Anthropic PBC</strong> (Modell Claude Haiku). Anthropic ordnet sie den Auswahlmöglichkeiten des Plans
           zu, etwa welche Schritte ausgeführt werden und welches Layout und welcher Stil gelten
           sollen. Übermittelt werden der Text und die Liste dieser Auswahlmöglichkeiten,
           einschließlich der Bezeichnungen der Hervorhebungen zum Objekt; aus dem Text werden keine
@@ -228,8 +237,8 @@ export default function PrivacyPageDe() {
             der EU (eu-central-1, Frankfurt, Deutschland)
           </li>
           <li>
-            Anwendungs-Hosting: <strong>Vercel</strong> (zur Datenverarbeitung durch Vercel siehe
-            Abschnitt 3)
+            Anwendungs-Hosting: <strong>Vercel Inc.</strong>, USA (zur Datenverarbeitung durch
+            Vercel siehe Abschnitt 3)
           </li>
           <li>
             Verarbeitung von Hintergrundjobs: <strong>Trigger.dev</strong>
@@ -243,30 +252,27 @@ export default function PrivacyPageDe() {
             (siehe Abschnitt 4.4)
           </li>
           <li>
-            Fehlerüberwachung, nur falls wir sie aktivieren:{' '}
-            <strong>Sentry (Functional Software, Inc.)</strong>, EU-Region (Frankfurt); technische
-            Angaben zu Fehlern (Fehlerart, Fehlercode, Programmstelle und die aufgerufene Seite ohne
-            Kennungen). Sentry ist so eingestellt, dass keine Nutzerangaben, Cookies, Anfrageinhalte
-            oder Texte von Fehlermeldungen übermittelt werden, und die Speicherung von IP-Adressen
-            ist abgeschaltet; personenbezogene Daten erhält Sentry daher nur, soweit sie in diesen
-            technischen Angaben enthalten sind
+            Fehlerüberwachung: <strong>Sentry (Functional Software, Inc.)</strong>, EU-Region
+            (Frankfurt); technische Angaben zu Fehlern (Fehlerart, ein Fehlercode, die
+            Programmstelle, die aufgerufene Seite als Muster ohne Kennungen sowie Umgebung,
+            Programmversion und Art von Browser und Betriebssystem). Sentry ist so eingestellt,
+            dass keine Nutzerangaben, Cookies und Anfrageinhalte übermittelt werden, und der Text
+            einer Fehlermeldung wird vor dem Versand entfernt. Technisch bedingt sieht Sentry dabei
+            die IP-Adresse des sendenden Geräts und kann daraus den ungefähren Ort (Stadt)
+            ableiten
           </li>
         </ul>
         <p>
           <strong>Verarbeitung außerhalb der EU.</strong> Anthropic (Texterzeugung, Auslesen von
-          Dokumenten und Chat-Verständnis; eine reine EU-Verarbeitung bietet Anthropic für diese
-          Schnittstelle nicht an) und fal.ai (virtuelle Möblierung) verarbeiten Daten in den USA.
-          Vercel und Trigger.dev sind Anbieter mit Sitz in den USA; auch bei ihnen kann eine
-          Verarbeitung oder ein Zugriff außerhalb der EU stattfinden.
+          Dokumenten und Chat-Verständnis; für diese Schnittstelle haben wir keine Verarbeitung
+          nur in der EU eingestellt) und fal.ai (virtuelle Möblierung) verarbeiten Daten in den
+          USA. Vercel Inc. hat seinen Sitz in den USA; auch bei Vercel, Supabase und Trigger.dev
+          kann ein Zugriff außerhalb der EU nicht ausgeschlossen werden.
         </p>
         <p>
           Soweit ein Unterauftragsverarbeiter eine Übermittlung außerhalb der EU/des EWR umfasst,
-          erfolgt diese auf Grundlage der Auftragsverarbeitungsbedingungen des jeweiligen Anbieters
-          mit den EU-Standardvertragsklauseln (Durchführungsbeschluss (EU) 2021/914) oder, bei
-          zertifizierten Empfängern, des Angemessenheitsbeschlusses zum EU-US Data Privacy
-          Framework. Für fal.ai ist dies das von fal.ai veröffentlichte Data Processing Addendum
-          (Stand 31. Juli 2026), das Übermittlungen auf Grundlage der Standardvertragsklauseln
-          vorsieht.
+          ist diese durch einen Auftragsverarbeitungsvertrag und die EU-Standardvertragsklauseln
+          abgesichert.
         </p>
 
         <h3>4.6 Verbundene Veröffentlichungsplattformen</h3>
