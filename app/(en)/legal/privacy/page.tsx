@@ -100,13 +100,6 @@ export default function PrivacyPage() {
             organisation, and interface-language preference.
           </li>
           <li>
-            Where a user chooses to sign in with Google or Microsoft: the name, email address, an
-            identifier of the user’s account with that provider and, where there is one, a link to
-            the profile picture, as the provider returns them. They are used only to create the
-            account and sign the user in. Google and Microsoft are not sub-processors here; the user
-            chooses them for signing in.
-          </li>
-          <li>
             Property and listing records, including descriptive and technical attributes such as
             floor area, year of construction and energy certificate values.
           </li>

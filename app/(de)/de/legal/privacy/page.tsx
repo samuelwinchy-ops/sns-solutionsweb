@@ -104,14 +104,6 @@ export default function PrivacyPageDe() {
             und bevorzugte Oberflächensprache.
           </li>
           <li>
-            Wenn sich eine Nutzerin oder ein Nutzer entscheidet, sich mit Google oder Microsoft
-            anzumelden: Name, E-Mail-Adresse, eine Kennung des Kontos bei diesem Anbieter und, falls
-            vorhanden, ein Link zum Profilbild, wie der Anbieter sie übermittelt. Sie dienen
-            ausschließlich dazu, das Konto anzulegen und die Person anzumelden. Google und Microsoft
-            sind dabei keine Unterauftragsverarbeiter, sondern Anbieter, die die Person selbst für
-            ihre Anmeldung wählt.
-          </li>
-          <li>
             Objekt- und Inseratsdaten, einschließlich beschreibender und technischer Angaben wie
             Wohnfläche, Baujahr und Werte des Energieausweises.
           </li>

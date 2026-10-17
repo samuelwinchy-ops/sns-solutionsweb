@@ -428,22 +428,6 @@ export default function ImmvelaPrivacyPage() {
               </p>
             </Section>
 
-            <Section lang="de" title="Anmeldung mit Google oder Microsoft">
-              <p>
-                Wenn Sie sich entscheiden, sich mit Google oder Microsoft anzumelden, leiten wir Sie
-                zur Anmeldeseite des jeweiligen Anbieters weiter. Nach Ihrer Zustimmung übermittelt
-                uns der Anbieter Ihren Namen, Ihre E-Mail-Adresse, eine Kennung Ihres Kontos bei
-                diesem Anbieter und, falls vorhanden, einen Link zu Ihrem Profilbild. Ihr Passwort
-                bei Google oder Microsoft erhalten wir nicht.
-              </p>
-              <p>
-                Wir verwenden diese Angaben ausschließlich, um Ihr Immvela-Konto anzulegen und Sie
-                anzumelden; gespeichert werden sie bei Supabase. Der Anbieter erfährt dabei, dass
-                Sie sich bei Immvela anmelden; dafür gelten seine eigenen Datenschutzbestimmungen.
-                Die Anmeldung mit E-Mail-Adresse und Passwort bleibt daneben möglich.
-              </p>
-            </Section>
-
             <Section lang="de" title="Verbundene Social-Media-Konten und Veröffentlichung">
               <p>
                 Wenn Sie ein Konto bei Instagram, Facebook, LinkedIn, TikTok oder YouTube mit
@@ -692,10 +676,6 @@ export default function ImmvelaPrivacyPage() {
                 Beiträge, die Sie veröffentlichen, werden an die von Ihnen gewählte Plattform
                 übermittelt und unterliegen dort deren eigenen Bestimmungen.
               </p>
-              <p>
-                Google und Microsoft sind bei der Anmeldung keine Unterauftragsverarbeiter, sondern
-                Anbieter, die Sie selbst für Ihre Anmeldung wählen.
-              </p>
             </Section>
 
             <Section lang="de" title="Schutz Ihrer Daten">
@@ -820,22 +800,6 @@ export default function ImmvelaPrivacyPage() {
                 Immvela is SNS Software Solutions GmbH&apos;s software platform for real-estate
                 agents and is not a separate legal entity. This policy describes the data we process
                 in Immvela. Full company details are in the <a href="/legal/imprint">imprint</a>.
-              </p>
-            </Section>
-
-            <Section lang="en" title="Sign-in with Google or Microsoft">
-              <p>
-                If you choose to sign in with Google or Microsoft, we redirect you to that
-                provider&apos;s sign-in page. Once you agree, the provider sends us your name, your
-                email address, an identifier of your account with that provider and, where there is
-                one, a link to your profile picture. We never receive your Google or Microsoft
-                password.
-              </p>
-              <p>
-                We use these details only to create your Immvela account and to sign you in; they
-                are stored at Supabase. The provider learns that you are signing in to Immvela, and
-                its own privacy terms apply to that. Signing in with an email address and password
-                remains available.
               </p>
             </Section>
 
@@ -1076,10 +1040,6 @@ export default function ImmvelaPrivacyPage() {
               <p>
                 Posts you publish are transmitted to the platform you select and are then subject to
                 that platform&apos;s own terms.
-              </p>
-              <p>
-                Google and Microsoft are not sub-processors when you sign in with them; they are
-                providers you choose yourself for signing in.
               </p>
             </Section>
 
